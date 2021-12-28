@@ -1,0 +1,107 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2021-12-02 13:25:23.944629",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "pic",
+  "pohon",
+  "item_wip",
+  "proses",
+  "bom",
+  "generate_request",
+  "generate_finish",
+  "notes",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "pic",
+   "fieldtype": "Link",
+   "label": "PIC",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "proses",
+   "fieldtype": "Select",
+   "label": "Proses",
+   "options": "\nSupermarket\nOven\nLebur\nCor"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Proses Produksi Lilin",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "default": "Document ini di buat untuk menandai lilin yang sedang dalam proses produksi\n\nDocument ini untuk pengganti Work Order pada proses lilin\n",
+   "fieldname": "notes",
+   "fieldtype": "Text",
+   "label": "notes",
+   "read_only": 1
+  },
+  {
+   "fieldname": "generate_request",
+   "fieldtype": "Button",
+   "label": "Generate Permintaan Bahan"
+  },
+  {
+   "fieldname": "generate_finish",
+   "fieldtype": "Button",
+   "label": "Generate Barang Jadi"
+  },
+  {
+   "fieldname": "pohon",
+   "fieldtype": "Link",
+   "label": "Data Pohonan Lilin",
+   "options": "Data Pohonan Lilin"
+  },
+  {
+   "fieldname": "item_wip",
+   "fieldtype": "Link",
+   "label": "Item Setengah Jadi",
+   "options": "Item"
+  },
+  {
+   "fieldname": "bom",
+   "fieldtype": "Link",
+   "label": "BOM",
+   "options": "BOM"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2021-12-03 13:56:28.470281",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Proses Produksi Lilin",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

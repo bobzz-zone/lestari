@@ -1,0 +1,80 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{RIL}-{model_perhiasan}",
+ "creation": "2021-12-09 10:56:28.936515",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "kode_perhiasan",
+  "disabled",
+  "column_break_2",
+  "rubber_mould",
+  "material_batu_section",
+  "batu"
+ ],
+ "fields": [
+  {
+   "fieldname": "rubber_mould",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Rubber Mould",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "material_batu_section",
+   "fieldtype": "Section Break",
+   "label": "Material Batu"
+  },
+  {
+   "fieldname": "batu",
+   "fieldtype": "Table",
+   "label": "Batu",
+   "options": "Resep Investment Lilin Batu"
+  },
+  {
+   "fieldname": "kode_perhiasan",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Kode Perhiasan",
+   "options": "Item",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-12-13 02:24:43.615682",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Resep Investment Lilin",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

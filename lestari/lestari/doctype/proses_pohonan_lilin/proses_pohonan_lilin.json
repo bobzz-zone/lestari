@@ -1,0 +1,160 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "PPL-.YYYY.-.MM.-.####",
+ "creation": "2021-12-08 14:18:45.141736",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "more_information_section",
+  "proses_by",
+  "status",
+  "column_break_8",
+  "mulai_proses_tanggal",
+  "mulai_proses_waktu",
+  "selesai_proses_section",
+  "selesai_proses_tanggal",
+  "column_break_9",
+  "selesai_proses_waktu",
+  "resep_dan_status_section",
+  "pohon_lilin",
+  "get_item",
+  "column_break_2",
+  "main_sprue",
+  "target_warehouse",
+  "pohon_lilin_dan_material_section",
+  "rubber_mould",
+  "material"
+ ],
+ "fields": [
+  {
+   "default": "Work In Progress - L",
+   "fieldname": "target_warehouse",
+   "fieldtype": "Link",
+   "label": "Target Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "pohon_lilin_dan_material_section",
+   "fieldtype": "Section Break",
+   "label": "Rubber Mould dan Material"
+  },
+  {
+   "fieldname": "pohon_lilin",
+   "fieldtype": "Link",
+   "label": "Pohon Lilin",
+   "options": "Data Pohon Lilin"
+  },
+  {
+   "fieldname": "material",
+   "fieldtype": "Table",
+   "label": "Material",
+   "options": "Proses Pohonan Lilin Material"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Plan\nSupermarket\nGypsum\nOven\nCor\nLebur"
+  },
+  {
+   "fieldname": "resep_dan_status_section",
+   "fieldtype": "Section Break",
+   "label": "Resep dan Status"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "more_information_section",
+   "fieldtype": "Section Break",
+   "label": "Proses Information"
+  },
+  {
+   "fieldname": "proses_by",
+   "fieldtype": "Link",
+   "label": "Proses By",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "rubber_mould",
+   "fieldtype": "Table",
+   "label": "Rubber Mould",
+   "options": "Proses Pohonan Lilin Serial"
+  },
+  {
+   "fieldname": "get_item",
+   "fieldtype": "Button",
+   "label": "Get Item"
+  },
+  {
+   "fieldname": "main_sprue",
+   "fieldtype": "Link",
+   "label": "Main Sprue",
+   "options": "Data Main Sprue"
+  },
+  {
+   "default": "Today",
+   "fieldname": "mulai_proses_tanggal",
+   "fieldtype": "Date",
+   "label": "Mulai Proses Tanggal"
+  },
+  {
+   "default": "Now",
+   "fieldname": "mulai_proses_waktu",
+   "fieldtype": "Time",
+   "label": "Mulai Proses Time"
+  },
+  {
+   "fieldname": "selesai_proses_section",
+   "fieldtype": "Section Break",
+   "label": "Selesai Proses"
+  },
+  {
+   "default": "Today",
+   "fieldname": "selesai_proses_tanggal",
+   "fieldtype": "Date",
+   "label": "Selesai Proses Tanggal"
+  },
+  {
+   "fieldname": "selesai_proses_waktu",
+   "fieldtype": "Time",
+   "label": "Selesai Proses Waktu"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-12-23 10:21:40.910977",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Proses Pohonan Lilin",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

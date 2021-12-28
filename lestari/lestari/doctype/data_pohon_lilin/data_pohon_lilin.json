@@ -1,0 +1,220 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "DPL-.YYYY.-.MM.-.####",
+ "creation": "2021-12-08 11:49:21.801361",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "created_date",
+  "created_time",
+  "status",
+  "column_break_3",
+  "created_by",
+  "main_sprue",
+  "logam",
+  "resep_perhiasan",
+  "resep",
+  "rubber_mould_section",
+  "get_rubber_mould",
+  "serial",
+  "more_information_section",
+  "berat_gypsum",
+  "berat_emas",
+  "column_break_8",
+  "uom_gypsum",
+  "uom_emas",
+  "history_status_dan_berat_section",
+  "history",
+  "materials_section",
+  "get_material",
+  "material",
+  "add_on_material",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "created_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Created Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "created_by",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Created By",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fieldname": "resep",
+   "fieldtype": "Table",
+   "label": "Resep",
+   "options": "Data Pohon Lilin Resep"
+  },
+  {
+   "fieldname": "material",
+   "fieldtype": "Table",
+   "label": "Material",
+   "options": "Data Pohon Lilin Material"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "add_on_material",
+   "fieldtype": "Table",
+   "label": "Add On Material",
+   "options": "Data Pohon Lilin Add On"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "history_status_dan_berat_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "History Status dan Berat"
+  },
+  {
+   "fieldname": "history",
+   "fieldtype": "Table",
+   "label": "History",
+   "options": "Data Pohon Lilin History"
+  },
+  {
+   "fieldname": "serial",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "Serial",
+   "options": "Data Pohon Lilin Serial"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "materials_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Materials"
+  },
+  {
+   "fieldname": "get_rubber_mould",
+   "fieldtype": "Button",
+   "hidden": 1,
+   "label": "Get Rubber Mould"
+  },
+  {
+   "fieldname": "resep_perhiasan",
+   "fieldtype": "Section Break",
+   "label": "Resep Mul Karet"
+  },
+  {
+   "fieldname": "rubber_mould_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Rubber Mould"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Data Pohon Lilin",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "default": "Now",
+   "fieldname": "created_time",
+   "fieldtype": "Time",
+   "label": "Created Time",
+   "reqd": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "more_information_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "More Information"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "get_material",
+   "fieldtype": "Button",
+   "label": "Get Material"
+  },
+  {
+   "fieldname": "main_sprue",
+   "fieldtype": "Link",
+   "label": "Sprue Set",
+   "options": "Data Set Sprue"
+  },
+  {
+   "fetch_from": "main_sprue.qty",
+   "fieldname": "berat_gypsum",
+   "fieldtype": "Float",
+   "label": "Berat Gypsum"
+  },
+  {
+   "fetch_from": "main_sprue.uom",
+   "fieldname": "uom_gypsum",
+   "fieldtype": "Link",
+   "label": "UOM Gypsum",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "berat_emas",
+   "fieldtype": "Float",
+   "label": "Berat Emas"
+  },
+  {
+   "fieldname": "uom_emas",
+   "fieldtype": "Data",
+   "label": "UOM Emas"
+  },
+  {
+   "fieldname": "logam",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Logam",
+   "options": "Item"
+  },
+  {
+   "default": "Plan",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Plan\nSupermarket\nOven\nCor\nLebur\nGips"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2021-12-28 14:42:54.140535",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Data Pohon Lilin",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

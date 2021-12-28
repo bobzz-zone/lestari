@@ -1,0 +1,100 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2021-12-27 13:40:47.945979",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "work_order",
+  "pohon_lilin",
+  "status_tujuan",
+  "warehouse_tujuan",
+  "total_berat_karet",
+  "uom_total_berat_karet",
+  "total_berat_batu",
+  "uom_total_berat_batu",
+  "net_total",
+  "uom_net_total"
+ ],
+ "fields": [
+  {
+   "fieldname": "work_order",
+   "fieldtype": "Link",
+   "label": "Work Order",
+   "options": "Work Order Pohonan"
+  },
+  {
+   "fieldname": "pohon_lilin",
+   "fieldtype": "Data",
+   "label": "Pohon Lilin"
+  },
+  {
+   "fieldname": "status_tujuan",
+   "fieldtype": "Data",
+   "label": "Status Tujuan"
+  },
+  {
+   "fieldname": "warehouse_tujuan",
+   "fieldtype": "Data",
+   "label": "Warehouse Tujuan"
+  },
+  {
+   "fieldname": "total_berat_karet",
+   "fieldtype": "Float",
+   "label": "Total Berat Karet"
+  },
+  {
+   "fieldname": "uom_total_berat_karet",
+   "fieldtype": "Link",
+   "label": "UOM Total Berat Karet",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "total_berat_batu",
+   "fieldtype": "Float",
+   "label": "Total Berat Batu"
+  },
+  {
+   "fieldname": "uom_total_berat_batu",
+   "fieldtype": "Link",
+   "label": "UOM Total Berat Batu",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "net_total",
+   "fieldtype": "Float",
+   "label": "Net Total"
+  },
+  {
+   "fieldname": "uom_net_total",
+   "fieldtype": "Link",
+   "label": "UOM Net Total",
+   "options": "UOM"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-12-27 13:40:47.945979",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Form Hasil Work Order",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

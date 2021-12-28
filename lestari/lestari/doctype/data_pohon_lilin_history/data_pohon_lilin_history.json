@@ -1,0 +1,70 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2021-12-09 15:15:58.353817",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "by",
+  "status",
+  "uom",
+  "berat",
+  "data_6"
+ ],
+ "fields": [
+  {
+   "fieldname": "date",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "by",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "By",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Status",
+   "read_only": 1
+  },
+  {
+   "fieldname": "berat",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Berat",
+   "read_only": 1
+  },
+  {
+   "fieldname": "uom",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "UOM",
+   "options": "UOM",
+   "read_only": 1
+  },
+  {
+   "fieldname": "data_6",
+   "fieldtype": "Data"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2021-12-09 16:01:09.331312",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Data Pohon Lilin History",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

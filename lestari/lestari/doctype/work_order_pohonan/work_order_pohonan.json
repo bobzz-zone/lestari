@@ -1,0 +1,134 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2021-12-27 11:43:25.616591",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "main_information_section",
+  "created_by",
+  "status",
+  "column_break_4",
+  "created_date",
+  "created_tme",
+  "data_pohon_section",
+  "pohon_id",
+  "column_break_9",
+  "warehouse_wip",
+  "tabel_material_section",
+  "material",
+  "tabel_tools_section",
+  "tools",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "main_information_section",
+   "fieldtype": "Section Break",
+   "label": "Main Information"
+  },
+  {
+   "fieldname": "created_by",
+   "fieldtype": "Link",
+   "label": "Created By",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "label": "Status"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "created_date",
+   "fieldtype": "Date",
+   "label": "Created Date"
+  },
+  {
+   "fieldname": "created_tme",
+   "fieldtype": "Time",
+   "label": "Created Tme"
+  },
+  {
+   "fieldname": "data_pohon_section",
+   "fieldtype": "Section Break",
+   "label": "Data Pohon"
+  },
+  {
+   "fieldname": "pohon_id",
+   "fieldtype": "Link",
+   "label": "Pohon ID",
+   "options": "Data Pohon Lilin"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "warehouse_wip",
+   "fieldtype": "Link",
+   "label": "Warehouse WIP",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "tabel_material_section",
+   "fieldtype": "Section Break",
+   "label": "Tabel Material"
+  },
+  {
+   "fieldname": "material",
+   "fieldtype": "Table",
+   "label": "Material",
+   "options": "Work Order Pohon Material"
+  },
+  {
+   "fieldname": "tabel_tools_section",
+   "fieldtype": "Section Break",
+   "label": "Tabel Tools"
+  },
+  {
+   "fieldname": "tools",
+   "fieldtype": "Table",
+   "label": "Tools",
+   "options": "Work Order Pohonan Tools"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Work Order Pohonan",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2021-12-28 15:37:23.916866",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Work Order Pohonan",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

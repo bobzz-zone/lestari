@@ -1,0 +1,97 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:TM-{######}",
+ "creation": "2021-11-27 00:40:09.886979",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "selection",
+  "item_group",
+  "item_group_material",
+  "get_material",
+  "material_sec",
+  "materials",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "selection",
+   "fieldtype": "Section Break",
+   "label": "Work Order Selection"
+  },
+  {
+   "fieldname": "item_group",
+   "fieldtype": "Link",
+   "label": "Item Group To Produce",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "item_group_material",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Item Group Material",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "material_sec",
+   "fieldtype": "Section Break",
+   "label": "Material Recap"
+  },
+  {
+   "fieldname": "materials",
+   "fieldtype": "Table",
+   "label": "Materials",
+   "options": "Transfer Material Item"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Transfer Material Tools",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "get_material",
+   "fieldtype": "Button",
+   "label": "Get Material"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2021-12-01 17:13:05.810827",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Transfer Material Tools",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

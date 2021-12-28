@@ -89,13 +89,16 @@ app_license = "MIT"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
+doc_events = {
 # 	"*": {
 # 		"on_update": "method",
 # 		"on_cancel": "method",
 # 		"on_trash": "method"
 #	}
-# }
+	# "Proses Pohonan Lilin":{
+	# 	"validate": "lestari.lestari.doctype.proses_pohona_lilin.proses_pohonan_lilin.validate"
+	# }
+}
 
 # Scheduled Tasks
 # ---------------

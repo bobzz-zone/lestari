@@ -1,0 +1,50 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2021-12-21 16:24:39.116040",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "name1",
+  "qty",
+  "uom"
+ ],
+ "fields": [
+  {
+   "fieldname": "name1",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Name",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Qty",
+   "reqd": 1
+  },
+  {
+   "fieldname": "uom",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "UOM",
+   "options": "UOM",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2021-12-21 16:24:39.116040",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Proses Pohonan Lilin Material",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
