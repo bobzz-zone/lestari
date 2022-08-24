@@ -3,6 +3,13 @@
 
 frappe.ui.form.on('Gold Invoice', {
 	refresh(frm) {
+		frm.set_query("item_group", function() {
+    			return {
+    				"filters": {
+    					"parent_item_group":"Penjualan"
+    				}
+    			};
+    		});
 		// your code here
 		if(!frm.doc.tutupan){
 		    frappe.call({
