@@ -6,7 +6,7 @@ frappe.ui.form.on('Gold Invoice', {
 		frm.set_query("item_group","items", function(doc, cdt, cdn) {
     			return {
     				"filters": {
-    					"parent_item_group":"Penjualan"
+    					"is_selling":1
     				}
     			};
     		});

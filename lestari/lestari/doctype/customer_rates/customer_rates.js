@@ -3,12 +3,5 @@
 
 frappe.ui.form.on('Customer Rates', {
 	refresh(frm) {
-		frm.set_query("item_group", function(doc) {
-    			return {
-    				"filters": {
-    					"parent_item_group":"Penjualan"
-    				}
-    			};
-    		});
 	 }
 });
