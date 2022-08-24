@@ -39,7 +39,7 @@ frappe.ui.form.on('Gold Invoice Item', {
                 	var total=0;
 				    $.each(frm.doc.items,  function(i,  g) {
 				    	total=total+g.amount;
-				    }
+				    });
 				    frappe.model.set_value("total",total);
 				    frappe.model.set_value("grand_total",frm.doc.total-frm.doc.discount);
                 	}
@@ -52,7 +52,7 @@ frappe.ui.form.on('Gold Invoice Item', {
 	    var total=0;
 	    $.each(frm.doc.items,  function(i,  g) {
 	    	total=total+g.amount;
-	    }
+	    });
 	    frappe.model.set_value("total",total);
 	    frappe.model.set_value("grand_total",frm.doc.total-frm.doc.discount);
 	}
