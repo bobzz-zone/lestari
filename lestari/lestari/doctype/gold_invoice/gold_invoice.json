@@ -14,20 +14,21 @@
   "due_date",
   "tutupan_section",
   "tutupan",
-  "deadline_tutupan",
-  "grand_total",
-  "net_total",
   "column_break_10",
-  "discount",
-  "outstanding",
-  "status",
-  "amended_from",
+  "deadline_tutupan",
   "items_section",
   "items",
+  "sb_bill",
+  "net_total",
+  "discount",
+  "grand_total",
+  "outstanding",
+  "status",
   "gold_invoice_has_gold_deposit",
   "gold_deposit",
   "amount_deposit",
-  "allocated"
+  "allocated",
+  "amended_from"
  ],
  "fields": [
   {
@@ -62,12 +63,14 @@
   {
    "fieldname": "grand_total",
    "fieldtype": "Float",
-   "label": "Grand Total"
+   "label": "Grand Total",
+   "read_only": 1
   },
   {
    "fieldname": "net_total",
    "fieldtype": "Float",
-   "label": "Net Total"
+   "label": "Net Total",
+   "read_only": 1
   },
   {
    "fieldname": "discount",
@@ -77,12 +80,14 @@
   {
    "fieldname": "outstanding",
    "fieldtype": "Float",
-   "label": "Outstanding"
+   "label": "Outstanding",
+   "read_only": 1
   },
   {
    "fieldname": "status",
    "fieldtype": "Data",
-   "label": "Status"
+   "label": "Status",
+   "read_only": 1
   },
   {
    "fieldname": "amended_from",
@@ -146,12 +151,17 @@
    "options": "GINV-.YYYY.-",
    "print_hide": 1,
    "reqd": 1
+  },
+  {
+   "fieldname": "sb_bill",
+   "fieldtype": "Section Break",
+   "label": "Bills"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-08-24 16:55:54.837207",
+ "modified": "2022-08-25 00:38:23.896346",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Gold Invoice",
