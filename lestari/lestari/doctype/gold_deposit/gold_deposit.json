@@ -6,62 +6,66 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "customer",
+  "customer_deposit",
   "date",
   "gold_deposit_section",
-  "total_idr",
-  "total_emas",
-  "sisa_idr",
-  "sisa_emas"
+  "idr_deposit",
+  "gold_deposit",
+  "gold_allocated",
+  "idr_allocated"
  ],
  "fields": [
   {
-   "fieldname": "customer",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Customer",
-   "options": "Customer",
-   "reqd": 1
-  },
-  {
    "fieldname": "date",
    "fieldtype": "Date",
-   "label": "Date"
-  },
-  {
-   "depends_on": "eval:(in_list([\"Gold Deposit\"], doc.deposit_type))",
-   "fieldname": "total_idr",
-   "fieldtype": "Float",
-   "label": "Total IDR"
-  },
-  {
-   "depends_on": "eval:(in_list([\"Gold Deposit\"], doc.deposit_type))",
-   "fieldname": "total_emas",
-   "fieldtype": "Float",
-   "label": "Total Emas"
-  },
-  {
-   "depends_on": "eval:(in_list([\"Gold Deposit\"], doc.deposit_type))",
-   "fieldname": "sisa_idr",
-   "fieldtype": "Float",
-   "label": "Sisa IDR"
-  },
-  {
-   "depends_on": "eval:(in_list([\"Gold Deposit\"], doc.deposit_type))",
-   "fieldname": "sisa_emas",
-   "fieldtype": "Float",
-   "label": "Sisa Emas"
+   "in_list_view": 1,
+   "label": "Date",
+   "read_only": 1
   },
   {
    "fieldname": "gold_deposit_section",
    "fieldtype": "Section Break",
    "label": "Gold Deposit"
+  },
+  {
+   "fieldname": "customer_deposit",
+   "fieldtype": "Link",
+   "label": "Customer Deposit",
+   "options": "Customer Deposit",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "idr_deposit",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "IDR Deposit",
+   "read_only": 1
+  },
+  {
+   "fieldname": "gold_deposit",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Gold Deposit",
+   "read_only": 1
+  },
+  {
+   "fieldname": "gold_allocated",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Allocated Gold"
+  },
+  {
+   "fieldname": "idr_allocated",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Allocated IDR"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-08-23 10:12:57.871947",
+ "modified": "2022-08-25 01:49:58.286694",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Gold Deposit",

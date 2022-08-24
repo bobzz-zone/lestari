@@ -9,6 +9,8 @@
  "field_order": [
   "naming_series",
   "customer",
+  "customer_group",
+  "territory",
   "column_break_2",
   "posting_date",
   "due_date",
@@ -19,15 +21,14 @@
   "items_section",
   "items",
   "sb_bill",
-  "net_total",
+  "total",
   "discount",
   "grand_total",
   "outstanding",
   "status",
   "gold_invoice_has_gold_deposit",
   "gold_deposit",
-  "amount_deposit",
-  "allocated",
+  "total_advance",
   "amended_from"
  ],
  "fields": [
@@ -67,12 +68,7 @@
    "read_only": 1
   },
   {
-   "fieldname": "net_total",
-   "fieldtype": "Float",
-   "label": "Net Total",
-   "read_only": 1
-  },
-  {
+   "default": "0",
    "fieldname": "discount",
    "fieldtype": "Float",
    "label": "Discount"
@@ -99,6 +95,7 @@
    "read_only": 1
   },
   {
+   "depends_on": "eval:doc.customer",
    "fieldname": "items",
    "fieldtype": "Table",
    "label": "Items",
@@ -128,20 +125,11 @@
    "label": "Invoice Advance"
   },
   {
+   "depends_on": "eval:doc.customer",
    "fieldname": "gold_deposit",
    "fieldtype": "Table",
    "label": "Gold Deposit",
    "options": "Gold Deposit"
-  },
-  {
-   "fieldname": "amount_deposit",
-   "fieldtype": "Float",
-   "label": "Amount Deposit"
-  },
-  {
-   "fieldname": "allocated",
-   "fieldtype": "Float",
-   "label": "Allocated"
   },
   {
    "fieldname": "naming_series",
@@ -156,18 +144,46 @@
    "fieldname": "sb_bill",
    "fieldtype": "Section Break",
    "label": "Bills"
+  },
+  {
+   "fieldname": "total_advance",
+   "fieldtype": "Float",
+   "label": "Total Advances",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer.customer_group",
+   "fieldname": "customer_group",
+   "fieldtype": "Link",
+   "label": "Customer Group",
+   "options": "Customer Group",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer.territory",
+   "fieldname": "territory",
+   "fieldtype": "Link",
+   "label": "Territory",
+   "options": "Territory",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Float",
+   "label": "Total",
+   "read_only": 1
   }
  ],
- "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-08-25 00:38:23.896346",
+ "modified": "2022-08-25 01:41:35.897453",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Gold Invoice",
  "owner": "Administrator",
  "permissions": [
   {
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
@@ -177,6 +193,7 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],

@@ -1,0 +1,59 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:category",
+ "creation": "2022-08-25 02:01:11.781725",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "category",
+  "is_selling",
+  "is_purchase"
+ ],
+ "fields": [
+  {
+   "fieldname": "category",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Category",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_selling",
+   "fieldtype": "Check",
+   "label": "Selling Category"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_purchase",
+   "fieldtype": "Check",
+   "label": "Payment Stock Category"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-08-25 02:01:11.781725",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Gold Stock Category",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

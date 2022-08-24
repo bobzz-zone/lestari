@@ -12,14 +12,12 @@
   "column_break_2",
   "date",
   "column_break_4",
-  "deposit_type",
-  "gold_deposit_section",
-  "gold_deposit",
   "idr_deposit_section",
   "idr_deposit",
+  "total_idr_deposit",
+  "idr_left",
   "stock_deposit_section",
   "stock_deposit",
-  "stock_mode_of_payment",
   "amended_from"
  ],
  "fields": [
@@ -59,7 +57,6 @@
    "label": "IDR Deposit"
   },
   {
-   "depends_on": "eval:(in_list([\"IDR Deposit\"], doc.deposit_type))",
    "fieldname": "idr_deposit",
    "fieldtype": "Table",
    "label": "IDR Deposit",
@@ -71,30 +68,10 @@
    "label": "Stock Deposit"
   },
   {
-   "depends_on": "eval:(in_list([\"Stock Deposit\"], doc.deposit_type))",
    "fieldname": "stock_deposit",
    "fieldtype": "Table",
    "label": "Stock Deposit",
    "options": "Stock Deposit"
-  },
-  {
-   "fieldname": "deposit_type",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Deposit Type",
-   "options": "Gold Deposit\nIDR Deposit\nStock Deposit"
-  },
-  {
-   "fieldname": "gold_deposit_section",
-   "fieldtype": "Section Break",
-   "label": "Gold Deposit"
-  },
-  {
-   "depends_on": "eval:(in_list([\"Gold Deposit\"], doc.deposit_type))",
-   "fieldname": "gold_deposit",
-   "fieldtype": "Table",
-   "label": "Gold Deposit",
-   "options": "Gold Deposit"
   },
   {
    "fieldname": "amended_from",
@@ -106,13 +83,6 @@
    "read_only": 1
   },
   {
-   "depends_on": "eval:(in_list([\"Stock Deposit\"], doc.deposit_type))",
-   "fieldname": "stock_mode_of_payment",
-   "fieldtype": "Table",
-   "label": "Stock Mode Of Payment",
-   "options": "Stock Mode of Payment"
-  },
-  {
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Kode Seri",
@@ -120,12 +90,24 @@
    "options": "CD-GOLD-.YYYY.-\nCD-IDR-.YYYY.-\nCD-STOCK-.YYYY.-",
    "print_hide": 1,
    "reqd": 1
+  },
+  {
+   "fieldname": "total_idr_deposit",
+   "fieldtype": "Currency",
+   "label": "Total IDR Deposit",
+   "read_only": 1
+  },
+  {
+   "fieldname": "idr_left",
+   "fieldtype": "Currency",
+   "label": "IDR Deposit Balance",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-08-24 16:43:33.827537",
+ "modified": "2022-08-25 01:53:30.379646",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Customer Deposit",
