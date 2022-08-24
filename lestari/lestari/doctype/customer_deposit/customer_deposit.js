@@ -59,4 +59,5 @@ frappe.ui.form.on('Stock Deposit', {
 		refresh_field("total_gold_deposit");
 		refresh_field("gold_left");
 	}
+	
 });
