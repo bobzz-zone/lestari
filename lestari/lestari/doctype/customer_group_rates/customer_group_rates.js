@@ -2,7 +2,13 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Customer Group Rates', {
-	// refresh: function(frm) {
-
-	// }
+	refresh(frm) {
+		frm.set_query("item_group", function(doc) {
+    			return {
+    				"filters": {
+    					"parent_item_group":"Penjualan"
+    				}
+    			};
+    		});
+	 }
 });
