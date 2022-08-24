@@ -2,7 +2,7 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Gold Invoice', {
-	refresh(frm) {
+	refresh:function(frm) {
 		frm.set_query("item_group","items", function(doc, cdt, cdn) {
     			return {
     				"filters": {
@@ -22,12 +22,12 @@ frappe.ui.form.on('Gold Invoice', {
                 })
 		}
 	},
-	discount(frm){
+	discount:function(frm){
 		if(frm.total) {frappe.model.set_value("grand_total",frm.doc.total-frm.doc.discount);}
 	}
 });
 frappe.ui.form.on('Gold Invoice Item', {
-	item_group(frm,cdt,cdn) {
+	item_group:function(frm,cdt,cdn) {
 		// your code here
 		var d=locals[cdt][cdn];
 		frappe.call({
@@ -52,7 +52,7 @@ frappe.ui.form.on('Gold Invoice Item', {
                 });
 		
 	},
-	qty(frm,cdt,cdn) {
+	qty:function(frm,cdt,cdn) {
 	    var d=locals[cdt][cdn];
 	    frappe.model.set_value(cdt, cdn,"amount",d.rate*d.qty);
 	    var total=0;
