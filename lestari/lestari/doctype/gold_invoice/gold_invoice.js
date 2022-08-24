@@ -21,5 +21,28 @@ frappe.ui.form.on('Gold Invoice', {
                 	}
                 })
 		}
+	},
+	discount(frm){
+		frappe.model.set_value("grand_total",frm.doc.total-frm.doc.discount);
+	}
+});
+frappe.ui.form.on('Gold Invoice Item', {
+	item_group(frm,cdt,cdn) {
+		// your code here
+		var d=locals[cdt][cdn];
+		frappe.call({
+                method: "lestari.lestari.doctype.gold_invoice.gold_invoice.get_gold_rate",
+                args:{"item_group":d.item_group,"customer":frm.doc.customer,"customer_group":frm.doc.customer_group},
+                callback: function (r){
+                    frappe.model.set_value(cdt, cdn,"rate",r.message.nilai);
+                    frappe.model.set_value(cdt, cdn,"amount",parseFloat(r.message.nilai)*d.qty);
+                
+                	}
+                });
+		
+	},
+	qty(frm,cdt,cdn) {
+	    var d=locals[cdt][cdn];
+	    frappe.model.set_value(cdt, cdn,"amount",d.rate*d.qty);
 	}
 });
