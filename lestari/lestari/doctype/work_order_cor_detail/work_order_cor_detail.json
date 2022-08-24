@@ -1,0 +1,147 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-04-19 10:55:31.723729",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "no_material_request",
+  "material_cor",
+  "no_spk",
+  "pohon_id",
+  "column_break_5",
+  "nomor_base_karet",
+  "kadar",
+  "berat_pohon",
+  "berat_lilin",
+  "berat_batu",
+  "section_break_10",
+  "batch_cb_1",
+  "batch_cb_2",
+  "batch_cb_3",
+  "column_break_14",
+  "berat_batch_1",
+  "berat_batch_2",
+  "berat_batch_3",
+  "total_berat_batch"
+ ],
+ "fields": [
+  {
+   "fieldname": "no_material_request",
+   "fieldtype": "Link",
+   "label": "No Material Request",
+   "options": "Material Request"
+  },
+  {
+   "columns": 2,
+   "fieldname": "material_cor",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Material Cor",
+   "options": "Item"
+  },
+  {
+   "columns": 2,
+   "fieldname": "no_spk",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "No SPK"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pohon_id",
+   "fieldtype": "Data",
+   "label": "Pohon ID"
+  },
+  {
+   "fieldname": "section_break_10",
+   "fieldtype": "Section Break",
+   "label": "Data Batch CB"
+  },
+  {
+   "fieldname": "batch_cb_1",
+   "fieldtype": "Data",
+   "label": "Batch Cb 1"
+  },
+  {
+   "fieldname": "batch_cb_2",
+   "fieldtype": "Data",
+   "label": "Batch Cb 2"
+  },
+  {
+   "fieldname": "batch_cb_3",
+   "fieldtype": "Data",
+   "label": "Batch Cb 3"
+  },
+  {
+   "fieldname": "column_break_14",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "berat_batch_1",
+   "fieldtype": "Float",
+   "label": "Berat Batch 1"
+  },
+  {
+   "fieldname": "berat_batch_2",
+   "fieldtype": "Float",
+   "label": "Berat Batch 2 "
+  },
+  {
+   "fieldname": "berat_batch_3",
+   "fieldtype": "Float",
+   "label": "Berat Batch 3"
+  },
+  {
+   "fieldname": "total_berat_batch",
+   "fieldtype": "Float",
+   "label": "Total Berat Batch"
+  },
+  {
+   "columns": 1,
+   "fieldname": "nomor_base_karet",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Nomor Base Karet",
+   "options": "Serial No"
+  },
+  {
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "label": "Kadar",
+   "options": "Data Logam"
+  },
+  {
+   "columns": 1,
+   "fieldname": "berat_pohon",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Berat Pohon"
+  },
+  {
+   "fieldname": "berat_lilin",
+   "fieldtype": "Float",
+   "label": "Berat Lilin"
+  },
+  {
+   "fieldname": "berat_batu",
+   "fieldtype": "Float",
+   "label": "Berat Batu"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-05-23 15:23:37.533579",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Work Order Cor Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

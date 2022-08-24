@@ -1,0 +1,110 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-01-13 14:26:41.915251",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "no_spk",
+  "produk_id",
+  "batu",
+  "logo",
+  "ukuran_ring",
+  "qty",
+  "total_qty",
+  "column_break_6",
+  "warna_batu",
+  "batu_lepas",
+  "batu_pecah",
+  "keropos",
+  "rusak"
+ ],
+ "fields": [
+  {
+   "fieldname": "batu",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Batu",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "batu_lepas",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Batu Lepas"
+  },
+  {
+   "fieldname": "batu_pecah",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Batu Pecah"
+  },
+  {
+   "fieldname": "keropos",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Keropos"
+  },
+  {
+   "fieldname": "rusak",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Rusak"
+  },
+  {
+   "fieldname": "ukuran_ring",
+   "fieldtype": "Data",
+   "label": "Ukuran Ring"
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Int",
+   "label": "Qty"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "no_spk",
+   "fieldtype": "Data",
+   "label": "No SPK",
+   "reqd": 1
+  },
+  {
+   "fieldname": "logo",
+   "fieldtype": "Data",
+   "label": "Logo"
+  },
+  {
+   "fieldname": "warna_batu",
+   "fieldtype": "Data",
+   "label": "Warna Batu"
+  },
+  {
+   "fieldname": "total_qty",
+   "fieldtype": "Int",
+   "label": "Total Qty"
+  },
+  {
+   "fieldname": "produk_id",
+   "fieldtype": "Link",
+   "label": "Produk ID",
+   "options": "Item",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-02-04 07:04:52.853939",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Form Hasil Work Order Batu",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

@@ -1,0 +1,195 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:RPH{YYYY}{MM}{#####}",
+ "creation": "2022-01-21 11:00:52.154509",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "created_date",
+  "section_break_2",
+  "employee_id",
+  "column_break_4",
+  "nama",
+  "jabatan",
+  "section_break_7",
+  "area",
+  "column_break_12",
+  "proses",
+  "section_break_15",
+  "tabel_pohon",
+  "filter_gips_section",
+  "from_tanggal",
+  "kadar",
+  "get_data",
+  "column_break_17",
+  "to_tanggal",
+  "jenis_sprue",
+  "detail_spk_gips_section",
+  "tabel_gips",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "created_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Created Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break",
+   "label": "Detail Perencana"
+  },
+  {
+   "fieldname": "employee_id",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Employee ID",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "employee_id.employee_name",
+   "fieldname": "nama",
+   "fieldtype": "Data",
+   "label": "Nama",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "employee_id.designation",
+   "fieldname": "jabatan",
+   "fieldtype": "Data",
+   "label": "Jabatan",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break",
+   "label": "Detail Produksi"
+  },
+  {
+   "fieldname": "area",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Area",
+   "options": "Department"
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Persiapan",
+   "fieldname": "proses",
+   "fieldtype": "Link",
+   "label": "Proses",
+   "options": "Operation"
+  },
+  {
+   "depends_on": "eval: doc.area == \"Lilin - L\"\n",
+   "fieldname": "section_break_15",
+   "fieldtype": "Section Break",
+   "label": "Detail SPK Lilin"
+  },
+  {
+   "fieldname": "tabel_pohon",
+   "fieldtype": "Table",
+   "label": "Tabel Pohon",
+   "options": "Rencana Produk Harian Lilin"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Rencana Produk Harian",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "tabel_gips",
+   "fieldtype": "Table",
+   "label": "Tabel Gips",
+   "options": "Rencana Produk Harian Gips"
+  },
+  {
+   "depends_on": "eval: doc.area == \"GCP - L\"",
+   "fieldname": "detail_spk_gips_section",
+   "fieldtype": "Section Break",
+   "label": "Detail SPK Gips"
+  },
+  {
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "label": "Kadar",
+   "options": "Data Logam"
+  },
+  {
+   "fieldname": "get_data",
+   "fieldtype": "Button",
+   "label": "Get Data"
+  },
+  {
+   "fieldname": "column_break_17",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval: doc.area == \"GCP - L\"",
+   "fieldname": "filter_gips_section",
+   "fieldtype": "Section Break",
+   "label": "Filter Gips"
+  },
+  {
+   "fieldname": "jenis_sprue",
+   "fieldtype": "Link",
+   "label": "Jenis Sprue",
+   "options": "Data Set Sprue"
+  },
+  {
+   "default": "Today",
+   "fieldname": "from_tanggal",
+   "fieldtype": "Date",
+   "label": "From Tanggal"
+  },
+  {
+   "default": "Today",
+   "fieldname": "to_tanggal",
+   "fieldtype": "Date",
+   "label": "To Tanggal"
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-04-02 04:06:55.315951",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Rencana Produk Harian",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

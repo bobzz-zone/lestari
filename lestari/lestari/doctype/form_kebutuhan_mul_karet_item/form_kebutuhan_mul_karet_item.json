@@ -1,0 +1,101 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-02-04 10:15:33.918468",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "no_spk",
+  "produk_id",
+  "column_break_3",
+  "mul_karet",
+  "mul_karet_id",
+  "kondisi",
+  "section_break_7",
+  "lemari",
+  "rak",
+  "column_break_10",
+  "kolom",
+  "baris"
+ ],
+ "fields": [
+  {
+   "fieldname": "no_spk",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "No SPK"
+  },
+  {
+   "fieldname": "produk_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Produk ID",
+   "options": "Item"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "mul_karet",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Mul Karet",
+   "options": "Item"
+  },
+  {
+   "fieldname": "mul_karet_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Mul Karet ID",
+   "options": "Serial No"
+  },
+  {
+   "fieldname": "kondisi",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Kondisi",
+   "options": "Baik\nRusak"
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "lemari",
+   "fieldtype": "Data",
+   "label": "Lemari"
+  },
+  {
+   "fieldname": "rak",
+   "fieldtype": "Data",
+   "label": "Rak"
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "kolom",
+   "fieldtype": "Data",
+   "label": "Kolom"
+  },
+  {
+   "fieldname": "baris",
+   "fieldtype": "Data",
+   "label": "Baris"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-02-04 10:27:04.090562",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Form Kebutuhan Mul Karet Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

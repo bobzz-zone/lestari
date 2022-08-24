@@ -95,9 +95,18 @@ doc_events = {
 # 		"on_cancel": "method",
 # 		"on_trash": "method"
 #	}
+	# "Form Berat Material Pohon": {
+	# 	"on_save": "lestari.lestari.doctype.form_berat_material_pohon.form_berat_material_pohon.on_save"
+	# }
 	# "Proses Pohonan Lilin":{
 	# 	"validate": "lestari.lestari.doctype.proses_pohona_lilin.proses_pohonan_lilin.validate"
 	# }
+}
+jenv = {
+	'filters':[
+		# 'get_all:lestari.lestari.doctype.rencana_produk_harian.rencana_produk_harian.get_all'
+		'get_qrcode:lestari.generateqr.get_qrcode'
+	]
 }
 
 # Scheduled Tasks

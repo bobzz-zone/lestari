@@ -6,38 +6,77 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "resep_cetakan",
-  "rubber_mould",
-  "qty"
+  "no_spk",
+  "produk_id",
+  "mul_karet",
+  "resep_mul_karet",
+  "column_break_3",
+  "qty",
+  "inject",
+  "logo"
  ],
  "fields": [
-  {
-   "fieldname": "resep_cetakan",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Resep Cetakan ",
-   "options": "Resep Mul Karet",
-   "reqd": 1
-  },
-  {
-   "fetch_from": "resep_cetakan.rubber_mould",
-   "fieldname": "rubber_mould",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Rubber Mould",
-   "read_only": 1
-  },
   {
    "fieldname": "qty",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Qty"
+   "label": "Qty",
+   "precision": "0"
+  },
+  {
+   "fieldname": "no_spk",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "No SPK",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "resep_mul_karet.final_product",
+   "fieldname": "produk_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Produk ID",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "resep_mul_karet.rubber_mould",
+   "fieldname": "mul_karet",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Mul Karet",
+   "options": "Item",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "resep_mul_karet",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Resep Mul Karet ",
+   "options": "Resep Mul Karet"
+  },
+  {
+   "fetch_from": "resep_mul_karet.hasil_inject",
+   "fieldname": "inject",
+   "fieldtype": "Int",
+   "label": "Inject"
+  },
+  {
+   "fetch_from": "produk_id.brand",
+   "fieldname": "logo",
+   "fieldtype": "Data",
+   "label": "Logo"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2021-12-28 14:44:59.290425",
+ "modified": "2022-02-07 15:06:00.413596",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Data Pohon Lilin Resep",

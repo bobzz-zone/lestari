@@ -1,0 +1,336 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-06-06 08:01:57.741930",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "detail_item_section",
+  "item_code",
+  "item_name",
+  "item_group",
+  "default_uom",
+  "qty_isi_pohon",
+  "logo",
+  "berat_target",
+  "uom_berat",
+  "column_break_6",
+  "description",
+  "detail_kadar_section",
+  "tabel_kadar",
+  "detail_serial_dan_batch_section",
+  "has_serial_no",
+  "serial_no_series",
+  "column_break_16",
+  "has_batch_no",
+  "automatically_create_new_batch",
+  "batch_no_series",
+  "detail_serial_no_section",
+  "tabel_serial_no",
+  "detail_routing_section",
+  "area_lilin",
+  "area_gt",
+  "area_kawat",
+  "area_bombing",
+  "area_swavel",
+  "area_potas",
+  "area_psb",
+  "area_brush",
+  "column_break_31",
+  "area_assembling",
+  "area_poles",
+  "area_slep",
+  "area_marking",
+  "area_sepuh",
+  "area_var_p",
+  "area_enamel",
+  "final_qc",
+  "detail_resep_section",
+  "tabel_resep_lilin",
+  "tabel_resep_batu",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "detail_item_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Item"
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Data",
+   "label": "Item Code"
+  },
+  {
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "label": "Item Name"
+  },
+  {
+   "fieldname": "item_group",
+   "fieldtype": "Link",
+   "label": "Item Group",
+   "options": "Item Group"
+  },
+  {
+   "default": "Pcs",
+   "fieldname": "default_uom",
+   "fieldtype": "Link",
+   "label": "Default UOM",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "qty_isi_pohon",
+   "fieldtype": "Int",
+   "label": "Qty Isi Pohon"
+  },
+  {
+   "fieldname": "logo",
+   "fieldtype": "Link",
+   "label": "Logo",
+   "options": "Brand"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description"
+  },
+  {
+   "fieldname": "berat_target",
+   "fieldtype": "Float",
+   "label": "Berat Target"
+  },
+  {
+   "default": "Gram",
+   "fieldname": "uom_berat",
+   "fieldtype": "Link",
+   "label": "UOM Berat",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "detail_kadar_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Kadar"
+  },
+  {
+   "fieldname": "tabel_kadar",
+   "fieldtype": "Table",
+   "label": "Tabel Kadar",
+   "options": "Item Generator Kadar"
+  },
+  {
+   "default": "0",
+   "fieldname": "has_serial_no",
+   "fieldtype": "Check",
+   "label": "Has Serial No"
+  },
+  {
+   "fieldname": "serial_no_series",
+   "fieldtype": "Data",
+   "label": "Serial No Series"
+  },
+  {
+   "fieldname": "column_break_16",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "has_batch_no",
+   "fieldtype": "Check",
+   "label": "Has Batch No"
+  },
+  {
+   "default": "0",
+   "fieldname": "automatically_create_new_batch",
+   "fieldtype": "Check",
+   "label": "Automatically Create New Batch"
+  },
+  {
+   "fieldname": "batch_no_series",
+   "fieldtype": "Data",
+   "label": "Batch No Series"
+  },
+  {
+   "fieldname": "detail_serial_no_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Serial No"
+  },
+  {
+   "allow_bulk_edit": 1,
+   "fieldname": "tabel_serial_no",
+   "fieldtype": "Table",
+   "label": "Tabel Serial No",
+   "options": "Item Generator Serial"
+  },
+  {
+   "fieldname": "detail_routing_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Routing"
+  },
+  {
+   "default": "0",
+   "fieldname": "area_lilin",
+   "fieldtype": "Check",
+   "label": "Area Lilin"
+  },
+  {
+   "default": "0",
+   "fieldname": "area_gt",
+   "fieldtype": "Check",
+   "label": "Area GT"
+  },
+  {
+   "default": "0",
+   "fieldname": "area_kawat",
+   "fieldtype": "Check",
+   "label": "Area Kawat"
+  },
+  {
+   "default": "0",
+   "fieldname": "area_bombing",
+   "fieldtype": "Check",
+   "label": "Area Bombing"
+  },
+  {
+   "default": "0",
+   "fieldname": "area_swavel",
+   "fieldtype": "Check",
+   "label": "Area Swavel"
+  },
+  {
+   "default": "0",
+   "fieldname": "area_potas",
+   "fieldtype": "Check",
+   "label": "Area Potas"
+  },
+  {
+   "default": "0",
+   "fieldname": "area_psb",
+   "fieldtype": "Check",
+   "label": "Area PSB"
+  },
+  {
+   "default": "0",
+   "fieldname": "area_brush",
+   "fieldtype": "Check",
+   "label": "Area Brush"
+  },
+  {
+   "fieldname": "column_break_31",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "area_assembling",
+   "fieldtype": "Check",
+   "label": "Area Assembling"
+  },
+  {
+   "default": "0",
+   "fieldname": "area_poles",
+   "fieldtype": "Check",
+   "label": "Area Poles"
+  },
+  {
+   "default": "0",
+   "fieldname": "area_slep",
+   "fieldtype": "Check",
+   "label": "Area Slep"
+  },
+  {
+   "default": "0",
+   "fieldname": "area_marking",
+   "fieldtype": "Check",
+   "label": "Area Marking"
+  },
+  {
+   "default": "0",
+   "fieldname": "area_sepuh",
+   "fieldtype": "Check",
+   "label": "Area Sepuh"
+  },
+  {
+   "default": "0",
+   "fieldname": "area_var_p",
+   "fieldtype": "Check",
+   "label": "Area Var P"
+  },
+  {
+   "default": "0",
+   "fieldname": "area_enamel",
+   "fieldtype": "Check",
+   "label": "Area Enamel"
+  },
+  {
+   "default": "0",
+   "fieldname": "final_qc",
+   "fieldtype": "Check",
+   "label": "Final QC"
+  },
+  {
+   "fieldname": "detail_resep_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Resep"
+  },
+  {
+   "allow_bulk_edit": 1,
+   "fieldname": "tabel_resep_lilin",
+   "fieldtype": "Table",
+   "label": "Tabel Resep Lilin",
+   "options": "Item Generator Resep Lilin"
+  },
+  {
+   "allow_bulk_edit": 1,
+   "fieldname": "tabel_resep_batu",
+   "fieldtype": "Table",
+   "label": "Tabel Resep Batu",
+   "options": "Item Generator Resep Batu"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Item Generator",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "detail_serial_dan_batch_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Serial dan Batch"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-06-06 08:07:27.579657",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Item Generator",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}

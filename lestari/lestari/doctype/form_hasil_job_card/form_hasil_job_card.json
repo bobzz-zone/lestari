@@ -1,0 +1,182 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:JCO{MM}{YYYY}{#####}",
+ "creation": "2022-04-16 04:52:52.261295",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_1",
+  "tanggal_wo",
+  "detail_perencana_section",
+  "employee_id",
+  "column_break_5",
+  "nama",
+  "jabatan",
+  "detail_produksi_section",
+  "area",
+  "operator",
+  "column_break_11",
+  "prosess",
+  "nomor_mesin",
+  "input_material_section",
+  "no_job_card",
+  "cari",
+  "column_break_17",
+  "kadar",
+  "detail_pengerjaan_section",
+  "tabel_cor",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_1",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "tanggal_wo",
+   "fieldtype": "Date",
+   "label": "Tanggal WO"
+  },
+  {
+   "fieldname": "detail_perencana_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Perencana"
+  },
+  {
+   "fieldname": "employee_id",
+   "fieldtype": "Link",
+   "label": "Employee ID",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "nama",
+   "fieldtype": "Data",
+   "label": "Nama"
+  },
+  {
+   "fieldname": "jabatan",
+   "fieldtype": "Data",
+   "label": "Jabatan"
+  },
+  {
+   "fieldname": "detail_produksi_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Produksi"
+  },
+  {
+   "fieldname": "area",
+   "fieldtype": "Link",
+   "label": "Area",
+   "options": "Department"
+  },
+  {
+   "fieldname": "operator",
+   "fieldtype": "Link",
+   "label": "Operator",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "prosess",
+   "fieldtype": "Link",
+   "label": "Prosess",
+   "options": "Operation"
+  },
+  {
+   "fieldname": "nomor_mesin",
+   "fieldtype": "Link",
+   "label": "Nomor Mesin",
+   "options": "Data Mesin Cor"
+  },
+  {
+   "fieldname": "input_material_section",
+   "fieldtype": "Section Break",
+   "label": "Cari Job Card"
+  },
+  {
+   "fieldname": "column_break_17",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "detail_pengerjaan_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Pengerjaan"
+  },
+  {
+   "fieldname": "tabel_cor",
+   "fieldtype": "Table",
+   "label": "Tabel Cor",
+   "options": "Form Hasil Job Card Cor"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Form Hasil Job Card",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Form Hasil Job Card",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "no_job_card",
+   "fieldtype": "Link",
+   "label": "No Job Card",
+   "options": "Job Card Operator"
+  },
+  {
+   "fetch_from": "pohon_id.base_sprue_serial",
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "label": "Kadar",
+   "options": "Data Logam"
+  },
+  {
+   "fieldname": "cari",
+   "fieldtype": "Button",
+   "label": "Cari",
+   "options": "cari_job_card"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-04-16 06:04:10.268236",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Form Hasil Job Card",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

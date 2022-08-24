@@ -1,0 +1,296 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:WOC{MM}{YYYY}{#####}",
+ "creation": "2022-04-19 10:32:12.830556",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_1",
+  "tanggal_wo",
+  "detail_perencana_section",
+  "employee_id",
+  "column_break_5",
+  "nama",
+  "jabatan",
+  "detail_produksi_section",
+  "operator",
+  "column_break_11",
+  "nomor_mesin",
+  "input_material_section",
+  "no_material_request",
+  "material_cor",
+  "material",
+  "column_break_16",
+  "pohon_id",
+  "nomor_base_karet",
+  "simpan_material",
+  "section_break_20",
+  "batch_cb_1",
+  "batch_cb_2",
+  "batch_cb_3",
+  "column_break_29",
+  "berat_batch_1",
+  "timbang_1",
+  "berat_batch_2",
+  "timbang_2",
+  "berat_batch_3",
+  "timbang_3",
+  "detail_pengerjaan_section",
+  "tabel_cor",
+  "section_break_25",
+  "berat_sebelum",
+  "berat_terima",
+  "column_break_28",
+  "berat_real",
+  "berat_material",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_1",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "tanggal_wo",
+   "fieldtype": "Date",
+   "label": "Tanggal WO"
+  },
+  {
+   "fieldname": "detail_perencana_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Perencana"
+  },
+  {
+   "fieldname": "employee_id",
+   "fieldtype": "Link",
+   "label": "Employee ID",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "employee_id.employee_name",
+   "fieldname": "nama",
+   "fieldtype": "Data",
+   "label": "Nama",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "employee_id.designation",
+   "fieldname": "jabatan",
+   "fieldtype": "Data",
+   "label": "Jabatan",
+   "read_only": 1
+  },
+  {
+   "fieldname": "detail_produksi_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Produksi"
+  },
+  {
+   "fieldname": "operator",
+   "fieldtype": "Link",
+   "label": "Operator",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "nomor_mesin",
+   "fieldtype": "Link",
+   "label": "Nomor Mesin",
+   "options": "Data Mesin Cor"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "input_material_section",
+   "fieldtype": "Section Break",
+   "label": "Input Material"
+  },
+  {
+   "fieldname": "pohon_id",
+   "fieldtype": "Link",
+   "label": "Pohon ID",
+   "options": "Data Pohon Lilin"
+  },
+  {
+   "fieldname": "batch_cb_1",
+   "fieldtype": "Data",
+   "label": "Batch Cb 1"
+  },
+  {
+   "fieldname": "batch_cb_2",
+   "fieldtype": "Data",
+   "label": "Batch Cb 2"
+  },
+  {
+   "fieldname": "batch_cb_3",
+   "fieldtype": "Data",
+   "label": "Batch Cb 3"
+  },
+  {
+   "fieldname": "simpan_material",
+   "fieldtype": "Button",
+   "label": "Simpan Material",
+   "options": "simpan_material"
+  },
+  {
+   "fieldname": "berat_batch_1",
+   "fieldtype": "Float",
+   "label": "Berat Batch 1"
+  },
+  {
+   "fieldname": "berat_batch_2",
+   "fieldtype": "Float",
+   "label": "Berat Batch 2"
+  },
+  {
+   "fieldname": "berat_batch_3",
+   "fieldtype": "Float",
+   "label": "Berat Batch 3"
+  },
+  {
+   "fieldname": "detail_pengerjaan_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Pengerjaan"
+  },
+  {
+   "fieldname": "tabel_cor",
+   "fieldtype": "Table",
+   "label": "Tabel Cor",
+   "options": "Work Order Cor Detail"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Work Order Cor",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Work Order Cor",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "berat_sebelum",
+   "fieldtype": "Float",
+   "label": "Berat Sebelum"
+  },
+  {
+   "fieldname": "berat_terima",
+   "fieldtype": "Float",
+   "label": "Berat Terima"
+  },
+  {
+   "fieldname": "section_break_25",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_28",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "berat_real",
+   "fieldtype": "Float",
+   "label": "Berat Real"
+  },
+  {
+   "fieldname": "berat_material",
+   "fieldtype": "Float",
+   "label": "Berat Material"
+  },
+  {
+   "fetch_from": "pohon_id.nomor_base_karet",
+   "fieldname": "nomor_base_karet",
+   "fieldtype": "Link",
+   "label": "Nomor Base Karet",
+   "options": "Serial No"
+  },
+  {
+   "depends_on": "eval:doc.no_material_request",
+   "fieldname": "material_cor",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Material Cor",
+   "options": "Material Request Item"
+  },
+  {
+   "fieldname": "no_material_request",
+   "fieldtype": "Link",
+   "label": "No Material Request",
+   "options": "Material Request"
+  },
+  {
+   "fieldname": "material",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Material",
+   "options": "Item"
+  },
+  {
+   "fieldname": "column_break_16",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_20",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_29",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "timbang_1",
+   "fieldtype": "Button",
+   "label": "Timbang 1"
+  },
+  {
+   "fieldname": "timbang_2",
+   "fieldtype": "Button",
+   "label": "Timbang 2"
+  },
+  {
+   "fieldname": "timbang_3",
+   "fieldtype": "Button",
+   "label": "Timbang 3"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-06-24 14:56:44.529778",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Work Order Cor",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

@@ -1,0 +1,58 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:Mesin-Cor-{nomor_mesin}",
+ "creation": "2022-04-04 13:34:50.526249",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "nomor_mesin",
+  "merk_mesin",
+  "status_mesin"
+ ],
+ "fields": [
+  {
+   "fieldname": "merk_mesin",
+   "fieldtype": "Data",
+   "label": "Merk Mesin"
+  },
+  {
+   "fieldname": "status_mesin",
+   "fieldtype": "Select",
+   "label": "Status Mesin",
+   "options": "\nBaik\nReparasi\nRusak"
+  },
+  {
+   "fieldname": "nomor_mesin",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Nomor Mesin",
+   "reqd": 1,
+   "unique": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-04-04 14:18:47.601548",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Data Mesin Cor",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

@@ -1,15 +1,19 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:{RIL}-{rubber_mould}",
+ "autoname": "naming_series:",
  "creation": "2021-12-24 16:04:14.829057",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "naming_series",
   "rubber_mould",
+  "hasil_inject",
   "disabled",
   "column_break_3",
+  "kode_barang_setelah_potong_pohon",
+  "final_product",
   "tipe_mule",
   "material_batu_section",
   "batu"
@@ -43,17 +47,44 @@
   {
    "fieldname": "tipe_mule",
    "fieldtype": "Select",
+   "in_standard_filter": 1,
    "label": "Tipe Mule",
-   "options": "\nKepala\nMainan"
+   "options": "\nKepala\nMainan\nKomponen"
   },
   {
    "fieldname": "column_break_3",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "final_product",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Final Product",
+   "options": "Item"
+  },
+  {
+   "fieldname": "kode_barang_setelah_potong_pohon",
+   "fieldtype": "Link",
+   "label": "Kode Barang Setelah Potong Pohon",
+   "options": "Item"
+  },
+  {
+   "fieldname": "hasil_inject",
+   "fieldtype": "Int",
+   "label": "Hasil Inject"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "RMK-",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-12-28 14:18:40.442235",
+ "modified": "2022-07-05 10:01:35.450470",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Resep Mul Karet",
@@ -72,6 +103,7 @@
    "write": 1
   }
  ],
+ "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "track_changes": 1

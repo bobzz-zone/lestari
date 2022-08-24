@@ -1,0 +1,63 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:no_setting",
+ "creation": "2022-04-16 04:36:07.673929",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "no_setting",
+  "suhu",
+  "waktu",
+  "waktu_menit"
+ ],
+ "fields": [
+  {
+   "fieldname": "no_setting",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "No Setting",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "suhu",
+   "fieldtype": "Int",
+   "label": "Suhu"
+  },
+  {
+   "fieldname": "waktu",
+   "fieldtype": "Time",
+   "label": "Waktu"
+  },
+  {
+   "fieldname": "waktu_menit",
+   "fieldtype": "Int",
+   "label": "Waktu Menit"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-04-16 04:45:18.909291",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Data Setting Oven",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

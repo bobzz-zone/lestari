@@ -1,0 +1,253 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-07-12 09:32:23.734830",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "nthko_area",
+  "nthko_id",
+  "column_break_3",
+  "total_berat_sebelum_transfer",
+  "total_berat_setelah_transfer",
+  "t_warehouse",
+  "enamel_section",
+  "enml_operation",
+  "enml_surface",
+  "column_break_10",
+  "enml_step",
+  "enml_color",
+  "poles_section",
+  "pls_op_manual",
+  "pls_op_mesin",
+  "pls_op_combi",
+  "column_break_17",
+  "pls_subprocess",
+  "brush_section",
+  "brush_operation",
+  "assembling__kikir_section",
+  "assmblng_operation",
+  "bombing_section",
+  "bsp_operation",
+  "reparasi_section",
+  "rep_operation",
+  "slep_section",
+  "slep_operation",
+  "pasang_batu_section",
+  "psb_operation",
+  "sepuh_section",
+  "sepuh_operation",
+  "final_qc_section",
+  "qc_operation"
+ ],
+ "fields": [
+  {
+   "fieldname": "total_berat_sebelum_transfer",
+   "fieldtype": "Float",
+   "label": "Total Berat Sebelum Transfer"
+  },
+  {
+   "fieldname": "total_berat_setelah_transfer",
+   "fieldtype": "Float",
+   "label": "Total Berat Setelah Transfer"
+  },
+  {
+   "fieldname": "nthko_area",
+   "fieldtype": "Link",
+   "label": "NTHKO Area",
+   "options": "DocType"
+  },
+  {
+   "fieldname": "nthko_id",
+   "fieldtype": "Dynamic Link",
+   "label": "NTHKO ID",
+   "options": "nthko_area"
+  },
+  {
+   "fieldname": "t_warehouse",
+   "fieldtype": "Link",
+   "label": "Target Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "depends_on": "eval:doc.t_warehouse == 'Enamel - L'",
+   "fieldname": "enamel_section",
+   "fieldtype": "Section Break",
+   "label": "Enamel"
+  },
+  {
+   "fieldname": "enml_operation",
+   "fieldtype": "Select",
+   "label": "Operation",
+   "options": "\nEnamel Manual\nEnamel Mesin\nEname Combi"
+  },
+  {
+   "fieldname": "enml_surface",
+   "fieldtype": "Select",
+   "label": "Surface",
+   "options": "\nFlat\nCembung"
+  },
+  {
+   "fieldname": "enml_step",
+   "fieldtype": "Select",
+   "label": "Step",
+   "options": "\n1\n2\n3\n4"
+  },
+  {
+   "fieldname": "enml_color",
+   "fieldtype": "Select",
+   "label": "Color",
+   "options": "\n2\n3\n4\n5\n6\n7"
+  },
+  {
+   "depends_on": "eval:doc.t_warehouse == 'Poles - L'",
+   "fieldname": "poles_section",
+   "fieldtype": "Section Break",
+   "label": "Poles"
+  },
+  {
+   "default": "0",
+   "fieldname": "pls_op_manual",
+   "fieldtype": "Check",
+   "label": "Operation Manual"
+  },
+  {
+   "default": "0",
+   "fieldname": "pls_op_mesin",
+   "fieldtype": "Check",
+   "label": "Operation Mesin"
+  },
+  {
+   "default": "0",
+   "fieldname": "pls_op_combi",
+   "fieldtype": "Check",
+   "label": "Operation Combi"
+  },
+  {
+   "fieldname": "pls_subprocess",
+   "fieldtype": "Select",
+   "label": "Subprocess",
+   "options": "\nReguler\nKriwilan\nGSP\nSP\nGSP + Manual\nSP + Manual"
+  },
+  {
+   "depends_on": "eval:doc.t_warehouse == 'Brush - L'",
+   "fieldname": "brush_section",
+   "fieldtype": "Section Break",
+   "label": "Brush"
+  },
+  {
+   "fieldname": "brush_operation",
+   "fieldtype": "Select",
+   "label": "Operation",
+   "options": "\nBrush\nBrush AR\nBrush AKL\nBrush Pembulatan\nBrush AR Assembling\nBrush AKL Assembling"
+  },
+  {
+   "depends_on": "eval:doc.t_warehouse == 'Assembling - L'",
+   "fieldname": "assembling__kikir_section",
+   "fieldtype": "Section Break",
+   "label": "Assembling / Kikir"
+  },
+  {
+   "fieldname": "assmblng_operation",
+   "fieldtype": "Select",
+   "label": "Operation ",
+   "options": "\nKikir PUK\nKikir PUK Var\nKikir Patri\nKikir Combi"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_17",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.t_warehouse == 'Bombing - L'",
+   "fieldname": "bombing_section",
+   "fieldtype": "Section Break",
+   "label": "Bombing"
+  },
+  {
+   "fieldname": "bsp_operation",
+   "fieldtype": "Select",
+   "label": "Operation",
+   "options": "\nBombing\nPotas\nTukang Luar Bombing"
+  },
+  {
+   "depends_on": "eval:doc.t_warehouse == 'Reparasi - L'",
+   "fieldname": "reparasi_section",
+   "fieldtype": "Section Break",
+   "label": "Reparasi"
+  },
+  {
+   "fieldname": "rep_operation",
+   "fieldtype": "Select",
+   "label": "Operation",
+   "options": "\nBatu\nKeropos\nKeropos Batu\nRepRep\nRepRep Batu\nCombi ( Batu, Keropos, RepRep )"
+  },
+  {
+   "depends_on": "eval:doc.t_warehouse == 'Slep - L'",
+   "fieldname": "slep_section",
+   "fieldtype": "Section Break",
+   "label": "Slep"
+  },
+  {
+   "fieldname": "slep_operation",
+   "fieldtype": "Select",
+   "label": "Operation",
+   "options": "\nSlep Manual\nSlep Mesin\nSlep Marking"
+  },
+  {
+   "depends_on": "eval:doc.t_warehouse == 'PSB - L'",
+   "fieldname": "pasang_batu_section",
+   "fieldtype": "Section Break",
+   "label": "Pasang Batu"
+  },
+  {
+   "fieldname": "psb_operation",
+   "fieldtype": "Select",
+   "label": "Operation",
+   "options": "\nAnting\nCincin\nGelang\nLiontin"
+  },
+  {
+   "depends_on": "eval:doc.t_warehouse == 'Sepuh - L'",
+   "fieldname": "sepuh_section",
+   "fieldtype": "Section Break",
+   "label": "Sepuh"
+  },
+  {
+   "fieldname": "sepuh_operation",
+   "fieldtype": "Select",
+   "label": "Operation",
+   "options": "\nSepuh Muda\nSepuh Muda Variasi\nSepuh Tua\nSepuh Tua Variasi\nSepuh 24\nSepuh 24 Variasi\nSepuh Rodium\nSepuh 3 Warna"
+  },
+  {
+   "depends_on": "eval:doc.t_warehouse == 'Final QC - L'",
+   "fieldname": "final_qc_section",
+   "fieldtype": "Section Break",
+   "label": "Final QC"
+  },
+  {
+   "fieldname": "qc_operation",
+   "fieldtype": "Select",
+   "label": "Operation",
+   "options": "\nAnting\nCincin\nGelang\nLiontin"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-07-28 10:03:36.903401",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Transfer Material Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

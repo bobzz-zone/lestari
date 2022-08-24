@@ -1,0 +1,67 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-03-24 15:41:05.776069",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "mesin_gips",
+  "total_spk_gips",
+  "pohon_per_batch",
+  "jumlah_batch",
+  "total_per_batch",
+  "standart"
+ ],
+ "fields": [
+  {
+   "fieldname": "total_spk_gips",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Total SPK Gips",
+   "reqd": 1
+  },
+  {
+   "fieldname": "jumlah_batch",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Jumlah Batch",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "standart",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Standart"
+  },
+  {
+   "fieldname": "pohon_per_batch",
+   "fieldtype": "Int",
+   "label": "Pohon Per Batch"
+  },
+  {
+   "fieldname": "total_per_batch",
+   "fieldtype": "Int",
+   "label": "Total Per Batch"
+  },
+  {
+   "fieldname": "mesin_gips",
+   "fieldtype": "Link",
+   "label": "Mesin Gips",
+   "options": "Data Mesin Gips",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-03-24 15:49:07.446763",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Work Order Gips Mesin",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

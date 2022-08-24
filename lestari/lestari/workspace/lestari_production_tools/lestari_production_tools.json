@@ -8,7 +8,7 @@
  "doctype": "Workspace",
  "extends_another_page": 0,
  "hide_custom": 0,
- "icon": "",
+ "icon": "organization",
  "idx": 0,
  "is_default": 0,
  "is_standard": 1,
@@ -17,7 +17,7 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Pohon Lilin",
+   "label": "Master Data",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
@@ -25,8 +25,80 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Resep Mul Karet",
-   "link_to": "Resep Mul Karet",
+   "label": "Customer",
+   "link_to": "Customer",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Item",
+   "link_to": "Item",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Item Price",
+   "link_to": "Item Price",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Item Group",
+   "link_to": "Item Group",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Serial No",
+   "link_to": "Serial No",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Data Gips",
+   "link_to": "Data Gips",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Data Logam",
+   "link_to": "Data Logam",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Data Mesin Gips",
+   "link_to": "Data Mesin Gips",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Data Mesin Cor",
+   "link_to": "Data Mesin Cor",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -43,6 +115,75 @@
   {
    "hidden": 0,
    "is_query_report": 0,
+   "label": "Data Jenis Sprue Utama",
+   "link_to": "Data Jenis Sprue Utama",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Resep Mul Karet",
+   "link_to": "Resep Mul Karet",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Area Marketing",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Sales Order",
+   "link_to": "Sales Order",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Area PPIC",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "SPK Produksi",
+   "link_to": "SPK Produksi",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Area Lilin",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "RPH Lilin",
+   "link_to": "RPH Lilin",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
    "label": "Data Pohon Lilin",
    "link_to": "Data Pohon Lilin",
    "link_type": "DocType",
@@ -52,8 +193,8 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Work Order Pohonan",
-   "link_to": "Work Order Pohonan",
+   "label": "Work Order Lilin",
+   "link_to": "Work Order Lilin",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -61,14 +202,324 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Form Hasil Work Order",
-   "link_to": "Form Hasil Work Order",
+   "label": "Form Kebutuhan Mul Karet",
+   "link_to": "Form Kebutuhan Mul Karet",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Form Berat Material Pohon",
+   "link_to": "Form Berat Material Pohon",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "NTHKO Lilin",
+   "link_to": "NTHKO Lilin",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Area GLC",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "RPH Gips",
+   "link_to": "RPH Gips",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Work Order Gips",
+   "link_to": "Work Order Gips",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Work Order Cor",
+   "link_to": "Work Order Cor",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Work Order Potong",
+   "link_to": "Work Order Potong",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "NTHKO Cor",
+   "link_to": "NTHKO Cor",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "NTHKO Potong",
+   "link_to": "NTHKO Potong",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Area Campur Bahan",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "RPH Campur Bahan",
+   "link_to": "RPH Campur Bahan",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Area Lebur",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "RPH Lebur",
+   "link_to": "RPH Lebur",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Area BSP",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "RPH BSP",
+   "link_to": "RPH BSP",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Area PSB",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Rencana Produk Harian",
+   "link_to": "Rencana Produk Harian",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Area Brush",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Rencana Produk Harian",
+   "link_to": "Rencana Produk Harian",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Area Assembling",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Rencana Produk Harian",
+   "link_to": "Rencana Produk Harian",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Area Poles",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Rencana Produk Harian",
+   "link_to": "Rencana Produk Harian",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Area Slep / Marking",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Rencana Produk Harian",
+   "link_to": "Rencana Produk Harian",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Area Sepuh / VarP",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Rencana Produk Harian",
+   "link_to": "Rencana Produk Harian",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Area Enamel",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Rencana Produk Harian",
+   "link_to": "Rencana Produk Harian",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Area GT",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Rencana Produk Harian",
+   "link_to": "Rencana Produk Harian",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Area Rantai",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Rencana Produk Harian",
+   "link_to": "Rencana Produk Harian",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Area Lab",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Rencana Produk Harian",
+   "link_to": "Rencana Produk Harian",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Quality Inspection",
+   "link_to": "Quality Inspection",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
   }
  ],
- "modified": "2021-12-27 15:50:08.856447",
+ "modified": "2022-08-12 14:02:24.475202",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Lestari Production Tools",
@@ -78,38 +529,20 @@
  "shortcuts": [
   {
    "doc_view": "List",
-   "label": "Transfer material Tools",
-   "link_to": "Transfer Material Tools",
+   "label": "Sales Order",
+   "link_to": "Sales Order",
    "type": "DocType"
   },
   {
    "doc_view": "List",
-   "label": "Resep Mul Karet",
-   "link_to": "Resep Mul Karet",
+   "label": "Stock Entry",
+   "link_to": "Stock Entry",
    "type": "DocType"
   },
   {
    "doc_view": "List",
-   "label": "Data Set Sprue",
-   "link_to": "Data Set Sprue",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "List",
-   "label": "Data Pohon Lilin",
-   "link_to": "Data Pohon Lilin",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "List",
-   "label": "Work Order Pohonan",
-   "link_to": "Work Order Pohonan",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "List",
-   "label": "Form Hasil Work Order",
-   "link_to": "Form Hasil Work Order",
+   "label": "Material Request",
+   "link_to": "Material Request",
    "type": "DocType"
   }
  ]

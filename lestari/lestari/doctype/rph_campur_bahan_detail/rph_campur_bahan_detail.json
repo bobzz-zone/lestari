@@ -1,0 +1,116 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-08-05 10:06:05.332506",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "no_spk",
+  "nomor_base_karet",
+  "tanggal_pohonan",
+  "pohon_id",
+  "work_order_id",
+  "kadar",
+  "ukuran_base_karet",
+  "column_break_5",
+  "ukuran",
+  "berat_lilin",
+  "berat_batu",
+  "berat_pohon"
+ ],
+ "fields": [
+  {
+   "columns": 2,
+   "fieldname": "no_spk",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "No SPK"
+  },
+  {
+   "columns": 1,
+   "fieldname": "nomor_base_karet",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Nomor Base Karet",
+   "options": "Serial No"
+  },
+  {
+   "columns": 1,
+   "fieldname": "tanggal_pohonan",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Tanggal Pohonan"
+  },
+  {
+   "columns": 1,
+   "fieldname": "pohon_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Pohon ID",
+   "options": "Data Pohon Lilin"
+  },
+  {
+   "fieldname": "work_order_id",
+   "fieldtype": "Link",
+   "label": "Work Order ID",
+   "options": "Work Order Lilin"
+  },
+  {
+   "columns": 1,
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Kadar",
+   "options": "Data Logam"
+  },
+  {
+   "fieldname": "ukuran_base_karet",
+   "fieldtype": "Link",
+   "label": "Ukuran Base Karet",
+   "options": "Data Set Sprue"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "columns": 1,
+   "default": "B7",
+   "fieldname": "ukuran",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Ukuran"
+  },
+  {
+   "columns": 1,
+   "fieldname": "berat_lilin",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Berat Lilin"
+  },
+  {
+   "columns": 1,
+   "fieldname": "berat_batu",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Berat Batu"
+  },
+  {
+   "fieldname": "berat_pohon",
+   "fieldtype": "Float",
+   "label": "Berat Pohon"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-08-05 10:06:05.332506",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "RPH Campur Bahan Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

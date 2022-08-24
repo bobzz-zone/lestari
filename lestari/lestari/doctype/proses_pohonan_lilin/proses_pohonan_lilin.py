@@ -159,9 +159,6 @@ def make_stock_entry(no_dpl,no_ppl,status):
         WHERE ppl.name = "{}" AND dpl.name = "{}"
         LIMIT 1
         """.format(no_ppl, no_dpl),as_dict=1)
-
-
-
         qty = 0
         uom = ""
 

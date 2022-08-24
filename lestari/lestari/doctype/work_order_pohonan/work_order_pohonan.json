@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "format:WOP-{pohon_id}-{####}",
  "creation": "2021-12-27 11:43:25.616591",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -8,14 +9,21 @@
  "field_order": [
   "main_information_section",
   "created_by",
-  "status",
+  "status_pohonan",
   "column_break_4",
   "created_date",
   "created_tme",
   "data_pohon_section",
   "pohon_id",
+  "set_sprue",
+  "base_sprue_serial",
   "column_break_9",
   "warehouse_wip",
+  "berat_pohonan_lilin",
+  "berat_wax_pohonan_lilin",
+  "uom_berat",
+  "tabel_resep_section",
+  "resep",
   "tabel_material_section",
   "material",
   "tabel_tools_section",
@@ -31,13 +39,10 @@
   {
    "fieldname": "created_by",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Created By",
-   "options": "Employee"
-  },
-  {
-   "fieldname": "status",
-   "fieldtype": "Data",
-   "label": "Status"
+   "options": "Employee",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_4",
@@ -46,12 +51,16 @@
   {
    "fieldname": "created_date",
    "fieldtype": "Date",
-   "label": "Created Date"
+   "in_list_view": 1,
+   "label": "Created Date",
+   "reqd": 1
   },
   {
    "fieldname": "created_tme",
    "fieldtype": "Time",
-   "label": "Created Tme"
+   "in_list_view": 1,
+   "label": "Created Tme",
+   "reqd": 1
   },
   {
    "fieldname": "data_pohon_section",
@@ -62,7 +71,8 @@
    "fieldname": "pohon_id",
    "fieldtype": "Link",
    "label": "Pohon ID",
-   "options": "Data Pohon Lilin"
+   "options": "Data Pohon Lilin",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_9",
@@ -72,7 +82,8 @@
    "fieldname": "warehouse_wip",
    "fieldtype": "Link",
    "label": "Warehouse WIP",
-   "options": "Warehouse"
+   "options": "Warehouse",
+   "reqd": 1
   },
   {
    "fieldname": "tabel_material_section",
@@ -83,7 +94,7 @@
    "fieldname": "material",
    "fieldtype": "Table",
    "label": "Material",
-   "options": "Work Order Pohon Material"
+   "options": "Work Order Pohonan Material"
   },
   {
    "fieldname": "tabel_tools_section",
@@ -104,12 +115,60 @@
    "options": "Work Order Pohonan",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "tabel_resep_section",
+   "fieldtype": "Section Break",
+   "label": "Tabel Resep"
+  },
+  {
+   "fieldname": "resep",
+   "fieldtype": "Table",
+   "label": "Resep",
+   "options": "Work Order Pohonan Resep",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status_pohonan",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "in_list_view": 1,
+   "label": "Status Pohonan"
+  },
+  {
+   "fieldname": "base_sprue_serial",
+   "fieldtype": "Link",
+   "label": "Base Sprue Serial",
+   "options": "Serial No"
+  },
+  {
+   "fieldname": "set_sprue",
+   "fieldtype": "Link",
+   "label": "Set Sprue",
+   "options": "Data Set Sprue"
+  },
+  {
+   "fieldname": "berat_pohonan_lilin",
+   "fieldtype": "Float",
+   "label": "Berat Pohonan Lilin"
+  },
+  {
+   "default": "Gram",
+   "fieldname": "uom_berat",
+   "fieldtype": "Link",
+   "label": "UOM Berat",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "berat_wax_pohonan_lilin",
+   "fieldtype": "Float",
+   "label": "Berat Wax Pohonan Lilin"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2021-12-28 15:37:23.916866",
+ "modified": "2022-01-27 12:57:20.528185",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Work Order Pohonan",

@@ -1,0 +1,131 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:Mesin-{ukuran_mesin}",
+ "creation": "2022-02-11 10:37:05.363124",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ukuran_mesin",
+  "kondisi_mesin",
+  "merk_mesin",
+  "column_break_4",
+  "kapasitas_mesin",
+  "prioritas_jenis",
+  "qty",
+  "berat_gips_section",
+  "jenis_sprue_1",
+  "berat_gips_1",
+  "column_break_10",
+  "jenis_sprue_2",
+  "berat_gips_2",
+  "pembagian_batch_section",
+  "tabel_batch"
+ ],
+ "fields": [
+  {
+   "fieldname": "ukuran_mesin",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Ukuran Mesin",
+   "reqd": 1
+  },
+  {
+   "fieldname": "kondisi_mesin",
+   "fieldtype": "Select",
+   "label": "Kondisi Mesin",
+   "options": "Baik\nReparasi\nRusak"
+  },
+  {
+   "fieldname": "merk_mesin",
+   "fieldtype": "Data",
+   "label": "Merk Mesin"
+  },
+  {
+   "fieldname": "prioritas_jenis",
+   "fieldtype": "Link",
+   "label": "Prioritas Jenis",
+   "options": "Data Set Sprue"
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Data",
+   "label": "Qty"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "berat_gips_section",
+   "fieldtype": "Section Break",
+   "label": "Berat Gips"
+  },
+  {
+   "fieldname": "jenis_sprue_1",
+   "fieldtype": "Link",
+   "label": "Jenis Sprue 1",
+   "options": "Data Set Sprue"
+  },
+  {
+   "fieldname": "berat_gips_1",
+   "fieldtype": "Float",
+   "label": "Berat Gips 1"
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "jenis_sprue_2",
+   "fieldtype": "Link",
+   "label": "Jenis Sprue 2",
+   "options": "Data Set Sprue"
+  },
+  {
+   "fieldname": "berat_gips_2",
+   "fieldtype": "Float",
+   "label": "Berat Gips 2"
+  },
+  {
+   "fieldname": "kapasitas_mesin",
+   "fieldtype": "Float",
+   "label": "Kapasitas Mesin"
+  },
+  {
+   "fieldname": "pembagian_batch_section",
+   "fieldtype": "Section Break",
+   "label": "Pembagian Batch"
+  },
+  {
+   "fieldname": "tabel_batch",
+   "fieldtype": "Table",
+   "label": "Tabel Batch",
+   "options": "Data Mesin Gips Batch"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-03-24 10:40:21.206959",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Data Mesin Gips",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

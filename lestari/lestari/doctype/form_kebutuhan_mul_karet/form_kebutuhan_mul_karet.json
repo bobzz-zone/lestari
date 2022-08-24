@@ -1,0 +1,128 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:FKMK{YYYY}{MM}{#####}",
+ "creation": "2022-02-04 10:16:45.878265",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "created_date",
+  "work_order_id",
+  "column_break_3",
+  "ceated_time",
+  "pohon_id",
+  "detail_employee_section",
+  "employee_id",
+  "column_break_5",
+  "nama",
+  "jabatan",
+  "detail_mul_karet_section",
+  "tabel_mul_karet",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "created_date",
+   "fieldtype": "Date",
+   "label": "Created Date"
+  },
+  {
+   "default": "Now",
+   "fieldname": "ceated_time",
+   "fieldtype": "Time",
+   "label": "Ceated Time"
+  },
+  {
+   "fieldname": "detail_employee_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Employee"
+  },
+  {
+   "fieldname": "employee_id",
+   "fieldtype": "Link",
+   "label": "Employee ID",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "employee_id.employee_name",
+   "fieldname": "nama",
+   "fieldtype": "Data",
+   "label": "Nama",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "employee_id.designation",
+   "fieldname": "jabatan",
+   "fieldtype": "Data",
+   "label": "Jabatan",
+   "read_only": 1
+  },
+  {
+   "fieldname": "detail_mul_karet_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Mul Karet"
+  },
+  {
+   "fieldname": "tabel_mul_karet",
+   "fieldtype": "Table",
+   "label": "Tabel Mul Karet",
+   "options": "Form Kebutuhan Mul Karet Item"
+  },
+  {
+   "fieldname": "work_order_id",
+   "fieldtype": "Link",
+   "label": "Work Order ID",
+   "options": "Work Order Lilin"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pohon_id",
+   "fieldtype": "Link",
+   "label": "Pohon ID",
+   "options": "Data Pohon Lilin"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Form Kebutuhan Mul Karet",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-04-14 10:22:50.676870",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Form Kebutuhan Mul Karet",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

@@ -1,0 +1,175 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2022-08-18 11:53:36.191287",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "customer",
+  "column_break_2",
+  "posting_date",
+  "due_date",
+  "tutupan_section",
+  "tutupan",
+  "deadline_tutupan",
+  "grand_total",
+  "net_total",
+  "column_break_10",
+  "discount",
+  "outstanding",
+  "status",
+  "amended_from",
+  "items_section",
+  "items",
+  "gold_invoice_has_gold_deposit",
+  "gold_deposit",
+  "amount_deposit",
+  "allocated"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "label": "Due Date"
+  },
+  {
+   "fieldname": "tutupan",
+   "fieldtype": "Float",
+   "label": "Tutupan"
+  },
+  {
+   "fieldname": "deadline_tutupan",
+   "fieldtype": "Date",
+   "label": "Deadline Tutupan"
+  },
+  {
+   "fieldname": "grand_total",
+   "fieldtype": "Float",
+   "label": "Grand Total"
+  },
+  {
+   "fieldname": "net_total",
+   "fieldtype": "Float",
+   "label": "Net Total"
+  },
+  {
+   "fieldname": "discount",
+   "fieldtype": "Float",
+   "label": "Discount"
+  },
+  {
+   "fieldname": "outstanding",
+   "fieldtype": "Float",
+   "label": "Outstanding"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "label": "Status"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Gold Invoice",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Gold Invoice Item"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tutupan_section",
+   "fieldtype": "Section Break",
+   "label": "Tutupan"
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "items_section",
+   "fieldtype": "Section Break",
+   "label": "Items"
+  },
+  {
+   "fieldname": "gold_invoice_has_gold_deposit",
+   "fieldtype": "Section Break",
+   "label": "Invoice Advance"
+  },
+  {
+   "fieldname": "gold_deposit",
+   "fieldtype": "Table",
+   "label": "Gold Deposit",
+   "options": "Gold Deposit"
+  },
+  {
+   "fieldname": "amount_deposit",
+   "fieldtype": "Float",
+   "label": "Amount Deposit"
+  },
+  {
+   "fieldname": "allocated",
+   "fieldtype": "Float",
+   "label": "Allocated"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Kode Seri",
+   "no_copy": 1,
+   "options": "GINV-.YYYY.-",
+   "print_hide": 1,
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-08-24 16:55:54.837207",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Gold Invoice",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

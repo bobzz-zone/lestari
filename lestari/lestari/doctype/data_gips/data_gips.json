@@ -1,0 +1,80 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:nama_gips",
+ "creation": "2022-03-07 10:49:06.741820",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "jenis_gips",
+  "column_break_2",
+  "nama_gips",
+  "standart",
+  "tabel_takar_section",
+  "gips"
+ ],
+ "fields": [
+  {
+   "fetch_from": "jenis_gips.item_name",
+   "fieldname": "nama_gips",
+   "fieldtype": "Data",
+   "label": "Nama Gips",
+   "unique": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "standart",
+   "fieldtype": "Check",
+   "label": "Standart"
+  },
+  {
+   "fieldname": "tabel_takar_section",
+   "fieldtype": "Section Break",
+   "label": "Tabel Takar"
+  },
+  {
+   "allow_bulk_edit": 1,
+   "fieldname": "gips",
+   "fieldtype": "Table",
+   "label": "Gips",
+   "options": "Data Gips Takar"
+  },
+  {
+   "fieldname": "jenis_gips",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Jenis Gips",
+   "options": "Item",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-03-07 12:58:57.688570",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Data Gips",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

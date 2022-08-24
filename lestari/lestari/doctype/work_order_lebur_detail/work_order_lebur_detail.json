@@ -1,0 +1,58 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-03-29 15:34:43.337321",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "no_batch",
+  "tanggal_lebur",
+  "berat_lebur",
+  "berat_potong",
+  "berat_susut"
+ ],
+ "fields": [
+  {
+   "fieldname": "no_batch",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "No Batch"
+  },
+  {
+   "fieldname": "tanggal_lebur",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Tanggal Lebur"
+  },
+  {
+   "fieldname": "berat_lebur",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Berat Lebur"
+  },
+  {
+   "fieldname": "berat_potong",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Berat Potong"
+  },
+  {
+   "fieldname": "berat_susut",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Berat Susut"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-03-29 15:46:09.861221",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Work Order Lebur Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

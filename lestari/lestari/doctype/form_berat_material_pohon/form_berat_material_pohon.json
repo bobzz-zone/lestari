@@ -1,0 +1,187 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:BMP{YYYY}{MM}{#####}",
+ "creation": "2022-01-03 10:48:44.818591",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "created_date",
+  "work_order_id",
+  "column_break_3",
+  "created_time",
+  "pohon_id",
+  "berat_base_karet",
+  "detail_penimbang_section",
+  "employee_id",
+  "column_break_8",
+  "nama",
+  "jabatan",
+  "berat_material_section",
+  "material_batu",
+  "section_break_13",
+  "total_qty_batu",
+  "column_break_14",
+  "total_berat_batu",
+  "timbang",
+  "inputan",
+  "berat_1",
+  "berat",
+  "amended_from",
+  "kirim_serial"
+ ],
+ "fields": [
+  {
+   "fieldname": "pohon_id",
+   "fieldtype": "Link",
+   "label": "Pohon ID",
+   "options": "Data Pohon Lilin"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "berat_material_section",
+   "fieldtype": "Section Break",
+   "label": "Berat Material"
+  },
+  {
+   "fieldname": "material_batu",
+   "fieldtype": "Table",
+   "label": "Material Batu",
+   "options": "Form Berat Material Batu"
+  },
+  {
+   "fieldname": "work_order_id",
+   "fieldtype": "Link",
+   "label": "Work Order ID",
+   "options": "Work Order Lilin"
+  },
+  {
+   "default": "Today",
+   "fieldname": "created_date",
+   "fieldtype": "Date",
+   "label": "Created Date"
+  },
+  {
+   "default": "Now",
+   "fieldname": "created_time",
+   "fieldtype": "Time",
+   "label": "Created Time"
+  },
+  {
+   "fieldname": "detail_penimbang_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Penimbang"
+  },
+  {
+   "fieldname": "employee_id",
+   "fieldtype": "Link",
+   "label": "Employee ID",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "employee_id.employee_name",
+   "fieldname": "nama",
+   "fieldtype": "Data",
+   "label": "Nama",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "employee_id.designation",
+   "fieldname": "jabatan",
+   "fieldtype": "Data",
+   "label": "Jabatan",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_13",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_14",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_berat_batu",
+   "fieldtype": "Float",
+   "label": "Total Berat Batu",
+   "precision": "2"
+  },
+  {
+   "fieldname": "total_qty_batu",
+   "fieldtype": "Int",
+   "label": "Total Qty Batu"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Form Berat Material Pohon",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "berat_base_karet",
+   "fieldtype": "Float",
+   "label": "Berat Base Karet"
+  },
+  {
+   "fieldname": "timbang",
+   "fieldtype": "Button",
+   "label": "timbang"
+  },
+  {
+   "fieldname": "berat",
+   "fieldtype": "Text",
+   "label": "berat "
+  },
+  {
+   "fieldname": "berat_1",
+   "fieldtype": "Float",
+   "label": "berat 1"
+  },
+  {
+   "fieldname": "inputan",
+   "fieldtype": "Data",
+   "label": "inputan"
+  },
+  {
+   "fieldname": "kirim_serial",
+   "fieldtype": "Data",
+   "label": "kirim serial"
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-06-27 14:33:10.884922",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Form Berat Material Pohon",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

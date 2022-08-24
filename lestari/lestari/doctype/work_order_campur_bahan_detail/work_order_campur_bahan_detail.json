@@ -1,0 +1,59 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-08-08 11:05:41.472166",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "target_warehouse",
+  "produk_id",
+  "kadar",
+  "qty",
+  "berat"
+ ],
+ "fields": [
+  {
+   "fieldname": "target_warehouse",
+   "fieldtype": "Link",
+   "label": "Target Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "produk_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Produk ID",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "kadar",
+   "fieldtype": "Data",
+   "label": "Kadar"
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Qty",
+   "reqd": 1
+  },
+  {
+   "fieldname": "berat",
+   "fieldtype": "Float",
+   "label": "Berat"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-08-08 11:05:41.472166",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Work Order Campur Bahan Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

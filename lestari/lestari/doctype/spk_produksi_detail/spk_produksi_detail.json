@@ -1,0 +1,105 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-04-11 09:59:44.910658",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "no_so",
+  "so_type",
+  "customer",
+  "produk_id",
+  "kadar",
+  "kategori",
+  "sub_kategori",
+  "column_break_6",
+  "qty",
+  "qty_isi_pohon",
+  "jumlah_pohon",
+  "variasi",
+  "target_berat"
+ ],
+ "fields": [
+  {
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "label": "Kadar",
+   "options": "Data Logam"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Int",
+   "label": "Qty"
+  },
+  {
+   "fieldname": "qty_isi_pohon",
+   "fieldtype": "Int",
+   "label": "Qty Isi Pohon"
+  },
+  {
+   "fieldname": "jumlah_pohon",
+   "fieldtype": "Int",
+   "label": "Jumlah Pohon"
+  },
+  {
+   "fieldname": "variasi",
+   "fieldtype": "Data",
+   "label": "Variasi"
+  },
+  {
+   "fieldname": "target_berat",
+   "fieldtype": "Float",
+   "label": "Target Berat"
+  },
+  {
+   "fieldname": "so_type",
+   "fieldtype": "Data",
+   "label": "SO Type"
+  },
+  {
+   "fieldname": "produk_id",
+   "fieldtype": "Link",
+   "label": "Produk ID",
+   "options": "Item"
+  },
+  {
+   "fieldname": "no_so",
+   "fieldtype": "Data",
+   "label": "No SO"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "kategori",
+   "fieldtype": "Link",
+   "label": "Kategori",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "sub_kategori",
+   "fieldtype": "Link",
+   "label": "Sub Kategori",
+   "options": "Item Group"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-04-26 09:13:22.256703",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "SPK Produksi Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

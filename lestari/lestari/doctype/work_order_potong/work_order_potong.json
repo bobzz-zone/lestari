@@ -1,0 +1,173 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:WOG{YYYY}{MM}{#####}",
+ "creation": "2022-03-03 21:33:48.474440",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "created_date",
+  "section_break_2",
+  "employee_id",
+  "column_break_4",
+  "nama",
+  "jabatan",
+  "section_break_7",
+  "operator",
+  "column_break_12",
+  "cari_pohon_section",
+  "pohon_id",
+  "cari",
+  "detail_pohon_section",
+  "nomor_base_karet",
+  "column_break_15",
+  "kadar",
+  "berat_pohon",
+  "section_break_15",
+  "tabel_potong",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break",
+   "label": "Detail Perencana"
+  },
+  {
+   "fieldname": "employee_id",
+   "fieldtype": "Link",
+   "label": "Employee ID",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "employee_id.employee_name",
+   "fieldname": "nama",
+   "fieldtype": "Data",
+   "label": "Nama",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "employee_id.designation",
+   "fieldname": "jabatan",
+   "fieldtype": "Data",
+   "label": "Jabatan",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break",
+   "label": "Detail Produksi"
+  },
+  {
+   "fieldname": "operator",
+   "fieldtype": "Link",
+   "label": "Operator",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_15",
+   "fieldtype": "Section Break",
+   "label": "Detail Potong"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Work Order Potong",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "created_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Created Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "tabel_potong",
+   "fieldtype": "Table",
+   "label": "Tabel Potong",
+   "options": "Work Order Potong Detail"
+  },
+  {
+   "fieldname": "detail_pohon_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Pohon"
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "label": "Kadar",
+   "options": "Data Logam"
+  },
+  {
+   "fieldname": "berat_pohon",
+   "fieldtype": "Float",
+   "label": "Berat Pohon"
+  },
+  {
+   "fieldname": "pohon_id",
+   "fieldtype": "Link",
+   "label": "Pohon ID",
+   "options": "Data Pohon Lilin"
+  },
+  {
+   "fieldname": "cari_pohon_section",
+   "fieldtype": "Section Break",
+   "label": "Cari Pohon"
+  },
+  {
+   "fieldname": "cari",
+   "fieldtype": "Button",
+   "label": "Cari",
+   "options": "cari_pohon"
+  },
+  {
+   "fieldname": "nomor_base_karet",
+   "fieldtype": "Link",
+   "label": "Nomor Base Karet",
+   "options": "Serial No"
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-05-12 10:23:34.406700",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Work Order Potong",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

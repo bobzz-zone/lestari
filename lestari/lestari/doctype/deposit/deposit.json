@@ -1,0 +1,133 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-08-22 12:14:14.352487",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "customer",
+  "column_break_2",
+  "date",
+  "column_break_4",
+  "deposit_type",
+  "gold_deposit_section",
+  "total_idr",
+  "total_emas",
+  "column_break_7",
+  "sisa_idr",
+  "sisa_emas",
+  "amended_from",
+  "idr_deposit_section",
+  "idr_deposit",
+  "stock_deposit_section",
+  "stock_deposit"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "deposit_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Deposit Type",
+   "options": "Gold Deposit\nIDR Deposit\nStock Deposit"
+  },
+  {
+   "fieldname": "gold_deposit_section",
+   "fieldtype": "Section Break",
+   "label": "Gold Deposit"
+  },
+  {
+   "depends_on": "eval:(in_list([\"Gold Deposit\"], doc.deposit_type))",
+   "fieldname": "total_idr",
+   "fieldtype": "Float",
+   "label": "Total IDR"
+  },
+  {
+   "depends_on": "eval:(in_list([\"Gold Deposit\"], doc.deposit_type))",
+   "fieldname": "total_emas",
+   "fieldtype": "Float",
+   "label": "Total Emas"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:(in_list([\"Gold Deposit\"], doc.deposit_type))",
+   "fieldname": "sisa_idr",
+   "fieldtype": "Float",
+   "label": "Sisa IDR"
+  },
+  {
+   "depends_on": "eval:(in_list([\"Gold Deposit\"], doc.deposit_type))",
+   "fieldname": "sisa_emas",
+   "fieldtype": "Float",
+   "label": "Sisa Emas"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Deposit",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "idr_deposit_section",
+   "fieldtype": "Section Break",
+   "label": "IDR Deposit"
+  },
+  {
+   "depends_on": "eval:(in_list([\"IDR Deposit\"], doc.deposit_type))",
+   "fieldname": "idr_deposit",
+   "fieldtype": "Table",
+   "label": "IDR Deposit",
+   "options": "IDR Deposit"
+  },
+  {
+   "fieldname": "stock_deposit_section",
+   "fieldtype": "Section Break",
+   "label": "Stock Deposit"
+  },
+  {
+   "depends_on": "eval:(in_list([\"Stock Deposit\"], doc.deposit_type))",
+   "fieldname": "stock_deposit",
+   "fieldtype": "Table",
+   "label": "Stock Deposit",
+   "options": "Stock Deposit"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-08-23 09:49:15.461080",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Deposit",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

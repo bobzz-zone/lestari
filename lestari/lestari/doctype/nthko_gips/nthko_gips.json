@@ -1,0 +1,441 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:FHWO{YYYY}{MM}{#####}",
+ "creation": "2022-04-19 15:05:45.171417",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "created_date",
+  "work_order_id",
+  "status_tujuan",
+  "set_sprue",
+  "column_break_3",
+  "pohon_id",
+  "kadar",
+  "warehouse_tujuan",
+  "base_sprue_serial",
+  "detail_perencana_section",
+  "employee_id",
+  "column_break_10",
+  "nama",
+  "jabatan",
+  "detail_produksi_section",
+  "area",
+  "kepala_line",
+  "operator",
+  "total_batch",
+  "column_break_18",
+  "proses",
+  "no_line",
+  "no_mesin",
+  "no_batch",
+  "no_kotak",
+  "detail_pohon_section",
+  "tabel_detail",
+  "tabel_batu",
+  "tabel_cor",
+  "tabel_lebur",
+  "reparasi_section",
+  "produk_id",
+  "qty_bagus",
+  "add",
+  "vb1",
+  "batu_lepas",
+  "qty_keropos",
+  "batu_pecah",
+  "qty_rusak",
+  "reparasi_form",
+  "sb",
+  "tabel_potong",
+  "section_break_6",
+  "total_berat_base_karet",
+  "total_berat_batu",
+  "total_berat_ranting_pohon",
+  "total_jsetor",
+  "total_jok",
+  "total_jrep",
+  "total_jss",
+  "column_break_9",
+  "total_berat_lilin",
+  "total_berat_pohon_lilin",
+  "total_berat_batang_pohon",
+  "total_bsetor",
+  "total_bok",
+  "total_brep",
+  "total_bss",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "created_date",
+   "fieldtype": "Date",
+   "label": "Created Date"
+  },
+  {
+   "fieldname": "work_order_id",
+   "fieldtype": "Link",
+   "label": "Work Order ID",
+   "options": "Work Order Lilin"
+  },
+  {
+   "fieldname": "status_tujuan",
+   "fieldtype": "Data",
+   "label": "Status Tujuan"
+  },
+  {
+   "fieldname": "set_sprue",
+   "fieldtype": "Link",
+   "label": "Set Sprue",
+   "options": "Data Set Sprue"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pohon_id",
+   "fieldtype": "Link",
+   "label": "Pohon ID",
+   "options": "Data Pohon Lilin"
+  },
+  {
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "label": "Kadar",
+   "options": "Data Logam"
+  },
+  {
+   "fieldname": "warehouse_tujuan",
+   "fieldtype": "Data",
+   "label": "Warehouse Tujuan"
+  },
+  {
+   "fieldname": "base_sprue_serial",
+   "fieldtype": "Link",
+   "label": "Base Sprue Serial",
+   "options": "Serial No"
+  },
+  {
+   "fieldname": "detail_perencana_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Perencana"
+  },
+  {
+   "fieldname": "employee_id",
+   "fieldtype": "Link",
+   "label": "Employee ID",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "employee_id.employee_name",
+   "fieldname": "nama",
+   "fieldtype": "Data",
+   "label": "Nama"
+  },
+  {
+   "fetch_from": "employee_id.designation",
+   "fieldname": "jabatan",
+   "fieldtype": "Data",
+   "label": "Jabatan"
+  },
+  {
+   "fieldname": "detail_produksi_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Produksi"
+  },
+  {
+   "fieldname": "area",
+   "fieldtype": "Link",
+   "label": "Area",
+   "options": "Department"
+  },
+  {
+   "fieldname": "kepala_line",
+   "fieldtype": "Link",
+   "label": "Kepala Line",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "operator",
+   "fieldtype": "Data",
+   "label": "Operator"
+  },
+  {
+   "depends_on": "eval: doc.area == \"GCP - L\" && doc.proses == \"GCP - Gips\"",
+   "fieldname": "total_batch",
+   "fieldtype": "Int",
+   "label": "Total Batch"
+  },
+  {
+   "fieldname": "column_break_18",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "proses",
+   "fieldtype": "Link",
+   "label": "Proses",
+   "options": "Operation"
+  },
+  {
+   "fieldname": "no_line",
+   "fieldtype": "Data",
+   "label": "No Line"
+  },
+  {
+   "fieldname": "no_mesin",
+   "fieldtype": "Data",
+   "label": "No Mesin"
+  },
+  {
+   "depends_on": "eval: doc.area == \"GCP - L\" && doc.proses == \"GCP - Gips\"",
+   "fieldname": "no_batch",
+   "fieldtype": "Int",
+   "label": "No Batch"
+  },
+  {
+   "depends_on": "eval: doc.area == \"Lilin - L\" && doc.proses == \"Finish\"",
+   "fieldname": "no_kotak",
+   "fieldtype": "Int",
+   "label": "No Kotak"
+  },
+  {
+   "fieldname": "detail_pohon_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Pohon"
+  },
+  {
+   "depends_on": "eval: doc.area == \"Lilin - L\" && doc.proses == \"Finish\"",
+   "fieldname": "tabel_detail",
+   "fieldtype": "Table",
+   "label": "Tabel Detail",
+   "options": "Form Hasil Work Order Detail"
+  },
+  {
+   "depends_on": "eval: doc.area == \"Lilin - L\" && doc.proses == \"Finish\"",
+   "fieldname": "tabel_batu",
+   "fieldtype": "Table",
+   "label": "Tabel Batu",
+   "options": "Form Hasil Work Order Batu"
+  },
+  {
+   "depends_on": "eval: doc.area == \"GLC - L\" && doc.proses == \"GLC - Cor\"",
+   "fieldname": "tabel_cor",
+   "fieldtype": "Table",
+   "label": "Tabel Cor",
+   "options": "Form Hasil Work Order Cor"
+  },
+  {
+   "depends_on": "eval: doc.area == \"GLC - L\" && doc.proses == \"GLC - Lebur\"",
+   "fieldname": "tabel_lebur",
+   "fieldtype": "Table",
+   "label": "Tabel Lebur",
+   "options": "Form Hasil Work Order Lebur"
+  },
+  {
+   "depends_on": "eval: doc.area == \"GCP - L\" && doc.proses == \"GCP - Potong\"",
+   "fieldname": "reparasi_section",
+   "fieldtype": "Section Break",
+   "label": "Reparasi"
+  },
+  {
+   "fieldname": "produk_id",
+   "fieldtype": "Link",
+   "label": "Produk ID",
+   "options": "Item"
+  },
+  {
+   "fieldname": "qty_bagus",
+   "fieldtype": "Int",
+   "label": "Qty Bagus"
+  },
+  {
+   "fieldname": "add",
+   "fieldtype": "Button",
+   "label": "Add",
+   "options": "add_reparasi"
+  },
+  {
+   "fieldname": "vb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "batu_lepas",
+   "fieldtype": "Int",
+   "label": "Qty Jumlah Batu Lepas"
+  },
+  {
+   "fieldname": "qty_keropos",
+   "fieldtype": "Int",
+   "label": "Qty Batu Keropos"
+  },
+  {
+   "fieldname": "batu_pecah",
+   "fieldtype": "Int",
+   "label": "Qty Batu Pecah"
+  },
+  {
+   "fieldname": "qty_rusak",
+   "fieldtype": "Int",
+   "label": "Qty Rusak"
+  },
+  {
+   "depends_on": "eval: doc.area == \"GCP - L\" && doc.proses == \"GCP - Potong\"",
+   "fieldname": "reparasi_form",
+   "fieldtype": "HTML",
+   "hidden": 1,
+   "label": "Reparasi Form"
+  },
+  {
+   "depends_on": "eval: doc.area == \"GCP - L\" && doc.proses == \"GCP - Potong\"",
+   "fieldname": "sb",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "tabel_potong",
+   "fieldtype": "Table",
+   "label": "Tabel Potong",
+   "options": "Form Hasil Work Order Potong"
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "eval: doc.area == \"Lilin - L\" && doc.proses == \"Finish\"",
+   "fieldname": "total_berat_base_karet",
+   "fieldtype": "Float",
+   "label": "Total Berat Base Karet",
+   "precision": "0"
+  },
+  {
+   "depends_on": "eval: doc.area == \"Lilin - L\" && doc.proses == \"Finish\"",
+   "fieldname": "total_berat_batu",
+   "fieldtype": "Float",
+   "label": "Total Berat Batu",
+   "precision": "0"
+  },
+  {
+   "depends_on": "eval: doc.area == \"GLC - L\" && doc.proses == \"GLC - Potong\"",
+   "fieldname": "total_berat_ranting_pohon",
+   "fieldtype": "Float",
+   "label": "Total Berat Ranting Pohon"
+  },
+  {
+   "depends_on": "eval: doc.area == \"GLC - L\" && doc.proses == \"GLC - Cor\"",
+   "fieldname": "total_jsetor",
+   "fieldtype": "Float",
+   "label": "Total J.Setor",
+   "precision": "2"
+  },
+  {
+   "depends_on": "eval: doc.area == \"GLC - L\" && doc.proses == \"GLC - Cor\"",
+   "fieldname": "total_jok",
+   "fieldtype": "Float",
+   "label": "Total J.OK"
+  },
+  {
+   "depends_on": "eval: doc.area == \"GLC - L\" && doc.proses == \"GLC - Cor\"",
+   "fieldname": "total_jrep",
+   "fieldtype": "Float",
+   "label": "Total J.Rep",
+   "precision": "2"
+  },
+  {
+   "depends_on": "eval: doc.area == \"GLC - L\" && doc.proses == \"GLC - Cor\"",
+   "fieldname": "total_jss",
+   "fieldtype": "Float",
+   "label": "Total J.SS",
+   "precision": "2"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval: doc.area == \"Lilin - L\" && doc.proses == \"Finish\"",
+   "fieldname": "total_berat_lilin",
+   "fieldtype": "Float",
+   "label": "Total Berat Lilin",
+   "precision": "2"
+  },
+  {
+   "depends_on": "eval: doc.area == \"Lilin - L\" && doc.proses == \"Finish\"",
+   "fieldname": "total_berat_pohon_lilin",
+   "fieldtype": "Float",
+   "label": "Total Berat Pohon Lilin",
+   "precision": "2"
+  },
+  {
+   "depends_on": "eval: doc.area == \"GLC - L\" && doc.proses == \"GLC - Potong\"",
+   "fieldname": "total_berat_batang_pohon",
+   "fieldtype": "Float",
+   "label": "Total Berat Batang Pohon"
+  },
+  {
+   "depends_on": "eval: doc.area == \"GLC - L\" && doc.proses == \"GLC - Cor\"",
+   "fieldname": "total_bsetor",
+   "fieldtype": "Float",
+   "label": "Total B.Setor"
+  },
+  {
+   "depends_on": "eval: doc.area == \"GLC - L\" && doc.proses == \"GLC - Cor\"",
+   "fieldname": "total_bok",
+   "fieldtype": "Float",
+   "label": "Total B.OK"
+  },
+  {
+   "depends_on": "eval: doc.area == \"GLC - L\" && doc.proses == \"GLC - Cor\"",
+   "fieldname": "total_brep",
+   "fieldtype": "Float",
+   "label": "Total B.Rep"
+  },
+  {
+   "depends_on": "eval: doc.area == \"GLC - L\" && doc.proses == \"GLC - Cor\"",
+   "fieldname": "total_bss",
+   "fieldtype": "Float",
+   "label": "Total B.SS"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "NTHKO Gips",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-04-19 15:05:45.171417",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "NTHKO Gips",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

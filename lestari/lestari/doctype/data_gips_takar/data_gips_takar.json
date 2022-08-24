@@ -1,0 +1,89 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-03-07 10:48:56.066196",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "tabung_section",
+  "jenis_sprue",
+  "ukuran_base_sprue",
+  "ukuran_base_karet",
+  "column_break_3",
+  "qty",
+  "takaran_section",
+  "gips__gram_",
+  "column_break_7",
+  "air__cc_"
+ ],
+ "fields": [
+  {
+   "fieldname": "tabung_section",
+   "fieldtype": "Section Break",
+   "label": "Tabung"
+  },
+  {
+   "fieldname": "jenis_sprue",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Jenis Sprue",
+   "options": "Data Set Sprue",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Qty"
+  },
+  {
+   "fieldname": "takaran_section",
+   "fieldtype": "Section Break",
+   "label": "Takaran"
+  },
+  {
+   "fieldname": "gips__gram_",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Gips ( Gram )"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "air__cc_",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Air ( cc )"
+  },
+  {
+   "fieldname": "ukuran_base_sprue",
+   "fieldtype": "Link",
+   "label": "Ukuran Base Sprue",
+   "options": "Data Set Sprue"
+  },
+  {
+   "fieldname": "ukuran_base_karet",
+   "fieldtype": "Link",
+   "label": "Ukuran Base Karet",
+   "options": "Data Set Sprue"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-05-09 14:29:41.977568",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Data Gips Takar",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

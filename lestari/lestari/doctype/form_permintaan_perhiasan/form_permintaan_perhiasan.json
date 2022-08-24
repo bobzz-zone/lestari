@@ -1,0 +1,68 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-01-07 15:01:56.521879",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "created_by",
+  "created_date",
+  "created_time",
+  "tabel_perhiasan",
+  "tabel_kebutuhan"
+ ],
+ "fields": [
+  {
+   "fieldname": "created_by",
+   "fieldtype": "Link",
+   "label": "Created By",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "created_date",
+   "fieldtype": "Date",
+   "label": "Created Date"
+  },
+  {
+   "fieldname": "created_time",
+   "fieldtype": "Time",
+   "label": "Created Time"
+  },
+  {
+   "fieldname": "tabel_perhiasan",
+   "fieldtype": "Table",
+   "label": "Tabel Perhiasan",
+   "options": "Tabel Form Permintaan Perhiasan"
+  },
+  {
+   "fieldname": "tabel_kebutuhan",
+   "fieldtype": "Table",
+   "label": "Tabel Kebutuhan",
+   "options": "Tabel Form Permintaan Perhiasan Kebutuhan"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-01-20 15:00:48.889118",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Form Permintaan Perhiasan",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

@@ -1,0 +1,43 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-06-06 07:59:15.809084",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "mul_karet",
+  "hasil_inject",
+  "tipe_mule"
+ ],
+ "fields": [
+  {
+   "fieldname": "mul_karet",
+   "fieldtype": "Link",
+   "label": "Mul Karet",
+   "options": "Item"
+  },
+  {
+   "fieldname": "hasil_inject",
+   "fieldtype": "Int",
+   "label": "Hasil Inject"
+  },
+  {
+   "fieldname": "tipe_mule",
+   "fieldtype": "Select",
+   "label": "Tipe Mule",
+   "options": "\nKepala\nMainan\nKomponen"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-06-06 07:59:15.809084",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Item Generator Resep Lilin",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

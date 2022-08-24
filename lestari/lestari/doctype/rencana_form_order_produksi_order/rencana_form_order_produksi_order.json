@@ -1,0 +1,96 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-01-14 14:11:44.732412",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "no_order",
+  "type_order",
+  "product_id",
+  "deskripsi",
+  "jumlah_permintaan",
+  "isi_pohon",
+  "jumlah_pohon",
+  "berat_per_pcs",
+  "berat_total",
+  "keterangan"
+ ],
+ "fields": [
+  {
+   "fieldname": "no_order",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "No Order",
+   "reqd": 1
+  },
+  {
+   "fieldname": "product_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Product ID",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "deskripsi",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Deskripsi"
+  },
+  {
+   "fieldname": "jumlah_permintaan",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Jumlah Permintaan",
+   "reqd": 1
+  },
+  {
+   "fieldname": "isi_pohon",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Isi Pohon"
+  },
+  {
+   "fieldname": "jumlah_pohon",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Jumlah Pohon"
+  },
+  {
+   "fieldname": "berat_per_pcs",
+   "fieldtype": "Float",
+   "label": "Berat per pcs"
+  },
+  {
+   "fieldname": "berat_total",
+   "fieldtype": "Float",
+   "label": "Berat Total"
+  },
+  {
+   "fieldname": "keterangan",
+   "fieldtype": "Small Text",
+   "label": "Keterangan"
+  },
+  {
+   "fieldname": "type_order",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Type Order",
+   "options": "\nForecast Order\nSafety Stock Order\nCustomer Order",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-01-14 14:55:28.669224",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Rencana Form Order Produksi Order",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

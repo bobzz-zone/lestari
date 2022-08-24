@@ -1,0 +1,61 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-01-10 10:10:37.729522",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "product_id",
+  "mul_id",
+  "qty_mul",
+  "qty_realistis",
+  "qty_pohon"
+ ],
+ "fields": [
+  {
+   "fieldname": "product_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Product ID",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "mul_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Mul ID",
+   "options": "Resep Mul Karet"
+  },
+  {
+   "fieldname": "qty_mul",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Qty Mul"
+  },
+  {
+   "fieldname": "qty_realistis",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Qty Realistis"
+  },
+  {
+   "fieldname": "qty_pohon",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Qty Pohon"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-01-10 12:53:53.396769",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Tabel Form Permintaan Perhiasan Kebutuhan",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

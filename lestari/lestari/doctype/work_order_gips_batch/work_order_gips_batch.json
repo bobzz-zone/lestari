@@ -1,0 +1,103 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-03-15 10:40:05.868212",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "no_batch_gips",
+  "column_break_2",
+  "nomor_base_karet",
+  "detail_pohon_section",
+  "no_spk",
+  "kadar",
+  "column_break_7",
+  "ukuran_base_karet",
+  "berat_gips",
+  "column_break_5",
+  "vol_air",
+  "sub_total_berat"
+ ],
+ "fields": [
+  {
+   "fieldname": "detail_pohon_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Pohon"
+  },
+  {
+   "fieldname": "no_spk",
+   "fieldtype": "Data",
+   "label": "No SPK"
+  },
+  {
+   "columns": 1,
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Kadar",
+   "options": "Data Logam"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Section Break"
+  },
+  {
+   "columns": 1,
+   "fieldname": "berat_gips",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Berat Gips"
+  },
+  {
+   "columns": 1,
+   "fieldname": "vol_air",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Vol Air"
+  },
+  {
+   "fieldname": "sub_total_berat",
+   "fieldtype": "Float",
+   "label": "Sub Total Berat"
+  },
+  {
+   "fieldname": "no_batch_gips",
+   "fieldtype": "Int",
+   "label": "No Batch Gips"
+  },
+  {
+   "columns": 1,
+   "fieldname": "nomor_base_karet",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Nomor Base Karet",
+   "options": "Serial No"
+  },
+  {
+   "fieldname": "ukuran_base_karet",
+   "fieldtype": "Link",
+   "label": "Ukuran Base Karet",
+   "options": "Data Set Sprue"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-05-09 15:47:42.885695",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Work Order Gips Batch",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

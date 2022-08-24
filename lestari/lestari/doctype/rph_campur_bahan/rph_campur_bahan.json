@@ -1,0 +1,133 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:RPH{YYYY}{MM}{#####}",
+ "creation": "2022-08-05 10:06:09.704570",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_2",
+  "employee_id",
+  "column_break_4",
+  "nama",
+  "jabatan",
+  "filter_cbl_section",
+  "product_id",
+  "stock_level",
+  "get_data",
+  "column_break_17",
+  "detail_rph_section",
+  "tabel_cbl",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break",
+   "label": "Detail Perencana"
+  },
+  {
+   "fieldname": "employee_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Employee ID",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "employee_id.employee_name",
+   "fieldname": "nama",
+   "fieldtype": "Data",
+   "label": "Nama",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "employee_id.designation",
+   "fieldname": "jabatan",
+   "fieldtype": "Data",
+   "label": "Jabatan",
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "filter_cbl_section",
+   "fieldtype": "Section Break",
+   "label": "Filter CBL"
+  },
+  {
+   "fieldname": "product_id",
+   "fieldtype": "Link",
+   "label": "Product ID",
+   "options": "Item"
+  },
+  {
+   "fieldname": "stock_level",
+   "fieldtype": "HTML",
+   "label": "Stock Level",
+   "options": "<div class=\"progress\">\n  <div class=\"progress-bar\" role=\"progressbar\" style=\"width: 100%;\">\n    100%\n  </div>\n</div>"
+  },
+  {
+   "fieldname": "get_data",
+   "fieldtype": "Button",
+   "label": "Get Data"
+  },
+  {
+   "fieldname": "column_break_17",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "detail_rph_section",
+   "fieldtype": "Section Break",
+   "label": "Detail RPH"
+  },
+  {
+   "fieldname": "tabel_cbl",
+   "fieldtype": "Table",
+   "label": "Tabel Detail",
+   "options": "RPH Campur Bahan Detail"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "RPH Campur Bahan",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-08-05 10:06:09.704570",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "RPH Campur Bahan",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}

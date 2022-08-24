@@ -1,0 +1,97 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-04-25 11:26:47.820000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "no_spk",
+  "tanggal_pohonan",
+  "kadar",
+  "nomor_base_karet",
+  "ukuran_base_karet",
+  "column_break_5",
+  "pohon_id",
+  "ukuran",
+  "berat_lilin",
+  "berat_batu",
+  "berat_pohon"
+ ],
+ "fields": [
+  {
+   "fieldname": "no_spk",
+   "fieldtype": "Data",
+   "label": "No SPK"
+  },
+  {
+   "fieldname": "tanggal_pohonan",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Tanggal Pohonan",
+   "reqd": 1
+  },
+  {
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "label": "Kadar",
+   "options": "Data Logam"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pohon_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Pohon ID",
+   "options": "Data Pohon Lilin",
+   "reqd": 1
+  },
+  {
+   "default": "B7",
+   "fieldname": "ukuran",
+   "fieldtype": "Data",
+   "label": "Ukuran"
+  },
+  {
+   "fieldname": "berat_lilin",
+   "fieldtype": "Float",
+   "label": "Berat Lilin"
+  },
+  {
+   "fieldname": "berat_batu",
+   "fieldtype": "Float",
+   "label": "Berat Batu"
+  },
+  {
+   "fieldname": "berat_pohon",
+   "fieldtype": "Float",
+   "label": "Berat Pohon"
+  },
+  {
+   "fieldname": "ukuran_base_karet",
+   "fieldtype": "Link",
+   "label": "Ukuran Base Karet",
+   "options": "Data Set Sprue"
+  },
+  {
+   "fieldname": "nomor_base_karet",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Nomor Base Karet"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-04-27 09:45:47.239395",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "NTHKO Lilin Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

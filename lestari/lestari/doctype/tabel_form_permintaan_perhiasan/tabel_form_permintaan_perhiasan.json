@@ -1,0 +1,61 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-01-10 10:06:32.621478",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "product_id",
+  "mul_id",
+  "qty",
+  "request_date",
+  "due_date"
+ ],
+ "fields": [
+  {
+   "fieldname": "product_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Product ID",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "mul_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Mul ID",
+   "options": "Resep Mul Karet"
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Qty"
+  },
+  {
+   "fieldname": "request_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Request Date"
+  },
+  {
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Due Date"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-01-10 12:55:01.896976",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Tabel Form Permintaan Perhiasan",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
