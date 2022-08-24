@@ -23,7 +23,7 @@ frappe.ui.form.on('Gold Invoice', {
 		}
 	},
 	discount(frm){
-		frappe.model.set_value("grand_total",frm.doc.total-frm.doc.discount);
+		if(frm.total) {frappe.model.set_value("grand_total",frm.doc.total-frm.doc.discount);}
 	}
 });
 frappe.ui.form.on('Gold Invoice Item', {
@@ -36,7 +36,12 @@ frappe.ui.form.on('Gold Invoice Item', {
                 callback: function (r){
                     frappe.model.set_value(cdt, cdn,"rate",r.message.nilai);
                     frappe.model.set_value(cdt, cdn,"amount",parseFloat(r.message.nilai)*d.qty);
-                
+                	var total=0;
+				    $.each(frm.doc.items,  function(i,  g) {
+				    	total=total+g.amount;
+				    }
+				    frappe.model.set_value("total",total);
+				    frappe.model.set_value("grand_total",frm.doc.total-frm.doc.discount);
                 	}
                 });
 		
@@ -44,5 +49,11 @@ frappe.ui.form.on('Gold Invoice Item', {
 	qty(frm,cdt,cdn) {
 	    var d=locals[cdt][cdn];
 	    frappe.model.set_value(cdt, cdn,"amount",d.rate*d.qty);
+	    var total=0;
+	    $.each(frm.doc.items,  function(i,  g) {
+	    	total=total+g.amount;
+	    }
+	    frappe.model.set_value("total",total);
+	    frappe.model.set_value("grand_total",frm.doc.total-frm.doc.discount);
 	}
 });
