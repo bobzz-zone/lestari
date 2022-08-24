@@ -6,7 +6,13 @@ from frappe.utils import now_datetime
 from frappe.model.document import Document
 
 class GoldInvoice(Document):
-	pass
+	def validate(self):
+		#total items
+		total=0
+		for row in self.items:
+			total=total+row.amount
+		self.total=total
+		self.grand_total=self.total-self.discount
 @frappe.whitelist(allow_guest=True)
 def get_gold_rate(item_group,customer,customer_group):
 	#check if customer has special rates
