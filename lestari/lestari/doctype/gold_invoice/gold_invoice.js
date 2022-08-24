@@ -26,7 +26,7 @@ frappe.ui.form.on('Gold Invoice', {
 frappe.ui.form.on('Gold Invoice Item', {
 	item_group(frm,cdt,cdn) {
 		// your code here
-		d=locals[cdt][cdn]
+		d=locals[cdt][cdn];
 		frappe.call({
                 method: "lestari.lestari.doctype.gold_invoice.gold_invoice.get_gold_rate",
                 args:{"item_group":d.item_group,"customer":frm.doc.customer,"customer_group":frm.doc.customer_group}
@@ -34,7 +34,7 @@ frappe.ui.form.on('Gold Invoice Item', {
                     frappe.model.set_value(cdt, cdn,"rate",r.message.nilai);
                 
                 	}
-                })
+                });
 		
 	}
 });
