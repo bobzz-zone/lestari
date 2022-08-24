@@ -12,6 +12,8 @@ class GoldInvoice(Document):
 		for row in self.items:
 			total=total+row.amount
 		self.total=total
+		if not self.discount:
+			self.discount=0
 		self.grand_total=self.total-self.discount
 @frappe.whitelist(allow_guest=True)
 def get_gold_rate(item_group,customer,customer_group):
