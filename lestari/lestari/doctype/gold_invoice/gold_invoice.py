@@ -16,6 +16,8 @@ class GoldInvoice(Document):
 			self.discount=0
 		self.grand_total=self.total-self.discount
 	def on_submit(self):
+		if self.outstanding<=0:
+			frappe.throw("Error, Outstanding should not be less than zero")
 		for row in self.invoice_advance:
 			deposit=frappe.get_doc("Customer Deposit",row.customer_deposit)
 			if deposit.idr_left >=row.idr_allocated and deposit.gold_left >=row.gold_allocated:
