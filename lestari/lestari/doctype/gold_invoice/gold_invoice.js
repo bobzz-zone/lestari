@@ -23,13 +23,90 @@ frappe.ui.form.on('Gold Invoice', {
 		}
 	},
 	discount:function(frm){
-		if(frm.total) {frappe.model.set_value("grand_total",frm.doc.total-frm.doc.discount);}
+		if (!frm.doc.discount){
+	    	frm.doc.discount=0;
+	    }
+	    frm.doc.grand_total=frm.doc.total-frm.doc.discount;
+	    if (!frm.doc.total_advance){
+	    	frm.doc.total_advance=0;
+	    }
+	    frm.doc.outstanding=frm.doc.grand_total-frm.doc.total_advance;
+	    refresh_field("outstanding");
+	    refresh_field("grand_total");
+	},
+	tutupan:function(frm){
+		var total=0;
+		$.each(frm.doc.invoice_advance,  function(i,  g) {
+			var gold=0;
+			if (g.gold_allocated){
+				gold=g.gold_allocated;
+			}
+			var idr=0;
+			if (g.idr_allocated){
+				idr=g.idr_allocated/frm.doc.tutupan;
+			}
+			total=total+gold+idr;
+		});
+		frm.doc.total_advance=total;
+		frm.doc.outstanding=frm.doc.grand_total-frm.doc.total_advance;
+		refresh_field("outstanding");
+		refresh_field("total_advance");
+	}
+});
+
+frappe.ui.form.on('Gold Invoice Advance', {
+	idr_allocated:function(frm,cdt,cdn) {
+		var d=locals[cdt][cdn];
+		if (d.idr_allocated>d.idr_deposit){
+			frappe.model.set_value(cdt, cdn,"idr_allocated",0);
+			frappe.throw("Allocated cant be higher than deposit value");
+		}
+		var total=0;
+		$.each(frm.doc.invoice_advance,  function(i,  g) {
+			var gold=0;
+			if (g.gold_allocated){
+				gold=g.gold_allocated;
+			}
+			var idr=0;
+			if (g.idr_allocated){
+				idr=g.idr_allocated/frm.doc.tutupan;
+			}
+			total=total+gold+idr;
+		});
+		frm.doc.total_advance=total;
+		frm.doc.outstanding=frm.doc.grand_total-frm.doc.total_advance;
+		refresh_field("outstanding");
+		refresh_field("total_advance");
+	},
+	gold_allocated:function(frm,cdt,cdn) {
+		var d=locals[cdt][cdn];
+		if (d.gold_allocated>d.gold_deposit){
+			frappe.model.set_value(cdt, cdn,"gold_allocated",0);
+			frappe.throw("Allocated cant be higher than deposit value");
+		}
+		var total=0;
+		$.each(frm.doc.invoice_advance,  function(i,  g) {
+			var gold=0;
+			if (g.gold_allocated){
+				gold=g.gold_allocated;
+			}
+			var idr=0;
+			if (g.idr_allocated){
+				idr=g.idr_allocated/frm.doc.tutupan;
+			}
+			total=total+gold+idr;
+		});
+		frm.doc.total_advance=total;
+		frm.doc.outstanding=frm.doc.grand_total-frm.doc.total_advance;
+		refresh_field("outstanding");
+		refresh_field("total_advance");
 	}
 });
 frappe.ui.form.on('Gold Invoice Item', {
 	item_group:function(frm,cdt,cdn) {
 		// your code here
 		var d=locals[cdt][cdn];
+		if(!d.item_group){return;}
 		frappe.call({
                 method: "lestari.lestari.doctype.gold_invoice.gold_invoice.get_gold_rate",
                 args:{"item_group":d.item_group,"customer":frm.doc.customer,"customer_group":frm.doc.customer_group},
@@ -45,6 +122,12 @@ frappe.ui.form.on('Gold Invoice Item', {
 				    	frm.doc.discount=0;
 				    }
 				    frm.doc.grand_total=frm.doc.total-frm.doc.discount;
+				    if (!frm.doc.total_advance){
+				    	frm.doc.total_advance=0;
+				    }
+				    frm.doc.outstanding=frm.doc.grand_total-frm.doc.total_advance;
+				    refresh_field("outstanding");
+				    refresh_field("total_advance");
 				    refresh_field("total");
 				    refresh_field("discount");
 				    refresh_field("grand_total");
@@ -64,6 +147,12 @@ frappe.ui.form.on('Gold Invoice Item', {
 			frm.doc.discount=0;
 		}
 	    frm.doc.grand_total=frm.doc.total-frm.doc.discount;
+	    if (!frm.doc.total_advance){
+	    	frm.doc.total_advance=0;
+	    }
+	    frm.doc.outstanding=frm.doc.grand_total-frm.doc.total_advance;
+	    refresh_field("outstanding");
+	    refresh_field("total_advance");
 	    refresh_field("total");
 	    refresh_field("discount");
 	    refresh_field("grand_total");

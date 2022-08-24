@@ -28,6 +28,7 @@ frappe.ui.form.on('Stock Deposit', {
 	item_group:function(frm,cdt,cdn) {
 		// your code here
 		var d=locals[cdt][cdn];
+		if(!d.item_group){return;}
 		frappe.call({
                 method: "lestari.lestari.doctype.gold_invoice.gold_invoice.get_gold_purchase_rate",
                 args:{"item_group":d.item_group,"customer":frm.doc.customer,"customer_group":frm.doc.customer_group},
