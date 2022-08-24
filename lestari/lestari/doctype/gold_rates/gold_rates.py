@@ -7,7 +7,7 @@ from frappe.model.document import Document
 
 class GoldRates(Document):
 	pass
-@frappe.whitelist():
+@frappe.whitelist(allow_guest=True):
 def get_latest_rates():
 	#return frappe.db.sql("select nilai from `tabGold Rates` where date<='{}' order by date desc".format(now_datetime()),as_dict=True)[0]
 	return "select nilai from `tabGold Rates` where date<='{}' order by date desc"
