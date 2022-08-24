@@ -16,22 +16,26 @@
    "default": "0",
    "fieldname": "qty",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "Qty"
   },
   {
    "fieldname": "rate",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "Rate"
   },
   {
    "fieldname": "amount",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "Amount",
    "read_only": 1
   },
   {
    "fieldname": "item_group",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Item Group",
    "options": "Gold Stock Category"
   }
@@ -39,7 +43,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-08-25 02:03:55.852870",
+ "modified": "2022-08-25 02:37:26.621208",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Gold Invoice Item",

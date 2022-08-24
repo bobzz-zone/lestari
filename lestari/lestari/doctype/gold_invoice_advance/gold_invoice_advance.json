@@ -8,34 +8,28 @@
  "field_order": [
   "customer_deposit",
   "date",
-  "gold_deposit_section",
   "idr_deposit",
   "gold_deposit",
-  "gold_allocated",
-  "idr_allocated"
+  "idr_allocated",
+  "gold_allocated"
  ],
  "fields": [
   {
    "fieldname": "date",
    "fieldtype": "Date",
-   "in_list_view": 1,
    "label": "Date",
    "read_only": 1
   },
   {
-   "fieldname": "gold_deposit_section",
-   "fieldtype": "Section Break",
-   "label": "Gold Deposit"
-  },
-  {
    "fieldname": "customer_deposit",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Customer Deposit",
    "options": "Customer Deposit",
-   "read_only": 1,
    "reqd": 1
   },
   {
+   "fetch_from": "customer_deposit.idr_left",
    "fieldname": "idr_deposit",
    "fieldtype": "Currency",
    "in_list_view": 1,
@@ -43,6 +37,7 @@
    "read_only": 1
   },
   {
+   "fetch_from": "customer_deposit.gold_left",
    "fieldname": "gold_deposit",
    "fieldtype": "Float",
    "in_list_view": 1,
@@ -65,10 +60,10 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-08-25 01:49:58.286694",
+ "modified": "2022-08-25 02:38:35.724590",
  "modified_by": "Administrator",
  "module": "Lestari",
- "name": "Gold Deposit",
+ "name": "Gold Invoice Advance",
  "owner": "Administrator",
  "permissions": [],
  "sort_field": "modified",
