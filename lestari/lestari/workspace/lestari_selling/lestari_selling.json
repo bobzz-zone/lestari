@@ -26,7 +26,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Gold Deposit",
-   "link_to": "Gold Deposit",
+   "link_to": "Gold Invoice Advance",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -84,9 +84,18 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Gold Stock Category",
+   "link_to": "Gold Stock Category",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2022-08-25 00:24:51.994520",
+ "modified": "2022-08-25 02:33:26.740399",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Lestari Selling",
@@ -115,7 +124,7 @@
   {
    "doc_view": "List",
    "label": "Gold Deposit",
-   "link_to": "Gold Deposit",
+   "link_to": "Gold Invoice Advance",
    "type": "DocType"
   },
   {

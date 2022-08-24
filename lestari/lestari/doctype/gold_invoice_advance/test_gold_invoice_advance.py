@@ -4,5 +4,5 @@
 # import frappe
 import unittest
 
-class TestGoldDeposit(unittest.TestCase):
+class TestGoldInvoiceAdvance(unittest.TestCase):
 	pass
