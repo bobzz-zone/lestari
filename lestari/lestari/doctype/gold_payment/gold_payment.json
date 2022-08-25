@@ -9,52 +9,25 @@
  "field_order": [
   "naming_series",
   "customer",
-  "customer_has_bill_summary",
   "column_break_2",
   "date",
   "tutupan",
-  "column_break_5",
-  "payment_type",
-  "column_break_7",
-  "has_customer_payment_return",
-  "customer_payment_return",
-  "due_date",
-  "date_customer_payment_return",
-  "outstanding",
-  "payment",
-  "has_gold_invoice",
-  "gold_invoice",
-  "date_gold_invoice",
-  "due_date_gold_invoice",
-  "outstanding_gold_invoice",
-  "payment_gold_invoice",
   "stock_payment_section",
-  "qty",
-  "rate",
-  "column_break",
-  "gold_amount",
-  "total_payment_in_gold",
+  "stock_payment",
+  "total_gold_deposit",
   "idr_payment_section",
-  "amount",
-  "gold_value",
+  "idr_payment",
+  "total_idr_deposit",
   "additional_price_section",
+  "total_gold_payment",
   "bonus",
   "column_break_14",
   "diskon",
   "write_off_section",
   "write_off",
-  "amended_from",
-  "customer_bill_summary_section",
-  "customer_bill_summary"
+  "amended_from"
  ],
  "fields": [
-  {
-   "depends_on": "eval:doc.customer_has_bill_summary",
-   "fieldname": "customer_bill_summary",
-   "fieldtype": "Table",
-   "label": "Customer Bill Summary",
-   "options": "Customer Bill Summary"
-  },
   {
    "fieldname": "customer",
    "fieldtype": "Link",
@@ -74,19 +47,8 @@
   },
   {
    "fieldname": "tutupan",
-   "fieldtype": "Float",
+   "fieldtype": "Currency",
    "label": "Tutupan"
-  },
-  {
-   "fieldname": "column_break_7",
-   "fieldtype": "Column Break"
-  },
-  {
-   "bold": 1,
-   "depends_on": "eval:(in_list([\"Stock Payment\"], doc.payment_type))",
-   "fieldname": "total_payment_in_gold",
-   "fieldtype": "Float",
-   "label": "Total Payment"
   },
   {
    "fieldname": "write_off",
@@ -96,7 +58,7 @@
   {
    "fieldname": "additional_price_section",
    "fieldtype": "Section Break",
-   "label": "Additional Price"
+   "label": "Summary"
   },
   {
    "fieldname": "bonus",
@@ -127,20 +89,6 @@
    "read_only": 1
   },
   {
-   "bold": 1,
-   "fieldname": "payment_type",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "Payment Type",
-   "options": "IDR Payment\nStock Payment",
-   "print_hide": 1
-  },
-  {
-   "fieldname": "column_break_5",
-   "fieldtype": "Section Break"
-  },
-  {
    "fieldname": "column_break_14",
    "fieldtype": "Column Break"
   },
@@ -150,24 +98,6 @@
    "label": "Write Off"
   },
   {
-   "depends_on": "eval:(in_list([\"Stock Payment\"], doc.payment_type))",
-   "fieldname": "qty",
-   "fieldtype": "Float",
-   "label": "Quantity"
-  },
-  {
-   "depends_on": "eval:(in_list([\"Stock Payment\"], doc.payment_type))",
-   "fieldname": "rate",
-   "fieldtype": "Float",
-   "label": "Rate"
-  },
-  {
-   "depends_on": "eval:(in_list([\"Stock Payment\"], doc.payment_type))",
-   "fieldname": "gold_amount",
-   "fieldtype": "Float",
-   "label": "Gold Amount"
-  },
-  {
    "bold": 1,
    "depends_on": "eval:(in_list([\"IDR Payment\"], doc.payment_type))",
    "fieldname": "idr_payment_section",
@@ -175,107 +105,11 @@
    "label": "IDR Payment"
   },
   {
-   "depends_on": "eval:(in_list([\"IDR Payment\"], doc.payment_type))",
-   "fieldname": "amount",
-   "fieldtype": "Float",
-   "label": "Amount"
-  },
-  {
-   "depends_on": "eval:(in_list([\"IDR Payment\"], doc.payment_type))",
-   "fieldname": "gold_value",
-   "fieldtype": "Float",
-   "label": "Gold Value"
-  },
-  {
    "bold": 1,
    "depends_on": "eval:(in_list([\"Stock Payment\"], doc.payment_type))",
    "fieldname": "stock_payment_section",
    "fieldtype": "Section Break",
    "label": "Stock Payment"
-  },
-  {
-   "fieldname": "column_break",
-   "fieldtype": "Column Break"
-  },
-  {
-   "depends_on": "eval:doc.has_customer_payment_return",
-   "fieldname": "customer_payment_return",
-   "fieldtype": "Link",
-   "label": "Customer Payment Return",
-   "options": "Customer Payment Return"
-  },
-  {
-   "depends_on": "eval:doc.has_customer_payment_return",
-   "fetch_from": "customer_payment_return.due_date",
-   "fieldname": "due_date",
-   "fieldtype": "Date",
-   "label": "Due Date",
-   "options": "Due Date Customer Payment Return"
-  },
-  {
-   "depends_on": "eval:doc.has_customer_payment_return",
-   "fetch_from": "customer_payment_return.date",
-   "fieldname": "date_customer_payment_return",
-   "fieldtype": "Date",
-   "label": "Date",
-   "options": "Date Customer Payment Return"
-  },
-  {
-   "depends_on": "eval:doc.has_customer_payment_return",
-   "fieldname": "outstanding",
-   "fieldtype": "Float",
-   "label": "Outstanding"
-  },
-  {
-   "depends_on": "eval:doc.has_customer_payment_return",
-   "fieldname": "payment",
-   "fieldtype": "Float",
-   "label": "Payment"
-  },
-  {
-   "default": "0",
-   "fieldname": "has_customer_payment_return",
-   "fieldtype": "Check",
-   "label": "Has Customer Payment Return"
-  },
-  {
-   "default": "0",
-   "fieldname": "has_gold_invoice",
-   "fieldtype": "Check",
-   "label": "Has Gold Invoice"
-  },
-  {
-   "depends_on": "eval:doc.has_gold_invoice",
-   "fieldname": "gold_invoice",
-   "fieldtype": "Link",
-   "label": "Gold Invoice",
-   "options": "Gold Invoice"
-  },
-  {
-   "depends_on": "eval:doc.has_gold_invoice",
-   "fetch_from": "gold_invoice.posting_date",
-   "fieldname": "date_gold_invoice",
-   "fieldtype": "Date",
-   "label": "Date"
-  },
-  {
-   "depends_on": "eval:doc.has_gold_invoice",
-   "fetch_from": "gold_invoice.due_date",
-   "fieldname": "due_date_gold_invoice",
-   "fieldtype": "Date",
-   "label": "Due Date"
-  },
-  {
-   "depends_on": "eval:doc.has_gold_invoice",
-   "fieldname": "outstanding_gold_invoice",
-   "fieldtype": "Float",
-   "label": "Outstanding"
-  },
-  {
-   "depends_on": "eval:doc.has_gold_invoice",
-   "fieldname": "payment_gold_invoice",
-   "fieldtype": "Float",
-   "label": "Payment"
   },
   {
    "fieldname": "naming_series",
@@ -287,23 +121,37 @@
    "reqd": 1
   },
   {
-   "default": "0",
-   "fieldname": "customer_has_bill_summary",
-   "fieldtype": "Check",
-   "label": "Customer Has Bill Summary"
+   "fieldname": "stock_payment",
+   "fieldtype": "Table",
+   "label": "Stock Payment",
+   "options": "Stock Payment"
   },
   {
-   "bold": 1,
-   "depends_on": "eval:doc.customer_has_bill_summary",
-   "fieldname": "customer_bill_summary_section",
-   "fieldtype": "Section Break",
-   "label": "Customer Bill Summary"
+   "fieldname": "total_gold_deposit",
+   "fieldtype": "Data",
+   "label": "Total Gold Deposit"
+  },
+  {
+   "fieldname": "idr_payment",
+   "fieldtype": "Table",
+   "label": "IDR Payment",
+   "options": "IDR Payment"
+  },
+  {
+   "fieldname": "total_idr_deposit",
+   "fieldtype": "Currency",
+   "label": "Total IDR Deposit"
+  },
+  {
+   "fieldname": "total_gold_payment",
+   "fieldtype": "Float",
+   "label": "Total Gold Payment"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-08-24 17:07:59.663870",
+ "modified": "2022-08-25 10:22:35.052873",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Gold Payment",
