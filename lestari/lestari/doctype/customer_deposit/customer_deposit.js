@@ -12,7 +12,7 @@ frappe.ui.form.on('Customer Deposit', {
     		});
 	}
 });
-frappe.ui.form.on('IDR Deposit', {
+frappe.ui.form.on('IDR Payment', {
 	amount:function(frm,cdt,cdn) {
 		var total=0;
 		$.each(frm.doc.idr_deposit,  function(i,  g) {
@@ -24,7 +24,7 @@ frappe.ui.form.on('IDR Deposit', {
 		refresh_field("idr_left");
 	}
 });
-frappe.ui.form.on('Stock Deposit', {
+frappe.ui.form.on('Stock Payment', {
 	item_group:function(frm,cdt,cdn) {
 		// your code here
 		var d=locals[cdt][cdn];
