@@ -15,9 +15,23 @@
  ],
  "fields": [
   {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
    "fieldname": "date",
    "fieldtype": "Date",
    "label": "Date"
+  },
+  {
+   "fieldname": "invoice_list",
+   "fieldtype": "Table",
+   "label": "Invoice List",
+   "options": "Bill Summary Invoice"
   },
   {
    "fieldname": "grand_total",
@@ -32,28 +46,14 @@
    "options": "Customer Bill Summary",
    "print_hide": 1,
    "read_only": 1
-  },
-  {
-   "fieldname": "customer",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Customer",
-   "options": "Customer",
-   "reqd": 1
-  },
-  {
-   "fieldname": "invoice_list",
-   "fieldtype": "Table",
-   "label": "Invoice List",
-   "options": "Bill Summary Invoice"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-08-25 12:55:47.721653",
+ "modified": "2022-08-28 11:00:07.701459",
  "modified_by": "Administrator",
- "module": "Lestari",
+ "module": "Gold Selling",
  "name": "Customer Bill Summary",
  "owner": "Administrator",
  "permissions": [

@@ -1,52 +1,51 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2022-08-18 12:00:02.067937",
+ "creation": "2022-08-25 12:42:24.586158",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "item_group",
-  "qty",
-  "rate",
-  "amount"
+  "gold_invoice",
+  "date",
+  "total",
+  "outstanding"
  ],
  "fields": [
   {
-   "default": "0",
-   "fieldname": "qty",
-   "fieldtype": "Float",
-   "in_list_view": 1,
-   "label": "Bruto"
-  },
-  {
-   "fieldname": "rate",
-   "fieldtype": "Percent",
-   "in_list_view": 1,
-   "label": "Percent"
-  },
-  {
-   "fieldname": "amount",
-   "fieldtype": "Float",
-   "in_list_view": 1,
-   "label": "24K",
-   "read_only": 1
-  },
-  {
-   "fieldname": "item_group",
+   "fieldname": "gold_invoice",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Item Group",
-   "options": "Gold Stock Category"
+   "label": "Gold Invoice",
+   "options": "Gold Invoice",
+   "reqd": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total"
+  },
+  {
+   "fieldname": "outstanding",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Outstanding"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-08-25 11:02:37.069748",
+ "modified": "2022-08-25 12:42:24.586158",
  "modified_by": "Administrator",
  "module": "Lestari",
- "name": "Gold Invoice Item",
+ "name": "Bill Summary Invoice",
  "owner": "Administrator",
  "permissions": [],
  "sort_field": "modified",

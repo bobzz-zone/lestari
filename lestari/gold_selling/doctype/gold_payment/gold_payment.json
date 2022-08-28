@@ -31,6 +31,15 @@
  ],
  "fields": [
   {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Kode Seri",
+   "no_copy": 1,
+   "options": "GP-GOLD-.YYYY.-\nGP-STOCK-.YYYY.-",
+   "print_hide": 1,
+   "reqd": 1
+  },
+  {
    "fieldname": "customer",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -53,72 +62,21 @@
    "label": "Tutupan"
   },
   {
-   "fieldname": "write_off",
-   "fieldtype": "Float",
-   "label": "Write Off"
-  },
-  {
-   "fieldname": "additional_price_section",
+   "fieldname": "invoice_section",
    "fieldtype": "Section Break",
-   "label": "Summary"
+   "label": "Invoice List"
   },
   {
-   "fieldname": "bonus",
-   "fieldtype": "Float",
-   "label": "Bonus"
-  },
-  {
-   "fieldname": "diskon",
-   "fieldtype": "Float",
-   "label": "Diskon"
-  },
-  {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Gold Payment",
-   "print_hide": 1,
-   "read_only": 1
-  },
-  {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Gold Payment",
-   "print_hide": 1,
-   "read_only": 1
-  },
-  {
-   "fieldname": "column_break_14",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "write_off_section",
-   "fieldtype": "Section Break",
-   "label": "Write Off"
-  },
-  {
-   "bold": 1,
-   "fieldname": "idr_payment_section",
-   "fieldtype": "Section Break",
-   "label": "IDR Payment"
+   "fieldname": "invoice_table",
+   "fieldtype": "Table",
+   "label": "Gold Payment Invoice",
+   "options": "Gold Payment Invoice"
   },
   {
    "bold": 1,
    "fieldname": "stock_payment_section",
    "fieldtype": "Section Break",
    "label": "Stock Payment"
-  },
-  {
-   "fieldname": "naming_series",
-   "fieldtype": "Select",
-   "label": "Kode Seri",
-   "no_copy": 1,
-   "options": "GP-GOLD-.YYYY.-\nGP-STOCK-.YYYY.-",
-   "print_hide": 1,
-   "reqd": 1
   },
   {
    "fieldname": "stock_payment",
@@ -132,6 +90,12 @@
    "label": "Total Gold Deposit"
   },
   {
+   "bold": 1,
+   "fieldname": "idr_payment_section",
+   "fieldtype": "Section Break",
+   "label": "IDR Payment"
+  },
+  {
    "fieldname": "idr_payment",
    "fieldtype": "Table",
    "label": "IDR Payment",
@@ -143,28 +107,55 @@
    "label": "Total IDR Deposit"
   },
   {
+   "fieldname": "additional_price_section",
+   "fieldtype": "Section Break",
+   "label": "Summary"
+  },
+  {
    "fieldname": "total_gold_payment",
    "fieldtype": "Float",
    "label": "Total Gold Payment"
   },
   {
-   "fieldname": "invoice_section",
-   "fieldtype": "Section Break",
-   "label": "Invoice List"
+   "fieldname": "bonus",
+   "fieldtype": "Float",
+   "label": "Bonus"
   },
   {
-   "fieldname": "invoice_table",
-   "fieldtype": "Table",
-   "label": "Gold Payment Invoice",
-   "options": "Gold Payment Invoice"
+   "fieldname": "column_break_14",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "diskon",
+   "fieldtype": "Float",
+   "label": "Diskon"
+  },
+  {
+   "fieldname": "write_off_section",
+   "fieldtype": "Section Break",
+   "label": "Write Off"
+  },
+  {
+   "fieldname": "write_off",
+   "fieldtype": "Float",
+   "label": "Write Off"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Gold Payment",
+   "print_hide": 1,
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-08-25 11:37:28.154748",
+ "modified": "2022-08-28 11:00:08.091990",
  "modified_by": "Administrator",
- "module": "Lestari",
+ "module": "Gold Selling",
  "name": "Gold Payment",
  "owner": "Administrator",
  "permissions": [

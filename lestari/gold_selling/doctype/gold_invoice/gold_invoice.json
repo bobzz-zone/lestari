@@ -34,98 +34,6 @@
  ],
  "fields": [
   {
-   "fieldname": "customer",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Customer",
-   "options": "Customer",
-   "reqd": 1
-  },
-  {
-   "default": "Today",
-   "fieldname": "posting_date",
-   "fieldtype": "Date",
-   "label": "Posting Date"
-  },
-  {
-   "fieldname": "due_date",
-   "fieldtype": "Date",
-   "label": "Due Date"
-  },
-  {
-   "fieldname": "tutupan",
-   "fieldtype": "Float",
-   "label": "Tutupan"
-  },
-  {
-   "fieldname": "deadline_tutupan",
-   "fieldtype": "Date",
-   "label": "Deadline Tutupan"
-  },
-  {
-   "fieldname": "grand_total",
-   "fieldtype": "Float",
-   "label": "Grand Total",
-   "read_only": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "discount",
-   "fieldtype": "Float",
-   "label": "Discount"
-  },
-  {
-   "fieldname": "outstanding",
-   "fieldtype": "Float",
-   "label": "Outstanding",
-   "read_only": 1
-  },
-  {
-   "fieldname": "status",
-   "fieldtype": "Data",
-   "label": "Status",
-   "read_only": 1
-  },
-  {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Gold Invoice",
-   "print_hide": 1,
-   "read_only": 1
-  },
-  {
-   "depends_on": "eval:doc.customer",
-   "fieldname": "items",
-   "fieldtype": "Table",
-   "label": "Items",
-   "options": "Gold Invoice Item"
-  },
-  {
-   "fieldname": "column_break_2",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "tutupan_section",
-   "fieldtype": "Section Break",
-   "label": "Tutupan"
-  },
-  {
-   "fieldname": "column_break_10",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "items_section",
-   "fieldtype": "Section Break",
-   "label": "Items"
-  },
-  {
-   "fieldname": "gold_invoice_has_gold_deposit",
-   "fieldtype": "Section Break",
-   "label": "Invoice Advance"
-  },
-  {
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Kode Seri",
@@ -135,15 +43,18 @@
    "reqd": 1
   },
   {
-   "fieldname": "sb_bill",
-   "fieldtype": "Section Break",
-   "label": "Bills"
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
   },
   {
-   "fieldname": "total_advance",
-   "fieldtype": "Float",
-   "label": "Total Advances",
-   "read_only": 1
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name"
   },
   {
    "fetch_from": "customer.customer_group",
@@ -162,10 +73,90 @@
    "read_only": 1
   },
   {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "label": "Due Date"
+  },
+  {
+   "fieldname": "tutupan_section",
+   "fieldtype": "Section Break",
+   "label": "Tutupan"
+  },
+  {
+   "fieldname": "tutupan",
+   "fieldtype": "Float",
+   "label": "Tutupan"
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "deadline_tutupan",
+   "fieldtype": "Date",
+   "label": "Deadline Tutupan"
+  },
+  {
+   "fieldname": "items_section",
+   "fieldtype": "Section Break",
+   "label": "Items"
+  },
+  {
+   "depends_on": "eval:doc.customer",
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Gold Invoice Item"
+  },
+  {
+   "fieldname": "sb_bill",
+   "fieldtype": "Section Break",
+   "label": "Bills"
+  },
+  {
    "fieldname": "total",
    "fieldtype": "Float",
    "label": "Total",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "discount",
+   "fieldtype": "Float",
+   "label": "Discount"
+  },
+  {
+   "fieldname": "grand_total",
+   "fieldtype": "Float",
+   "label": "Grand Total",
+   "read_only": 1
+  },
+  {
+   "fieldname": "outstanding",
+   "fieldtype": "Float",
+   "label": "Outstanding",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "label": "Status",
+   "read_only": 1
+  },
+  {
+   "fieldname": "gold_invoice_has_gold_deposit",
+   "fieldtype": "Section Break",
+   "label": "Invoice Advance"
   },
   {
    "depends_on": "eval:doc.customer",
@@ -175,17 +166,26 @@
    "options": "Gold Invoice Advance"
   },
   {
-   "fetch_from": "customer.customer_name",
-   "fieldname": "customer_name",
-   "fieldtype": "Data",
-   "label": "Customer Name"
+   "fieldname": "total_advance",
+   "fieldtype": "Float",
+   "label": "Total Advances",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Gold Invoice",
+   "print_hide": 1,
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-08-25 11:31:11.751070",
+ "modified": "2022-08-28 11:00:07.078658",
  "modified_by": "Administrator",
- "module": "Lestari",
+ "module": "Gold Selling",
  "name": "Gold Invoice",
  "owner": "Administrator",
  "permissions": [

@@ -15,18 +15,18 @@
  ],
  "fields": [
   {
-   "fieldname": "date",
-   "fieldtype": "Date",
-   "label": "Date",
-   "read_only": 1
-  },
-  {
    "fieldname": "customer_deposit",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Customer Deposit",
    "options": "Customer Deposit",
    "reqd": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "read_only": 1
   },
   {
    "fetch_from": "customer_deposit.idr_left",
@@ -45,24 +45,24 @@
    "read_only": 1
   },
   {
-   "fieldname": "gold_allocated",
-   "fieldtype": "Float",
-   "in_list_view": 1,
-   "label": "24K Teralokasi"
-  },
-  {
    "fieldname": "idr_allocated",
    "fieldtype": "Currency",
    "in_list_view": 1,
    "label": "IDR Teralokasi"
+  },
+  {
+   "fieldname": "gold_allocated",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "24K Teralokasi"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-08-25 13:07:50.247739",
+ "modified": "2022-08-28 11:00:07.506757",
  "modified_by": "Administrator",
- "module": "Lestari",
+ "module": "Gold Selling",
  "name": "Gold Invoice Advance",
  "owner": "Administrator",
  "permissions": [],

@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2022-08-22 13:50:45.991982",
+ "creation": "2022-08-18 12:00:02.067937",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -13,36 +13,40 @@
  ],
  "fields": [
   {
+   "fieldname": "item_group",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Group",
+   "options": "Gold Stock Category"
+  },
+  {
+   "default": "0",
    "fieldname": "qty",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "Bruto"
   },
   {
    "fieldname": "rate",
-   "fieldtype": "Float",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
    "label": "Percent"
   },
   {
    "fieldname": "amount",
    "fieldtype": "Float",
-   "label": "24k"
-  },
-  {
-   "fieldname": "item_group",
-   "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Item Group",
-   "options": "Gold Stock Category",
-   "reqd": 1
+   "label": "24K",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-08-25 11:28:25.692928",
+ "modified": "2022-08-28 11:00:09.691231",
  "modified_by": "Administrator",
- "module": "Lestari",
- "name": "Stock Payment",
+ "module": "Gold Selling",
+ "name": "Gold Invoice Item",
  "owner": "Administrator",
  "permissions": [],
  "sort_field": "modified",

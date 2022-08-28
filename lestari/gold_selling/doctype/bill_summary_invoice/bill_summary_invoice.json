@@ -1,0 +1,53 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-08-25 12:42:24.586158",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "gold_invoice",
+  "date",
+  "total",
+  "outstanding"
+ ],
+ "fields": [
+  {
+   "fieldname": "gold_invoice",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Gold Invoice",
+   "options": "Gold Invoice",
+   "reqd": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total"
+  },
+  {
+   "fieldname": "outstanding",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Outstanding"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-08-28 11:00:07.910784",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Bill Summary Invoice",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
