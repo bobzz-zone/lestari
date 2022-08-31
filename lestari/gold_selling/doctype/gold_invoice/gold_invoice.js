@@ -86,13 +86,13 @@ frappe.ui.form.on('Gold Invoice Advance Gold', {
 	}
 });
 frappe.ui.form.on('Gold Invoice Item', {
-	item_group:function(frm,cdt,cdn) {
+	category:function(frm,cdt,cdn) {
 		// your code here
 		var d=locals[cdt][cdn];
-		if(!d.item_group){return;}
+		if(!d.category){return;}
 		frappe.call({
                 method: "lestari.gold_selling.doctype.gold_invoice.gold_invoice.get_gold_rate",
-                args:{"item_group":d.item_group,"customer":frm.doc.customer,"customer_group":frm.doc.customer_group},
+                args:{"category":d.category,"customer":frm.doc.customer,"customer_group":frm.doc.customer_group},
                 callback: function (r){
                     frappe.model.set_value(cdt, cdn,"rate",r.message.nilai);
                     frappe.model.set_value(cdt, cdn,"amount",parseFloat(r.message.nilai)*d.qty);
