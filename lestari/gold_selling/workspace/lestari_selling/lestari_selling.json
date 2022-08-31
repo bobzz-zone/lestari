@@ -26,7 +26,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Gold Deposit",
-   "link_to": "Gold Invoice Advance",
+   "link_to": "Gold Invoice Advance IDR",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -89,13 +89,22 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Gold Stock Category",
-   "link_to": "Gold Stock Category",
+   "link_to": "Gold Selling Item",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Gold Selling Settings",
+   "link_to": "Gold Selling Settings",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
   }
  ],
- "modified": "2022-08-30 10:26:59.560674",
+ "modified": "2022-08-31 23:49:29.289749",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Lestari Selling",
@@ -124,13 +133,7 @@
   {
    "doc_view": "List",
    "label": "Gold Deposit",
-   "link_to": "Gold Invoice Advance",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "List",
-   "label": "Customer Bill Summary",
-   "link_to": "Customer Bill Summary",
+   "link_to": "Gold Invoice Advance IDR",
    "type": "DocType"
   }
  ]
