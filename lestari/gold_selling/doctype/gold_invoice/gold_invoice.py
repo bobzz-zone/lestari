@@ -149,7 +149,7 @@ class GoldInvoice(Document):
 					self.name,
 				)
 
-		elif self.docstatus == 2 and cint(self.update_stock) and cint(auto_accounting_for_stock):
+		elif self.docstatus == 2 :
 			make_reverse_gl_entries(voucher_type=self.doctype, voucher_no=self.name)
 	def on_cancel(self):
 		#revert deposit balance
@@ -161,94 +161,26 @@ class GoldInvoice(Document):
 			deposit=frappe.get_doc("Customer Deposit",row.customer_deposit)
 			if deposit.gold_left >=row.gold_allocated:
 				frappe.db.sql("""update `tabCustomer Deposit` set  gold_left=gold_left + {} where name="{}" """.format(row.gold_allocated,row.customer_deposit),as_list=1)
-
-	def get_gl_dict(self, args, account_currency=None, item=None):
-		"""this method populates the common properties of a gl entry record"""
-
-		posting_date = args.get("posting_date") or self.get("posting_date")
-		fiscal_years = get_fiscal_years(posting_date, company=self.company)
-		if len(fiscal_years) > 1:
-			frappe.throw(
-				_("Multiple fiscal years exist for the date {0}. Please set company in Fiscal Year").format(
-					formatdate(posting_date)
-				)
-			)
-		else:
-			fiscal_year = fiscal_years[0][0]
-
-		gl_dict = frappe._dict(
-			{
-				"company": self.company,
-				"posting_date": posting_date,
-				"fiscal_year": fiscal_year,
-				"voucher_type": self.doctype,
-				"voucher_no": self.name,
-				"remarks": self.get("remarks") or self.get("remark"),
-				"debit": 0,
-				"credit": 0,
-				"debit_in_account_currency": 0,
-				"credit_in_account_currency": 0,
-				"is_opening": self.get("is_opening") or "No",
-				"party_type": None,
-				"party": None,
-				"project": self.get("project"),
-				"post_net_value": args.get("post_net_value"),
-			}
-		)
-
-		accounting_dimensions = get_accounting_dimensions()
-		dimension_dict = frappe._dict()
-
-		for dimension in accounting_dimensions:
-			dimension_dict[dimension] = self.get(dimension)
-			if item and item.get(dimension):
-				dimension_dict[dimension] = item.get(dimension)
-
-		gl_dict.update(dimension_dict)
-		gl_dict.update(args)
-
-		if not account_currency:
-			account_currency = get_account_currency(gl_dict.account)
-
-		if gl_dict.account and self.doctype not in [
-			"Journal Entry",
-			"Period Closing Voucher",
-			"Payment Entry",
-			"Purchase Receipt",
-			"Purchase Invoice",
-			"Stock Entry",
-		]:
-			self.validate_account_currency(gl_dict.account, account_currency)
-
-		if gl_dict.account and self.doctype not in [
-			"Journal Entry",
-			"Period Closing Voucher",
-			"Payment Entry",
-		]:
-			set_balance_in_account_currency(
-				gl_dict, account_currency, self.get("conversion_rate"), self.company_currency
-			)
-
-		return gl_dict
+		self.make_gl_entries()
+	
 @frappe.whitelist(allow_guest=True)
 def get_gold_rate(category,customer,customer_group):
 	#check if customer has special rates
-	customer_rate=frappe.db.sql("""select nilai_tukar from `tabCustomer Selling Rates` where customer="{}" and category="{}" and valid_from<="{}"  """.format(customer,category,now_datetime()),as_list=1)
+	customer_rate=frappe.db.sql("""select nilai_tukar from `tabCustomer Rates` where customer="{}" and category="{}" and valid_from<="{}" and type="Selling" """.format(customer,category,now_datetime()),as_list=1)
 	if customer_rate and customer_rate[0]:
 		return {"nilai":customer_rate[0][0]}
-	customer_group_rate=frappe.db.sql("""select nilai_tukar from `tabCustomer Group Selling Rates` where customer_group="{}" and category="{}" and valid_from<="{}"  """.format(customer_group,category,now_datetime()),as_list=1)
+	customer_group_rate=frappe.db.sql("""select nilai_tukar from `tabCustomer Group Rates` where customer_group="{}" and category="{}" and valid_from<="{}"  and type="Selling" """.format(customer_group,category,now_datetime()),as_list=1)
 	if customer_group_rate and customer_group_rate[0]:
 		return {"nilai":customer_group_rate[0][0]}
 	return {"nilai":0}
 
-#needupdate
 @frappe.whitelist(allow_guest=True)
-def get_gold_purchase_rate(item_group,customer,customer_group):
+def get_gold_purchase_rate(item,customer,customer_group):
 	#check if customer has special rates
-	customer_rate=frappe.db.sql("""select nilai_beli from `tabCustomer Rates` where customer="{}" and item_group="{}" and valid_from<="{}"  """.format(customer,item_group,now_datetime()),as_list=1)
+	customer_rate=frappe.db.sql("""select nilai_beli from `tabCustomer Rates` where customer="{}" and item="{}" and valid_from<="{}"  and type="Buying" """.format(customer,item,now_datetime()),as_list=1)
 	if customer_rate and customer_rate[0]:
 		return {"nilai":customer_rate[0][0]}
-	customer_group_rate=frappe.db.sql("""select nilai_beli from `tabCustomer Group Rates` where customer_group="{}" and item_group="{}" and valid_from<="{}"  """.format(customer_group,item_group,now_datetime()),as_list=1)
+	customer_group_rate=frappe.db.sql("""select nilai_beli from `tabCustomer Group Rates` where customer_group="{}" and item="{}" and valid_from<="{}" and type="Buying"  """.format(customer_group,item,now_datetime()),as_list=1)
 	if customer_group_rate and customer_group_rate[0]:
 		return {"nilai":customer_group_rate[0][0]}
 	return {"nilai":0}

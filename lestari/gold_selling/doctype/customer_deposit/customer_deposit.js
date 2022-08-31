@@ -21,6 +21,19 @@ frappe.ui.form.on('Customer Deposit', {
                 	}
                 })
 		}
+		if(frm.doc.docstatus > 0) {
+			cur_frm.add_custom_button(__('Accounting Ledger'), function() {
+				frappe.route_options = {
+					voucher_no: frm.doc.name,
+					from_date: frm.doc.posting_date,
+					to_date: moment(frm.doc.modified).format('YYYY-MM-DD'),
+					company: frm.doc.company,
+					group_by: "Group by Voucher (Consolidated)",
+					show_cancelled_entries: frm.doc.docstatus === 2
+				};
+				frappe.set_route("query-report", "General Ledger");
+			}, __("View"));
+		}
 	}
 });
 frappe.ui.form.on('IDR Payment', {
@@ -41,11 +54,11 @@ frappe.ui.form.on('Stock Payment', {
 		var d=locals[cdt][cdn];
 		if(!d.item_group){return;}
 		frappe.call({
-                method: "lestari.lestari.doctype.gold_invoice.gold_invoice.get_gold_purchase_rate",
-                args:{"item_group":d.item_group,"customer":frm.doc.customer,"customer_group":frm.doc.customer_group},
+                method: "lestari.gold_selling.doctype.gold_invoice.gold_invoice.get_gold_purchase_rate",
+                args:{"item":d.item,"customer":frm.doc.customer,"customer_group":frm.doc.customer_group},
                 callback: function (r){
                     frappe.model.set_value(cdt, cdn,"rate",r.message.nilai);
-                    frappe.model.set_value(cdt, cdn,"amount",parseFloat(r.message.nilai)*d.qty);
+                    frappe.model.set_value(cdt, cdn,"amount",parseFloat(r.message.nilai)*d.qty/100);
                 	var total=0;
 				    $.each(frm.doc.stock_deposit,  function(i,  g) {
 				    	total=total+g.amount;
@@ -60,7 +73,7 @@ frappe.ui.form.on('Stock Payment', {
 	},
 	qty:function(frm,cdt,cdn) {
 	    var d=locals[cdt][cdn];
-	    frappe.model.set_value(cdt, cdn,"amount",d.rate*d.qty);
+	    frappe.model.set_value(cdt, cdn,"amount",d.rate*d.qty/100);
 	    var total=0;
 		$.each(frm.doc.stock_deposit,  function(i,  g) {
 		   	total=total+g.amount;
