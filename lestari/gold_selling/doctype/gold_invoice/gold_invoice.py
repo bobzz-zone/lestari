@@ -157,15 +157,17 @@ class GoldInvoice(Document):
 			if deposit.gold_left >=row.gold_allocated:
 				frappe.db.sql("""update `tabCustomer Deposit` set  gold_left=gold_left + {} where name="{}" """.format(row.gold_allocated,row.customer_deposit),as_list=1)
 @frappe.whitelist(allow_guest=True)
-def get_gold_rate(item_group,customer,customer_group):
+def get_gold_rate(category,customer,customer_group):
 	#check if customer has special rates
-	customer_rate=frappe.db.sql("""select nilai_tukar from `tabCustomer Rates` where customer="{}" and item_group="{}" and valid_from<="{}"  """.format(customer,item_group,now_datetime()),as_list=1)
+	customer_rate=frappe.db.sql("""select nilai_tukar from `tabCustomer Selling Rates` where customer="{}" and category="{}" and valid_from<="{}"  """.format(customer,category,now_datetime()),as_list=1)
 	if customer_rate and customer_rate[0]:
 		return {"nilai":customer_rate[0][0]}
-	customer_group_rate=frappe.db.sql("""select nilai_tukar from `tabCustomer Group Rates` where customer_group="{}" and item_group="{}" and valid_from<="{}"  """.format(customer_group,item_group,now_datetime()),as_list=1)
+	customer_group_rate=frappe.db.sql("""select nilai_tukar from `tabCustomer Group Selling Rates` where customer_group="{}" and category="{}" and valid_from<="{}"  """.format(customer_group,category,now_datetime()),as_list=1)
 	if customer_group_rate and customer_group_rate[0]:
 		return {"nilai":customer_group_rate[0][0]}
 	return {"nilai":0}
+
+#needupdate
 @frappe.whitelist(allow_guest=True)
 def get_gold_purchase_rate(item_group,customer,customer_group):
 	#check if customer has special rates
