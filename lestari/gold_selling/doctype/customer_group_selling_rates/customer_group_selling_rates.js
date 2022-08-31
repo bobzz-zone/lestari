@@ -1,7 +1,7 @@
 // Copyright (c) 2022, DAS and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on('Customer Rates', {
+frappe.ui.form.on('Customer Group Selling Rates', {
 	// refresh: function(frm) {
 
 	// }

@@ -1,48 +1,32 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:GR-{customer}-{item_group}-{####}",
- "creation": "2022-08-24 23:38:42.142872",
+ "autoname": "format:GR-{customer_group}-{item_group}-{####}",
+ "creation": "2022-08-24 23:38:17.325313",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "customer",
-  "item_group",
+  "customer_group",
+  "category",
   "nilai_tukar",
-  "nilai_beli",
   "valid_from"
  ],
  "fields": [
   {
-   "fieldname": "customer",
+   "fieldname": "customer_group",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Customer",
-   "options": "Customer",
-   "reqd": 1
-  },
-  {
-   "fieldname": "item_group",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Item Group",
-   "options": "Gold Selling Item",
+   "label": "Customer Group",
+   "options": "Customer Group",
    "reqd": 1
   },
   {
    "default": "0",
    "fieldname": "nilai_tukar",
-   "fieldtype": "Float",
+   "fieldtype": "Percent",
    "in_list_view": 1,
    "label": "Nilai Jual",
-   "reqd": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "nilai_beli",
-   "fieldtype": "Float",
-   "label": "Nilai Beli",
    "reqd": 1
   },
   {
@@ -50,14 +34,22 @@
    "fieldname": "valid_from",
    "fieldtype": "Date",
    "label": "Valid From"
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Category",
+   "options": "Gold Selling Item",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-08-31 13:53:30.603270",
+ "modified": "2022-08-31 23:58:21.190421",
  "modified_by": "Administrator",
  "module": "Gold Selling",
- "name": "Customer Rates",
+ "name": "Customer Group Selling Rates",
  "owner": "Administrator",
  "permissions": [
   {

@@ -7,7 +7,9 @@
  "engine": "InnoDB",
  "field_order": [
   "piutang_gold",
-  "piutang_idr"
+  "piutang_idr",
+  "selisih_kurs",
+  "cost_center"
  ],
  "fields": [
   {
@@ -25,12 +27,26 @@
    "label": "Piutang IDR",
    "options": "Account",
    "reqd": 1
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center",
+   "reqd": 1
+  },
+  {
+   "fieldname": "selisih_kurs",
+   "fieldtype": "Link",
+   "label": "Selisih Kurs",
+   "options": "Account",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-08-31 22:18:37.615029",
+ "modified": "2022-08-31 23:36:21.385657",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling Settings",
