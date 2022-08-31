@@ -15,7 +15,7 @@ class RPHLilin(Document):
 		for row in sumber_doc.tabel_detail:
 			for col in range(row.jumlah_pohon):
 				target_doc = frappe.new_doc("Data Pohon Lilin")
-				# target_doc.area = sumber_doc.area
+				target_doc.warehouse = "Lilin - L"
 				# target_doc.proses = sumber_doc.proses
 				target_doc.kadar = row.kadar
 				# sumber_resep = frappe.db.get_list("Resep Mul Karet", filters={"final_product":row.produk})		

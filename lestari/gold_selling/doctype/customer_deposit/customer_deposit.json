@@ -11,6 +11,7 @@
   "customer",
   "customer_group",
   "territory",
+  "deposit_type",
   "column_break_2",
   "date",
   "column_break_4",
@@ -74,6 +75,7 @@
    "fieldtype": "Section Break"
   },
   {
+   "depends_on": "eval:doc.deposit_type==\"IDR\"",
    "fieldname": "idr_deposit_section",
    "fieldtype": "Section Break",
    "label": "IDR Deposit"
@@ -98,6 +100,7 @@
    "read_only": 1
   },
   {
+   "depends_on": "eval:doc.deposit_type==\"Emas\"",
    "fieldname": "stock_deposit_section",
    "fieldtype": "Section Break",
    "label": "Stock Deposit"
@@ -129,11 +132,18 @@
    "options": "Customer Deposit",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "deposit_type",
+   "fieldtype": "Select",
+   "label": "Deposit Type",
+   "options": "\nEmas\nIDR",
+   "reqd": 1
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-08-28 11:00:09.040063",
+ "modified": "2022-08-31 08:39:52.608858",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Deposit",

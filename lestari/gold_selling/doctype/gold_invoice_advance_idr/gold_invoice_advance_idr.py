@@ -4,5 +4,5 @@
 # import frappe
 from frappe.model.document import Document
 
-class GoldInvoiceAdvance(Document):
+class GoldInvoiceAdvanceIDR(Document):
 	pass

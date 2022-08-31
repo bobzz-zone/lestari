@@ -33,6 +33,7 @@ frappe.ui.form.on("SPK Produksi", {
         delivery_date: undefined,
         currency: frm.doc.currency || undefined,
       },
+      size: "extra-large",
       get_query_filters: {
         docstatus: 1,
         status: ["not in", ["Closed", "On Hold"]],

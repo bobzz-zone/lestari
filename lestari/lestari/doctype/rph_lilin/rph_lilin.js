@@ -21,6 +21,7 @@ frappe.ui.form.on("RPH Lilin", {
         // kadar: frm.doc.kadar || undefined,
         // produk_id: frm.doc.produk_id || undefined,
       },
+      size: "extra-large",
       get_query_filters: {
         docstatus: 1,
         // status: ["not in", ["Cancel"]],
@@ -28,7 +29,7 @@ frappe.ui.form.on("RPH Lilin", {
       },
       allow_child_item_selection: true,
       child_fielname: "tabel_rencana_produksi",
-      child_columns: ["produk_id", "qty", "kategori", "sub_kategori", "kadar"],
+      child_columns: ["produk_id", "kategori", "sub_kategori", "kadar", "qty"],
     });
   },
 });
