@@ -42,7 +42,7 @@ frappe.ui.form.on('Stock Payment', {
 		if(!d.item_group){return;}
 		frappe.call({
                 method: "lestari.lestari.doctype.gold_invoice.gold_invoice.get_gold_purchase_rate",
-                args:{"item_group":d.category,"customer":frm.doc.customer,"customer_group":frm.doc.customer_group},
+                args:{"category":d.category,"customer":frm.doc.customer,"customer_group":frm.doc.customer_group},
                 callback: function (r){
                     frappe.model.set_value(cdt, cdn,"rate",r.message.nilai);
                     frappe.model.set_value(cdt, cdn,"amount",parseFloat(r.message.nilai)*d.qty);
