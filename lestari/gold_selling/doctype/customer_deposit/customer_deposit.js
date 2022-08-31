@@ -3,10 +3,10 @@
 
 frappe.ui.form.on('Customer Deposit', {
 	refresh: function(frm) {
-		frm.set_query("item_group","stock_deposit", function(doc, cdt, cdn) {
+		frm.set_query("item","stock_deposit", function(doc, cdt, cdn) {
     			return {
     				"filters": {
-    					"is_purchase":1
+    					"available_for_stock_payment":1
     				}
     			};
     		});
@@ -25,7 +25,7 @@ frappe.ui.form.on('IDR Payment', {
 	}
 });
 frappe.ui.form.on('Stock Payment', {
-	item_group:function(frm,cdt,cdn) {
+	item:function(frm,cdt,cdn) {
 		// your code here
 		var d=locals[cdt][cdn];
 		if(!d.item_group){return;}
