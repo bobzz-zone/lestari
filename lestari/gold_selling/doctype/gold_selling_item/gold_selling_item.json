@@ -9,7 +9,8 @@
  "field_order": [
   "category",
   "kadar",
-  "item_group"
+  "item_group",
+  "income_account"
  ],
  "fields": [
   {
@@ -32,11 +33,18 @@
    "fieldtype": "Link",
    "label": "Item Group",
    "options": "Item Group"
+  },
+  {
+   "fieldname": "income_account",
+   "fieldtype": "Link",
+   "label": "Income Account",
+   "options": "Account",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-08-31 13:53:12.043478",
+ "modified": "2022-08-31 22:10:50.223070",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling Item",

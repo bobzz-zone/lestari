@@ -8,6 +8,7 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
+  "company",
   "customer",
   "customer_name",
   "customer_group",
@@ -32,8 +33,6 @@
   "gold_invoice_advance",
   "total_gold",
   "total_advance",
-  "accounting_sec",
-  "piutang",
   "amended_from"
  ],
  "fields": [
@@ -196,20 +195,15 @@
    "label": "Total Gold Payment"
   },
   {
-   "fieldname": "accounting_sec",
-   "fieldtype": "Section Break",
-   "label": "Accounting"
-  },
-  {
-   "fieldname": "piutang",
+   "fieldname": "company",
    "fieldtype": "Link",
-   "label": "Piutang",
-   "options": "Account"
+   "label": "Company",
+   "options": "Company"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-08-31 21:55:53.030336",
+ "modified": "2022-08-31 22:18:56.572344",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",

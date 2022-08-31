@@ -12,9 +12,13 @@
   "customer_group",
   "territory",
   "deposit_type",
+  "is_convert",
   "column_break_2",
   "date",
   "column_break_4",
+  "tutupan",
+  "sisa_idr_deposit",
+  "customer_deposit_source",
   "idr_deposit_section",
   "idr_deposit",
   "total_idr_deposit",
@@ -71,8 +75,10 @@
    "label": "Date"
   },
   {
+   "depends_on": "is_convert",
    "fieldname": "column_break_4",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "label": "Conversion"
   },
   {
    "depends_on": "eval:doc.deposit_type==\"IDR\"",
@@ -109,7 +115,8 @@
    "fieldname": "stock_deposit",
    "fieldtype": "Table",
    "label": "Stock Deposit",
-   "options": "Stock Payment"
+   "options": "Stock Payment",
+   "read_only_depends_on": "is_convert"
   },
   {
    "fieldname": "total_gold_deposit",
@@ -139,11 +146,40 @@
    "label": "Deposit Type",
    "options": "\nEmas\nIDR",
    "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_convert",
+   "fieldtype": "Check",
+   "label": "Is Convert"
+  },
+  {
+   "depends_on": "is_convert",
+   "fieldname": "tutupan",
+   "fieldtype": "Currency",
+   "label": "Nilai Tutupan",
+   "mandatory_depends_on": "is_convert"
+  },
+  {
+   "depends_on": "is_convert",
+   "fetch_from": "customer_deposit_source.idr_left",
+   "fieldname": "sisa_idr_deposit",
+   "fieldtype": "Currency",
+   "label": "Sisa Deposit IDR",
+   "mandatory_depends_on": "is_convert"
+  },
+  {
+   "depends_on": "is_convert",
+   "fieldname": "customer_deposit_source",
+   "fieldtype": "Link",
+   "label": "Customer Deposit Source",
+   "mandatory_depends_on": "is_convert",
+   "options": "Customer Deposit"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-08-31 08:39:52.608858",
+ "modified": "2022-08-31 22:26:12.185342",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Deposit",
