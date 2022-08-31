@@ -32,10 +32,10 @@ class GoldInvoice(Document):
 		selisih_kurs = frappe.db.get_single_value('Gold Selling Settings', 'selisih_kurs')
 		piutang_idr = frappe.db.get_single_value('Gold Selling Settings', 'piutang_idr')
 		cost_center = frappe.db.get_single_value('Gold Selling Settings', 'cost_center')
-		gl_entries={}
+		gl={}
 		fiscal_years = get_fiscal_years(self.posting_date, company=self.company)[0][0]
 		#1 untuk GL untuk piutang Gold
-		gl_entries[piutang_gold]=frappe._dict({
+		gl[piutang_gold]={
 									"posting_date":self.posting_date,
 									"account":piutang_gold,
 									"party_type":"Customer",
@@ -55,14 +55,14 @@ class GoldInvoice(Document):
 									"fiscal_year":fiscal_years,
 									"company":self.company,
 									"is_cancelled":0
-									})
+									}
 		#2 untuk GL untuk penjualan IDR
 		for row in self.items:
-			if row.income_account in gl_entries:
-				gl_entries[row.income_account]['credit']=gl_entries[row.income_account]['credit']+(row.amount*self.tutupan)
-				gl_entries[row.income_account]['credit_in_account_currency']=gl_entries[row.income_account]['credit']
+			if row.income_account in gl:
+				gl[row.income_account]['credit']=gl[row.income_account]['credit']+(row.amount*self.tutupan)
+				gl[row.income_account]['credit_in_account_currency']=gl[row.income_account]['credit']
 			else:
-				gl_entries[row.income_account]=frappe._dict({
+				gl[row.income_account]={
 									"posting_date":self.posting_date,
 									"account":row.income_account,
 									"party_type":"",
@@ -82,7 +82,7 @@ class GoldInvoice(Document):
 									"fiscal_year":fiscal_years,
 									"company":self.company,
 									"is_cancelled":0
-									})
+									}
 		#GL For Advance
 		nilai_selisih_kurs=0
 		for row in self.gold_invoice_advance:
@@ -95,7 +95,7 @@ class GoldInvoice(Document):
 				dsk=nilai_selisih_kurs
 			else:
 				csk=nilai_selisih_kurs
-			gl_entries[selisih_kurs]=frappe._dict({
+			gl[selisih_kurs]={
 									"posting_date":self.posting_date,
 									"account":selisih_kurs,
 									"party_type":"",
@@ -115,7 +115,10 @@ class GoldInvoice(Document):
 									"fiscal_year":fiscal_years,
 									"company":self.company,
 									"is_cancelled":0
-									})
+									}
+		gl_entries=[]
+		for row in gl:
+			gl_entries.append(frappe._dict(row))
 		gl_entries = merge_similar_entries(gl_entries)
 		return gl_entries
 	def make_gl_entries(self, gl_entries=None, from_repost=False):
