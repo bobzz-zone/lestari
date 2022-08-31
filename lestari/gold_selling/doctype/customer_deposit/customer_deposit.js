@@ -9,7 +9,18 @@ frappe.ui.form.on('Customer Deposit', {
     					"available_for_stock_payment":1
     				}
     			};
+
     		});
+		if(!frm.doc.tutupan){
+		    frappe.call({
+                method: "lestari.gold_selling.doctype.gold_rates.gold_rates.get_latest_rates",
+                callback: function (r){
+                    frm.doc.tutupan=r.message.nilai;
+                    refresh_field("tutupan")
+                
+                	}
+                })
+		}
 	}
 });
 frappe.ui.form.on('IDR Payment', {

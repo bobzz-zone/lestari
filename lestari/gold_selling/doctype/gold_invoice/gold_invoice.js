@@ -42,7 +42,6 @@ frappe.ui.form.on('Gold Invoice', {
 		refresh_field("total_advance");
 	}
 });
-
 frappe.ui.form.on('Gold Invoice Advance IDR', {
 	idr_allocated:function(frm,cdt,cdn) {
 		var d=locals[cdt][cdn];
