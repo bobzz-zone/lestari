@@ -72,7 +72,7 @@ frappe.ui.form.on('Gold Invoice Advance Gold', {
 			frappe.throw("Allocated cant be higher than deposit value");
 		}
 		var gold=0;
-		$.each(frm.doc.invoice_advance_gold,  function(i,  g) {
+		$.each(frm.doc.gold_invoice_advance,  function(i,  g) {
 			if (g.gold_allocated){
 				gold=g.gold_allocated;
 			}

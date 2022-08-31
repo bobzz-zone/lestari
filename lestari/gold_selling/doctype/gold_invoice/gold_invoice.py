@@ -18,7 +18,7 @@ class GoldInvoice(Document):
 			deposit=frappe.get_doc("Customer Deposit",row.customer_deposit)
 			if deposit.idr_left >=row.idr_allocated:
 				frappe.db.sql("""update `tabCustomer Deposit` set idr_left={} where name="{}" """.format(deposit.idr_left -row.idr_allocated,row.customer_deposit),as_list=1)
-		for row in self.invoice_advance_gold:
+		for row in self.gold_invoice_advance:
 			deposit=frappe.get_doc("Customer Deposit",row.customer_deposit)
 			if deposit.gold_left >=row.gold_allocated:
 				frappe.db.sql("""update `tabCustomer Deposit` set  gold_left={} where name="{}" """.format(deposit.gold_left -row.gold_allocated,row.customer_deposit),as_list=1)
@@ -83,7 +83,7 @@ class GoldInvoice(Document):
 									}
 		#GL For Advance
 		nilai_selisih_kurs=0
-		for row in self.invoice_advance_gold:
+		for row in self.gold_invoice_advance:
 			nilai_selisih_kurs=nilai_selisih_kurs+(row.gold_allocated*(self.tutupan-row.tutupan))
 		#lebih dr 0 itu debit
 		if nilai_selisih_kurs!=0:
@@ -152,7 +152,7 @@ class GoldInvoice(Document):
 			deposit=frappe.get_doc("Customer Deposit",row.customer_deposit)
 			if deposit.idr_left >=row.idr_allocated:
 				frappe.db.sql("""update `tabCustomer Deposit` set idr_left=idr_left + {} where name="{}" """.format(row.idr_allocated,row.customer_deposit),as_list=1)
-		for row in self.invoice_advance_gold:
+		for row in self.gold_invoice_advance:
 			deposit=frappe.get_doc("Customer Deposit",row.customer_deposit)
 			if deposit.gold_left >=row.gold_allocated:
 				frappe.db.sql("""update `tabCustomer Deposit` set  gold_left=gold_left + {} where name="{}" """.format(row.gold_allocated,row.customer_deposit),as_list=1)
