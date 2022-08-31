@@ -62,7 +62,7 @@ class GoldInvoice(Document):
 			else:
 				gl_entries[row.income_account]={
 									"posting_date":self.posting_date,
-									"account":piutang_gold,
+									"account":row.income_account,
 									"party_type":"",
 									"party":"",
 									"cost_center":cost_center,
