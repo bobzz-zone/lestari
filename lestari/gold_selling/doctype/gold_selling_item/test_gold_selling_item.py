@@ -4,5 +4,5 @@
 # import frappe
 import unittest
 
-class TestGoldStockCategory(unittest.TestCase):
+class TestGoldSellingItem(unittest.TestCase):
 	pass

@@ -28,8 +28,12 @@
   "status",
   "gold_invoice_has_gold_deposit",
   "invoice_advance",
+  "total_idr_in_gold",
   "gold_invoice_advance",
+  "total_gold",
   "total_advance",
+  "accounting_sec",
+  "piutang",
   "amended_from"
  ],
  "fields": [
@@ -180,11 +184,32 @@
    "fieldtype": "Table",
    "label": "Advance Gold",
    "options": "Gold Invoice Advance Gold"
+  },
+  {
+   "fieldname": "total_idr_in_gold",
+   "fieldtype": "Float",
+   "label": "Total IDR Payment In Gold"
+  },
+  {
+   "fieldname": "total_gold",
+   "fieldtype": "Float",
+   "label": "Total Gold Payment"
+  },
+  {
+   "fieldname": "accounting_sec",
+   "fieldtype": "Section Break",
+   "label": "Accounting"
+  },
+  {
+   "fieldname": "piutang",
+   "fieldtype": "Link",
+   "label": "Piutang",
+   "options": "Account"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-08-31 08:47:14.453045",
+ "modified": "2022-08-31 21:55:53.030336",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",
