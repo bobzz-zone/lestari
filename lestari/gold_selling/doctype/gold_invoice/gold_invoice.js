@@ -95,7 +95,7 @@ frappe.ui.form.on('Gold Invoice Item', {
                 args:{"category":d.category,"customer":frm.doc.customer,"customer_group":frm.doc.customer_group},
                 callback: function (r){
                     frappe.model.set_value(cdt, cdn,"rate",r.message.nilai);
-                    frappe.model.set_value(cdt, cdn,"amount",parseFloat(r.message.nilai)*d.qty);
+                    frappe.model.set_value(cdt, cdn,"amount",parseFloat(r.message.nilai)*d.qty/100);
                 	var total=0;
 				    $.each(frm.doc.items,  function(i,  g) {
 				    	total=total+g.amount;
@@ -119,7 +119,7 @@ frappe.ui.form.on('Gold Invoice Item', {
 	},
 	qty:function(frm,cdt,cdn) {
 	    var d=locals[cdt][cdn];
-	    frappe.model.set_value(cdt, cdn,"amount",d.rate*d.qty);
+	    frappe.model.set_value(cdt, cdn,"amount",d.rate*d.qty/100);
 	    var total=0;
 	    $.each(frm.doc.items,  function(i,  g) {
 	    	total=total+g.amount;
