@@ -75,7 +75,7 @@ class CustomerDeposit(Document):
 		#1 untuk GL untuk piutang Gold
 		if self.total_gold_deposit>0:
 			piutang_gold = frappe.db.get_single_value('Gold Selling Settings', 'piutang_gold')
-			warehouse_account = get_warehouse_account_map(self.company)
+			warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
 			gl[piutang_gold]={
 									"posting_date":self.posting_date,
 									"account":piutang_gold,
