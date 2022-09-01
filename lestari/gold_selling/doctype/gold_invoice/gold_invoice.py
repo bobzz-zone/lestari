@@ -14,7 +14,11 @@ class GoldInvoice(Document):
 		self.grand_total=self.total-self.discount
 	@frappe.whitelist(allow_guest=True)
 	def add_row_action(self):
-		frappe.msgprint("Test")
+		gi = frappe.db.sql("""select name,income_account from `tabGold Selling Item` where kadar="{}" and item_group="{}" """.format(self.kadar,self.category),as_list=1)
+		if gi and len(gi)>0:
+			self.append("items",{"category":gi[0][0],"rate":get_gold_rate(gi[0][0],self.customer,self.customer_group)['nilai'],"kadar":self.kadar,"item_group":self.category,"income_account":gi[0][1],"qty":0})
+		else:
+			frappe.msgprint("Product Not Found")
 	def on_submit(self):
 		if self.outstanding<=0:
 			frappe.throw("Error, Outstanding should not be less than zero")
