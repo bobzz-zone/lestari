@@ -46,7 +46,7 @@ class CustomerDeposit(Document):
 				})
 		sl_entries=[]
 		for row in sl:
-			sl_entries.append(frappe._dict(sl[row]))
+			sl_entries.append(frappe._dict(row))
 		make_sl_entries(sl_entries,False,False)
 	def on_cancel(self):
 		self.make_gl_entries()
