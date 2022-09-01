@@ -177,10 +177,10 @@ def get_gold_rate(category,customer,customer_group):
 @frappe.whitelist(allow_guest=True)
 def get_gold_purchase_rate(item,customer,customer_group):
 	#check if customer has special rates
-	customer_rate=frappe.db.sql("""select nilai_beli from `tabCustomer Rates` where customer="{}" and item="{}" and valid_from<="{}"  and type="Buying" """.format(customer,item,now_datetime()),as_list=1)
+	customer_rate=frappe.db.sql("""select nilai_tukar from `tabCustomer Rates` where customer="{}" and item="{}" and valid_from<="{}"  and type="Buying" """.format(customer,item,now_datetime()),as_list=1)
 	if customer_rate and customer_rate[0]:
 		return {"nilai":customer_rate[0][0]}
-	customer_group_rate=frappe.db.sql("""select nilai_beli from `tabCustomer Group Rates` where customer_group="{}" and item="{}" and valid_from<="{}" and type="Buying"  """.format(customer_group,item,now_datetime()),as_list=1)
+	customer_group_rate=frappe.db.sql("""select nilai_tukar from `tabCustomer Group Rates` where customer_group="{}" and item="{}" and valid_from<="{}" and type="Buying"  """.format(customer_group,item,now_datetime()),as_list=1)
 	if customer_group_rate and customer_group_rate[0]:
 		return {"nilai":customer_group_rate[0][0]}
 	return {"nilai":0}

@@ -19,21 +19,28 @@ class CustomerDeposit(Document):
 			self.warehouse = frappe.db.get_single_value('Gold Selling Settings', 'default_warehouse')
 	def on_submit(self):
 		self.make_gl_entries()
-		#posting STE
-		ste = frappe.new_doc('Stock Entry')
-		ste.posting_date=self.posting_date
-		ste.stock_entry_type="Material Receipt"
-		#>>>>>>>>>>>>need get employee ID
-		employee = frappe.db.sql("""select name from `tabEmployee` where user_id="{}" """.format(frappe.session.user),as_list=1)
-		if employee and employee[0]:
-			ste.employee_id=employee[0][0]
-		ste.to_warehouse=self.warehouse
-		ste.items=[]
+		#posting Stock Ledger Post
+		sl=[]
+		fiscal_years = get_fiscal_years(self.posting_date, company=self.company)[0][0]
 		for row in self.stock_deposit:
-			ste.append("items",{"item_code":row.item,"qty":row.qty,"uom":"Gram","conversion_factor":1,"t_warehouse":self.warehouse,"basic_rate":row.rate*self.tutupan/100})
-		ste.flags.ignore_permissions = True
-		ste.insert()
-		self.ste=ste.name
+			sl.append({
+				"item_code":row.item,
+				"actual_qty":row.qty,
+				"fiscal_year":fiscal_years,
+				"voucher_type": self.doctype,
+				"voucher_no": self.name,
+				"company": self.company,
+				"posting_date": self.posting_date,
+				"posting_time": self.posting_time,
+				"is_cancelled": 0,
+				"stock_uom":frappe.db.get_value("Item", args.get("item_code") or d.get("item_code"), "stock_uom"),
+				"warehouse":self.warehouse,
+				"incoming_rate":row.rate*self.tutupan/100,
+				"recalculate_rate": 1,
+				"dependant_sle_voucher_detail_no": row.name
+				})
+
+		
 	def on_cancel(self):
 		self.make_gl_entries()
 
