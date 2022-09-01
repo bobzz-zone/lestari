@@ -38,7 +38,7 @@ class CustomerDeposit(Document):
 				"posting_date": self.posting_date,
 				"posting_time": self.posting_time,
 				"is_cancelled": 0,
-				"stock_uom":frappe.db.get_value("Item", args.get("item_code") or d.get("item_code"), "stock_uom"),
+				"stock_uom":frappe.db.get_value("Item", row.item, "stock_uom"),
 				"warehouse":self.warehouse,
 				"incoming_rate":row.rate*self.tutupan/100,
 				"recalculate_rate": 1,
