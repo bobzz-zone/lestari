@@ -27,17 +27,44 @@ frappe.ui.form.on('Gold Invoice', {
 				frappe.set_route("query-report", "General Ledger");
 			}, __("View"));
 		}
+		frm.set_query("category", function(doc) {
+    			return {
+    				"filters": {
+    					"is_group":1
+    				}
+    			};
+
+    		});
+	},
+	add_new_action:function(frm){
+		if(frm.doc.kadar=="" || frm.doc.category==""){
+			msgprint("Error, Data Berlum Terisi.")
+			return;
+		}
+		let row = frm.add_child('items', {
+				    'category': "{}-{}".format(frm.doc.kadar,frm.doc.category),
+				    'kadar':frm.doc.kadar,
+				    'item_group':frm.doc.item_group
+				});
+
+				frm.refresh_field('items');
 	},
 	discount:function(frm){
-		if (!frm.doc.discount){
-	    	frm.doc.discount=0;
+		if (!frm.doc.discount_amount){
+	    	frm.doc.discount_amount=0;
 	    }
-	    frm.doc.grand_total=frm.doc.total-frm.doc.discount;
+	    var total=0;
+		$.each(frm.doc.items,  function(i,  g) {
+			total=total+g.qty;
+		});
+		frm.doc.discount_amount=(total/100)*frm.doc.discount;
+	    frm.doc.grand_total=frm.doc.total-frm.doc.discount_amount;
 	    if (!frm.doc.total_advance){
 	    	frm.doc.total_advance=0;
 	    }
 	    frm.doc.outstanding=frm.doc.grand_total-frm.doc.total_advance;
 	    refresh_field("outstanding");
+	    refresh_field("discount_amount");
 	    refresh_field("grand_total");
 	},
 	tutupan:function(frm){
@@ -114,17 +141,17 @@ frappe.ui.form.on('Gold Invoice Item', {
 				    	total=total+g.amount;
 				    });
 				    frm.doc.total=total;
-				    if (!frm.doc.discount){
-				    	frm.doc.discount=0;
+				    if (!frm.doc.discount_amount){
+				    	frm.doc.discount_amount=0;
 				    }
-				    frm.doc.grand_total=frm.doc.total-frm.doc.discount;
+				    frm.doc.grand_total=frm.doc.total-frm.doc.discount_amount;
 				    if (!frm.doc.total_advance){
 				    	frm.doc.total_advance=0;
 				    }
 				    frm.doc.outstanding=frm.doc.grand_total-frm.doc.total_advance;
 				    refresh_field("outstanding");
 				    refresh_field("total");
-				    refresh_field("discount");
+				    refresh_field("discount_amount");
 				    refresh_field("grand_total");
                 	}
                 });
@@ -138,17 +165,17 @@ frappe.ui.form.on('Gold Invoice Item', {
 	    	total=total+g.amount;
 	    });
 	    frm.doc.total=total;
-	    if (!frm.doc.discount){
-			frm.doc.discount=0;
+	    if (!frm.doc.discount_amount){
+			frm.doc.discount_amount=0;
 		}
-	    frm.doc.grand_total=frm.doc.total-frm.doc.discount;
+	    frm.doc.grand_total=frm.doc.total-frm.doc.discount_amount;
 	    if (!frm.doc.total_advance){
 	    	frm.doc.total_advance=0;
 	    }
 	    frm.doc.outstanding=frm.doc.grand_total-frm.doc.total_advance;
 	    refresh_field("outstanding");
 	    refresh_field("total");
-	    refresh_field("discount");
+	    refresh_field("discount_amount");
 	    refresh_field("grand_total");
 	}
 });
