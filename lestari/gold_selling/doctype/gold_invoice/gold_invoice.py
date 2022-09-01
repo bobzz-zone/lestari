@@ -12,6 +12,7 @@ class GoldInvoice(Document):
 		if not self.discount:
 			self.discount=0
 		self.grand_total=self.total-self.discount
+	@frappe.whitelist(allow_guest=True)
 	def add_new_action(self):
 		frappe.msgprint("Test")
 	def on_submit(self):
