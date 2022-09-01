@@ -21,6 +21,7 @@ class CustomerDeposit(Document):
 		self.make_gl_entries()
 		#posting STE
 		ste = frappe.new_doc('Stock Entry')
+		ste.posting_date=self.posting_date
 		ste.stock_entry_type="Material Receipt"
 		#>>>>>>>>>>>>need get employee ID
 		employee = frappe.db.sql("""select name from `tabEmployee` where user_id="{}" """.format(frappe.session.user),as_list=1)
@@ -30,7 +31,7 @@ class CustomerDeposit(Document):
 		ste.items=[]
 		for row in self.stock_deposit:
 			ste.items.append({"item_code":row.item,"qty":row.qty,"uom":"Gram","conversion_factor":1,"t_warehouse":self.warehouse,"basic_rate":row.rate*self.tutupan})
-		ste.save()
+		ste.insert()
 		self.ste=ste.name
 	def on_cancel(self):
 		self.make_gl_entries()
