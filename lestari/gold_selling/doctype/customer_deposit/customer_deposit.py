@@ -30,7 +30,7 @@ class CustomerDeposit(Document):
 		ste.to_warehouse=self.warehouse
 		ste.items=[]
 		for row in self.stock_deposit:
-			ste.append("items",{"item_code":row.item,"qty":row.qty,"uom":"Gram","conversion_factor":1,"t_warehouse":self.warehouse,"basic_rate":row.rate*self.tutupan})
+			ste.append("items",{"item_code":row.item,"qty":row.qty,"uom":"Gram","conversion_factor":1,"t_warehouse":self.warehouse,"basic_rate":row.rate*self.tutupan/100})
 		ste.flags.ignore_permissions = True
 		ste.insert()
 		self.ste=ste.name
