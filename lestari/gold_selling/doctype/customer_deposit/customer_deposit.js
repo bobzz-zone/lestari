@@ -52,7 +52,7 @@ frappe.ui.form.on('Stock Payment', {
 	item:function(frm,cdt,cdn) {
 		// your code here
 		var d=locals[cdt][cdn];
-		if(!d.item_group){return;}
+		if(!d.item){return;}
 		frappe.call({
                 method: "lestari.gold_selling.doctype.gold_invoice.gold_invoice.get_gold_purchase_rate",
                 args:{"item":d.item,"customer":frm.doc.customer,"customer_group":frm.doc.customer_group},
