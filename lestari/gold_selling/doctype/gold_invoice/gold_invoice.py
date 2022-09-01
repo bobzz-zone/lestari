@@ -12,6 +12,8 @@ class GoldInvoice(Document):
 		if not self.discount:
 			self.discount=0
 		self.grand_total=self.total-self.discount
+	def add_new_action(self):
+		frappe.msgprint("Test")
 	def on_submit(self):
 		if self.outstanding<=0:
 			frappe.throw("Error, Outstanding should not be less than zero")

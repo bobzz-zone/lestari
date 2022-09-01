@@ -36,7 +36,7 @@ frappe.ui.form.on('Gold Invoice', {
 
     		});
 	},
-	add_new_action:function(frm){
+	/*add_new_action:function(frm){
 		if(frm.doc.kadar=="" || frm.doc.category==""){
 			msgprint("Error, Data Berlum Terisi.")
 			return;
@@ -48,7 +48,7 @@ frappe.ui.form.on('Gold Invoice', {
 				});
 
 				frm.refresh_field('items');
-	},
+	},*/
 	discount:function(frm){
 		if (!frm.doc.discount_amount){
 	    	frm.doc.discount_amount=0;
