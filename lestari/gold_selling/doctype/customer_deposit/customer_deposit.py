@@ -25,6 +25,34 @@ class CustomerDeposit(Document):
 	def on_submit(self):
 		self.make_gl_entries()
 		#posting Stock Ledger Post
+		self.update_stock_ledger()
+		self.repost_future_sle_and_gle()
+	def repost_future_sle_and_gle(self):
+		args = frappe._dict(
+			{
+				"posting_date": self.posting_date,
+				"posting_time": self.posting_time,
+				"voucher_type": self.doctype,
+				"voucher_no": self.name,
+				"company": self.company,
+			}
+		)
+
+		if future_sle_exists(args) or repost_required_for_queue(self):
+			item_based_reposting = cint(
+				frappe.db.get_single_value("Stock Reposting Settings", "item_based_reposting")
+			)
+			if item_based_reposting:
+				create_item_wise_repost_entries(voucher_type=self.doctype, voucher_no=self.name)
+			else:
+				create_repost_item_valuation_entry(args)
+	def on_cancel(self):
+		self.make_gl_entries()
+		self.update_stock_ledger()
+		self.repost_future_sle_and_gle()
+
+	def update_stock_ledger(self):
+		sl_entries = []
 		sl=[]
 		fiscal_years = get_fiscal_years(self.posting_date, company=self.company)[0][0]
 		for row in self.stock_deposit:
@@ -44,13 +72,14 @@ class CustomerDeposit(Document):
 				"recalculate_rate": 1,
 				"dependant_sle_voucher_detail_no": row.name
 				})
-		sl_entries=[]
 		for row in sl:
 			sl_entries.append(frappe._dict(row))
-		make_sl_entries(sl_entries,False,False)
-	def on_cancel(self):
-		self.make_gl_entries()
 
+		# reverse sl entries if cancel
+		if self.docstatus == 2:
+			sl_entries.reverse()
+
+		self.make_sl_entries(sl_entries)
 	def make_gl_entries(self, gl_entries=None, from_repost=False):
 		from erpnext.accounts.general_ledger import make_gl_entries, make_reverse_gl_entries
 		if not gl_entries:
