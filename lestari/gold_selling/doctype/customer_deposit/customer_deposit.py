@@ -6,8 +6,8 @@ from frappe.model.document import Document
 from erpnext.stock import get_warehouse_account_map
 from erpnext.accounts.utils import get_account_currency, get_fiscal_years, validate_fiscal_year
 from erpnext.accounts.doctype.sales_invoice.sales_invoice import get_bank_cash_account
-from erpnext.stock.stock_ledger import make_sl_entries
-class CustomerDeposit(Document):
+from erpnext.controllers.stock_controller import StockController
+class CustomerDeposit(StockController):
 	def validate(self):
 		#total items
 		if self.deposit_type=="Emas":
@@ -27,27 +27,9 @@ class CustomerDeposit(Document):
 		#posting Stock Ledger Post
 		self.update_stock_ledger()
 		self.repost_future_sle_and_gle()
-	def repost_future_sle_and_gle(self):
-		args = frappe._dict(
-			{
-				"posting_date": self.posting_date,
-				"posting_time": self.posting_time,
-				"voucher_type": self.doctype,
-				"voucher_no": self.name,
-				"company": self.company,
-			}
-		)
-
-		if future_sle_exists(args) or repost_required_for_queue(self):
-			item_based_reposting = cint(
-				frappe.db.get_single_value("Stock Reposting Settings", "item_based_reposting")
-			)
-			if item_based_reposting:
-				create_item_wise_repost_entries(voucher_type=self.doctype, voucher_no=self.name)
-			else:
-				create_repost_item_valuation_entry(args)
+	
 	def on_cancel(self):
-		self.make_gl_entries()
+		self.make_gl_entries_on_cancel()
 		self.update_stock_ledger()
 		self.repost_future_sle_and_gle()
 
