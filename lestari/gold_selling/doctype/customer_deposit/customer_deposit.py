@@ -180,10 +180,10 @@ class CustomerDeposit(StockController):
 									}
 					gl[self.cash_from]={
 										"posting_date":self.posting_date,
-										"account":account,
+										"account":self.cash_from,
 										"party_type":"",
 										"party":"",
-										"cost_center":self.cash_from,
+										"cost_center":cost_center,
 										"debit":self.sisa_idr_deposit,
 										"credit":0,
 										"account_currency":"IDR",
