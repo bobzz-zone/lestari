@@ -20,8 +20,12 @@ class GoldInvoice(Document):
 		else:
 			frappe.msgprint("Product Not Found")
 	def on_submit(self):
-		if self.outstanding<=0:
+		if self.outstanding<0:
 			frappe.throw("Error, Outstanding should not be less than zero")
+		if self.outstanding==0:
+			self.status="Paid"
+		else:
+			self.status="Unpaid"
 		for row in self.invoice_advance:
 			deposit=frappe.get_doc("Customer Deposit",row.customer_deposit)
 			if deposit.idr_left >=row.idr_allocated:
