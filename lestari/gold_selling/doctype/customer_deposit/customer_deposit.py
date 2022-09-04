@@ -221,7 +221,7 @@ class CustomerDeposit(StockController):
 									"is_cancelled":0
 									}
 			for row in self.idr_deposit:
-				account=get_bank_cash_account(row.mode_of_payment,self.company)
+				account=get_bank_cash_account(row.mode_of_payment,self.company)["account"]
 				if account in gl:
 					gl[account]['debit']=gl[account]['debit']+row.amount
 					gl[account]['debit_in_account_currency']=gl[account]['debit']
