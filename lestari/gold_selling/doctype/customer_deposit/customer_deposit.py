@@ -30,12 +30,14 @@ class CustomerDeposit(StockController):
 		#posting Stock Ledger Post
 		self.update_stock_ledger()
 		self.repost_future_sle_and_gle()
+		frappe.db.sql("""update `tabCustomer Deposit` set idr_left=idr_left-{} where name="{}" """.format(self.sisa_idr_deposit,self.customer_deposit_source),as_list=1)
 	
 	def on_cancel(self):
 		self.flags.ignore_links=True
 		self.make_gl_entries_on_cancel()
 		self.update_stock_ledger()
 		self.repost_future_sle_and_gle()
+		frappe.db.sql("""update `tabCustomer Deposit` set idr_left=idr_left+{} where name="{}" """.format(self.sisa_idr_deposit,self.customer_deposit_source),as_list=1)
 
 	def update_stock_ledger(self):
 		sl_entries = []
