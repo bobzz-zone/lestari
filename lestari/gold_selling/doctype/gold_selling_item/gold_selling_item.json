@@ -1,29 +1,21 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:category",
+ "autoname": "format:{kadar}-{item_group}",
  "creation": "2022-08-25 02:01:11.781725",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "category",
   "kadar",
   "item_group",
   "income_account"
  ],
  "fields": [
   {
-   "fieldname": "category",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Category",
-   "reqd": 1,
-   "unique": 1
-  },
-  {
    "fieldname": "kadar",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Kadar",
    "options": "Data Logam",
    "reqd": 1
@@ -32,11 +24,13 @@
    "fieldname": "item_group",
    "fieldtype": "Link",
    "label": "Item Group",
-   "options": "Item Group"
+   "options": "Item Group",
+   "reqd": 1
   },
   {
    "fieldname": "income_account",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Income Account",
    "options": "Account",
    "reqd": 1
@@ -44,7 +38,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-08-31 22:10:50.223070",
+ "modified": "2022-09-01 22:40:51.221879",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling Item",

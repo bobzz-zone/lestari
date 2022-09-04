@@ -4,5 +4,5 @@
 # import frappe
 from frappe.model.document import Document
 
-class CustomerGroupSellingRates(Document):
+class CustomerRates(Document):
 	pass

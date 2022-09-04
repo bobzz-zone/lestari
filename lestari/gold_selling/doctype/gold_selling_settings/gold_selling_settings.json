@@ -9,7 +9,9 @@
   "piutang_gold",
   "piutang_idr",
   "selisih_kurs",
-  "cost_center"
+  "cost_center",
+  "item_ct",
+  "default_warehouse"
  ],
  "fields": [
   {
@@ -41,12 +43,26 @@
    "label": "Selisih Kurs",
    "options": "Account",
    "reqd": 1
+  },
+  {
+   "fieldname": "item_ct",
+   "fieldtype": "Link",
+   "label": "CT Gold Code",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "default_warehouse",
+   "fieldtype": "Link",
+   "label": "Default Warehouse",
+   "options": "Warehouse",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-08-31 23:36:21.385657",
+ "modified": "2022-09-01 02:31:12.571763",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling Settings",

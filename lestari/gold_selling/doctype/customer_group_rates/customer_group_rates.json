@@ -1,24 +1,26 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:GR-{customer}-{item_group}-{####}",
- "creation": "2022-08-24 23:38:42.142872",
+ "autoname": "format:GR-{customer_group}-{type}-{####}",
+ "creation": "2022-08-24 23:38:17.325313",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "customer",
+  "customer_group",
+  "type",
   "category",
+  "item",
   "nilai_tukar",
   "valid_from"
  ],
  "fields": [
   {
-   "fieldname": "customer",
+   "fieldname": "customer_group",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Customer",
-   "options": "Customer",
+   "label": "Customer Group",
+   "options": "Customer Group",
    "reqd": 1
   },
   {
@@ -26,7 +28,7 @@
    "fieldname": "nilai_tukar",
    "fieldtype": "Percent",
    "in_list_view": 1,
-   "label": "Nilai Jual",
+   "label": "Nilai Tukar",
    "reqd": 1
   },
   {
@@ -36,20 +38,35 @@
    "label": "Valid From"
   },
   {
+   "depends_on": "eval:doc.type==\"Selling\"",
    "fieldname": "category",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Category",
-   "options": "Gold Selling Item",
-   "reqd": 1
+   "mandatory_depends_on": "eval:doc.type==\"Selling\"",
+   "options": "Gold Selling Item"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "Selling\nBuying"
+  },
+  {
+   "depends_on": "eval:doc.type==\"Buying\"",
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "mandatory_depends_on": "eval:doc.type==\"Buying\"",
+   "options": "Item"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-08-31 23:58:04.561851",
+ "modified": "2022-09-01 13:49:57.721932",
  "modified_by": "Administrator",
  "module": "Gold Selling",
- "name": "Customer Selling Rates",
+ "name": "Customer Group Rates",
  "owner": "Administrator",
  "permissions": [
   {
