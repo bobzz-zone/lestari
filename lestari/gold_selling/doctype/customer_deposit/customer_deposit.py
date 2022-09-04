@@ -11,7 +11,8 @@ class CustomerDeposit(StockController):
 	def validate(self):
 		#total items
 		if self.deposit_type=="Emas":
-			self.idr_deposit=[]
+			if self.is_convert==0:
+				self.idr_deposit=[]
 		else:
 			self.stock_deposit=[]
 		if self.is_convert==1:
@@ -146,9 +147,58 @@ class CustomerDeposit(StockController):
 									"company":self.company,
 									"is_cancelled":0
 									}
+		#pelunasan kalo ada isconvert
+			if self.is_convert==1:
+				if self.customer_deposit_source and self.sisa_idr_deposit>0:
+					piutang_idr = frappe.db.get_single_value('Gold Selling Settings', 'piutang_idr')
+					gl[piutang_idr]={
+									"posting_date":self.posting_date,
+									"account":piutang_gold,
+									"party_type":"Customer",
+									"party":self.customer,
+									"cost_center":cost_center,
+									"debit":0,
+									"credit":self.sisa_idr_deposit,
+									"account_currency":"IDR",
+									"debit_in_account_currency":0,
+									"credit_in_account_currency":self.sisa_idr_deposit,
+									#"against":"4110.000 - Penjualan - L",
+									"voucher_type":"Customer Deposit",
+									"against_voucher_type":"Customer Deposit",
+									"voucher_no":self.name,
+									"against_voucher":self.customer_deposit_source,
+									#"remarks":"",
+									"is_opening":"No",
+									"is_advance":"No",
+									"fiscal_year":fiscal_years,
+									"company":self.company,
+									"is_cancelled":0
+									}
+					gl[self.cash_from]={
+										"posting_date":self.posting_date,
+										"account":account,
+										"party_type":"",
+										"party":"",
+										"cost_center":self.cash_from,
+										"debit":self.sisa_idr_deposit,
+										"credit":0,
+										"account_currency":"IDR",
+										"debit_in_account_currency":self.sisa_idr_deposit,
+										"credit_in_account_currency":0,
+										#"against":"4110.000 - Penjualan - L",
+										"voucher_type":"Customer Deposit",
+										"voucher_no":self.name,
+										#"remarks":"",
+										"is_opening":"No",
+										"is_advance":"No",
+										"fiscal_year":fiscal_years,
+										"company":self.company,
+										"is_cancelled":0
+										}
 		#untuk deposit IDR
 		if self.total_idr_deposit>0 and self.deposit_type=="IDR":
 			piutang_idr = frappe.db.get_single_value('Gold Selling Settings', 'piutang_idr')
+			
 			gl[piutang_idr]={
 									"posting_date":self.posting_date,
 									"account":piutang_gold,
@@ -188,7 +238,7 @@ class CustomerDeposit(StockController):
 										"debit_in_account_currency":row.amount,
 										"credit_in_account_currency":0,
 										#"against":"4110.000 - Penjualan - L",
-										"voucher_type":"Gold Invoice",
+										"voucher_type":"Customer Deposit",
 										"voucher_no":self.name,
 										#"remarks":"",
 										"is_opening":"No",
