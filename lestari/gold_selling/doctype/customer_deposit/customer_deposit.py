@@ -29,6 +29,7 @@ class CustomerDeposit(StockController):
 		self.repost_future_sle_and_gle()
 	
 	def on_cancel(self):
+		self.flags.ignore_links=True
 		self.make_gl_entries_on_cancel()
 		self.update_stock_ledger()
 		self.repost_future_sle_and_gle()
