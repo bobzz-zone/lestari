@@ -19,11 +19,18 @@
   "tutupan_section",
   "tutupan",
   "column_break_10",
+  "item_sel_sec",
+  "kadar",
+  "cbb",
+  "category",
+  "cbc",
+  "add",
   "items_section",
   "items",
   "sb_bill",
   "total",
   "discount",
+  "discount_amount",
   "grand_total",
   "outstanding",
   "status",
@@ -129,8 +136,9 @@
   },
   {
    "default": "0",
+   "description": "Customer akan dapat % Discount dari Brutto",
    "fieldname": "discount",
-   "fieldtype": "Float",
+   "fieldtype": "Percent",
    "label": "Discount"
   },
   {
@@ -157,7 +165,6 @@
    "label": "Invoice Advance"
   },
   {
-   "depends_on": "eval:doc.customer",
    "fieldname": "invoice_advance",
    "fieldtype": "Table",
    "label": "Advance IDR",
@@ -187,23 +194,62 @@
   {
    "fieldname": "total_idr_in_gold",
    "fieldtype": "Float",
-   "label": "Total IDR Payment In Gold"
+   "label": "Total IDR Payment In Gold",
+   "read_only": 1
   },
   {
    "fieldname": "total_gold",
    "fieldtype": "Float",
-   "label": "Total Gold Payment"
+   "label": "Total Gold Payment",
+   "read_only": 1
   },
   {
    "fieldname": "company",
    "fieldtype": "Link",
    "label": "Company",
    "options": "Company"
+  },
+  {
+   "fieldname": "item_sel_sec",
+   "fieldtype": "Section Break",
+   "label": "Item Selector"
+  },
+  {
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "label": "Kadar",
+   "options": "Data Logam"
+  },
+  {
+   "fieldname": "cbb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "label": "Category",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "cbc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "add",
+   "fieldtype": "Button",
+   "label": "Add Row",
+   "options": "add_row_action"
+  },
+  {
+   "fieldname": "discount_amount",
+   "fieldtype": "Float",
+   "label": "Discount Amount",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-08-31 23:00:05.050663",
+ "modified": "2022-09-01 22:31:22.427505",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",
