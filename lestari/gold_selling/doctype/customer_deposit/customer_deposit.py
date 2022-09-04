@@ -157,7 +157,7 @@ class CustomerDeposit(StockController):
 					piutang_idr = frappe.db.get_single_value('Gold Selling Settings', 'piutang_idr')
 					gl[piutang_idr]={
 									"posting_date":self.posting_date,
-									"account":piutang_gold,
+									"account":piutang_idr,
 									"party_type":"Customer",
 									"party":self.customer,
 									"cost_center":cost_center,
