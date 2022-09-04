@@ -21,6 +21,8 @@ class CustomerDeposit(StockController):
 				item_ct = frappe.db.get_single_value('Gold Selling Settings', 'item_ct')
 				qty = self.sisa_idr_deposit/self.tutupan
 				self.append("stock_deposit",{"item":item_ct,"rate":100,"qty":qty,"amount":qty})
+				self.total_gold_deposit=qty
+				self.gold_left=qty
 		if not self.warehouse:
 			self.warehouse = frappe.db.get_single_value('Gold Selling Settings', 'default_warehouse')
 	def on_submit(self):
