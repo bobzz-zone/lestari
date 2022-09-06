@@ -295,13 +295,11 @@ class GoldInvoice(Document):
 		self.flags.ignore_links=True
 		#revert deposit balance
 		for row in self.invoice_advance:
-			deposit=frappe.get_doc("Customer Deposit",row.customer_deposit)
-			if deposit.idr_left >=row.idr_allocated:
+			if row.idr_allocated:
 				frappe.db.sql("""update `tabCustomer Deposit` set idr_left=idr_left + {} where name="{}" """.format(row.idr_allocated,row.customer_deposit),as_list=1)
 
 		for row in self.gold_invoice_advance:
-			deposit=frappe.get_doc("Customer Deposit",row.customer_deposit)
-			if deposit.gold_left >=row.gold_allocated:
+			if row.gold_allocated:
 				frappe.db.sql("""update `tabCustomer Deposit` set  gold_left=gold_left + {} where name="{}" """.format(row.gold_allocated,row.customer_deposit),as_list=1)
 		self.make_gl_entries()
 	
