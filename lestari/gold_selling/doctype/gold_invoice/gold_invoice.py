@@ -167,24 +167,24 @@ class GoldInvoice(Document):
 					frappe.db.sql("""update `tabCustomer Deposit` set  gold_left={} where name="{}" """.format(deposit.gold_left -row.gold_allocated,row.customer_deposit),as_list=1)
 					#update GL for payment
 					#if pembayaran di gunakan full
-					if deposit.idr_left ==row.idr_allocated:
+					if deposit.gold_left ==row.gold_allocated:
 						frappe.db.sql("""update `tabGL Entry` set against_voucher_type="Gold Invoice",against_voucher="{}" where voucher_no="{}" 
 						and voucher_type="Customer Deposit" and against_voucher_type is NULL and against_voucher is NULL and account="{}" and is_cancelled=0""".format(self.name,row.customer_deposit,piutang_gold),as_list=1)
 					else:
 					#if split needed
 						frappe.db.sql("""update `tabGL Entry` set debit={},debit_in_account_currency={} where voucher_no="{}" 
-						and voucher_type="Customer Deposit" and against_voucher_type is NULL and against_voucher is NULL and account="{}" and is_cancelled=0""".format((deposit.idr_left -row.idr_allocated)*deposit.tutupan,deposit.idr_left -row.idr_allocated,row.customer_deposit,piutang_gold),as_list=1)
+						and voucher_type="Customer Deposit" and against_voucher_type is NULL and against_voucher is NULL and account="{}" and is_cancelled=0""".format((deposit.gold_left -row.gold_allocated)*deposit.tutupan,deposit.gold_left -row.gold_allocated,row.customer_deposit,piutang_gold),as_list=1)
 						adv.append({
 										"posting_date":deposit.posting_date,
-										"account":piutang_idr,
+										"account":piutang_gold,
 										"party_type":"Customer",
 										"party":self.customer,
 										"cost_center":cost_center,
 										"credit":0,
-										"debit":row.idr_allocated*deposit.tutupan,
+										"debit":row.gold_allocated*deposit.tutupan,
 										"account_currency":"IDR",
 										"credit_in_account_currency":0,
-										"debit_in_account_currency":row.idr_allocated,
+										"debit_in_account_currency":row.gold_allocated,
 										#"against":"4110.000 - Penjualan - L",
 										"voucher_type":"Customer Deposit",
 										"against_voucher_type":"Gold Invoice",
