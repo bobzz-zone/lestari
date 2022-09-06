@@ -1,16 +1,24 @@
 # Copyright (c) 2022, DAS and contributors
 # For license information, please see license.txt
 
+import json
+
 import frappe
 from frappe.model.mapper import get_mapped_doc
 from frappe.model.document import Document
 from frappe.utils import flt, add_days, today
+from six import string_types
 
 class SPKProduksi(Document):
 	pass
 
 @frappe.whitelist()
-def make_material_request(source_name, target_doc=None):
+def make_material_request(source_name, target_doc=None, args=None):
+
+	if args is None:
+		args = {}
+	if isinstance(args, string_types):
+		args = json.loads(args)
 
 	def update_item(source, target, source_parent):
 		target.qty = source.get("qty")
@@ -25,6 +33,13 @@ def make_material_request(source_name, target_doc=None):
 		target.kadar = frappe.get_doc("Item",source.get("item_code")).kadar
 		target.customer = source_parent.customer
 		target.so_type = source_parent.order_type
+		target.no_so = source_parent.name
+
+	def select_item(d):
+		filtered_items = args.get('filtered_children', [])
+		child_filter = d.name in filtered_items if filtered_items else True
+
+		return child_filter
 
 	doc = get_mapped_doc("Sales Order", source_name, {
 		"Sales Order": {
@@ -38,7 +53,8 @@ def make_material_request(source_name, target_doc=None):
 			"field_map": {
 				"name": "sales_order_item",
 				"parent": "sales_order"
-			},"postprocess": update_item
+			},"postprocess": update_item,
+			"condition": select_item
 		}
 	}, target_doc)
 

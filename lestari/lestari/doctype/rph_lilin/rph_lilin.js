@@ -2,6 +2,12 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("RPH Lilin", {
+  setup: function (frm) {
+    frappe.db.get_value("Employee", { user_id: frappe.session.user }, "name").then(function (responseJSON) {
+      cur_frm.set_value("employee_id", responseJSON.message.name);
+      cur_frm.refresh_field("employee_id");
+    });
+  },
   refresh: function (frm) {
     frm.events.make_custom_buttons(frm);
   },
@@ -28,7 +34,7 @@ frappe.ui.form.on("RPH Lilin", {
         company: frm.doc.company,
       },
       allow_child_item_selection: true,
-      child_fielname: "tabel_rencana_produksi",
+      child_fieldname: "tabel_rencana_produksi",
       child_columns: ["produk_id", "kategori", "sub_kategori", "kadar", "qty"],
     });
   },

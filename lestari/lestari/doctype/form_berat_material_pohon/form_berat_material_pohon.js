@@ -11,7 +11,6 @@ const baud = 9800;
 
 async function connectSerial() {
   try {
-    // await port.open({ baudRate: document.getElementById("baud").value });
     await port.open({ baudRate: 9600 });
     listenToPort();
 
@@ -27,10 +26,6 @@ async function listenToPort() {
   const textDecoder = new TextDecoderStream();
   const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
   const reader = textDecoder.readable.getReader();
-
-  // console.table(textDecoder);
-  // console.table(readableStreamClosed);
-  // console.table(reader);
 
   // Listen to data coming from the serial device.
   while (true) {
@@ -55,10 +50,7 @@ async function sendSerialLine() {
   dataToSend = dataToSend + "\r\n";
   // appendToTerminal("> " + dataToSend);
   await writer.write(dataToSend);
-  // cur_frm.set_value("kirim_serial", "");
-  //await writer.releaseLock();
 }
-// const serialResultsDiv = cur_frm.doc.berat;
 
 async function appendToTerminal(newStuff) {
   // newStuff = newStuff.match(/[0-9]*[.]*[0-9]+\w/g);
@@ -67,7 +59,6 @@ async function appendToTerminal(newStuff) {
   // newStuff = newStuff.replace(/[A-Z]|[a-z]/g, "").trim();/ timbangan suncho dan metler
   newStuff = newStuff.replace(/[^\d.]/g, "").trim(); //timbangan AND
   cur_frm.set_value("berat_1", newStuff);
-  // frappe.msgprint(newStuff);
 }
 frappe.ui.form.on("Form Berat Material Pohon", {
   onload: function (frm) {
@@ -80,13 +71,7 @@ frappe.ui.form.on("Form Berat Material Pohon", {
             async function () {
               // Prompt user to select any serial port.
               port = await navigator.serial.requestPort();
-
               connectSerial();
-              // ports = await navigator.serial.requestPort();
-              //Call connect again if the worker is already initialized
-              // if (typeof window.mettlerWorker != "undefined") {
-              //   window.mettlerWorker.postMessage({ command: "connect" });
-              // }
             },
             function () {}
           );
@@ -111,26 +96,6 @@ frappe.ui.form.on("Form Berat Material Pohon", {
   kirim: function (frm) {
     sendSerialLine();
   },
-  // after_save: function (frm) {
-  //   frappe.db.get_doc("Work Order Pohonan", frm.doc.wo_id).then((r) => {
-  //     console.log(r);
-  //     frappe.set_route("Form", r.message.doctype, r.message.name);
-  //   });
-  // },
-  //     frappe.call({
-  //       method: "lestari.lestari.doctype.form_berat_material_pohon.form_berat_material_pohon.get_fbmp",
-  //       args: {
-  //         no_fbmp: cur_frm.doc.name,
-  //         no_wo: cur_frm.doc.wo_id,
-  //       },
-  //       callback: function (r) {
-  //         if (!r.exc) {
-  //           var doc = frappe.model.sync(r.message);
-  //           frappe.set_route("Form", r.message.doctype, r.message.name);
-  //         }
-  //       },
-  //     });
-  //   },
 });
 frappe.ui.form.on("Form Berat Material Batu", {
   berat: function (doc, cdn, cdt) {

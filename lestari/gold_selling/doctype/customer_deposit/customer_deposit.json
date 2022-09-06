@@ -31,7 +31,6 @@
   "stock_deposit",
   "total_gold_deposit",
   "gold_left",
-  "ste",
   "amended_from"
  ],
  "fields": [
@@ -79,24 +78,26 @@
    "label": "Conversion"
   },
   {
-   "depends_on": "eval:doc.deposit_type==\"IDR\"",
    "fieldname": "idr_deposit_section",
    "fieldtype": "Section Break",
    "label": "IDR Deposit"
   },
   {
+   "depends_on": "eval:doc.deposit_type==\"IDR\"",
    "fieldname": "idr_deposit",
    "fieldtype": "Table",
    "label": "IDR Deposit",
    "options": "IDR Payment"
   },
   {
+   "depends_on": "eval:doc.deposit_type==\"IDR\"",
    "fieldname": "total_idr_deposit",
    "fieldtype": "Currency",
    "label": "Total IDR Deposit",
    "read_only": 1
   },
   {
+   "depends_on": "eval:doc.deposit_type==\"IDR\"",
    "fieldname": "idr_left",
    "fieldtype": "Currency",
    "in_list_view": 1,
@@ -160,13 +161,14 @@
    "mandatory_depends_on": "eval:doc.deposit_type==\"Emas\""
   },
   {
-   "depends_on": "is_convert",
+   "depends_on": "customer_deposit_source",
    "fetch_from": "customer_deposit_source.idr_left",
    "fetch_if_empty": 1,
    "fieldname": "sisa_idr_deposit",
    "fieldtype": "Currency",
    "label": "Sisa Deposit IDR",
-   "mandatory_depends_on": "is_convert"
+   "mandatory_depends_on": "customer_deposit_source",
+   "read_only": 1
   },
   {
    "depends_on": "is_convert",
@@ -190,12 +192,6 @@
    "options": "Warehouse"
   },
   {
-   "fieldname": "ste",
-   "fieldtype": "Link",
-   "label": "Stock Entry",
-   "options": "Stock Entry"
-  },
-  {
    "default": "Today",
    "fieldname": "posting_date",
    "fieldtype": "Date",
@@ -210,17 +206,17 @@
    "reqd": 1
   },
   {
-   "depends_on": "is_convert",
+   "depends_on": "customer_deposit_source",
    "fieldname": "cash_from",
    "fieldtype": "Link",
    "label": "Sumber Uang",
-   "mandatory_depends_on": "is_convert",
+   "mandatory_depends_on": "customer_deposit_source",
    "options": "Account"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-04 13:07:16.445705",
+ "modified": "2022-09-04 13:54:39.642712",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Deposit",

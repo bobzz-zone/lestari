@@ -33,13 +33,13 @@
   "discount_amount",
   "grand_total",
   "outstanding",
-  "status",
   "gold_invoice_has_gold_deposit",
   "invoice_advance",
   "total_idr_in_gold",
   "gold_invoice_advance",
   "total_gold",
   "total_advance",
+  "status",
   "amended_from"
  ],
  "fields": [
@@ -155,8 +155,10 @@
   },
   {
    "fieldname": "status",
-   "fieldtype": "Data",
+   "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Status",
+   "options": "Draft\nUnpaid\nPaid",
    "read_only": 1
   },
   {
@@ -249,7 +251,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-01 22:31:22.427505",
+ "modified": "2022-09-04 14:34:20.989131",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",
