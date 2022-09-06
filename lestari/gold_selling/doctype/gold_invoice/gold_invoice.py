@@ -26,15 +26,8 @@ class GoldInvoice(Document):
 			self.status="Paid"
 		else:
 			self.status="Unpaid"
-		for row in self.invoice_advance:
-			deposit=frappe.get_doc("Customer Deposit",row.customer_deposit)
-			if deposit.idr_left >=row.idr_allocated:
-				frappe.db.sql("""update `tabCustomer Deposit` set idr_left={} where name="{}" """.format(deposit.idr_left -row.idr_allocated,row.customer_deposit),as_list=1)
-		for row in self.gold_invoice_advance:
-			deposit=frappe.get_doc("Customer Deposit",row.customer_deposit)
-			if deposit.gold_left >=row.gold_allocated:
-				frappe.db.sql("""update `tabCustomer Deposit` set  gold_left={} where name="{}" """.format(deposit.gold_left -row.gold_allocated,row.customer_deposit),as_list=1)
-		self.make_gl_entries()
+		
+		self.make_gl_entries(advance_split)
 	def get_gl_entries(self, warehouse_account=None):
 		from erpnext.accounts.general_ledger import merge_similar_entries
 		#GL  Generate
@@ -127,9 +120,85 @@ class GoldInvoice(Document):
 									"company":self.company,
 									"is_cancelled":0
 									}
+		adv=[]
+		for row in self.invoice_advance:
+			advance_split=[]
+			deposit=frappe.get_doc("Customer Deposit",row.customer_deposit)
+			if deposit.idr_left >=row.idr_allocated:
+				frappe.db.sql("""update `tabCustomer Deposit` set idr_left={} where name="{}" """.format(deposit.idr_left -row.idr_allocated,row.customer_deposit),as_list=1)
+				#update GL for payment
+				#if pembayaran di gunakan full
+				if deposit.idr_left ==row.idr_allocated:
+					frappe.db.sql("""update `tabGL Entry` set against_voucher_type="Gold Invoice",against_voucher="{}" where voucher_no="{}" 
+					and voucher_type="Customer Deposit" and against_voucher_type is NULL and against_voucher is NULL and account="{}" and is_cancelled=0""".format(self.name,row.customer_deposit,piutang_idr),as_list=1)
+				else:
+				#if split needed
+					frappe.db.sql("""update `tabGL Entry` set debit={0},debit_in_account_currency={0} where voucher_no="{1}" 
+					and voucher_type="Customer Deposit" and against_voucher_type is NULL and against_voucher is NULL and account="{2}" and is_cancelled=0""".format(deposit.idr_left -row.idr_allocated,row.customer_deposit,piutang_idr),as_list=1)
+					adv.append({
+									"posting_date":self.posting_date,
+									"account":piutang_idr,
+									"party_type":"Customer",
+									"party":self.customer,
+									"cost_center":cost_center,
+									"credit":0,
+									"debit":row.idr_allocated,
+									"account_currency":"IDR",
+									"credit_in_account_currency":0,
+									"debit_in_account_currency":row.idr_allocated,
+									#"against":"4110.000 - Penjualan - L",
+									"voucher_type":"Customer Deposit",
+									"against_voucher_type":"Gold Invoice",
+									"voucher_no":row.customer_deposit,
+									"against_voucher":self.name,
+									#"remarks":"",
+									"is_opening":"No",
+									"is_advance":"No",
+									"fiscal_year":fiscal_years,
+									"company":self.company,
+									"is_cancelled":0
+									})
+		for row in self.gold_invoice_advance:
+			deposit=frappe.get_doc("Customer Deposit",row.customer_deposit)
+			if deposit.gold_left >=row.gold_allocated:
+				frappe.db.sql("""update `tabCustomer Deposit` set  gold_left={} where name="{}" """.format(deposit.gold_left -row.gold_allocated,row.customer_deposit),as_list=1)
+				#update GL for payment
+				#if pembayaran di gunakan full
+				if deposit.idr_left ==row.idr_allocated:
+					frappe.db.sql("""update `tabGL Entry` set against_voucher_type="Gold Invoice",against_voucher="{}" where voucher_no="{}" 
+					and voucher_type="Customer Deposit" and against_voucher_type is NULL and against_voucher is NULL and account="{}" and is_cancelled=0""".format(self.name,row.customer_deposit,piutang_gold),as_list=1)
+				else:
+				#if split needed
+					frappe.db.sql("""update `tabGL Entry` set debit={},debit_in_account_currency={} where voucher_no="{}" 
+					and voucher_type="Customer Deposit" and against_voucher_type is NULL and against_voucher is NULL and account="{}" and is_cancelled=0""".format((deposit.idr_left -row.idr_allocated)*deposit.tutupan,deposit.idr_left -row.idr_allocated,row.customer_deposit,piutang_gold),as_list=1)
+					adv.append({
+									"posting_date":deposit.posting_date,
+									"account":piutang_idr,
+									"party_type":"Customer",
+									"party":self.customer,
+									"cost_center":cost_center,
+									"credit":0,
+									"debit":row.idr_allocated*deposit.tutupan,
+									"account_currency":"IDR",
+									"credit_in_account_currency":0,
+									"debit_in_account_currency":row.idr_allocated,
+									#"against":"4110.000 - Penjualan - L",
+									"voucher_type":"Customer Deposit",
+									"against_voucher_type":"Gold Invoice",
+									"voucher_no":row.customer_deposit,
+									"against_voucher":self.name,
+									#"remarks":"",
+									"is_opening":"No",
+									"is_advance":"No",
+									"fiscal_year":fiscal_years,
+									"company":self.company,
+									"is_cancelled":0
+									})
 		gl_entries=[]
 		for row in gl:
 			gl_entries.append(frappe._dict(gl[row]))
+		for row in adv:
+			gl_entries.append(frappe._dict(row))
 		gl_entries = merge_similar_entries(gl_entries)
 		return gl_entries
 	def make_gl_entries(self, gl_entries=None, from_repost=False):
@@ -169,6 +238,7 @@ class GoldInvoice(Document):
 			deposit=frappe.get_doc("Customer Deposit",row.customer_deposit)
 			if deposit.idr_left >=row.idr_allocated:
 				frappe.db.sql("""update `tabCustomer Deposit` set idr_left=idr_left + {} where name="{}" """.format(row.idr_allocated,row.customer_deposit),as_list=1)
+
 		for row in self.gold_invoice_advance:
 			deposit=frappe.get_doc("Customer Deposit",row.customer_deposit)
 			if deposit.gold_left >=row.gold_allocated:
