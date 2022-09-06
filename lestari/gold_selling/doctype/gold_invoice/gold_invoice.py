@@ -79,7 +79,7 @@ class GoldInvoice(Document):
 									"party_type":"Customer",
 									"party":self.customer,
 									"cost_center":cost_center,
-									"debit":(self.grand_total*self.tutupan)+dsk-csk,
+									"debit":(self.grand_total*self.tutupan)-dsk+csk,
 									"credit":0,
 									"account_currency":"GOLD",
 									"debit_in_account_currency":self.grand_total,
