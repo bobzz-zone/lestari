@@ -39,6 +39,39 @@ class GoldInvoice(Document):
 		cost_center = frappe.db.get_single_value('Gold Selling Settings', 'cost_center')
 		gl={}
 		fiscal_years = get_fiscal_years(self.posting_date, company=self.company)[0][0]
+		#check selisihkurs
+		nilai_selisih_kurs=0
+		for row in self.gold_invoice_advance:
+			nilai_selisih_kurs=nilai_selisih_kurs+(row.gold_allocated*(self.tutupan-row.tutupan))
+		#lebih dr 0 itu debit
+		dsk=0
+		csk=0
+		if nilai_selisih_kurs!=0:
+			if nilai_selisih_kurs>0:
+				dsk=nilai_selisih_kurs
+			else:
+				csk=nilai_selisih_kurs
+			gl[selisih_kurs]={
+									"posting_date":self.posting_date,
+									"account":selisih_kurs,
+									"party_type":"",
+									"party":"",
+									"cost_center":cost_center,
+									"debit":dsk,
+									"credit":csk,
+									"account_currency":"IDR",
+									"debit_in_account_currency":dsk,
+									"credit_in_account_currency":csk,
+									#"against":"4110.000 - Penjualan - L",
+									"voucher_type":"Gold Invoice",
+									"voucher_no":self.name,
+									#"remarks":"",
+									"is_opening":"No",
+									"is_advance":"No",
+									"fiscal_year":fiscal_years,
+									"company":self.company,
+									"is_cancelled":0
+									}
 		#1 untuk GL untuk piutang Gold
 		gl[piutang_gold]={
 									"posting_date":self.posting_date,
@@ -46,7 +79,7 @@ class GoldInvoice(Document):
 									"party_type":"Customer",
 									"party":self.customer,
 									"cost_center":cost_center,
-									"debit":self.grand_total*self.tutupan,
+									"debit":(self.grand_total*self.tutupan)+dsk-csk,
 									"credit":0,
 									"account_currency":"GOLD",
 									"debit_in_account_currency":self.grand_total,
@@ -89,38 +122,7 @@ class GoldInvoice(Document):
 									"is_cancelled":0
 									}
 		#GL For Advance
-		nilai_selisih_kurs=0
-		for row in self.gold_invoice_advance:
-			nilai_selisih_kurs=nilai_selisih_kurs+(row.gold_allocated*(self.tutupan-row.tutupan))
-		#lebih dr 0 itu debit
-		if nilai_selisih_kurs!=0:
-			dsk=0
-			csk=0
-			if nilai_selisih_kurs>0:
-				dsk=nilai_selisih_kurs
-			else:
-				csk=nilai_selisih_kurs
-			gl[selisih_kurs]={
-									"posting_date":self.posting_date,
-									"account":selisih_kurs,
-									"party_type":"",
-									"party":"",
-									"cost_center":cost_center,
-									"debit":dsk,
-									"credit":csk,
-									"account_currency":"IDR",
-									"debit_in_account_currency":dsk,
-									"credit_in_account_currency":csk,
-									#"against":"4110.000 - Penjualan - L",
-									"voucher_type":"Gold Invoice",
-									"voucher_no":self.name,
-									#"remarks":"",
-									"is_opening":"No",
-									"is_advance":"No",
-									"fiscal_year":fiscal_years,
-									"company":self.company,
-									"is_cancelled":0
-									}
+		
 		gl_entries=[]
 		if self.docstatus == 1:
 			adv=[]
