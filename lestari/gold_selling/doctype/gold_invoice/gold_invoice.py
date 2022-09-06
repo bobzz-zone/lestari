@@ -28,7 +28,7 @@ class GoldInvoice(Document):
 		else:
 			self.status="Unpaid"
 		
-		self.make_gl_entries(advance_split)
+		self.make_gl_entries()
 	def get_gl_entries(self, warehouse_account=None):
 		from erpnext.accounts.general_ledger import merge_similar_entries
 		#GL  Generate
