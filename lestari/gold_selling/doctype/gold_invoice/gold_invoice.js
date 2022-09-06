@@ -37,14 +37,14 @@ frappe.ui.form.on('Gold Invoice', {
     		});
 		frm.set_query("customer_deposit","invoice_advance", function(doc, cdt, cdn) {
     			return {
-					query: "lestari.gold_selling.doctype.customer_deposit.get_idr_advance",
+					query: "lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_idr_advance",
 					filters: {'customer': doc.customer }
 				}
 
     		});
 		frm.set_query("customer_deposit","gold_invoice_advance", function(doc, cdt, cdn) {
     			return {
-					query: "lestari.gold_selling.doctype.customer_deposit.get_gold_advance",
+					query: "lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_gold_advance",
 					filters: {'customer': doc.customer }
 				}
 

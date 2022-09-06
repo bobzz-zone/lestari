@@ -257,14 +257,15 @@ class CustomerDeposit(StockController):
 			gl_entries.append(frappe._dict(gl[row]))
 		gl_entries = merge_similar_entries(gl_entries)
 		return gl_entries
-
+@frappe.whitelist()
 def get_idr_advance(doctype, txt, searchfield, start, page_len, filters):
 	return frappe.db.sql(
 		"""select name , idr_left from `tabCustomer Deposit` where name LIKE %(txt)s and deposit_type="IDR" and docstatus=1 and customer=%(customer)s """,
 		{"company": filters.get("customer", ""), "txt": "%" + txt + "%"},
 	)
+@frappe.whitelist()
 def get_gold_advance(doctype, txt, searchfield, start, page_len, filters):
 	return frappe.db.sql(
-		"""select name , idr_left from `tabCustomer Deposit` where name LIKE %(txt)s and deposit_type="Emas" and docstatus=1 and customer=%(customer)s """,
+		"""select name , gold_left from `tabCustomer Deposit` where name LIKE %(txt)s and deposit_type="Emas" and docstatus=1 and customer=%(customer)s """,
 		{"company": filters.get("customer", ""), "txt": "%" + txt + "%"},
 	)
