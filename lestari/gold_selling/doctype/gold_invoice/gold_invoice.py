@@ -2,6 +2,7 @@ import frappe
 from frappe.utils import now_datetime
 from frappe.model.document import Document
 from erpnext.accounts.utils import get_account_currency, get_fiscal_years, validate_fiscal_year
+from frappe.utils import flt
 class GoldInvoice(Document):
 	def validate(self):
 		#total items
@@ -198,6 +199,62 @@ class GoldInvoice(Document):
 										})
 			for row in adv:
 				gl_entries.append(frappe._dict(row))
+		elif self.docstatus==2:
+			frappe.db.sql("""update `tabGL Entry` set  against_voucher_type=NULL,against_voucher=NULL where against_voucher_type="Gold Invoice" and against_voucher="{}" """.format(self.name))
+			#merge if needed
+			gl_need_deleted=""
+			patch={}
+			for row in self.invoice_advance:
+				if row.gold_allocated>0:
+					gl_list=frappe.db.sql("""select name ,debit,credit,debit_in_account_currency,credit_in_account_currency from `tabGL Entry` where voucher_no="{}" and account="{}" and against_voucher_type=NULL and against_voucher=NULL and is_cancelled=0 """.format(row.customer_deposit,piutang_idr),as_list=1)
+					for det in gl_list:
+						if row.customer_deposit in patch:
+							if gl_need_deleted!="":
+								gl_need_deleted="""{},"{}" """.format(gl_need_deleted,det[0])
+							else:
+								gl_need_deleted=""" "{}" """.format(det[0])
+							patch[row.customer_deposit]['need_patch']=1
+							patch[row.customer_deposit]['debit']=flt(det[1])+patch[row.customer_deposit]['debit']
+							patch[row.customer_deposit]['credit']=flt(det[2])+patch[row.customer_deposit]['credit']
+							patch[row.customer_deposit]['debit_in_account_currency']=flt(det[3])+patch[row.customer_deposit]['debit_in_account_currency']
+							patch[row.customer_deposit]['credit_in_account_currency']=flt(det[4])+patch[row.customer_deposit]['credit_in_account_currency']
+						else:
+							patch[row.customer_deposit]={}
+							patch[row.customer_deposit]['need_patch']=0
+							patch[row.customer_deposit]['debit']=flt(det[1])
+							patch[row.customer_deposit]['name']=det[0]
+							patch[row.customer_deposit]['credit']=flt(det[2])
+							patch[row.customer_deposit]['debit_in_account_currency']=flt(det[3])
+							patch[row.customer_deposit]['credit_in_account_currency']=flt(det[4])
+			for row in self.gold_invoice_advance:
+				if row.gold_allocated>0:
+					gl_list=frappe.db.sql("""select name ,debit,credit,debit_in_account_currency,credit_in_account_currency from `tabGL Entry` where voucher_no="{}" and account="{}" and against_voucher_type=NULL and against_voucher=NULL and is_cancelled=0 """.format(row.customer_deposit,piutang_gold),as_list=1)
+					for det in gl_list:
+						if row.customer_deposit in patch:
+							if gl_need_deleted!="":
+								gl_need_deleted="""{},"{}" """.format(gl_need_deleted,det[0])
+							else:
+								gl_need_deleted=""" "{}" """.format(det[0])
+							patch[row.customer_deposit]['need_patch']=1
+							patch[row.customer_deposit]['debit']=flt(det[1])+patch[row.customer_deposit]['debit']
+							patch[row.customer_deposit]['credit']=flt(det[2])+patch[row.customer_deposit]['credit']
+							patch[row.customer_deposit]['debit_in_account_currency']=flt(det[3])+patch[row.customer_deposit]['debit_in_account_currency']
+							patch[row.customer_deposit]['credit_in_account_currency']=flt(det[4])+patch[row.customer_deposit]['credit_in_account_currency']
+						else:
+							patch[row.customer_deposit]={}
+							patch[row.customer_deposit]['need_patch']=0
+							patch[row.customer_deposit]['debit']=flt(det[1])
+							patch[row.customer_deposit]['name']=det[0]
+							patch[row.customer_deposit]['credit']=flt(det[2])
+							patch[row.customer_deposit]['debit_in_account_currency']=flt(det[3])
+							patch[row.customer_deposit]['credit_in_account_currency']=flt(det[4])
+			#delete merged GL
+			if gl_need_deleted!="":
+				frappe.db.sql("delete from `tabGL Entry` where name in ({})".format(gl_need_deleted),as_list=1)
+				#update value gl merged
+				for row in patch:
+					if patch[row]['need_patch']==1:
+						frappe.db.sql("""update `tabGL Entry` set debit={},credit={},debit_in_account_currency={},credit_in_account_currency={} where name="{}" """.format(patch[row]['debit'],patch[row]['credit'],patch[row]['debit_in_account_currency'],patch[row]['credit_in_account_currency'],patch[row]['name']),as_list=1)
 		for row in gl:
 			gl_entries.append(frappe._dict(gl[row]))
 		gl_entries = merge_similar_entries(gl_entries)
