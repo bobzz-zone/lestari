@@ -51,14 +51,26 @@ frappe.ui.form.on('Gold Payment', {
 frappe.ui.form.on('Gold Payment Invoice', {
 	gold_invoice:function(frm,cdt,cdn) {
 		var total=0;
+		var allocated=0;
 		$.each(frm.doc.invoice_table,  function(i,  g) {
 		   	total=total+g.outstanding;
+		   	allocated=allocated+g.allocated;
 		});
 		frm.doc.total_invoice=total;
+		frappe.model.set_value(cdt, cdn,"allocated",0);
+		refresh_field("allocated");
 		refresh_field("total_invoice");
-		frm.doc.unallocated_payment=frm.doc.total_invoice-frm.doc.total_payment
-		refresh_field("unallocated_payment")
+		frm.doc.allocated_payment=allocated;
+		refresh_field("allocated_payment");
 
+	},
+	allocated:function(frm,cdt,cdn) {
+		var allocated=0;
+		$.each(frm.doc.invoice_table,  function(i,  g) {
+		   	allocated=allocated+g.allocated;
+		});
+		frm.doc.allocated_payment=allocated;
+		refresh_field("allocated_payment");
 	}
 });
 frappe.ui.form.on('IDR Payment', {
@@ -74,8 +86,6 @@ frappe.ui.form.on('IDR Payment', {
 		//calculate total payment
 		frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.write_off+frm.doc.discount_amount+frm.doc.bonus;
 		refresh_field("total_payment");
-		frm.doc.unallocated_payment=frm.doc.total_invoice-frm.doc.total_payment
-		refresh_field("unallocated_payment")
 	}
 });
 frappe.ui.form.on('Stock Payment', {
@@ -98,8 +108,6 @@ frappe.ui.form.on('Stock Payment', {
 				    //calculate total payment
 					frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.write_off+frm.doc.discount_amount+frm.doc.bonus;
 					refresh_field("total_payment");
-					frm.doc.unallocated_payment=frm.doc.total_invoice-frm.doc.total_payment
-					refresh_field("unallocated_payment")
 				    }
                 });
 		
@@ -116,8 +124,6 @@ frappe.ui.form.on('Stock Payment', {
 		//calculate total payment
 		frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.write_off+frm.doc.discount_amount+frm.doc.bonus;
 		refresh_field("total_payment");
-		frm.doc.unallocated_payment=frm.doc.total_invoice-frm.doc.total_payment
-		refresh_field("unallocated_payment")
 	}
 	
 });
