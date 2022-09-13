@@ -13,7 +13,8 @@ class GoldPayment(StockController):
 		#check unallocated harus 0
 		if self.unallocated_payment>0:
 			frappe.throw("Error,unallocated Payment Masih tersisa {}".format(self.total_payment-self.allocated_payment))
-		
+		if not self.warehouse:
+			self.warehouse = frappe.db.get_single_value('Gold Selling Settings', 'default_warehouse')
 	def on_submit(self):
 		self.make_gl_entries()
 		#posting Stock Ledger Post
