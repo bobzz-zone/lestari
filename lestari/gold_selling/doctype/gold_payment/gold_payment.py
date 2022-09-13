@@ -110,7 +110,7 @@ class GoldPayment(StockController):
 				payment=row.allocated
 				if sisa<row.allocated:
 					payment=sisa;
-				inv_payment_map[row.gold_invoice]=inv_payment_map[row.gold_invoice]-paymemt
+				inv_payment_map[row.gold_invoice]=inv_payment_map[row.gold_invoice]-payment
 				gl_piutang.append({
 								"posting_date":self.posting_date,
 								"account":piutang_gold,
