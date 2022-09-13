@@ -147,6 +147,7 @@ class GoldPayment(StockController):
 					nilai_selisih_kurs=nilai_selisih_kurs+((self.tutupan-row.tutupan)*payment)
 		for row in gl_piutang:
 			gl_entries.append(frappe._dict(row))
+		#perlu check selisih kurs dari tutupan
 		#lebih dr 0 itu debit
 		dsk=0
 		csk=0
@@ -176,7 +177,75 @@ class GoldPayment(StockController):
 									"company":self.company,
 									"is_cancelled":0
 									}
-			#perlu check selisih kurs dari tutupan
+		#BONUS,DISCOUNT,WRITEOFF
+		if self.bonuns>0:
+			bonus_payment = frappe.db.get_single_value('Gold Selling Settings', 'bonus_payment')
+			gl[bonus_payment]={
+									"posting_date":self.posting_date,
+									"account":bonus_payment,
+									"party_type":"",
+									"party":"",
+									"cost_center":cost_center,
+									"debit":self.bonus*self.tutupan,
+									"credit":0,
+									"account_currency":"IDR",
+									"debit_in_account_currency":self.bonus*self.tutupan,
+									"credit_in_account_currency":0,
+									#"against":"4110.000 - Penjualan - L",
+									"voucher_type":"Gold Payment",
+									"voucher_no":self.name,
+									#"remarks":"",
+									"is_opening":"No",
+									"is_advance":"No",
+									"fiscal_year":fiscal_years,
+									"company":self.company,
+									"is_cancelled":0
+									}
+		if self.discount_amount>0:
+			bonus_payment = frappe.db.get_single_value('Gold Selling Settings', 'discount_payment')
+			gl[discount_payment]={
+									"posting_date":self.posting_date,
+									"account":bonus_payment,
+									"party_type":"",
+									"party":"",
+									"cost_center":cost_center,
+									"debit":self.discount_payment*self.tutupan,
+									"credit":0,
+									"account_currency":"IDR",
+									"debit_in_account_currency":self.discount_payment*self.tutupan,
+									"credit_in_account_currency":0,
+									#"against":"4110.000 - Penjualan - L",
+									"voucher_type":"Gold Payment",
+									"voucher_no":self.name,
+									#"remarks":"",
+									"is_opening":"No",
+									"is_advance":"No",
+									"fiscal_year":fiscal_years,
+									"company":self.company,
+									"is_cancelled":0
+									}
+		if self.write_off>0:
+			gl[self.write_off_account]={
+									"posting_date":self.posting_date,
+									"account":self.write_off_account,
+									"party_type":"",
+									"party":"",
+									"cost_center":cost_center,
+									"debit":self.write_off*self.tutupan,
+									"credit":0,
+									"account_currency":"IDR",
+									"debit_in_account_currency":self.write_off*self.tutupan,
+									"credit_in_account_currency":0,
+									#"against":"4110.000 - Penjualan - L",
+									"voucher_type":"Gold Payment",
+									"voucher_no":self.name,
+									#"remarks":"",
+									"is_opening":"No",
+									"is_advance":"No",
+									"fiscal_year":fiscal_years,
+									"company":self.company,
+									"is_cancelled":0
+									}
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		if self.total_gold_payment>0:
 			warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
