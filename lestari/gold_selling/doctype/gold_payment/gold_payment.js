@@ -86,12 +86,12 @@ frappe.ui.form.on('Gold Payment Invoice', {
 frappe.ui.form.on('IDR Payment', {
 	amount:function(frm,cdt,cdn) {
 		var total=0;
-		$.each(frm.doc.idr_deposit,  function(i,  g) {
+		$.each(frm.doc.idr_payment,  function(i,  g) {
 		   	total=total+g.amount;
 		});
-		frm.doc.total_idr_deposit=total;
+		frm.doc.total_idr_payment=total;
 		frm.doc.total_idr_gold=total/frm.doc.tutupan;
-		refresh_field("total_idr_deposit");
+		refresh_field("total_idr_payment");
 		refresh_field("total_idr_gold");
 		//calculate total payment
 		frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.write_off+frm.doc.discount_amount+frm.doc.bonus;
@@ -110,7 +110,7 @@ frappe.ui.form.on('Stock Payment', {
                     frappe.model.set_value(cdt, cdn,"rate",r.message.nilai);
                     frappe.model.set_value(cdt, cdn,"amount",parseFloat(r.message.nilai)*d.qty/100);
                 	var total=0;
-				    $.each(frm.doc.stock_deposit,  function(i,  g) {
+				    $.each(frm.doc.stock_payment,  function(i,  g) {
 				    	total=total+g.amount;
 				    });
 				    frm.doc.total_gold_payment=total;
@@ -126,7 +126,7 @@ frappe.ui.form.on('Stock Payment', {
 	    var d=locals[cdt][cdn];
 	    frappe.model.set_value(cdt, cdn,"amount",d.rate*d.qty/100);
 	    var total=0;
-		$.each(frm.doc.stock_deposit,  function(i,  g) {
+		$.each(frm.doc.stock_payment,  function(i,  g) {
 		   	total=total+g.amount;
 		});
 		frm.doc.total_gold_payment=total;

@@ -30,7 +30,7 @@ class GoldPayment(StockController):
 		sl_entries = []
 		sl=[]
 		fiscal_years = get_fiscal_years(self.posting_date, company=self.company)[0][0]
-		for row in self.stock_deposit:
+		for row in self.stock_payment:
 			sl.append({
 				"item_code":row.item,
 				"actual_qty":row.qty,
@@ -177,10 +177,10 @@ class GoldPayment(StockController):
 									"party_type":"",
 									"party":"",
 									"cost_center":cost_center,
-									"debit":self.total_gold_deposit*self.tutupan,
+									"debit":self.total_gold_payment*self.tutupan,
 									"credit":0,
 									"account_currency":"IDR",
-									"debit_in_account_currency":self.total_gold_deposit*self.tutupan,
+									"debit_in_account_currency":self.total_gold_payment*self.tutupan,
 									"credit_in_account_currency":0,
 									#"against":"4110.000 - Penjualan - L",
 									"voucher_type":"Gold Payment",
@@ -193,10 +193,10 @@ class GoldPayment(StockController):
 									"is_cancelled":0
 									}
 		
-		#untuk deposit IDR
-		if self.total_idr_deposit>0:
+		#untuk payment IDR
+		if self.total_idr_payment>0:
 			#journal IDR nya aja
-			for row in self.idr_deposit:
+			for row in self.idr_payment:
 				account=get_bank_cash_account(row.mode_of_payment,self.company)["account"]
 				if account in gl:
 					gl[account]['debit']=gl[account]['debit']+row.amount
