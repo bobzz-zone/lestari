@@ -207,7 +207,7 @@ class GoldPayment(StockController):
 									"is_cancelled":0
 									}
 		if self.discount_amount>0:
-			bonus_payment = frappe.db.get_single_value('Gold Selling Settings', 'discount_payment')
+			discount_payment = frappe.db.get_single_value('Gold Selling Settings', 'discount_payment')
 			gl[discount_payment]={
 									"posting_date":self.posting_date,
 									"account":bonus_payment,
