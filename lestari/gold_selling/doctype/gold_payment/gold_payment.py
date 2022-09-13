@@ -118,7 +118,7 @@ class GoldPayment(StockController):
 			inv_payment_map[row.gold_invoice]=row.allocated
 		nilai_selisih_kurs=0
 		# distribute total gold perlu bagi per invoice
-		sisa= self.total_gold_payment+self.total_idr_gold
+		sisa= self.total_payment
 		for row in self.invoice_table:
 			if sisa>0:
 				payment=row.allocated
