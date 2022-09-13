@@ -12,7 +12,7 @@ class GoldInvoice(Document):
 		self.total=total
 		if not self.discount:
 			self.discount=0
-		self.grand_total=self.total-self.discount
+		self.grand_total=flt(self.total)-flt(self.discount)
 	@frappe.whitelist(allow_guest=True)
 	def add_row_action(self):
 		gi = frappe.db.sql("""select name,income_account from `tabGold Selling Item` where kadar="{}" and item_group="{}" """.format(self.kadar,self.category),as_list=1)
