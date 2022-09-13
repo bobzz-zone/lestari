@@ -2,6 +2,31 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Gold Payment', {
+	discount_amount:function(frm){
+		frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.write_off+frm.doc.discount_amount+frm.doc.bonus;
+		refresh_field("total_payment");
+	},
+	write_off:function(frm){
+		frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.write_off+frm.doc.discount_amount+frm.doc.bonus;
+		refresh_field("total_payment");
+	},
+	bonus:function(frm){
+		frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.write_off+frm.doc.discount_amount+frm.doc.bonus;
+		refresh_field("total_payment");
+	},
+	tutupan:function(frm){
+		var total=0;
+		$.each(frm.doc.idr_payment,  function(i,  g) {
+		   	total=total+g.amount;
+		});
+		frm.doc.total_idr_payment=total;
+		frm.doc.total_idr_gold=total/frm.doc.tutupan;
+		refresh_field("total_idr_payment");
+		refresh_field("total_idr_gold");
+		//calculate total payment
+		frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.write_off+frm.doc.discount_amount+frm.doc.bonus;
+		refresh_field("total_payment");
+	},
 	refresh: function(frm) {
 		frm.set_query("item","stock_payment", function(doc, cdt, cdn) {
     			return {
@@ -70,8 +95,8 @@ frappe.ui.form.on('Gold Payment Invoice', {
 		frappe.model.set_value(cdt, cdn,"allocated",0);
 		refresh_field("allocated");
 		refresh_field("total_invoice");
-		frm.doc.allocated_payment=allocated;
-		refresh_field("allocated_payment");
+		frm.doc.unallocated_payment=frm.doc.total_payment-allocated;
+		refresh_field("unallocated_payment");
 
 	},
 	allocated:function(frm,cdt,cdn) {
@@ -79,8 +104,8 @@ frappe.ui.form.on('Gold Payment Invoice', {
 		$.each(frm.doc.invoice_table,  function(i,  g) {
 		   	allocated=allocated+g.allocated;
 		});
-		frm.doc.allocated_payment=allocated;
-		refresh_field("allocated_payment");
+		frm.doc.unallocated_payment=frm.doc.total_payment-allocated;
+		refresh_field("unallocated_payment");
 	}
 });
 frappe.ui.form.on('IDR Payment', {
