@@ -9,24 +9,34 @@
  "field_order": [
   "naming_series",
   "customer",
+  "customer_group",
+  "territory",
   "column_break_2",
-  "date",
+  "posting_date",
+  "posting_time",
+  "company",
   "tutupan",
+  "warehouse",
   "invoice_section",
   "invoice_table",
-  "stock_payment_section",
+  "total_invoice",
+  "unallocated_payment",
+  "auto",
+  "payment_detail_sec",
+  "gold_payment_col",
   "stock_payment",
-  "total_gold_deposit",
-  "idr_payment_section",
-  "idr_payment",
-  "total_idr_deposit",
-  "additional_price_section",
   "total_gold_payment",
-  "bonus",
-  "column_break_14",
-  "diskon",
-  "write_off_section",
+  "idr_payment_col",
+  "idr_payment",
+  "total_idr_payment",
+  "total_idr_gold",
+  "additional_price_section",
+  "write_off_account",
   "write_off",
+  "total_payment",
+  "column_break_14",
+  "discount_amount",
+  "bonus",
   "amended_from"
  ],
  "fields": [
@@ -52,11 +62,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "date",
-   "fieldtype": "Date",
-   "label": "Date"
-  },
-  {
    "fieldname": "tutupan",
    "fieldtype": "Currency",
    "label": "Tutupan"
@@ -73,27 +78,10 @@
    "options": "Gold Payment Invoice"
   },
   {
-   "bold": 1,
-   "fieldname": "stock_payment_section",
-   "fieldtype": "Section Break",
-   "label": "Stock Payment"
-  },
-  {
    "fieldname": "stock_payment",
    "fieldtype": "Table",
    "label": "Stock Payment",
    "options": "Stock Payment"
-  },
-  {
-   "fieldname": "total_gold_deposit",
-   "fieldtype": "Float",
-   "label": "Total Gold Deposit"
-  },
-  {
-   "bold": 1,
-   "fieldname": "idr_payment_section",
-   "fieldtype": "Section Break",
-   "label": "IDR Payment"
   },
   {
    "fieldname": "idr_payment",
@@ -102,40 +90,30 @@
    "options": "IDR Payment"
   },
   {
-   "fieldname": "total_idr_deposit",
-   "fieldtype": "Currency",
-   "label": "Total IDR Deposit"
-  },
-  {
    "fieldname": "additional_price_section",
    "fieldtype": "Section Break",
    "label": "Summary"
   },
   {
+   "default": "0",
    "fieldname": "total_gold_payment",
    "fieldtype": "Float",
-   "label": "Total Gold Payment"
+   "label": "Total Gold Payment",
+   "read_only": 1
   },
   {
+   "default": "0",
    "fieldname": "bonus",
    "fieldtype": "Float",
-   "label": "Bonus"
+   "label": "Bonus in 24K"
   },
   {
    "fieldname": "column_break_14",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "diskon",
-   "fieldtype": "Float",
-   "label": "Diskon"
-  },
-  {
-   "fieldname": "write_off_section",
-   "fieldtype": "Section Break",
-   "label": "Write Off"
-  },
-  {
+   "default": "0",
+   "depends_on": "write_off_account",
    "fieldname": "write_off",
    "fieldtype": "Float",
    "label": "Write Off"
@@ -148,12 +126,118 @@
    "options": "Gold Payment",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fetch_from": "customer.customer_group",
+   "fieldname": "customer_group",
+   "fieldtype": "Link",
+   "label": "Customer Group",
+   "options": "Customer Group",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer.territory",
+   "fieldname": "territory",
+   "fieldtype": "Link",
+   "label": "Territory",
+   "options": "Territory",
+   "read_only": 1
+  },
+  {
+   "fieldname": "payment_detail_sec",
+   "fieldtype": "Section Break",
+   "label": "Payment Details"
+  },
+  {
+   "fieldname": "gold_payment_col",
+   "fieldtype": "Column Break",
+   "label": "Gold Payment"
+  },
+  {
+   "fieldname": "idr_payment_col",
+   "fieldtype": "Column Break",
+   "label": "IDR Payment"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_idr_gold",
+   "fieldtype": "Float",
+   "label": "Total IDR in Gold",
+   "read_only": 1
+  },
+  {
+   "fieldname": "write_off_account",
+   "fieldtype": "Link",
+   "label": "Write Off Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "total_payment",
+   "fieldtype": "Float",
+   "label": "Total Payment In Gold",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "discount_amount",
+   "fieldtype": "Float",
+   "label": "Discount Amount"
+  },
+  {
+   "fieldname": "total_invoice",
+   "fieldtype": "Float",
+   "label": "Total Invoice",
+   "read_only": 1
+  },
+  {
+   "fieldname": "auto",
+   "fieldtype": "Button",
+   "label": "Auto Distribute Payment"
+  },
+  {
+   "fieldname": "unallocated_payment",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "UnAllocated",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_idr_payment",
+   "fieldtype": "Currency",
+   "label": "Total IDR Payment",
+   "read_only": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_time",
+   "fieldtype": "Time",
+   "label": "Posting Time"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-08-28 11:00:08.091990",
+ "modified": "2022-09-13 20:57:14.108582",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

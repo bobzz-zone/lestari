@@ -19,14 +19,14 @@
   "nama",
   "jabatan",
   "berat_material_section",
+  "berat_1",
+  "timbang",
   "material_batu",
   "section_break_13",
   "total_qty_batu",
   "column_break_14",
   "total_berat_batu",
-  "timbang",
   "inputan",
-  "berat_1",
   "berat",
   "amended_from",
   "kirim_serial"
@@ -141,7 +141,8 @@
   {
    "fieldname": "berat",
    "fieldtype": "Text",
-   "label": "berat "
+   "label": "berat ",
+   "read_only": 1
   },
   {
    "fieldname": "berat_1",
@@ -151,19 +152,21 @@
   {
    "fieldname": "inputan",
    "fieldtype": "Data",
-   "label": "inputan"
+   "label": "inputan",
+   "read_only": 1
   },
   {
    "fieldname": "kirim_serial",
    "fieldtype": "Data",
-   "label": "kirim serial"
+   "label": "kirim serial",
+   "read_only": 1
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-06-27 14:33:10.884922",
+ "modified": "2022-09-13 13:23:01.563479",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Form Berat Material Pohon",

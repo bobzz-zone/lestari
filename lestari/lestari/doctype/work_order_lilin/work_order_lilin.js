@@ -8,7 +8,7 @@ frappe.ui.form.on("Work Order Lilin", {
       return {
         filters: {
           warehouse: "Lilin - L",
-          docstatus: 1,
+          docstatus: 0,
         },
       };
     }),

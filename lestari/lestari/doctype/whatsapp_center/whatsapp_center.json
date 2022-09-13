@@ -1,0 +1,154 @@
+{
+ "actions": [],
+ "allow_copy": 1,
+ "creation": "2022-09-09 16:08:26.295989",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "send_to",
+  "customer",
+  "supplier",
+  "sales_partner",
+  "department",
+  "branch",
+  "create_receiver_list",
+  "receiver_list",
+  "column_break9",
+  "template",
+  "template_name",
+  "message",
+  "total_characters",
+  "total_messages",
+  "send_whatsapp",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "send_to",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Send To",
+   "options": "\nAll Contact\nAll Customer Contact\nAll Supplier Contact\nAll Sales Partner Contact\nAll Lead (Open)\nAll Employee (Active)\nAll Sales Person"
+  },
+  {
+   "depends_on": "eval:doc.send_to=='All Customer Contact'",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "depends_on": "eval:doc.send_to=='All Supplier Contact'",
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Supplier",
+   "options": "Supplier"
+  },
+  {
+   "depends_on": "eval:doc.send_to=='All Sales Partner Contact'",
+   "fieldname": "sales_partner",
+   "fieldtype": "Link",
+   "label": "Sales Partner",
+   "options": "Sales Partner"
+  },
+  {
+   "depends_on": "eval:doc.send_to=='All Employee (Active)'",
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "depends_on": "eval:doc.send_to=='All Employee (Active)'",
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "create_receiver_list",
+   "fieldtype": "Button",
+   "label": "Create Receiver List",
+   "options": "create_receiver_list"
+  },
+  {
+   "fieldname": "receiver_list",
+   "fieldtype": "Code",
+   "label": "Receiver List"
+  },
+  {
+   "fieldname": "column_break9",
+   "fieldtype": "Column Break",
+   "width": "50%"
+  },
+  {
+   "fieldname": "template",
+   "fieldtype": "Link",
+   "label": "Template",
+   "options": "Whatsapp Template"
+  },
+  {
+   "fetch_from": "template.name_template",
+   "fieldname": "template_name",
+   "fieldtype": "Data",
+   "label": "Template Name"
+  },
+  {
+   "description": "Messages greater than 160 characters will be split into multiple messages",
+   "fetch_from": "template.components",
+   "fieldname": "message",
+   "fieldtype": "Text",
+   "label": "Message"
+  },
+  {
+   "fieldname": "total_characters",
+   "fieldtype": "Int",
+   "label": "Total Characters",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_messages",
+   "fieldtype": "Int",
+   "label": "Total Message(s)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "send_whatsapp",
+   "fieldtype": "Button",
+   "label": "Send Whatsapp",
+   "options": "send_wa"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Whatsapp Center",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "icon": "fa fa-mobile-phone",
+ "issingle": 1,
+ "links": [],
+ "modified": "2022-09-12 15:42:59.796773",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Whatsapp Center",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "read_only": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

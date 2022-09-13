@@ -7,7 +7,8 @@
  "engine": "InnoDB",
  "field_order": [
   "warehouse",
-  "nomor_wo"
+  "nomor_wo",
+  "berat"
  ],
  "fields": [
   {
@@ -22,12 +23,17 @@
    "fieldname": "nomor_wo",
    "fieldtype": "Data",
    "label": "Nomor WO"
+  },
+  {
+   "fieldname": "berat",
+   "fieldtype": "Float",
+   "label": "Berat"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-05-12 16:27:10.524292",
+ "modified": "2022-09-13 14:18:45.907875",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Data Pohon Lilin History",

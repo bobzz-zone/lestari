@@ -7,9 +7,11 @@
  "engine": "InnoDB",
  "field_order": [
   "employee_id_source",
+  "nama_source",
   "source_warehouse",
   "column_break_3",
   "employee_id_target",
+  "nama_target",
   "target_warehouse",
   "detail_section",
   "transfer_detail",
@@ -65,12 +67,26 @@
    "fieldname": "detail_section",
    "fieldtype": "Section Break",
    "label": "Detail"
+  },
+  {
+   "fetch_from": "employee_id_source.employee_name",
+   "fieldname": "nama_source",
+   "fieldtype": "Data",
+   "label": "Nama Source",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "employee_id_target.employee_name",
+   "fieldname": "nama_target",
+   "fieldtype": "Data",
+   "label": "Nama Target",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-07-12 11:21:58.102744",
+ "modified": "2022-09-13 14:45:41.123626",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Transfer Material",

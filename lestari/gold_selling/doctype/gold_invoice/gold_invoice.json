@@ -31,15 +31,18 @@
   "total",
   "discount",
   "discount_amount",
-  "grand_total",
-  "outstanding",
   "gold_invoice_has_gold_deposit",
+  "cb_idr",
   "invoice_advance",
   "total_idr_in_gold",
+  "cb_gold",
   "gold_invoice_advance",
   "total_gold",
+  "summary_sec",
+  "grand_total",
   "total_advance",
-  "status",
+  "outstanding",
+  "invoice_status",
   "amended_from"
  ],
  "fields": [
@@ -154,14 +157,6 @@
    "read_only": 1
   },
   {
-   "fieldname": "status",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Status",
-   "options": "Draft\nUnpaid\nPaid",
-   "read_only": 1
-  },
-  {
    "fieldname": "gold_invoice_has_gold_deposit",
    "fieldtype": "Section Break",
    "label": "Invoice Advance"
@@ -170,12 +165,14 @@
    "fieldname": "invoice_advance",
    "fieldtype": "Table",
    "label": "Advance IDR",
+   "no_copy": 1,
    "options": "Gold Invoice Advance IDR"
   },
   {
    "fieldname": "total_advance",
    "fieldtype": "Float",
    "label": "Total Advances",
+   "no_copy": 1,
    "read_only": 1
   },
   {
@@ -191,18 +188,21 @@
    "fieldname": "gold_invoice_advance",
    "fieldtype": "Table",
    "label": "Advance Gold",
+   "no_copy": 1,
    "options": "Gold Invoice Advance Gold"
   },
   {
    "fieldname": "total_idr_in_gold",
    "fieldtype": "Float",
    "label": "Total IDR Payment In Gold",
+   "no_copy": 1,
    "read_only": 1
   },
   {
    "fieldname": "total_gold",
    "fieldtype": "Float",
    "label": "Total Gold Payment",
+   "no_copy": 1,
    "read_only": 1
   },
   {
@@ -247,11 +247,34 @@
    "fieldtype": "Float",
    "label": "Discount Amount",
    "read_only": 1
+  },
+  {
+   "fieldname": "cb_idr",
+   "fieldtype": "Column Break",
+   "label": "IDR Deposit"
+  },
+  {
+   "fieldname": "cb_gold",
+   "fieldtype": "Column Break",
+   "label": "Gold Deposit"
+  },
+  {
+   "fieldname": "summary_sec",
+   "fieldtype": "Section Break",
+   "label": "Summary"
+  },
+  {
+   "fieldname": "invoice_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Unpaid\nPaid",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-04 14:34:20.989131",
+ "modified": "2022-09-13 16:50:24.084076",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",

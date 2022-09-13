@@ -2,8 +2,12 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Gold Invoice', {
+	// setup:function(frm){
+	// 	frm.events.make_custom_buttons(frm);
+	// },
 	refresh:function(frm) {
 		// your code here
+		frm.events.make_custom_buttons(frm);
 		if(!frm.doc.tutupan){
 		    frappe.call({
                 method: "lestari.gold_selling.doctype.gold_rates.gold_rates.get_latest_rates",
@@ -30,7 +34,8 @@ frappe.ui.form.on('Gold Invoice', {
 		frm.set_query("category", function(doc) {
     			return {
     				"filters": {
-    					"is_group":1
+    					// "is_group":1
+						"parent_item_group":'Products'
     				}
     			};
 
@@ -50,6 +55,11 @@ frappe.ui.form.on('Gold Invoice', {
 
     		});
 
+	},
+	make_custom_buttons: function (frm) {
+		if (frm.doc.docstatus === 0) {
+		  frm.add_custom_button(__("Quick Payment"), () => frm.events.get_items_from_transfer_material(frm));
+		}
 	},
 	/*add_new_action:function(frm){
 		if(frm.doc.kadar=="" || frm.doc.category==""){

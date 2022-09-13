@@ -172,9 +172,9 @@
   {
    "fieldname": "barcode",
    "fieldtype": "Barcode",
-   "hidden": 1,
    "label": "Barcode",
-   "no_copy": 1
+   "no_copy": 1,
+   "read_only": 1
   },
   {
    "fieldname": "sprue_utama",
@@ -211,7 +211,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-06 10:42:58.022034",
+ "modified": "2022-09-13 13:46:54.312773",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Work Order Lilin",

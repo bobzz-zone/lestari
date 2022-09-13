@@ -9,6 +9,8 @@
   "piutang_gold",
   "piutang_idr",
   "selisih_kurs",
+  "discount_payment",
+  "bonus_payment",
   "cost_center",
   "item_ct",
   "default_warehouse"
@@ -57,12 +59,26 @@
    "label": "Default Warehouse",
    "options": "Warehouse",
    "reqd": 1
+  },
+  {
+   "fieldname": "discount_payment",
+   "fieldtype": "Link",
+   "label": "Discount Pembayaran",
+   "options": "Account",
+   "reqd": 1
+  },
+  {
+   "fieldname": "bonus_payment",
+   "fieldtype": "Link",
+   "label": "Bonus Pembayaran",
+   "options": "Account",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-09-01 02:31:12.571763",
+ "modified": "2022-09-13 19:33:06.509601",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling Settings",

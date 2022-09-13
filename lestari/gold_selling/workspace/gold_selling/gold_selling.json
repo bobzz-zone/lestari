@@ -1,0 +1,110 @@
+{
+ "category": "Modules",
+ "charts": [],
+ "creation": "2022-09-06 20:42:44.900916",
+ "developer_mode_only": 0,
+ "disable_user_customization": 0,
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "extends_another_page": 0,
+ "hide_custom": 0,
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "label": "Gold Selling",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Gold Invoice",
+   "link_to": "Gold Invoice",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Gold Payment",
+   "link_to": "Gold Payment",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Customer Deposit",
+   "link_to": "Customer Deposit",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Gold Rates",
+   "link_to": "Gold Rates",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Customer Rates",
+   "link_to": "Customer Rates",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Customer Group Rates",
+   "link_to": "Customer Group Rates",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Gold Stock Category",
+   "link_to": "Gold Selling Item",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Gold Selling Settings",
+   "link_to": "Gold Selling Settings",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2022-09-06 20:42:44.900916",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Gold Selling",
+ "owner": "Administrator",
+ "pin_to_bottom": 0,
+ "pin_to_top": 0,
+ "shortcuts": [
+  {
+   "doc_view": "List",
+   "label": "Gold Invoice",
+   "link_to": "Gold Invoice",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Customer Deposit",
+   "link_to": "Customer Deposit",
+   "type": "DocType"
+  }
+ ]
+}
