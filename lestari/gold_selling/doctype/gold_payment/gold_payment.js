@@ -15,7 +15,7 @@ frappe.ui.form.on('Gold Payment', {
     			return {
     				"filters": {
     					"docstatus":1,
-    					"invoice_status":"Unpaid",
+    					//"invoice_status":"Unpaid",
     					"customer":doc.customer
     				}
     			};
