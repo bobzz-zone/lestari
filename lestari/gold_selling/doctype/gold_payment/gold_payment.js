@@ -11,6 +11,15 @@ frappe.ui.form.on('Gold Payment', {
     			};
 
     		});
+		frm.set_query("gold_invoice","invoice_table", function(doc, cdt, cdn) {
+    			return {
+    				"filters": {
+    					"docstatus":1,
+    					"status":"Unpaid"
+    				}
+    			};
+
+    		});
 		if(!frm.doc.tutupan){
 		    frappe.call({
                 method: "lestari.gold_selling.doctype.gold_rates.gold_rates.get_latest_rates",

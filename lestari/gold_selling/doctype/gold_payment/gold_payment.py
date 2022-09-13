@@ -12,7 +12,7 @@ class GoldPayment(StockController):
 		#seharusnya validasi agaryang belum due, di pastikan tutupan sama..atau hanya 1 invoice agar di gold payment tutupan di samakan
 		#check unallocated harus 0
 		if self.allocated_payment!=self.total_payment:
-			frappe.db.throw("Error,unallocated Payment Masih tersisa {}".format(self.total_payment-self.allocated_payment))
+			frappe.throw("Error,unallocated Payment Masih tersisa {}".format(self.total_payment-self.allocated_payment))
 		
 	def on_submit(self):
 		self.make_gl_entries()
