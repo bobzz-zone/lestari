@@ -20,14 +20,15 @@ class GoldInvoice(Document):
 			self.append("items",{"category":gi[0][0],"rate":get_gold_rate(gi[0][0],self.customer,self.customer_group)['nilai'],"kadar":self.kadar,"item_group":self.category,"income_account":gi[0][1],"qty":0})
 		else:
 			frappe.msgprint("Product Not Found")
-	def on_submit(self):
+	def before_submit(self):
 		if self.outstanding<0:
 			frappe.throw("Error, Outstanding should not be less than zero")
 		if self.outstanding==0:
 			self.invoice_status="Paid"
 		else:
 			self.invoice_status="Unpaid"
-		
+
+	def on_submit(self):
 		self.make_gl_entries()
 	def get_gl_entries(self, warehouse_account=None):
 		from erpnext.accounts.general_ledger import merge_similar_entries

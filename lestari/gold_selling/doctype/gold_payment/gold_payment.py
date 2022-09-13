@@ -20,13 +20,21 @@ class GoldPayment(StockController):
 		#posting Stock Ledger Post
 		self.update_stock_ledger()
 		self.repost_future_sle_and_gle()
-		
+		#update invoice
+		for row in self.invoice_table:
+			if row.allocated==row.outstanding:
+				frappe.db.sql("""update `tabGold Invoice` set outstanding=outstanding-{} , invoice_status="Paid" where name = "{}" """.format(row.allocated,row.gold_invoice))
+			else:
+				frappe.db.sql("""update `tabGold Invoice` set outstanding=outstanding-{} where name = "{}" """.format(row.allocated,row.gold_invoice))
 	def on_cancel(self):
 		self.flags.ignore_links=True
 		self.make_gl_entries_on_cancel()
 		self.update_stock_ledger()
 		self.repost_future_sle_and_gle()
-		
+		#update invoice
+		for row in self.invoice_table:
+			frappe.db.sql("""update `tabGold Invoice` set outstanding=outstanding+{} , invoice_status="Unpaid" where name = "{}" """.format(row.allocated,row.gold_invoice))
+			
 	def update_stock_ledger(self):
 		sl_entries = []
 		sl=[]
