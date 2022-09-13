@@ -11,8 +11,13 @@ class GoldPayment(StockController):
 	def validate(self):
 		#seharusnya validasi agaryang belum due, di pastikan tutupan sama..atau hanya 1 invoice agar di gold payment tutupan di samakan
 		#check unallocated harus 0
-		if self.unallocated_payment>0:
-			frappe.throw("Error,unallocated Payment Masih tersisa {}".format(self.total_payment-self.allocated_payment))
+		unallocated=self.total_payment
+		for row in invoice_table:
+			if row.allocated:
+				unallocated=unallocated-row.allocated
+		self.unallocated=unallocated
+		if self.unallocated_payment and self.unallocated_payment>0:
+			frappe.throw("Error,unallocated Payment Masih tersisa {}".format(self.total_payment-self.unallocated_payment))
 		if not self.warehouse:
 			self.warehouse = frappe.db.get_single_value('Gold Selling Settings', 'default_warehouse')
 	def on_submit(self):
@@ -178,7 +183,7 @@ class GoldPayment(StockController):
 									"is_cancelled":0
 									}
 		#BONUS,DISCOUNT,WRITEOFF
-		if self.bonuns>0:
+		if self.bonus>0:
 			bonus_payment = frappe.db.get_single_value('Gold Selling Settings', 'bonus_payment')
 			gl[bonus_payment]={
 									"posting_date":self.posting_date,
