@@ -24,9 +24,9 @@ class GoldInvoice(Document):
 		if self.outstanding<0:
 			frappe.throw("Error, Outstanding should not be less than zero")
 		if self.outstanding==0:
-			self.status="Paid"
+			self.invoice_status="Paid"
 		else:
-			self.status="Unpaid"
+			self.invoice_status="Unpaid"
 		
 		self.make_gl_entries()
 	def get_gl_entries(self, warehouse_account=None):
