@@ -210,7 +210,7 @@ class GoldPayment(StockController):
 			discount_payment = frappe.db.get_single_value('Gold Selling Settings', 'discount_payment')
 			gl[discount_payment]={
 									"posting_date":self.posting_date,
-									"account":bonus_payment,
+									"account":discount_payment,
 									"party_type":"",
 									"party":"",
 									"cost_center":cost_center,
