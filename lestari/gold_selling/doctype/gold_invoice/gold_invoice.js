@@ -57,7 +57,7 @@ frappe.ui.form.on('Gold Invoice', {
 
 	},
 	make_custom_buttons: function (frm) {
-		if (frm.doc.docstatus === 0) {
+		if (frm.doc.docstatus === 1) {
 		  frm.add_custom_button(__("Quick Payment"), () => frm.events.get_items_from_transfer_material(frm));
 		}
 	},
