@@ -15,7 +15,24 @@ frappe.ui.form.on('Gold Payment', {
 		refresh_field("total_payment");
 	},
 	auto_distribute:function(frm){
-		alert("yeaah");
+		if (frm.doc.invoice_table==[]){
+			frappe.throw("Tidak ada Invoice yang terpilih");
+		}else{
+			var need_to=frm.doc.unallocated_payment;
+			if(need_to<=0){
+				frappe.throw("Tidak ada pembayaran yang dapat di alokasikan");
+			}
+			$.each(frm.doc.idr_payment,  function(i,  g) {
+		   		if (need_to>g.outstanding){
+		   			g.allocated=g.outstanding;
+		   		}else{
+		   			g.allocated=need_to;
+		   		}
+		   		need_to=need_to-g.allocated;
+			});
+			refresh_field("invoice_table");
+		}
+
 	},
 	tutupan:function(frm){
 		var total=0;
