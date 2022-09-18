@@ -30,6 +30,8 @@ frappe.ui.form.on('Gold Payment', {
 		   		}
 		   		need_to=need_to-g.allocated;
 			});
+			frm.doc.unallocated_payment=need_to;
+			refresh_field("unallocated_payment");
 			refresh_field("invoice_table");
 		}
 
