@@ -122,7 +122,7 @@ frappe.ui.form.on('Gold Payment Invoice', {
 		refresh_field("total_invoice");
 		frm.doc.allocated_payment=allocated;
 		refresh_field("allocated_payment");
-		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated;
+		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment;
 		refresh_field("unallocated_payment");
 
 	},
@@ -133,7 +133,7 @@ frappe.ui.form.on('Gold Payment Invoice', {
 		});
 		frm.doc.allocated_payment=allocated;
 		refresh_field("allocated_payment");
-		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated;
+		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment;
 		refresh_field("unallocated_payment");
 	}
 });
