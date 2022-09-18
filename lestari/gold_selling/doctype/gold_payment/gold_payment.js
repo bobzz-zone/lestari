@@ -24,8 +24,8 @@ frappe.ui.form.on('Gold Payment', {
 			}
 			$.each(frm.doc.invoice_table,  function(i,  g) {
 				var alo=0;
-		   		if (need_to>g.outstanding){
-		   			alo=g.outstanding;
+		   		if (need_to>(g.outstanding-g.allocated)){
+		   			alo=g.outstanding-g.allocated;
 		   		}else{
 		   			alo=need_to;
 		   		}
@@ -34,6 +34,7 @@ frappe.ui.form.on('Gold Payment', {
 		   	});
 			frm.doc.unallocated_payment=need_to;
 			refresh_field("unallocated_payment");
+			frappe.throw("Pembayran Telah di Alokasikan");
 		}
 
 	},
