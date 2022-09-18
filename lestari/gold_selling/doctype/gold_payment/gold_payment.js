@@ -29,10 +29,10 @@ frappe.ui.form.on('Gold Payment', {
 		   			g.allocated=need_to;
 		   		}
 		   		need_to=need_to-g.allocated;
+		   		frappe.model.set_value("Gold Payment Invoice", i, "allocated", g.allocated);
 			});
 			frm.doc.unallocated_payment=need_to;
 			refresh_field("unallocated_payment");
-			refresh_field("invoice_table");
 		}
 
 	},
