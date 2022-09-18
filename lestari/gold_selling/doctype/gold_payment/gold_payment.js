@@ -31,6 +31,7 @@ frappe.ui.form.on('Gold Payment', {
 		   		}
 		   		need_to=need_to-alo;
 		   		frappe.model.set_value(g.doctype, g.name, "allocated", alo);
+		   	});
 			frm.doc.unallocated_payment=need_to;
 			refresh_field("unallocated_payment");
 		}
