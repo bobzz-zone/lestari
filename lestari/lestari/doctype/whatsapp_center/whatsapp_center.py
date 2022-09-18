@@ -9,9 +9,37 @@ import requests
 from frappe import _, msgprint
 from frappe.model.document import Document
 
-from frappe.utils import cstr
+from frappe.utils import cstr, validate_url, get_url
 
 class WhatsappCenter(Document):
+	@frappe.whitelist()
+	def get_child(self):
+		doc = frappe.get_doc("Whatsapp Template", self.template)
+		body = []
+		for row in doc.detail:
+			if row.type == 'HEADER':
+				self.header_format = row.format
+			
+			if row.type == 'BODY':
+				parts = row.text.split("{{")
+				for index, e in enumerate(parts[1:]):
+					body.append({
+						'no': index+1
+					})
+
+			# baris_baru = {
+			# 	"type": row.type,
+			# 	"format": row.format,
+			# 	"text": row.text,
+			# 	"image": row.image,
+			# 	"buttons": row.buttons,
+			# 	"document": row.document,
+			# 	"video": row.video
+			# }
+
+			# self.append("detail",baris_baru)
+			self.set('body_table',body)
+
 	@frappe.whitelist()
 	def create_receiver_list(self):
 		rec, where_clause = "", ""
@@ -95,68 +123,77 @@ class WhatsappCenter(Document):
 
 		return receiver_nos
 
-	@frappe.whitelist()
-	def send_wa(self):
-		receiver_list = []
-		if not self.template:
-			msgprint(_("Please choose Template before sending"))
-		else:
-			receiver_list = self.get_receiver_nos()
-		if receiver_list:
-			#send_sms(receiver_list, cstr(self.message))
-			wa_setting = frappe.get_doc("Whatsapp Setting")
-			wa_template = frappe.get_doc("Whatsapp Template", self.template)
-			component = wa_template.components.replace("'", '"')
-			host = "https://graph.facebook.com"
-			path = "/{}/{}/messages".format(wa_setting.version,wa_setting.phone_number_id)
-			data = {
-					"messaging_product": "whatsapp",
-					"to": receiver_list[0],
-					"type": "template",
-					"template": {
-						"name": self.template_name,
-						"language": {
-							"code":wa_template.language},
-						"components": [
-							{
-								"type":"header",
-								"parameters":[
-									{
-										"type":"document",
-										"document":{
-											"link": "https://lms.digitalasiasolusindo.com/files/Ini testing.pdf"
-										}
-									}
-								]
-							},
-							{
-								"type":"body",
-								"parameters":[
-									{
-										"type":"text",
-										"text":"Parameter 1"
-									},
-									{
-										"type":"text",
-										"text":"Parameter 2"
-									},
-									{
-										"type":"text",
-										"text":"Parameter 3"
-									},
-								]
-							}
-						]
-					}
+	def payload_wa(self):
+		def component_template():
+			component = []
+			if self.header_format:
+				format = self.header_format.lower()
+				if format in ['document', 'image', 'video']:
+					body = { "link": (get_url() if not validate_url(self.get(format)) else '') + self.get(format)  }
+
+				component.append({
+					"type":"header",
+					"parameters":[
+						{
+							"type": format,
+							format: body
+						}
+					]
+				}) 
+			
+			if len(self.body_table) > 0:
+				body_param = []
+				for row_body in self.body_table:
+					body_param.append({
+						"type": "text",
+						"text": row_body.parameter
+					})
+
+				component.append({
+					"type":"body",
+					"parameters": body_param
+				})
+
+			return component
+
+		if self.is_template == 'Yes':
+			return {
+				"type": "template",
+				"template": {
+					"name": self.template_name,
+					"language": { "code": self.template_lang },
+					"components": component_template()
 				}
-			payload = json.dumps(data)
-			msgprint(payload)
-			url = str(host+path)
-			headers = {
-				'Content-Type': 'application/json',
-				'Authorization': 'Bearer {}'.format(wa_setting.user_access_token)
 			}
 
-			resp = requests.request("POST",url,headers=headers, data=payload, allow_redirects=False)
-			ret = json.loads(resp.text)
-			frappe.msgprint(str(ret))
+	@frappe.whitelist()
+	def send_wa(self):
+		receiver_list = self.get_receiver_nos() or []
+		
+		if receiver_list:
+			component = self.payload_wa()
+			for i in receiver_list:
+			#send_sms(receiver_list, cstr(self.message))
+				wa_setting = frappe.get_doc("Whatsapp Setting")
+				# component = wa_template.components.replace("'", '"')
+				url = "https://graph.facebook.com/{}/{}/messages".format(wa_setting.version,wa_setting.phone_number_id)
+				
+				data = {
+					"messaging_product": "whatsapp",
+					"to": i,
+					**component
+				}
+
+				payload = json.dumps(data)
+				msgprint(payload)
+
+				headers = {
+					'Content-Type': 'application/json',
+					'Authorization': 'Bearer {}'.format(wa_setting.user_access_token)
+				}
+
+				resp = requests.request("POST",url,headers=headers, data=payload, allow_redirects=False)
+				ret = json.loads(resp.text)
+				frappe.msgprint(str(ret))
+
+	

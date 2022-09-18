@@ -21,7 +21,7 @@
   "invoice_table",
   "total_invoice",
   "unallocated_payment",
-  "auto",
+  "auto_distribute",
   "payment_detail_sec",
   "gold_payment_col",
   "stock_payment",
@@ -190,11 +190,6 @@
    "read_only": 1
   },
   {
-   "fieldname": "auto",
-   "fieldtype": "Button",
-   "label": "Auto Distribute Payment"
-  },
-  {
    "fieldname": "unallocated_payment",
    "fieldtype": "Float",
    "hidden": 1,
@@ -232,12 +227,17 @@
    "fieldname": "posting_time",
    "fieldtype": "Time",
    "label": "Posting Time"
+  },
+  {
+   "fieldname": "auto_distribute",
+   "fieldtype": "Button",
+   "label": "Auto Distribute Payment"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-13 20:57:14.108582",
+ "modified": "2022-09-18 22:29:02.860791",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

@@ -303,7 +303,15 @@ class GoldInvoice(Document):
 			if row.gold_allocated:
 				frappe.db.sql("""update `tabCustomer Deposit` set  gold_left=gold_left + {} where name="{}" """.format(row.gold_allocated,row.customer_deposit),as_list=1)
 		self.make_gl_entries()
-	
+	@frappe.whitelist(allow_guest=True)
+	def get_gold_payment(self):
+		doc = frappe.new_doc("Gold Payment")
+		doc.customer = self.customer
+		doc.warehouse = "Inventory - L"
+		doc.flags.ignore_permissions = True
+		doc.save()
+		return doc
+
 @frappe.whitelist(allow_guest=True)
 def get_gold_rate(category,customer,customer_group):
 	#check if customer has special rates

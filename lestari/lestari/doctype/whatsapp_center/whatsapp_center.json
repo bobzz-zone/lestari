@@ -12,13 +12,27 @@
   "department",
   "branch",
   "create_receiver_list",
-  "receiver_list",
   "column_break9",
+  "receiver_list",
+  "section_break_10",
+  "is_template",
+  "column_break_12",
   "template",
   "template_name",
+  "template_lang",
+  "message_section_section",
   "message",
+  "detail",
   "total_characters",
   "total_messages",
+  "template_section",
+  "header_format",
+  "header_text",
+  "image",
+  "document",
+  "video",
+  "column_break_31",
+  "body_table",
   "send_whatsapp",
   "amended_from"
  ],
@@ -85,16 +99,19 @@
    "width": "50%"
   },
   {
+   "depends_on": "eval:doc.is_template == 'Yes'",
    "fieldname": "template",
    "fieldtype": "Link",
    "label": "Template",
    "options": "Whatsapp Template"
   },
   {
+   "depends_on": "eval:doc.is_template == 'Yes'",
    "fetch_from": "template.name_template",
    "fieldname": "template_name",
    "fieldtype": "Data",
-   "label": "Template Name"
+   "label": "Template Name",
+   "read_only": 1
   },
   {
    "description": "Messages greater than 160 characters will be split into multiple messages",
@@ -106,12 +123,14 @@
   {
    "fieldname": "total_characters",
    "fieldtype": "Int",
+   "hidden": 1,
    "label": "Total Characters",
    "read_only": 1
   },
   {
    "fieldname": "total_messages",
    "fieldtype": "Int",
+   "hidden": 1,
    "label": "Total Message(s)",
    "read_only": 1
   },
@@ -129,12 +148,93 @@
    "options": "Whatsapp Center",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fetch_from": "template.detail",
+   "fieldname": "detail",
+   "fieldtype": "Table",
+   "label": "Detail",
+   "options": "Whatsapp Center Detail"
+  },
+  {
+   "fieldname": "section_break_10",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "is_template",
+   "fieldtype": "Select",
+   "label": "Is Template",
+   "options": "\nYes\nNo"
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.is_template != 'Yes'",
+   "fieldname": "message_section_section",
+   "fieldtype": "Section Break",
+   "label": "Message Section"
+  },
+  {
+   "depends_on": "eval:(doc.header_format == 'TEXT' && doc.is_template)",
+   "fieldname": "header_text",
+   "fieldtype": "Small Text",
+   "label": "Header Text"
+  },
+  {
+   "depends_on": "eval:(doc.header_format == 'IMAGE' && doc.is_template)",
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Header Image"
+  },
+  {
+   "depends_on": "eval:(doc.header_format == 'DOCUMENT' && doc.is_template)",
+   "fieldname": "document",
+   "fieldtype": "Attach",
+   "label": "Header Document"
+  },
+  {
+   "depends_on": "eval:(doc.header_format == 'VIDEO' && doc.is_template)",
+   "fieldname": "video",
+   "fieldtype": "Attach",
+   "label": "Header Video"
+  },
+  {
+   "fieldname": "column_break_31",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "header_format",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Format"
+  },
+  {
+   "depends_on": "eval:doc.is_template == 'Yes'",
+   "fieldname": "template_section",
+   "fieldtype": "Section Break",
+   "label": "Template Section"
+  },
+  {
+   "fieldname": "body_table",
+   "fieldtype": "Table",
+   "label": "Body",
+   "options": "Whatsapp Body Param"
+  },
+  {
+   "depends_on": "eval:doc.is_template == 'Yes'",
+   "fetch_from": "template.language",
+   "fieldname": "template_lang",
+   "fieldtype": "Data",
+   "label": "Template Lang",
+   "read_only": 1
   }
  ],
  "icon": "fa fa-mobile-phone",
  "issingle": 1,
  "links": [],
- "modified": "2022-09-12 15:42:59.796773",
+ "modified": "2022-09-15 22:08:31.592588",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Whatsapp Center",

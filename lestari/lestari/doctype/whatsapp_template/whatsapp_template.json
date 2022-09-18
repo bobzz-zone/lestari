@@ -14,7 +14,8 @@
   "category",
   "language",
   "section_break_7",
-  "components"
+  "components",
+  "detail"
  ],
  "fields": [
   {
@@ -58,11 +59,17 @@
    "fieldtype": "Code",
    "label": "Components",
    "options": "Whatsapp Template Component"
+  },
+  {
+   "fieldname": "detail",
+   "fieldtype": "Table",
+   "label": "Detail",
+   "options": "Whatsapp Template Component"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-09-12 15:00:51.072653",
+ "modified": "2022-09-15 10:51:14.811285",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Whatsapp Template",

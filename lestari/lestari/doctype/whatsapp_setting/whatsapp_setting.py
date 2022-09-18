@@ -28,12 +28,49 @@ class WhatsappSetting(Document):
 				template.name_template = row['name']
 				template.category = row['category']
 				template.status = row['status']
-				component_list = []
 				for component in row['components']:
-					component_list.append({
-
-					})
-				template.components = component_list
+					frappe.msgprint(component['type'])
+					if component['type'] == 'HEADER':
+						if component['format'] == 'TEXT':
+							baris_baru = {
+								"type" : component['type'],
+								"format" : component['format'],
+								"text": component['text']
+							}
+							template.append("detail",baris_baru)
+						else:
+							baris_baru = {
+								"type" : component['type'],
+								"format" : component['format']
+							}
+							template.append("detail",baris_baru)
+					if component['type'] == 'BODY':
+						baris_baru = {
+							"type" : component['type'],
+							"format" : 'TEXT',
+							"text" : component['text']
+						}
+						template.append("detail",baris_baru)
+						# frappe.msgprint(component['text'])
+					if component['type'] == 'FOOTER':
+						baris_baru = {
+							"type" : component['type'],
+							"format" : 'TEXT',
+							"text" : component['text']
+						}
+						template.append("detail",baris_baru)
+						# frappe.msgprint(component['text'])
+					if component['type'] == 'BUTTONS':
+						baris_baru = {
+							"type" : component['type'],
+							'format' : 'BUTTONS',
+							"buttons" : str(component['buttons'])
+						}
+						template.append("detail",baris_baru)
+						# frappe.msgprint(component['buttons'])
+					# frappe.msgprint(baris_baru)
+					# template.append("detail",baris_baru)
+				template.components = str(row['components'])
 				template.save(ignore_permissions=True)
 
 
