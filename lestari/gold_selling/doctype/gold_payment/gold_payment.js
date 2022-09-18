@@ -14,7 +14,7 @@ frappe.ui.form.on('Gold Payment', {
 		frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.write_off+frm.doc.discount_amount+frm.doc.bonus;
 		refresh_field("total_payment");
 	},
-	auto:function(frm){
+	auto_distribute:function(frm){
 		alert("yeaah");
 	},
 	tutupan:function(frm){
