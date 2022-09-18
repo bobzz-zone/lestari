@@ -69,6 +69,67 @@ frappe.ui.form.on("Gold Invoice", {
     });
   },
   /*add_new_action:function(frm){
+frappe.ui.form.on('Gold Invoice', {
+	// setup:function(frm){
+	// 	frm.events.make_custom_buttons(frm);
+	// },
+	refresh:function(frm) {
+		// your code here
+		frm.events.make_custom_buttons(frm);
+		if(!frm.doc.tutupan){
+		    frappe.call({
+                method: "lestari.gold_selling.doctype.gold_rates.gold_rates.get_latest_rates",
+                callback: function (r){
+                    frm.doc.tutupan=r.message.nilai;
+                    refresh_field("tutupan")
+                
+                	}
+                })
+		}
+		if(frm.doc.docstatus > 0) {
+			cur_frm.add_custom_button(__('Accounting Ledger'), function() {
+				frappe.route_options = {
+					voucher_no: frm.doc.name,
+					from_date: frm.doc.posting_date,
+					to_date: moment(frm.doc.modified).format('YYYY-MM-DD'),
+					company: frm.doc.company,
+					group_by: "Group by Voucher (Consolidated)",
+					show_cancelled_entries: frm.doc.docstatus === 2
+				};
+				frappe.set_route("query-report", "General Ledger");
+			}, __("View"));
+		}
+		frm.set_query("category", function(doc) {
+    			return {
+    				"filters": {
+    					// "is_group":1
+						"parent_item_group":'Products'
+    				}
+    			};
+
+    		});
+		frm.set_query("customer_deposit","invoice_advance", function(doc, cdt, cdn) {
+    			return {
+					query: "lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_idr_advance",
+					filters: {'customer': doc.customer }
+				}
+
+    		});
+		frm.set_query("customer_deposit","gold_invoice_advance", function(doc, cdt, cdn) {
+    			return {
+					query: "lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_gold_advance",
+					filters: {'customer': doc.customer }
+				}
+
+    		});
+
+	},
+	make_custom_buttons: function (frm) {
+		if (frm.doc.docstatus === 1) {
+		  frm.add_custom_button(__("Quick Payment"), () => frm.events.get_items_from_transfer_material(frm));
+		}
+	},
+	/*add_new_action:function(frm){
 		if(frm.doc.kadar=="" || frm.doc.category==""){
 			msgprint("Error, Data Berlum Terisi.")
 			return;
