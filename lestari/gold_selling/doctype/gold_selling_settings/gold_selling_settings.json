@@ -11,6 +11,7 @@
   "selisih_kurs",
   "discount_payment",
   "bonus_payment",
+  "return_adjustment",
   "cost_center",
   "item_ct",
   "default_warehouse"
@@ -73,12 +74,19 @@
    "label": "Bonus Pembayaran",
    "options": "Account",
    "reqd": 1
+  },
+  {
+   "fieldname": "return_adjustment",
+   "fieldtype": "Link",
+   "label": "Return Adjustment Account",
+   "options": "Account",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-09-13 19:33:06.509601",
+ "modified": "2022-09-21 10:22:31.110070",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling Settings",

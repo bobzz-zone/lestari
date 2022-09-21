@@ -18,8 +18,10 @@
   "tutupan",
   "warehouse",
   "invoice_section",
+  "get_gold_invoice",
   "invoice_table",
   "total_invoice",
+  "allocated_payment",
   "unallocated_payment",
   "auto_distribute",
   "payment_detail_sec",
@@ -192,7 +194,6 @@
   {
    "fieldname": "unallocated_payment",
    "fieldtype": "Float",
-   "hidden": 1,
    "label": "UnAllocated",
    "read_only": 1
   },
@@ -231,13 +232,26 @@
   {
    "fieldname": "auto_distribute",
    "fieldtype": "Button",
-   "label": "Auto Distribute Payment"
+   "label": "Auto Distribute Payment",
+   "options": "auto_distribute"
+  },
+  {
+   "fieldname": "allocated_payment",
+   "fieldtype": "Float",
+   "label": "allocated",
+   "read_only": 1
+  },
+  {
+   "fieldname": "get_gold_invoice",
+   "fieldtype": "Button",
+   "label": "Get Gold Invoice",
+   "options": "get_gold_invoice"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-18 22:29:02.860791",
+ "modified": "2022-09-19 11:41:07.679109",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

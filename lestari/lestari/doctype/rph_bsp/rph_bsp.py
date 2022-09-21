@@ -22,15 +22,11 @@ def get_items_from_transfer_material(source_name, target_doc=None, args=None):
 		args = json.loads(args)
 
 	def update_item(source, target, source_parent):
+		target.nthko_area = source.get("nthko_area")
 		target.nthko_id = source.get("nthko_id")
 		target.s_warehouse = source_parent.get("s_warehouse")
 		target.t_warehouse = source.get("t_warehouse")
-		target.customer = source.get("customer")
-		target.qty_isi_pohon = source.get("qty_isi_pohon")
-		target.kategori = source.get("kategori")
-		target.sub_kategori = source.get("sub_kategori")
-		target.jumlah_pohon = source.get("jumlah_pohon")
-		target.target_berat = source.get("target_berat")
+		
 
 	def select_item(d):
 		filtered_items = args.get('filtered_children', [])

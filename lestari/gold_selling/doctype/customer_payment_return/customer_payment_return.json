@@ -8,18 +8,22 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
+  "company",
   "customer",
-  "date",
+  "customer_name",
+  "customer_group",
+  "territory",
   "column_break",
+  "date",
   "due_date",
-  "diskon",
+  "return_detail_sb",
+  "warehouse",
+  "items",
+  "summary_sb",
   "adjustment",
+  "adjustment_account",
   "net_total",
   "grand_total",
-  "payment_stock_return",
-  "rate",
-  "quantity",
-  "amount",
   "amended_from"
  ],
  "fields": [
@@ -56,11 +60,6 @@
    "label": "Due Date"
   },
   {
-   "fieldname": "diskon",
-   "fieldtype": "Float",
-   "label": "Diskon"
-  },
-  {
    "fieldname": "adjustment",
    "fieldtype": "Float",
    "label": "Adjustment"
@@ -76,26 +75,6 @@
    "label": "Grand Total"
   },
   {
-   "fieldname": "payment_stock_return",
-   "fieldtype": "Section Break",
-   "label": "Payment Stock Return"
-  },
-  {
-   "fieldname": "rate",
-   "fieldtype": "Float",
-   "label": "Rate"
-  },
-  {
-   "fieldname": "quantity",
-   "fieldtype": "Float",
-   "label": "Quantity"
-  },
-  {
-   "fieldname": "amount",
-   "fieldtype": "Float",
-   "label": "Amount"
-  },
-  {
    "fieldname": "amended_from",
    "fieldtype": "Link",
    "label": "Amended From",
@@ -103,12 +82,68 @@
    "options": "Customer Payment Return",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "summary_sb",
+   "fieldtype": "Section Break",
+   "label": "Summary"
+  },
+  {
+   "fetch_from": "customer.customer_group",
+   "fieldname": "customer_group",
+   "fieldtype": "Link",
+   "label": "Customer Group",
+   "options": "Customer Group"
+  },
+  {
+   "fetch_from": "customer.territory",
+   "fieldname": "territory",
+   "fieldtype": "Link",
+   "label": "Territory",
+   "options": "Territory"
+  },
+  {
+   "fieldname": "return_detail_sb",
+   "fieldtype": "Section Break",
+   "label": "Return Detail"
+  },
+  {
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Source Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Returned Stock",
+   "options": "Stock Payment Return Item"
+  },
+  {
+   "fieldname": "adjustment_account",
+   "fieldtype": "Link",
+   "label": "Adjustment Account",
+   "mandatory_depends_on": "doc.adjustment",
+   "options": "Account"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-08-28 11:00:10.665116",
+ "modified": "2022-09-21 10:21:56.475295",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Payment Return",

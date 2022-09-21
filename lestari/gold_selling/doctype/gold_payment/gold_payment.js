@@ -123,10 +123,27 @@ frappe.ui.form.on('Gold Payment Invoice', {
 		refresh_field("total_invoice");
 		frm.doc.allocated_payment=allocated;
 		refresh_field("allocated_payment");
-		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment;
+		frm.doc.unallocated_payment=frm.doc.total_payment+frm.doc.allocated_payment;
 		refresh_field("unallocated_payment");
 
 	},
+	// before_invoice_table_remove:function(frm,cdt,cdn){
+		// var d = locals[cdn][cdt];
+		// var total= frm.doc.total_invoice;
+		// var allocated= frm.doc.allocated_payment;
+		// $.each(frm.doc.invoice_table,  function(i,  g) {
+		// total=total-g.total;
+		// allocated=allocated-g.allocated;
+	 	// });
+	 	// frm.doc.total_invoice=total;
+		// frappe.model.set_value(cdt, cdn,"allocated",0);
+		// refresh_field("allocated");
+		// refresh_field("total_invoice");
+		// frm.doc.allocated_payment=allocated;
+		// refresh_field("allocated_payment");
+		// frm.doc.unallocated_payment=frm.doc.total_payment;
+		// refresh_field("unallocated_payment");
+	// },
 	allocated:function(frm,cdt,cdn) {
 		var allocated=0;
 		$.each(frm.doc.invoice_table,  function(i,  g) {

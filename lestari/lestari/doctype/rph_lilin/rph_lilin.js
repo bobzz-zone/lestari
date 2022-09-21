@@ -23,9 +23,6 @@ frappe.ui.form.on("RPH Lilin", {
       target: frm,
       setters: {
         area: undefined,
-        // no_spk: frm.doc.no_spk || undefined,
-        // kadar: frm.doc.kadar || undefined,
-        // produk_id: frm.doc.produk_id || undefined,
       },
       size: "extra-large",
       get_query_filters: {

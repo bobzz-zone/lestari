@@ -39,7 +39,20 @@ class GoldPayment(StockController):
 		#update invoice
 		for row in self.invoice_table:
 			frappe.db.sql("""update `tabGold Invoice` set outstanding=outstanding+{} , invoice_status="Unpaid" where name = "{}" """.format(row.allocated,row.gold_invoice))
-			
+
+	@frappe.whitelist()
+	def get_gold_invoice(self):
+		doc = frappe.db.get_list("Gold Invoice", filters={"customer": self.customer, "invoice_status":"Unpaid", 'docstatus':1}, fields=['name','outstanding','due_date'])
+		for row in doc:
+			# frappe.msgprint(str(row))
+			self.total_invoice = self.total_invoice + row.outstanding
+			baris_baru = {
+				'gold_invoice':row.name,
+				'total':row.outstanding,
+				'due_date':row.due_date
+			}
+			self.append("invoice_table",baris_baru)
+
 	def update_stock_ledger(self):
 		sl_entries = []
 		sl=[]
