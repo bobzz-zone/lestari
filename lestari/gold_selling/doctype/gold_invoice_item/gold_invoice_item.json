@@ -31,14 +31,16 @@
    "fieldname": "qty",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Bruto"
+   "label": "Bruto",
+   "precision": "2"
   },
   {
    "columns": 1,
    "fieldname": "rate",
    "fieldtype": "Percent",
    "in_list_view": 1,
-   "label": "Percent"
+   "label": "Percent",
+   "precision": "2"
   },
   {
    "columns": 2,
@@ -46,6 +48,7 @@
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "24K",
+   "precision": "3",
    "read_only": 1
   },
   {
@@ -81,7 +84,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-09-01 23:01:46.954618",
+ "modified": "2022-09-21 15:22:29.602096",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice Item",

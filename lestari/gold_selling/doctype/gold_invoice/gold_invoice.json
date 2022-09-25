@@ -40,6 +40,7 @@
   "total_gold",
   "summary_sec",
   "grand_total",
+  "total_bruto",
   "total_advance",
   "outstanding",
   "invoice_status",
@@ -142,6 +143,7 @@
    "description": "Customer akan dapat % Discount dari Brutto",
    "fieldname": "discount",
    "fieldtype": "Percent",
+   "hidden": 1,
    "label": "Discount"
   },
   {
@@ -245,6 +247,7 @@
   {
    "fieldname": "discount_amount",
    "fieldtype": "Float",
+   "hidden": 1,
    "label": "Discount Amount",
    "read_only": 1
   },
@@ -270,11 +273,17 @@
    "label": "Status",
    "options": "Unpaid\nPaid",
    "read_only": 1
+  },
+  {
+   "fieldname": "total_bruto",
+   "fieldtype": "Float",
+   "label": "Total Bruto",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-13 16:50:24.084076",
+ "modified": "2022-09-25 17:08:23.571994",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",

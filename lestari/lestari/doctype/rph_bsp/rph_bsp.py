@@ -22,11 +22,14 @@ def get_items_from_transfer_material(source_name, target_doc=None, args=None):
 		args = json.loads(args)
 
 	def update_item(source, target, source_parent):
-		target.nthko_area = source.get("nthko_area")
-		target.nthko_id = source.get("nthko_id")
-		target.s_warehouse = source_parent.get("s_warehouse")
-		target.t_warehouse = source.get("t_warehouse")
-		
+		target.no_spk = source.get("nthko_id")
+		target.operation = source.get("bsp_operation")
+		material = frappe.get_doc(source.get("nthko_area"),source.get("nthko_id"))
+		for row in material.table_detail:
+			target.produk_id = row.produk_id
+			target.kadar = frappe.get_doc('Item',row.produk_id).kadar
+			target.sub_kategori = frappe.get_doc('Item',row.produk_id).item_group
+			target.kategori = frappe.get_doc('Item Group',frappe.get_doc('Item',row.produk_id).item_group).parent_item_group
 
 	def select_item(d):
 		filtered_items = args.get('filtered_children', [])

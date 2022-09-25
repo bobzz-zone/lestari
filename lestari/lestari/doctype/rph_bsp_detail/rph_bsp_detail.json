@@ -11,6 +11,7 @@
   "kategori",
   "sub_kategori",
   "column_break_6",
+  "operation",
   "produk_id",
   "qty"
  ],
@@ -55,12 +56,18 @@
    "fieldname": "qty",
    "fieldtype": "Int",
    "label": "Qty"
+  },
+  {
+   "fieldname": "operation",
+   "fieldtype": "Select",
+   "label": "Operation",
+   "options": "\nBombing\nPotas\nTukang Luar Bombing"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-09-19 10:09:59.988622",
+ "modified": "2022-09-23 14:26:45.566177",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "RPH BSP Detail",

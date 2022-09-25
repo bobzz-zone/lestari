@@ -22,6 +22,7 @@
   "summary_sb",
   "adjustment",
   "adjustment_account",
+  "tutupan",
   "net_total",
   "grand_total",
   "amended_from"
@@ -60,6 +61,7 @@
    "label": "Due Date"
   },
   {
+   "default": "0",
    "fieldname": "adjustment",
    "fieldtype": "Float",
    "label": "Adjustment"
@@ -136,14 +138,18 @@
    "fieldname": "adjustment_account",
    "fieldtype": "Link",
    "label": "Adjustment Account",
-   "mandatory_depends_on": "doc.adjustment",
    "options": "Account"
+  },
+  {
+   "fieldname": "tutupan",
+   "fieldtype": "Currency",
+   "label": "Tutupan"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-21 10:21:56.475295",
+ "modified": "2022-09-22 09:58:13.259512",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Payment Return",

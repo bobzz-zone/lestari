@@ -84,9 +84,18 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "item",
+   "link_to": "Item",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2022-09-06 20:42:44.900916",
+ "modified": "2022-09-22 10:15:53.416542",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling",

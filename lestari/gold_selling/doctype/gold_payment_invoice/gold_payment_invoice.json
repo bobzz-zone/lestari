@@ -11,7 +11,8 @@
   "outstanding",
   "due_date",
   "allocated",
-  "tutupan"
+  "tutupan",
+  "total_bruto"
  ],
  "fields": [
   {
@@ -57,12 +58,18 @@
    "fieldtype": "Currency",
    "label": "Nilai Tutupan",
    "read_only": 1
+  },
+  {
+   "fetch_from": "gold_invoice.total_bruto",
+   "fieldname": "total_bruto",
+   "fieldtype": "Float",
+   "label": "Total Bruto"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-09-13 15:12:46.415921",
+ "modified": "2022-09-25 17:08:59.916355",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment Invoice",

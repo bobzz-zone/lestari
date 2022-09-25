@@ -23,6 +23,8 @@
   "customer_deposit_source",
   "idr_deposit_section",
   "sisa_idr_deposit",
+  "used_deposit",
+  "actual_buy",
   "cash_from",
   "idr_deposit",
   "total_idr_deposit",
@@ -166,7 +168,7 @@
    "fetch_if_empty": 1,
    "fieldname": "sisa_idr_deposit",
    "fieldtype": "Currency",
-   "label": "Sisa Deposit IDR",
+   "label": "Current Sisa Deposit IDR",
    "mandatory_depends_on": "customer_deposit_source",
    "read_only": 1
   },
@@ -206,17 +208,33 @@
    "reqd": 1
   },
   {
-   "depends_on": "customer_deposit_source",
+   "description": "di hide karena di rasa g perlu karena ga di catat berapa yang dibelikan emas",
    "fieldname": "cash_from",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Sumber Uang",
-   "mandatory_depends_on": "customer_deposit_source",
    "options": "Account"
+  },
+  {
+   "depends_on": "customer_deposit_source",
+   "fetch_from": "customer_deposit_source.idr_left",
+   "fieldname": "used_deposit",
+   "fieldtype": "Currency",
+   "label": "Used Deposit",
+   "mandatory_depends_on": "customer_deposit_source"
+  },
+  {
+   "description": "di hide karena di rasa g perlu karena ga di catat berapa yang dibelikan emas",
+   "fetch_from": "customer_deposit_source.idr_left",
+   "fieldname": "actual_buy",
+   "fieldtype": "Currency",
+   "hidden": 1,
+   "label": "Uang Actual Di belikan Emas"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-04 13:54:39.642712",
+ "modified": "2022-09-25 19:05:59.205955",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Deposit",

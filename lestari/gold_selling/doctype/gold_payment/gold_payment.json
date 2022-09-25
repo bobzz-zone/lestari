@@ -15,6 +15,7 @@
   "posting_date",
   "posting_time",
   "company",
+  "due_date",
   "tutupan",
   "warehouse",
   "invoice_section",
@@ -37,6 +38,7 @@
   "write_off",
   "total_payment",
   "column_break_14",
+  "discount",
   "discount_amount",
   "bonus",
   "amended_from"
@@ -183,7 +185,8 @@
    "default": "0",
    "fieldname": "discount_amount",
    "fieldtype": "Float",
-   "label": "Discount Amount"
+   "label": "Discount Amount",
+   "read_only": 1
   },
   {
    "fieldname": "total_invoice",
@@ -205,10 +208,10 @@
    "read_only": 1
   },
   {
-   "default": "Today",
    "fieldname": "posting_date",
    "fieldtype": "Date",
-   "label": "Date"
+   "label": "Date",
+   "reqd": 1
   },
   {
    "fieldname": "company",
@@ -246,12 +249,23 @@
    "fieldtype": "Button",
    "label": "Get Gold Invoice",
    "options": "get_gold_invoice"
+  },
+  {
+   "default": "Today",
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "label": "Due Date"
+  },
+  {
+   "fieldname": "discount",
+   "fieldtype": "Percent",
+   "label": "Discount"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-19 11:41:07.679109",
+ "modified": "2022-09-25 17:06:59.395798",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",
