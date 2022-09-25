@@ -2,9 +2,20 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Gold Payment', {
-	discount_amount:function(frm){
-		frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.write_off+frm.doc.discount_amount+frm.doc.bonus;
+	discount:function(frm){
+		if (frm.doc.discount<=0){
+			return
+		}
+		var disc=0
+		$.each(frm.doc.invoice_table,  function(i,  g) {
+			if (g.allocated>0){
+				disc=disc+(g.total_bruto/100*frm.doc.discount);
+			}
+		 });
+		frm.doc.discount_amount=disc;
 		refresh_field("total_payment");
+		frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.write_off+frm.doc.discount_amount+frm.doc.bonus;
+		refresh_field("discount_amount");
 	},
 	write_off:function(frm){
 		frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.write_off+frm.doc.discount_amount+frm.doc.bonus;
@@ -146,13 +157,21 @@ frappe.ui.form.on('Gold Payment Invoice', {
 	// },
 	allocated:function(frm,cdt,cdn) {
 		var allocated=0;
+		var disc=0
 		$.each(frm.doc.invoice_table,  function(i,  g) {
-		   	allocated=allocated+g.allocated;
+			if (g.allocated>0){
+				disc=disc+(g.total_bruto/100*frm.doc.discount);
+		   		allocated=allocated+g.allocated;
+			}
 		});
+		frm.doc.discount_amount=disc;
 		frm.doc.allocated_payment=allocated;
+		refresh_field("discount_amount");
 		refresh_field("allocated_payment");
 		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment;
 		refresh_field("unallocated_payment");
+		frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.write_off+frm.doc.discount_amount+frm.doc.bonus;
+		refresh_field("discount_amount");
 	}
 });
 frappe.ui.form.on('IDR Payment', {

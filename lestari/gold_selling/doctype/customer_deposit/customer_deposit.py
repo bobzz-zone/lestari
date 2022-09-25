@@ -17,9 +17,9 @@ class CustomerDeposit(StockController):
 			self.stock_deposit=[]
 		if self.is_convert==1:
 			self.stock_deposit=[]
-			if self.customer_deposit_source and self.sisa_idr_deposit>0:
+			if self.customer_deposit_source and self.used_deposit>0:
 				item_ct = frappe.db.get_single_value('Gold Selling Settings', 'item_ct')
-				qty = self.sisa_idr_deposit/self.tutupan
+				qty = self.used_deposit/self.tutupan
 				self.append("stock_deposit",{"item":item_ct,"rate":100,"qty":qty,"amount":qty})
 				self.total_gold_deposit=qty
 				self.gold_left=qty
@@ -31,7 +31,7 @@ class CustomerDeposit(StockController):
 		self.update_stock_ledger()
 		self.repost_future_sle_and_gle()
 		if self.is_convert==1:
-			frappe.db.sql("""update `tabCustomer Deposit` set idr_left=idr_left-{} where name="{}" """.format(self.sisa_idr_deposit,self.customer_deposit_source),as_list=1)
+			frappe.db.sql("""update `tabCustomer Deposit` set idr_left=idr_left-{} where name="{}" """.format(self.used_deposit,self.customer_deposit_source),as_list=1)
 	
 	def on_cancel(self):
 		self.flags.ignore_links=True
@@ -39,7 +39,7 @@ class CustomerDeposit(StockController):
 		self.update_stock_ledger()
 		self.repost_future_sle_and_gle()
 		if self.is_convert==1:
-			frappe.db.sql("""update `tabCustomer Deposit` set idr_left=idr_left+{} where name="{}" """.format(self.sisa_idr_deposit,self.customer_deposit_source),as_list=1)
+			frappe.db.sql("""update `tabCustomer Deposit` set idr_left=idr_left+{} where name="{}" """.format(self.used_deposit,self.customer_deposit_source),as_list=1)
 
 	def update_stock_ledger(self):
 		sl_entries = []
@@ -107,141 +107,42 @@ class CustomerDeposit(StockController):
 		cost_center = frappe.db.get_single_value('Gold Selling Settings', 'cost_center')
 		gl={}
 		fiscal_years = get_fiscal_years(self.posting_date, company=self.company)[0][0]
-		#1 untuk GL untuk piutang Gold
-		if self.total_gold_deposit>0 and self.deposit_type=="Emas":
-			piutang_gold = frappe.db.get_single_value('Gold Selling Settings', 'piutang_gold')
-			warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
-			gl[piutang_gold]={
-									"posting_date":self.posting_date,
-									"account":piutang_gold,
-									"party_type":"Customer",
-									"party":self.customer,
-									"cost_center":cost_center,
-									"debit":0,
-									"credit":self.total_gold_deposit*self.tutupan,
-									"account_currency":"GOLD",
-									"debit_in_account_currency":0,
-									"credit_in_account_currency":self.total_gold_deposit,
-									#"against":"4110.000 - Penjualan - L",
-									"voucher_type":"Customer Deposit",
-									"voucher_no":self.name,
-									#"remarks":"",
-									"is_opening":"No",
-									"is_advance":"Yes",
-									"fiscal_year":fiscal_years,
-									"company":self.company,
-									"is_cancelled":0
-									}
-			gl[warehouse_account]={
-									"posting_date":self.posting_date,
-									"account":warehouse_account,
-									"party_type":"",
-									"party":"",
-									"cost_center":cost_center,
-									"debit":self.total_gold_deposit*self.tutupan,
-									"credit":0,
-									"account_currency":"IDR",
-									"debit_in_account_currency":self.total_gold_deposit*self.tutupan,
-									"credit_in_account_currency":0,
-									#"against":"4110.000 - Penjualan - L",
-									"voucher_type":"Customer Deposit",
-									"voucher_no":self.name,
-									#"remarks":"",
-									"is_opening":"No",
-									"is_advance":"No",
-									"fiscal_year":fiscal_years,
-									"company":self.company,
-									"is_cancelled":0
-									}
-		#pelunasan kalo ada isconvert
-			if self.is_convert==1:
-				if self.customer_deposit_source and self.sisa_idr_deposit>0:
-					piutang_idr = frappe.db.get_single_value('Gold Selling Settings', 'piutang_idr')
-					gl[piutang_idr]={
-									"posting_date":self.posting_date,
-									"account":piutang_idr,
-									"party_type":"Customer",
-									"party":self.customer,
-									"cost_center":cost_center,
-									"credit":0,
-									"debit":self.sisa_idr_deposit,
-									"account_currency":"IDR",
-									"credit_in_account_currency":0,
-									"debit_in_account_currency":self.sisa_idr_deposit,
-									#"against":"4110.000 - Penjualan - L",
-									"voucher_type":"Customer Deposit",
-									"against_voucher_type":"Customer Deposit",
-									"voucher_no":self.name,
-									"against_voucher":self.customer_deposit_source,
-									#"remarks":"",
-									"is_opening":"No",
-									"is_advance":"No",
-									"fiscal_year":fiscal_years,
-									"company":self.company,
-									"is_cancelled":0
-									}
-					gl[self.cash_from]={
+		if self.is_convert==0:
+			#1 untuk GL untuk piutang Gold
+			if self.total_gold_deposit>0 and self.deposit_type=="Emas":
+				piutang_gold = frappe.db.get_single_value('Gold Selling Settings', 'piutang_gold')
+				warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
+				gl[piutang_gold]={
+											"posting_date":self.posting_date,
+											"account":piutang_gold,
+											"party_type":"Customer",
+											"party":self.customer,
+											"cost_center":cost_center,
+											"debit":0,
+											"credit":self.total_gold_deposit*self.tutupan,
+											"account_currency":"GOLD",
+											"debit_in_account_currency":0,
+											"credit_in_account_currency":self.total_gold_deposit,
+											#"against":"4110.000 - Penjualan - L",
+											"voucher_type":"Customer Deposit",
+											"voucher_no":self.name,
+											#"remarks":"",
+											"is_opening":"No",
+											"is_advance":"Yes",
+											"fiscal_year":fiscal_years,
+											"company":self.company,
+											"is_cancelled":0
+											}
+				gl[warehouse_account]={
 										"posting_date":self.posting_date,
-										"account":self.cash_from,
+										"account":warehouse_account,
 										"party_type":"",
 										"party":"",
 										"cost_center":cost_center,
-										"credit":self.sisa_idr_deposit,
-										"debit":0,
-										"account_currency":"IDR",
-										"credit_in_account_currency":self.sisa_idr_deposit,
-										"debit_in_account_currency":0,
-										#"against":"4110.000 - Penjualan - L",
-										"voucher_type":"Customer Deposit",
-										"voucher_no":self.name,
-										#"remarks":"",
-										"is_opening":"No",
-										"is_advance":"No",
-										"fiscal_year":fiscal_years,
-										"company":self.company,
-										"is_cancelled":0
-										}
-		#untuk deposit IDR
-		if self.total_idr_deposit>0 and self.deposit_type=="IDR":
-			piutang_idr = frappe.db.get_single_value('Gold Selling Settings', 'piutang_idr')
-			
-			gl[piutang_idr]={
-									"posting_date":self.posting_date,
-									"account":piutang_idr,
-									"party_type":"Customer",
-									"party":self.customer,
-									"cost_center":cost_center,
-									"debit":0,
-									"credit":self.total_idr_deposit,
-									"account_currency":"IDR",
-									"debit_in_account_currency":0,
-									"credit_in_account_currency":self.total_idr_deposit,
-									#"against":"4110.000 - Penjualan - L",
-									"voucher_type":"Customer Deposit",
-									"voucher_no":self.name,
-									#"remarks":"",
-									"is_opening":"No",
-									"is_advance":"Yes",
-									"fiscal_year":fiscal_years,
-									"company":self.company,
-									"is_cancelled":0
-									}
-			for row in self.idr_deposit:
-				account=get_bank_cash_account(row.mode_of_payment,self.company)["account"]
-				if account in gl:
-					gl[account]['debit']=gl[account]['debit']+row.amount
-					gl[account]['debit_in_account_currency']=gl[account]['debit']
-				else:
-					gl[account]={
-										"posting_date":self.posting_date,
-										"account":account,
-										"party_type":"",
-										"party":"",
-										"cost_center":cost_center,
-										"debit":row.amount,
+										"debit":self.total_gold_deposit*self.tutupan,
 										"credit":0,
 										"account_currency":"IDR",
-										"debit_in_account_currency":row.amount,
+										"debit_in_account_currency":self.total_gold_deposit*self.tutupan,
 										"credit_in_account_currency":0,
 										#"against":"4110.000 - Penjualan - L",
 										"voucher_type":"Customer Deposit",
@@ -253,7 +154,152 @@ class CustomerDeposit(StockController):
 										"company":self.company,
 										"is_cancelled":0
 										}
-		
+			#untuk deposit IDR
+			if self.total_idr_deposit>0 and self.deposit_type=="IDR":
+				piutang_idr = frappe.db.get_single_value('Gold Selling Settings', 'piutang_idr')
+				
+				gl[piutang_idr]={
+										"posting_date":self.posting_date,
+										"account":piutang_idr,
+										"party_type":"Customer",
+										"party":self.customer,
+										"cost_center":cost_center,
+										"debit":0,
+										"credit":self.total_idr_deposit,
+										"account_currency":"IDR",
+										"debit_in_account_currency":0,
+										"credit_in_account_currency":self.total_idr_deposit,
+										#"against":"4110.000 - Penjualan - L",
+										"voucher_type":"Customer Deposit",
+										"voucher_no":self.name,
+										#"remarks":"",
+										"is_opening":"No",
+										"is_advance":"Yes",
+										"fiscal_year":fiscal_years,
+										"company":self.company,
+										"is_cancelled":0
+										}
+				for row in self.idr_deposit:
+					account=get_bank_cash_account(row.mode_of_payment,self.company)["account"]
+					if account in gl:
+						gl[account]['debit']=gl[account]['debit']+row.amount
+						gl[account]['debit_in_account_currency']=gl[account]['debit']
+					else:
+						gl[account]={
+											"posting_date":self.posting_date,
+											"account":account,
+											"party_type":"",
+											"party":"",
+											"cost_center":cost_center,
+											"debit":row.amount,
+											"credit":0,
+											"account_currency":"IDR",
+											"debit_in_account_currency":row.amount,
+											"credit_in_account_currency":0,
+											#"against":"4110.000 - Penjualan - L",
+											"voucher_type":"Customer Deposit",
+											"voucher_no":self.name,
+											#"remarks":"",
+											"is_opening":"No",
+											"is_advance":"No",
+											"fiscal_year":fiscal_years,
+											"company":self.company,
+											"is_cancelled":0
+											}
+		else:
+			if self.deposit_type!="Emas":
+				frappe.throw("Conversion hanya bisa untuk Deposit Rupiah menjadi emas")
+			if self.customer_deposit_source and self.used_deposit>0:
+				piutang_idr = frappe.db.get_single_value('Gold Selling Settings', 'piutang_idr')
+				piutang_gold = frappe.db.get_single_value('Gold Selling Settings', 'piutang_gold')
+				uang_buat_beli_emas = frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
+				gl[piutang_idr]={
+								"posting_date":self.posting_date,
+								"account":piutang_idr,
+								"party_type":"Customer",
+								"party":self.customer,
+								"cost_center":cost_center,
+								"credit":0,
+								"debit":self.used_deposit,
+								"account_currency":"IDR",
+								"credit_in_account_currency":0,
+								"debit_in_account_currency":self.used_deposit,
+								#"against":"4110.000 - Penjualan - L",
+								"voucher_type":"Customer Deposit",
+								"against_voucher_type":"Customer Deposit",
+								"voucher_no":self.name,
+								"against_voucher":self.customer_deposit_source,
+								#"remarks":"",
+								"is_opening":"No",
+								"is_advance":"No",
+								"fiscal_year":fiscal_years,
+								"company":self.company,
+								"is_cancelled":0
+								}
+				gl[piutang_gold]={
+								"posting_date":self.posting_date,
+								"account":piutang_gold,
+								"party_type":"Customer",
+								"party":self.customer,
+								"cost_center":cost_center,
+								"debit":0,
+								"credit":self.used_deposit,
+								"account_currency":"GOLD",
+								"debit_in_account_currency":0,
+								"credit_in_account_currency":self.used_deposit/self.tutupan,
+								#"against":"4110.000 - Penjualan - L",
+								"voucher_type":"Customer Deposit",
+								"voucher_no":self.name,
+								#"remarks":"",
+								"is_opening":"No",
+								"is_advance":"Yes",
+								"fiscal_year":fiscal_years,
+								"company":self.company,
+								"is_cancelled":0
+								}
+				#di comment karena ngga tau dibeli kan atau ngga
+				# gl[self.cash_from]={
+				# 					"posting_date":self.posting_date,
+				# 					"account":self.cash_from,
+				# 					"party_type":"",
+				# 					"party":"",
+				# 					"cost_center":cost_center,
+				# 					"credit":self.actual_buy,
+				# 					"debit":0,
+				# 					"account_currency":"IDR",
+				# 					"credit_in_account_currency":self.actual_buy,
+				# 					"debit_in_account_currency":0,
+				# 					#"against":"4110.000 - Penjualan - L",
+				# 					"voucher_type":"Customer Deposit",
+				# 					"voucher_no":self.name,
+				# 					#"remarks":"",
+				# 					"is_opening":"No",
+				# 					"is_advance":"No",
+				# 					"fiscal_year":fiscal_years,
+				# 					"company":self.company,
+				# 					"is_cancelled":0
+				# 					}
+				# gl[uang_buat_beli_emas]={
+				# 					"posting_date":self.posting_date,
+				# 					"account":self.cash_from,
+				# 					"party_type":"",
+				# 					"party":"",
+				# 					"cost_center":cost_center,
+				# 					"debit":self.actual_buy,
+				# 					"credit":0,
+				# 					"account_currency":"IDR",
+				# 					"debit_in_account_currency":self.actual_buy,
+				# 					"credit_in_account_currency":0,
+				# 					#"against":"4110.000 - Penjualan - L",
+				# 					"voucher_type":"Customer Deposit",
+				# 					"voucher_no":self.name,
+				# 					#"remarks":"",
+				# 					"is_opening":"No",
+				# 					"is_advance":"No",
+				# 					"fiscal_year":fiscal_years,
+				# 					"company":self.company,
+				# 					"is_cancelled":0
+				# 					}
 		gl_entries=[]
 		for row in gl:
 			gl_entries.append(frappe._dict(gl[row]))

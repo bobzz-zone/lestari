@@ -10,6 +10,8 @@ class GoldInvoice(Document):
 		for row in self.items:
 			total=total+row.amount
 		self.total=total
+		if self.outstanding<0:
+			frappe.throw("Ouutstanding tidak boleh lebih kecil dari 0")
 		if not self.discount:
 			self.discount=0
 		self.grand_total=flt(self.total)-flt(self.discount)
