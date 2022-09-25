@@ -11,6 +11,12 @@ frappe.ui.form.on('Customer Deposit', {
     			};
 
     		});
+		frm.set_query("customer_deposit_source", function (doc) {
+	      return {
+	        query: "lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_gold_advance",
+	        filters: { customer: doc.customer },
+	      };
+	    });
 		if(!frm.doc.tutupan){
 		    frappe.call({
                 method: "lestari.gold_selling.doctype.gold_rates.gold_rates.get_latest_rates",
