@@ -13,7 +13,7 @@ frappe.ui.form.on('Customer Deposit', {
     		});
 		frm.set_query("customer_deposit_source", function (doc) {
 	      return {
-	        query: "lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_gold_advance",
+	        query: "lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_idr_advance",
 	        filters: { customer: doc.customer },
 	      };
 	    });
