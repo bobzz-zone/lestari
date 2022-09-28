@@ -17,6 +17,7 @@ class CustomerDeposit(StockController):
 			self.stock_deposit=[]
 		if self.is_convert==1:
 			self.stock_deposit=[]
+			self.terima_barang=0
 			if self.customer_deposit_source and self.used_deposit>0:
 				item_ct = frappe.db.get_single_value('Gold Selling Settings', 'item_ct')
 				qty = self.used_deposit/self.tutupan
@@ -28,16 +29,18 @@ class CustomerDeposit(StockController):
 	def on_submit(self):
 		self.make_gl_entries()
 		#posting Stock Ledger Post
-		self.update_stock_ledger()
-		self.repost_future_sle_and_gle()
+		if self.terima_barang==1:
+			self.update_stock_ledger()
+			self.repost_future_sle_and_gle()
 		if self.is_convert==1:
 			frappe.db.sql("""update `tabCustomer Deposit` set idr_left=idr_left-{} where name="{}" """.format(self.used_deposit,self.customer_deposit_source),as_list=1)
 	
 	def on_cancel(self):
 		self.flags.ignore_links=True
 		self.make_gl_entries_on_cancel()
-		self.update_stock_ledger()
-		self.repost_future_sle_and_gle()
+		if self.terima_barang==1:
+			self.update_stock_ledger()
+			self.repost_future_sle_and_gle()
 		if self.is_convert==1:
 			frappe.db.sql("""update `tabCustomer Deposit` set idr_left=idr_left+{} where name="{}" """.format(self.used_deposit,self.customer_deposit_source),as_list=1)
 
@@ -111,7 +114,6 @@ class CustomerDeposit(StockController):
 			#1 untuk GL untuk piutang Gold
 			if self.total_gold_deposit>0 and self.deposit_type=="Emas":
 				piutang_gold = frappe.db.get_single_value('Gold Selling Settings', 'piutang_gold')
-				warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
 				gl[piutang_gold]={
 											"posting_date":self.posting_date,
 											"account":piutang_gold,
@@ -133,9 +135,34 @@ class CustomerDeposit(StockController):
 											"company":self.company,
 											"is_cancelled":0
 											}
-				gl[warehouse_account]={
+				if self.terima_barang==1:
+					warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
+					gl[warehouse_account]={
 										"posting_date":self.posting_date,
 										"account":warehouse_account,
+										"party_type":"",
+										"party":"",
+										"cost_center":cost_center,
+										"debit":self.total_gold_deposit*self.tutupan,
+										"credit":0,
+										"account_currency":"IDR",
+										"debit_in_account_currency":self.total_gold_deposit*self.tutupan,
+										"credit_in_account_currency":0,
+										#"against":"4110.000 - Penjualan - L",
+										"voucher_type":"Customer Deposit",
+										"voucher_no":self.name,
+										#"remarks":"",
+										"is_opening":"No",
+										"is_advance":"No",
+										"fiscal_year":fiscal_years,
+										"company":self.company,
+										"is_cancelled":0
+										}
+				else:
+					uang_buat_beli_emas= frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
+					gl[uang_buat_beli_emas]={
+										"posting_date":self.posting_date,
+										"account":uang_buat_beli_emas,
 										"party_type":"",
 										"party":"",
 										"cost_center":cost_center,

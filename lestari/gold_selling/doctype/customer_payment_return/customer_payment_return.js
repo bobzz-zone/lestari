@@ -34,20 +34,6 @@ frappe.ui.form.on('Customer Payment Return', {
 				frappe.set_route("query-report", "Stock Ledger");
 			}, __("View"));
 		}
-		if(!frm.doc.tutupan){
-		    frappe.call({
-                method: "lestari.gold_selling.doctype.gold_rates.gold_rates.get_latest_rates",
-                callback: function (r){
-                    frm.doc.tutupan=r.message.nilai;
-                    refresh_field("tutupan")
-                
-                	}
-                })
-		}
-	},
-	adjustment:function(frm,cdt,cdn) {
-		frm.doc.grand_total=total+frm.doc.adjustment;
-		refresh_field("grand_total");
 	}
 });
 frappe.ui.form.on('Stock Payment Return Item', {
@@ -65,15 +51,8 @@ frappe.ui.form.on('Stock Payment Return Item', {
 				    $.each(frm.doc.stock_deposit,  function(i,  g) {
 				    	total=total+g.amount;
 				    });
-				    frm.doc.net_total=total;
-				    if (frm.doc.adjustment >0){
-				    	frm.doc.grand_total=total+frm.doc.adjustment;
-				    }else{
-
-				    	frm.doc.grand_total=total;
-				    }
-				    refresh_field("net_total");
-				    refresh_field("grand_total");
+			    	frm.doc.total=total;
+				    refresh_field("total");
                 	}
                 });
 		
@@ -85,14 +64,9 @@ frappe.ui.form.on('Stock Payment Return Item', {
 		$.each(frm.doc.stock_deposit,  function(i,  g) {
 		   	total=total+g.amount;
 		});
-		frm.doc.net_total=total;
-		if (frm.doc.adjustment >0){
-			frm.doc.grand_total=total+frm.doc.adjustment;
-		}else{
-		  	frm.doc.grand_total=total;
-		}
-		refresh_field("net_total");
-		refresh_field("grand_total");
+		frm.doc.total=total;
+		
+		refresh_field("total");
 	}
 	
 });

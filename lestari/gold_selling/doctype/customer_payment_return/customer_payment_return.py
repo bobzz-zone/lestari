@@ -2,21 +2,36 @@
 # For license information, please see license.txt
 
 import frappe
+import erpnext
 from frappe.model.document import Document
 from erpnext.stock import get_warehouse_account_map
 from erpnext.accounts.utils import get_account_currency, get_fiscal_years, validate_fiscal_year
 from erpnext.controllers.stock_controller import StockController
+from erpnext.stock.stock_ledger import NegativeStockError, get_previous_sle, get_valuation_rate
 class CustomerPaymentReturn(StockController):
 	def validate(self):
 		#seharusnya validasi agaryang belum due, di pastikan tutupan sama..atau hanya 1 invoice agar di gold payment tutupan di samakan
 		#check unallocated harus 0
 		if not self.warehouse:
 			self.warehouse = frappe.db.get_single_value('Gold Selling Settings', 'default_warehouse')
-		if not self.adjustment_account:
-			self.adjustment_account = frappe.db.get_single_value('Gold Selling Settings', 'return_adjustment')
-		if self.net_total<=1:
+		if self.total<=1:
 			frappe.throw("Error Tidak ada nilai yang dikembalikan")
 	def on_submit(self):
+		for row in self.items:
+			row.valuation_rate = get_valuation_rate(
+					row.item,
+					self.warehouse,
+					self.doctype,
+					self.name,
+					0,
+					currency=erpnext.get_company_currency(self.company),
+					company=self.company,
+					raise_error_if_no_rate=True,
+					batch_no=None,
+				)
+			if not row.valuation_rate or row.valuation_rate==0:
+				frappe.throw("Error Barang Tidak ada Nilai")
+			row.total_amount=row.qty*row.valuation_rate
 		self.make_gl_entries()
 		#posting Stock Ledger Post
 		self.update_stock_ledger()
@@ -45,7 +60,7 @@ class CustomerPaymentReturn(StockController):
 				"is_cancelled": 0,
 				"stock_uom":frappe.db.get_value("Item", row.item, "stock_uom"),
 				"warehouse":self.warehouse,
-				"incoming_rate":row.rate*self.tutupan/100,
+				"valuation_rate":row.valuation_rate,
 				"recalculate_rate": 1,
 				"dependant_sle_voucher_detail_no": row.name
 				})
@@ -99,20 +114,26 @@ class CustomerPaymentReturn(StockController):
 		#1 untuk GL untuk piutang Gold
 		piutang_gold = frappe.db.get_single_value('Gold Selling Settings', 'piutang_gold')
 
-		if self.adjustment>0:
-			gl[self.adjustment_account]={
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+		if self.total>0:
+			#hpp perlu di update dulu
+			warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
+			total_value=0
+			for row in self.items:
+				total_value=total_value+row.total_amount
+			gl[warehouse_account]={
 									"posting_date":self.posting_date,
-									"account":self.adjustment_account,
+									"account":warehouse_account,
 									"party_type":"",
 									"party":"",
 									"cost_center":cost_center,
-									"debit":self.adjustment*self.tutupan,
-									"credit":0,
+									"credit":total_value,
+									"debit":0,
 									"account_currency":"IDR",
-									"debit_in_account_currency":self.adjustment*self.tutupan,
-									"credit_in_account_currency":0,
+									"credit_in_account_currency":total_value,
+									"debit_in_account_currency":0,
 									#"against":"4110.000 - Penjualan - L",
-									"voucher_type":"Gold Payment",
+									"voucher_type":"Customer Payment Return",
 									"voucher_no":self.name,
 									#"remarks":"",
 									"is_opening":"No",
@@ -121,23 +142,19 @@ class CustomerPaymentReturn(StockController):
 									"company":self.company,
 									"is_cancelled":0
 									}
-#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-		if self.net_total>0:
-			#hpp perlu di update dulu
-			warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
-			gl[warehouse_account]={
+			gl[piutang_gold]={
 									"posting_date":self.posting_date,
-									"account":warehouse_account,
+									"account":piutang_gold,
 									"party_type":"",
 									"party":"",
 									"cost_center":cost_center,
-									"credit":self.total_gold_payment*self.tutupan,
+									"credit":total_value,
 									"debit":0,
-									"account_currency":"IDR",
-									"credit_in_account_currency":self.total_gold_payment*self.tutupan,
+									"account_currency":"GOLD",
+									"credit_in_account_currency":self.total,
 									"debit_in_account_currency":0,
 									#"against":"4110.000 - Penjualan - L",
-									"voucher_type":"Gold Payment",
+									"voucher_type":"Customer Payment Return",
 									"voucher_no":self.name,
 									#"remarks":"",
 									"is_opening":"No",
@@ -147,7 +164,7 @@ class CustomerPaymentReturn(StockController):
 									"is_cancelled":0
 									}
 		
-		for row in gl:
-			gl_entries.append(frappe._dict(gl[row]))
-		gl_entries = merge_similar_entries(gl_entries)
-		return gl_entries
+			for row in gl:
+				gl_entries.append(frappe._dict(gl[row]))
+			gl_entries = merge_similar_entries(gl_entries)
+			return gl_entries
