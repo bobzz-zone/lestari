@@ -41,6 +41,7 @@ class RPHLilin(Document):
 					target_doc.append("resep",baris_baru)
 				target_doc.flags.ignore_permissions = True
 				target_doc.save()
+				target_doc.submit()
 
 @frappe.whitelist()
 def get_items_from_spk_produksi(source_name, target_doc=None, args=None):

@@ -11,7 +11,6 @@
   "selisih_kurs",
   "discount_payment",
   "bonus_payment",
-  "return_adjustment",
   "cost_center",
   "item_ct",
   "uang_buat_beli_emas",
@@ -77,13 +76,6 @@
    "reqd": 1
   },
   {
-   "fieldname": "return_adjustment",
-   "fieldtype": "Link",
-   "label": "Return Adjustment Account",
-   "options": "Account",
-   "reqd": 1
-  },
-  {
    "description": "Saat Conversi tidak nambah stock sehingga , perlu penampung uang rupiah yang harusnya di keluarkan",
    "fieldname": "uang_buat_beli_emas",
    "fieldtype": "Link",
@@ -95,7 +87,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-09-25 19:03:15.084744",
+ "modified": "2022-09-28 21:17:15.904425",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling Settings",
