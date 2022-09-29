@@ -1,5 +1,5 @@
 import frappe
-from frappe.utils import now_datetime
+from frappe.utils import now_datetime ,now
 from frappe.model.document import Document
 from erpnext.accounts.utils import get_account_currency, get_fiscal_years, validate_fiscal_year
 from frappe.utils import flt
@@ -310,6 +310,7 @@ class GoldInvoice(Document):
 		doc = frappe.new_doc("Gold Payment")
 		doc.customer = self.customer
 		doc.warehouse = "Inventory - L"
+		doc.posting_date = now()
 		doc.flags.ignore_permissions = True
 		doc.save()
 		return doc

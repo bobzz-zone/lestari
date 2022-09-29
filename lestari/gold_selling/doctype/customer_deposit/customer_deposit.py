@@ -29,7 +29,7 @@ class CustomerDeposit(StockController):
 	def on_submit(self):
 		self.make_gl_entries()
 		#posting Stock Ledger Post
-		if self.terima_barang==1:
+		if self.terima_barang==1 and self.is_convert==0:
 			self.update_stock_ledger()
 			self.repost_future_sle_and_gle()
 		if self.is_convert==1:
@@ -38,7 +38,7 @@ class CustomerDeposit(StockController):
 	def on_cancel(self):
 		self.flags.ignore_links=True
 		self.make_gl_entries_on_cancel()
-		if self.terima_barang==1:
+		if self.terima_barang==1 and self.is_convert==0:
 			self.update_stock_ledger()
 			self.repost_future_sle_and_gle()
 		if self.is_convert==1:
