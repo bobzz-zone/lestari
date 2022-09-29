@@ -311,6 +311,16 @@ class GoldInvoice(Document):
 		doc.customer = self.customer
 		doc.warehouse = "Inventory - L"
 		doc.posting_date = now()
+
+		doc.total_invoice = self.outstanding
+		baris_baru = {
+			'gold_invoice':self.name,
+			'total':self.outstanding,
+			'due_date':self.due_date,
+			'total':self.grand_total
+		}
+		doc..append("invoice_table",baris_baru)
+
 		doc.flags.ignore_permissions = True
 		doc.save()
 		return doc
