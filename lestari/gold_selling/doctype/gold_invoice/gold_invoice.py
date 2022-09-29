@@ -319,7 +319,7 @@ class GoldInvoice(Document):
 			'due_date':self.due_date,
 			'total':self.grand_total
 		}
-		doc..append("invoice_table",baris_baru)
+		doc.append("invoice_table",baris_baru)
 
 		doc.flags.ignore_permissions = True
 		doc.save()
