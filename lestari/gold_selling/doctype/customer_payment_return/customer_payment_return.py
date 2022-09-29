@@ -26,8 +26,7 @@ class CustomerPaymentReturn(StockController):
 					0,
 					currency=erpnext.get_company_currency(self.company),
 					company=self.company,
-					raise_error_if_no_rate=True,
-					batch_no=None,
+					raise_error_if_no_rate=True
 				)
 			if not row.valuation_rate or row.valuation_rate==0:
 				frappe.throw("Error Barang Tidak ada Nilai")
