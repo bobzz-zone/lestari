@@ -63,14 +63,14 @@ class CustomerPaymentReturn(StockController):
 				"valuation_rate":row.valuation_rate,
 				"recalculate_rate": 1,
 				"dependant_sle_voucher_detail_no": row.name,
-				"is_cancelled":0
+				"is_cancelled":1 if self.docstatus == 2 else 0
 				})
 		for row in sl:
 			sl_entries.append(frappe._dict(row))
 
 		# reverse sl entries if cancel
-		if self.docstatus == 2:
-			sl_entries.reverse()
+		# if self.docstatus == 2:
+		# 	sl_entries.reverse()
 
 		self.make_sl_entries(sl_entries)
 	def make_gl_entries(self, gl_entries=None, from_repost=False):
