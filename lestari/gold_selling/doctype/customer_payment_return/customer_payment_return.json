@@ -20,11 +20,9 @@
   "warehouse",
   "items",
   "summary_sb",
-  "adjustment",
-  "adjustment_account",
-  "tutupan",
-  "net_total",
-  "grand_total",
+  "total",
+  "outstanding",
+  "status",
   "amended_from"
  ],
  "fields": [
@@ -59,22 +57,6 @@
    "fieldname": "due_date",
    "fieldtype": "Date",
    "label": "Due Date"
-  },
-  {
-   "default": "0",
-   "fieldname": "adjustment",
-   "fieldtype": "Float",
-   "label": "Adjustment"
-  },
-  {
-   "fieldname": "net_total",
-   "fieldtype": "Float",
-   "label": "Net Total"
-  },
-  {
-   "fieldname": "grand_total",
-   "fieldtype": "Float",
-   "label": "Grand Total"
   },
   {
    "fieldname": "amended_from",
@@ -135,21 +117,28 @@
    "options": "Stock Payment Return Item"
   },
   {
-   "fieldname": "adjustment_account",
-   "fieldtype": "Link",
-   "label": "Adjustment Account",
-   "options": "Account"
+   "fieldname": "total",
+   "fieldtype": "Float",
+   "label": "Total"
   },
   {
-   "fieldname": "tutupan",
-   "fieldtype": "Currency",
-   "label": "Tutupan"
+   "fieldname": "outstanding",
+   "fieldtype": "Float",
+   "label": "Outstanding"
+  },
+  {
+   "default": "Unpaid",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Status",
+   "options": "Unpaid\nPaid"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-22 09:58:13.259512",
+ "modified": "2022-09-28 21:20:18.870173",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Payment Return",
