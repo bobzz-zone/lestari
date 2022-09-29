@@ -94,12 +94,14 @@
    "default": "Today",
    "fieldname": "posting_date",
    "fieldtype": "Date",
-   "label": "Posting Date"
+   "label": "Posting Date",
+   "reqd": 1
   },
   {
    "fieldname": "due_date",
    "fieldtype": "Date",
-   "label": "Due Date"
+   "label": "Due Date",
+   "reqd": 1
   },
   {
    "fieldname": "tutupan_section",
@@ -285,7 +287,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-26 11:02:28.139851",
+ "modified": "2022-09-29 22:01:49.941177",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",

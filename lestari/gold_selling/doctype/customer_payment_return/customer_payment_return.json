@@ -15,6 +15,7 @@
   "territory",
   "column_break",
   "date",
+  "posting_time",
   "due_date",
   "return_detail_sb",
   "warehouse",
@@ -45,9 +46,11 @@
    "reqd": 1
   },
   {
+   "default": "Now",
    "fieldname": "date",
    "fieldtype": "Date",
-   "label": "Date"
+   "label": "Date",
+   "reqd": 1
   },
   {
    "fieldname": "column_break",
@@ -56,7 +59,8 @@
   {
    "fieldname": "due_date",
    "fieldtype": "Date",
-   "label": "Due Date"
+   "label": "Due Date",
+   "reqd": 1
   },
   {
    "fieldname": "amended_from",
@@ -119,12 +123,14 @@
   {
    "fieldname": "total",
    "fieldtype": "Float",
-   "label": "Total"
+   "label": "Total",
+   "read_only": 1
   },
   {
    "fieldname": "outstanding",
    "fieldtype": "Float",
-   "label": "Outstanding"
+   "label": "Outstanding",
+   "read_only": 1
   },
   {
    "default": "Unpaid",
@@ -133,12 +139,18 @@
    "hidden": 1,
    "label": "Status",
    "options": "Unpaid\nPaid"
+  },
+  {
+   "default": "Now",
+   "fieldname": "posting_time",
+   "fieldtype": "Time",
+   "label": "Posting Time"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-28 21:20:18.870173",
+ "modified": "2022-09-29 22:03:08.741550",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Payment Return",
