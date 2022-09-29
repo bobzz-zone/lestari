@@ -52,16 +52,31 @@ class GoldPayment(StockController):
 
 	@frappe.whitelist()
 	def get_gold_invoice(self):
-		doc = frappe.db.get_list("Gold Invoice", filters={"customer": self.customer, "invoice_status":"Unpaid", 'docstatus':1}, fields=['name','outstanding','due_date'])
+		doc = frappe.db.get_list("Gold Invoice", filters={"customer": self.customer, "invoice_status":"Unpaid", 'docstatus':1}, fields=['name','outstanding','due_date','tutupan','total_bruto','grand_total'])
 		for row in doc:
 			# frappe.msgprint(str(row))
 			self.total_invoice = self.total_invoice + row.outstanding
 			baris_baru = {
 				'gold_invoice':row.name,
-				'total':row.outstanding,
-				'due_date':row.due_date
+				'outstanding':row.outstanding,
+				'total':row.grand_total,
+				'due_date':row.due_date,
+				'total_bruto':row.total_bruto,
+				'tutupan':row.tutupan
 			}
 			self.append("invoice_table",baris_baru)
+		doc = frappe.db.get_list("Customer Payment Return", filters={"customer": self.customer, "invoice_status":"Unpaid", 'docstatus':1}, fields=['name','outstanding','due_date','tutupan','total'])
+		for row in doc:
+			# frappe.msgprint(str(row))
+			self.total_invoice = self.total_invoice + row.outstanding
+			baris_baru = {
+				'invoice':row.name,
+				'total':row.total,
+				'outstanding':row.outstanding,
+				'due_date':row.due_date,
+				'tutupan':row.tutupan
+			}
+			self.append("customer_return",baris_baru)
 
 	def update_stock_ledger(self):
 		sl_entries = []
