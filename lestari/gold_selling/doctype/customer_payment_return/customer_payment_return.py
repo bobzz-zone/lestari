@@ -144,8 +144,8 @@ class CustomerPaymentReturn(StockController):
 			gl[piutang_gold]={
 									"posting_date":self.posting_date,
 									"account":piutang_gold,
-									"party_type":"",
-									"party":"",
+									"party_type":"Customer",
+									"party":self.customer,
 									"cost_center":cost_center,
 									"debit":total_value,
 									"credit":0,
