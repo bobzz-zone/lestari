@@ -48,11 +48,13 @@ frappe.ui.form.on('Stock Payment Return Item', {
                     frappe.model.set_value(cdt, cdn,"rate",r.message.nilai);
                     frappe.model.set_value(cdt, cdn,"amount",parseFloat(r.message.nilai)*d.qty/100);
                 	var total=0;
-				    $.each(frm.doc.stock_deposit,  function(i,  g) {
+				    $.each(frm.doc.items,  function(i,  g) {
 				    	total=total+g.amount;
 				    });
 			    	frm.doc.total=total;
 				    refresh_field("total");
+				    frm.doc.outstanding=total;
+					refresh_field("outstanding");
                 	}
                 });
 		
@@ -61,12 +63,13 @@ frappe.ui.form.on('Stock Payment Return Item', {
 	    var d=locals[cdt][cdn];
 	    frappe.model.set_value(cdt, cdn,"amount",d.rate*d.qty/100);
 	    var total=0;
-		$.each(frm.doc.stock_deposit,  function(i,  g) {
+		$.each(frm.doc.items,  function(i,  g) {
 		   	total=total+g.amount;
 		});
 		frm.doc.total=total;
-		
 		refresh_field("total");
+		frm.doc.outstanding=total;
+		refresh_field("outstanding");
 	}
 	
 });
