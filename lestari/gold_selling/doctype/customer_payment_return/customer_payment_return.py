@@ -46,10 +46,15 @@ class CustomerPaymentReturn(StockController):
 		sl=[]
 		#perlu check hpp outnya
 		fiscal_years = get_fiscal_years(self.posting_date, company=self.company)[0][0]
+		modifier=-1
+		# reverse sl entries if cancel
+		if self.docstatus == 2:
+			modifier=1
+
 		for row in self.items:
 			sl.append({
 				"item_code":row.item,
-				"actual_qty":row.qty*-1,
+				"actual_qty":row.qty*modifier,
 				"fiscal_year":fiscal_years,
 				"voucher_type": self.doctype,
 				"voucher_no": self.name,
@@ -66,9 +71,6 @@ class CustomerPaymentReturn(StockController):
 		for row in sl:
 			sl_entries.append(frappe._dict(row))
 
-		# reverse sl entries if cancel
-		if self.docstatus == 2:
-			sl_entries.reverse()
 
 		self.make_sl_entries(sl_entries)
 	def make_gl_entries(self, gl_entries=None, from_repost=False):
