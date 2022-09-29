@@ -26,14 +26,14 @@ frappe.ui.form.on('Gold Payment', {
 		refresh_field("total_payment");
 	},
 	auto_distribute:function(frm){
-		if (frm.doc.invoice_table==[]){
+		if (frm.doc.invoice_table==[] && frm.doc.customer_return==[]){
 			frappe.throw("Tidak ada Invoice yang terpilih");
 		}else{
 			var need_to=frm.doc.unallocated_payment;
 			if(need_to<=0){
 				frappe.throw("Tidak ada pembayaran yang dapat di alokasikan");
 			}
-			$.each(frm.doc.invoice_table,  function(i,  g) {
+			$.each(frm.doc.customer_return,  function(i,  g) {
 				var alo=0;
 		   		if (need_to>(g.outstanding-g.allocated)){
 		   			alo=g.outstanding-g.allocated;
@@ -43,9 +43,21 @@ frappe.ui.form.on('Gold Payment', {
 		   		need_to=need_to-alo;
 		   		frappe.model.set_value(g.doctype, g.name, "allocated", alo);
 		   	});
+		   	if (need_to>0) {
+				$.each(frm.doc.invoice_table,  function(i,  g) {
+					var alo=0;
+			   		if (need_to>(g.outstanding-g.allocated)){
+			   			alo=g.outstanding-g.allocated;
+			   		}else{
+			   			alo=need_to;
+			   		}
+			   		need_to=need_to-alo;
+			   		frappe.model.set_value(g.doctype, g.name, "allocated", alo);
+			   	});
+			}
 			frm.doc.unallocated_payment=need_to;
 			refresh_field("unallocated_payment");
-			frappe.throw("Pembayran Telah di Alokasikan");
+			frappe.throw("Pembayaran Telah di Alokasikan");
 		}
 
 	},
@@ -128,6 +140,10 @@ frappe.ui.form.on('Gold Payment Invoice', {
 		   	total=total+g.outstanding;
 		   	allocated=allocated+g.allocated;
 		});
+		$.each(frm.doc.customer_return,  function(i,  g) {
+			total=total+g.outstanding;
+			allocated=allocated+g.allocated;
+		});
 		frm.doc.total_invoice=total;
 		frappe.model.set_value(cdt, cdn,"allocated",0);
 		refresh_field("allocated");
@@ -138,23 +154,6 @@ frappe.ui.form.on('Gold Payment Invoice', {
 		refresh_field("unallocated_payment");
 
 	},
-	// before_invoice_table_remove:function(frm,cdt,cdn){
-		// var d = locals[cdn][cdt];
-		// var total= frm.doc.total_invoice;
-		// var allocated= frm.doc.allocated_payment;
-		// $.each(frm.doc.invoice_table,  function(i,  g) {
-		// total=total-g.total;
-		// allocated=allocated-g.allocated;
-	 	// });
-	 	// frm.doc.total_invoice=total;
-		// frappe.model.set_value(cdt, cdn,"allocated",0);
-		// refresh_field("allocated");
-		// refresh_field("total_invoice");
-		// frm.doc.allocated_payment=allocated;
-		// refresh_field("allocated_payment");
-		// frm.doc.unallocated_payment=frm.doc.total_payment;
-		// refresh_field("unallocated_payment");
-	// },
 	allocated:function(frm,cdt,cdn) {
 		var allocated=0;
 		var disc=0
@@ -162,6 +161,57 @@ frappe.ui.form.on('Gold Payment Invoice', {
 			if (g.allocated>0){
 				disc=disc+(g.total_bruto/100*frm.doc.discount);
 		   		allocated=allocated+g.allocated;
+			}
+		});
+		$.each(frm.doc.customer_return,  function(i,  g) {
+			if (g.allocated>0){
+				allocated=allocated+g.allocated;
+			}
+		});
+		frm.doc.discount_amount=disc;
+		frm.doc.allocated_payment=allocated;
+		refresh_field("discount_amount");
+		refresh_field("allocated_payment");
+		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment;
+		refresh_field("unallocated_payment");
+		frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.write_off+frm.doc.discount_amount+frm.doc.bonus;
+		refresh_field("discount_amount");
+	}
+});
+frappe.ui.form.on('Gold Payment Return', {
+	invoice:function(frm,cdt,cdn) {
+		var total=0;
+		var allocated=0;
+		$.each(frm.doc.invoice_table,  function(i,  g) {
+		   	total=total+g.outstanding;
+		   	allocated=allocated+g.allocated;
+		});
+		$.each(frm.doc.customer_return,  function(i,  g) {
+			total=total+g.outstanding;
+			allocated=allocated+g.allocated;
+		});
+		frm.doc.total_invoice=total;
+		frappe.model.set_value(cdt, cdn,"allocated",0);
+		refresh_field("allocated");
+		refresh_field("total_invoice");
+		frm.doc.allocated_payment=allocated;
+		refresh_field("allocated_payment");
+		frm.doc.unallocated_payment=frm.doc.total_payment+frm.doc.allocated_payment;
+		refresh_field("unallocated_payment");
+
+	},
+	allocated:function(frm,cdt,cdn) {
+		var allocated=0;
+		var disc=0
+		$.each(frm.doc.invoice_table,  function(i,  g) {
+			if (g.allocated>0){
+				disc=disc+(g.total_bruto/100*frm.doc.discount);
+		   		allocated=allocated+g.allocated;
+			}
+		});
+		$.each(frm.doc.customer_return,  function(i,  g) {
+			if (g.allocated>0){
+				allocated=allocated+g.allocated;
 			}
 		});
 		frm.doc.discount_amount=disc;

@@ -46,7 +46,7 @@ class CustomerPaymentReturn(StockController):
 		sl=[]
 		#perlu check hpp outnya
 		fiscal_years = get_fiscal_years(self.posting_date, company=self.company)[0][0]
-		
+
 		for row in self.items:
 			sl.append({
 				"item_code":row.item,
@@ -122,6 +122,7 @@ class CustomerPaymentReturn(StockController):
 			total_value=0
 			for row in self.items:
 				total_value=total_value+row.total_amount
+			self.tutupan=total_value/self.total
 			gl[warehouse_account]={
 									"posting_date":self.posting_date,
 									"account":warehouse_account,

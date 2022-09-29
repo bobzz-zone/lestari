@@ -15,6 +15,9 @@ class GoldPayment(StockController):
 		for row in self.invoice_table:
 			if row.allocated:
 				unallocated=unallocated-row.allocated
+		for row in self.customer_return:
+			if row.allocated:
+				unallocated=unallocated-row.allocated
 		self.unallocated=unallocated
 		if self.unallocated_payment and self.unallocated_payment>0:
 			frappe.throw("Error,unallocated Payment Masih tersisa {}".format(self.unallocated_payment))
@@ -31,6 +34,11 @@ class GoldPayment(StockController):
 				frappe.db.sql("""update `tabGold Invoice` set outstanding=outstanding-{} , invoice_status="Paid" where name = "{}" """.format(row.allocated,row.gold_invoice))
 			else:
 				frappe.db.sql("""update `tabGold Invoice` set outstanding=outstanding-{} where name = "{}" """.format(row.allocated,row.gold_invoice))
+		for row in self.customer_return:
+			if row.allocated==row.outstanding:
+				frappe.db.sql("""update `tabCustomer Payment Return` set outstanding=outstanding-{} , invoice_status="Paid" where name = "{}" """.format(row.allocated,row.invoice))
+			else:
+				frappe.db.sql("""update `tabCustomer Payment Return` set outstanding=outstanding-{} where name = "{}" """.format(row.allocated,row.invoice))
 	def on_cancel(self):
 		self.flags.ignore_links=True
 		self.make_gl_entries_on_cancel()
@@ -39,6 +47,8 @@ class GoldPayment(StockController):
 		#update invoice
 		for row in self.invoice_table:
 			frappe.db.sql("""update `tabGold Invoice` set outstanding=outstanding+{} , invoice_status="Unpaid" where name = "{}" """.format(row.allocated,row.gold_invoice))
+		for row in self.customer_return:
+			frappe.db.sql("""update `tabCustomer Payment Return` set outstanding=outstanding+{} , invoice_status="Unpaid" where name = "{}" """.format(row.allocated,row.invoice))
 
 	@frappe.whitelist()
 	def get_gold_invoice(self):
@@ -130,11 +140,13 @@ class GoldPayment(StockController):
 		inv_payment_map={}
 		for row in self.invoice_table:
 			inv_payment_map[row.gold_invoice]=row.allocated
+		for row in self.customer_return:
+			inv_payment_map[row.invoice]=row.allocated
 		nilai_selisih_kurs=0
 		# distribute total gold perlu bagi per invoice
 		sisa= self.total_payment
 		for row in self.invoice_table:
-			if sisa>0:
+			if sisa>0 and row.allocated>0:
 				payment=row.allocated
 				if sisa<row.allocated:
 					payment=sisa;
@@ -154,6 +166,37 @@ class GoldPayment(StockController):
 								"voucher_type":"Gold Payment",
 								"against_voucher_type":"Gold Invoice",
 								"against_voucher":row.gold_invoice,
+								"voucher_no":self.name,
+								#"remarks":"",
+								"is_opening":"No",
+								"is_advance":"No",
+								"fiscal_year":fiscal_years,
+								"company":self.company,
+								"is_cancelled":0
+								})
+				if row.tutupan!=self.tutupan:
+					nilai_selisih_kurs=nilai_selisih_kurs+((self.tutupan-row.tutupan)*payment)
+		for row in self.customer_return:
+			if sisa>0 and row.allocated>0:
+				payment=row.allocated
+				if sisa<row.allocated:
+					payment=sisa;
+				inv_payment_map[row.invoice]=inv_payment_map[row.invoice]-payment
+				gl_piutang.append({
+								"posting_date":self.posting_date,
+								"account":piutang_gold,
+								"party_type":"Customer",
+								"party":self.customer,
+								"cost_center":cost_center,
+								"debit":0,
+								"credit":payment*row.tutupan,
+								"account_currency":"GOLD",
+								"debit_in_account_currency":0,
+								"credit_in_account_currency":payment,
+								#"against":"4110.000 - Penjualan - L",
+								"voucher_type":"Gold Payment",
+								"against_voucher_type":"Customer Payment Return",
+								"against_voucher":row.invoice,
 								"voucher_no":self.name,
 								#"remarks":"",
 								"is_opening":"No",
