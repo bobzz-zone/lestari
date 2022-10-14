@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:GR-{customer}-{item_group}-{####}",
+ "autoname": "format:GR-{customer}-{category}-{####}",
  "creation": "2022-08-24 23:38:42.142872",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -26,9 +26,10 @@
   {
    "default": "0",
    "fieldname": "nilai_tukar",
-   "fieldtype": "Percent",
+   "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Nilai Jual",
+   "precision": "2",
    "reqd": 1
   },
   {
@@ -63,7 +64,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-09-19 15:34:51.747237",
+ "modified": "2022-10-10 11:08:42.581655",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Rates",

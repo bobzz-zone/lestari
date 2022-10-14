@@ -21,6 +21,7 @@
   "invoice_section",
   "get_gold_invoice",
   "invoice_table",
+  "customer_return",
   "total_invoice",
   "allocated_payment",
   "unallocated_payment",
@@ -38,6 +39,7 @@
   "write_off",
   "total_payment",
   "column_break_14",
+  "bruto_discount",
   "discount",
   "discount_amount",
   "bonus",
@@ -260,12 +262,23 @@
    "fieldname": "discount",
    "fieldtype": "Percent",
    "label": "Discount"
+  },
+  {
+   "fieldname": "customer_return",
+   "fieldtype": "Table",
+   "label": "Customer Return Table",
+   "options": "Gold Payment Return"
+  },
+  {
+   "fieldname": "bruto_discount",
+   "fieldtype": "Float",
+   "label": "Total Bruto Discounted"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-25 17:06:59.395798",
+ "modified": "2022-10-14 00:12:37.907506",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

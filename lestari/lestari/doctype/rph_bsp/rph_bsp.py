@@ -30,6 +30,7 @@ def get_items_from_transfer_material(source_name, target_doc=None, args=None):
 			target.kadar = frappe.get_doc('Item',row.produk_id).kadar
 			target.sub_kategori = frappe.get_doc('Item',row.produk_id).item_group
 			target.kategori = frappe.get_doc('Item Group',frappe.get_doc('Item',row.produk_id).item_group).parent_item_group
+			# target.qty = row.
 
 	def select_item(d):
 		filtered_items = args.get('filtered_children', [])

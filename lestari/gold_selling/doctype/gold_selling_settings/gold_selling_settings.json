@@ -79,7 +79,6 @@
    "description": "Saat Conversi tidak nambah stock sehingga , perlu penampung uang rupiah yang harusnya di keluarkan",
    "fieldname": "uang_buat_beli_emas",
    "fieldtype": "Link",
-   "hidden": 1,
    "label": "Kas yang Rencana Di belikan Emas",
    "options": "Account"
   }
@@ -87,7 +86,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-09-28 21:17:15.904425",
+ "modified": "2022-10-04 14:39:50.516593",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling Settings",

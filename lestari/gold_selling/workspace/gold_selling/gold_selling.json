@@ -16,26 +16,16 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Gold Invoice",
-   "link_to": "Gold Invoice",
+   "label": "Master Data",
    "link_type": "DocType",
    "onboard": 0,
-   "type": "Link"
+   "type": "Card Break"
   },
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Gold Payment",
-   "link_to": "Gold Payment",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Customer Deposit",
-   "link_to": "Customer Deposit",
+   "label": "item",
+   "link_to": "Item",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -88,14 +78,49 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "item",
-   "link_to": "Item",
+   "label": "Sales Transaction",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Gold Invoice",
+   "link_to": "Gold Invoice",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Gold Payment",
+   "link_to": "Gold Payment",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Customer Deposit",
+   "link_to": "Customer Deposit",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Customer Payment Return",
+   "link_to": "Customer Payment Return",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
   }
  ],
- "modified": "2022-09-29 21:53:49.333422",
+ "modified": "2022-10-04 21:36:59.389099",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling",

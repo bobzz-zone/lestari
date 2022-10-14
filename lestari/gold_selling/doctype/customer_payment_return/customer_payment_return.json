@@ -14,16 +14,18 @@
   "customer_group",
   "territory",
   "column_break",
-  "date",
+  "posting_date",
   "posting_time",
   "due_date",
   "return_detail_sb",
+  "gold_payment",
   "warehouse",
   "items",
   "summary_sb",
   "total",
   "outstanding",
-  "status",
+  "tutupan",
+  "invoice_status",
   "amended_from"
  ],
  "fields": [
@@ -43,13 +45,6 @@
    "in_list_view": 1,
    "label": "Customer",
    "options": "Customer",
-   "reqd": 1
-  },
-  {
-   "default": "Now",
-   "fieldname": "date",
-   "fieldtype": "Date",
-   "label": "Date",
    "reqd": 1
   },
   {
@@ -133,24 +128,44 @@
    "read_only": 1
   },
   {
+   "default": "Now",
+   "fieldname": "posting_time",
+   "fieldtype": "Time",
+   "label": "Posting Time"
+  },
+  {
+   "default": "Now",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "tutupan",
+   "fieldtype": "Currency",
+   "hidden": 1,
+   "label": "Tutupan"
+  },
+  {
    "default": "Unpaid",
-   "fieldname": "status",
+   "fieldname": "invoice_status",
    "fieldtype": "Select",
    "hidden": 1,
    "label": "Status",
    "options": "Unpaid\nPaid"
   },
   {
-   "default": "Now",
-   "fieldname": "posting_time",
-   "fieldtype": "Time",
-   "label": "Posting Time"
+   "fieldname": "gold_payment",
+   "fieldtype": "Link",
+   "label": "Gold Payment",
+   "options": "Gold Payment",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-29 22:03:08.741550",
+ "modified": "2022-10-14 00:21:42.249241",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Payment Return",

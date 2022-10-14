@@ -129,10 +129,10 @@ class WorkOrderLilin(Document):
 		# target_doc.area = sumber_doc.area
 		# target_doc.proses = "Finish"
 		target_doc.sprue_utama = sumber_doc.sprue_utama
-		target_doc.kepala_line = sumber_doc.kepala_line
+		# target_doc.kepala_line = sumber_doc.kepala_line
 		target_doc.no_line = sumber_doc.no_line
 		target_doc.operator = sumber_doc.operator
-		target_doc.no_mesin = sumber_doc.no_mesin
+		# target_doc.no_mesin = sumber_doc.no_mesin
 		target_doc.no_kotak = sumber_doc.no_kotak
 
 		target_doc2 = frappe.new_doc("Form Kebutuhan Mul Karet")

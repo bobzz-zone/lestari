@@ -8,6 +8,7 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
+  "no_invoice",
   "company",
   "customer",
   "customer_name",
@@ -16,6 +17,7 @@
   "column_break_2",
   "posting_date",
   "due_date",
+  "sales_partner",
   "tutupan_section",
   "tutupan",
   "column_break_10",
@@ -24,6 +26,7 @@
   "cbb",
   "category",
   "cbc",
+  "add_bruto",
   "add",
   "items_section",
   "items",
@@ -283,11 +286,28 @@
    "fieldtype": "Float",
    "label": "Total Bruto",
    "read_only": 1
+  },
+  {
+   "fieldname": "sales_partner",
+   "fieldtype": "Link",
+   "label": "Sales",
+   "options": "Sales Partner"
+  },
+  {
+   "depends_on": "eval:doc.naming_series == \"Manual\"",
+   "fieldname": "no_invoice",
+   "fieldtype": "Data",
+   "label": "No Invoice"
+  },
+  {
+   "fieldname": "add_bruto",
+   "fieldtype": "Float",
+   "label": "Bruto"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-29 22:01:49.941177",
+ "modified": "2022-10-10 13:35:40.228874",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",

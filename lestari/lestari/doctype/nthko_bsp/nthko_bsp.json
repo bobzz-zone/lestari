@@ -1,0 +1,328 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2022-10-03 12:55:30.535522",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "created_date",
+  "column_break_2",
+  "naming_series",
+  "detail_perencana_section",
+  "employee_id",
+  "column_break_10",
+  "nama",
+  "jabatan",
+  "detail_pohon_section",
+  "work_order_id",
+  "sprue_utama",
+  "ukuran_base_karet",
+  "nomor_base_karet",
+  "column_break_3",
+  "pohon_id",
+  "kadar",
+  "area_tujuan",
+  "proses_tujuan",
+  "detail_produksi_section",
+  "operator_batang",
+  "column_break_18",
+  "operator_ranting",
+  "input_reparasi_section",
+  "produk_id",
+  "komponen_id",
+  "qty_bagus",
+  "column_break_38",
+  "qty_lepas",
+  "qty_keropos",
+  "qty_pecah",
+  "qty_rusak",
+  "detail_isi_pohon_section",
+  "table_detail",
+  "section_break_6",
+  "total_jsetor",
+  "total_jok",
+  "total_jrep",
+  "total_jss",
+  "column_break_9",
+  "total_bsetor",
+  "total_bok",
+  "total_brep",
+  "total_bss",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "created_date",
+   "fieldtype": "Date",
+   "label": "Created Date"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Naming Series",
+   "no_copy": 1,
+   "options": "NTHKO.YYYY.MM.#####",
+   "print_hide": 1,
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "detail_perencana_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Perencana"
+  },
+  {
+   "fieldname": "employee_id",
+   "fieldtype": "Link",
+   "label": "Employee ID",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "employee_id.employee_name",
+   "fieldname": "nama",
+   "fieldtype": "Data",
+   "label": "Nama"
+  },
+  {
+   "fetch_from": "employee_id.designation",
+   "fieldname": "jabatan",
+   "fieldtype": "Data",
+   "label": "Jabatan"
+  },
+  {
+   "fieldname": "detail_pohon_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Pohon"
+  },
+  {
+   "fieldname": "work_order_id",
+   "fieldtype": "Link",
+   "label": "Work Order ID",
+   "options": "Work Order Potong"
+  },
+  {
+   "fieldname": "sprue_utama",
+   "fieldtype": "Link",
+   "label": "Sprue Utama",
+   "options": "Data Jenis Sprue Utama"
+  },
+  {
+   "fieldname": "ukuran_base_karet",
+   "fieldtype": "Link",
+   "label": "Ukuran Base Karet",
+   "options": "Data Set Sprue"
+  },
+  {
+   "fieldname": "nomor_base_karet",
+   "fieldtype": "Link",
+   "label": "Nomor Base Karet",
+   "options": "Serial No"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "work_order_id.pohon_id",
+   "fieldname": "pohon_id",
+   "fieldtype": "Link",
+   "label": "Pohon ID",
+   "options": "Data Pohon Lilin"
+  },
+  {
+   "fetch_from": "pohon_id.kadar",
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "label": "Kadar",
+   "options": "Data Logam"
+  },
+  {
+   "fieldname": "area_tujuan",
+   "fieldtype": "Link",
+   "label": "Area Tujuan",
+   "options": "Workstation"
+  },
+  {
+   "fieldname": "proses_tujuan",
+   "fieldtype": "Link",
+   "label": "Proses Tujuan",
+   "options": "Operation"
+  },
+  {
+   "fieldname": "detail_produksi_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Produksi"
+  },
+  {
+   "fieldname": "operator_batang",
+   "fieldtype": "Link",
+   "label": "Operator Potong Batang",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "column_break_18",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "operator_ranting",
+   "fieldtype": "Link",
+   "label": "Operator Potong Ranting",
+   "options": "Employee"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "input_reparasi_section",
+   "fieldtype": "Section Break",
+   "label": "Input Reparasi"
+  },
+  {
+   "fieldname": "produk_id",
+   "fieldtype": "Link",
+   "label": "Produk ID",
+   "options": "Item"
+  },
+  {
+   "fieldname": "komponen_id",
+   "fieldtype": "Link",
+   "label": "Komponen ID",
+   "options": "Item"
+  },
+  {
+   "fieldname": "qty_bagus",
+   "fieldtype": "Int",
+   "label": "Qty Bagus"
+  },
+  {
+   "fieldname": "column_break_38",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "qty_lepas",
+   "fieldtype": "Int",
+   "label": "Qty Jumlah Batu Lepas"
+  },
+  {
+   "fieldname": "qty_keropos",
+   "fieldtype": "Int",
+   "label": "Qty Batu Keropos"
+  },
+  {
+   "fieldname": "qty_pecah",
+   "fieldtype": "Int",
+   "label": "Qty Batu Pecah"
+  },
+  {
+   "fieldname": "qty_rusak",
+   "fieldtype": "Int",
+   "label": "Qty Rusak"
+  },
+  {
+   "fieldname": "detail_isi_pohon_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Isi Pohon"
+  },
+  {
+   "fieldname": "table_detail",
+   "fieldtype": "Table",
+   "label": "Table Detail",
+   "options": "NTHKO BSP Detail"
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_jsetor",
+   "fieldtype": "Float",
+   "label": "Total J.Setor",
+   "precision": "2"
+  },
+  {
+   "fieldname": "total_jok",
+   "fieldtype": "Float",
+   "label": "Total J.OK"
+  },
+  {
+   "fieldname": "total_jrep",
+   "fieldtype": "Float",
+   "label": "Total J.Rep",
+   "precision": "2"
+  },
+  {
+   "fieldname": "total_jss",
+   "fieldtype": "Float",
+   "label": "Total J.SS",
+   "precision": "2"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_bsetor",
+   "fieldtype": "Float",
+   "label": "Total B.Setor"
+  },
+  {
+   "fieldname": "total_bok",
+   "fieldtype": "Float",
+   "label": "Total B.OK"
+  },
+  {
+   "fieldname": "total_brep",
+   "fieldtype": "Float",
+   "label": "Total B.Rep"
+  },
+  {
+   "fieldname": "total_bss",
+   "fieldtype": "Float",
+   "label": "Total B.SS"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "NTHKO BSP",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-10-03 12:56:51.871908",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "NTHKO BSP",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

@@ -1,0 +1,118 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:SC-{MM}-{YYYY}-{###}",
+ "creation": "2022-10-04 21:56:47.532422",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "posting_date",
+  "sales_partner",
+  "warehouse",
+  "stock_summary",
+  "items",
+  "sales_summary",
+  "sales",
+  "summary",
+  "total_sales",
+  "missing",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Closing Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sales_partner",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Sales",
+   "options": "Sales Partner",
+   "reqd": 1
+  },
+  {
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Sales Stock Closing",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Item",
+   "options": "Sales Stock Closing Item"
+  },
+  {
+   "fieldname": "stock_summary",
+   "fieldtype": "Section Break",
+   "label": "Stock Summary"
+  },
+  {
+   "fieldname": "sales_summary",
+   "fieldtype": "Section Break",
+   "label": "Sales Summary"
+  },
+  {
+   "fieldname": "sales",
+   "fieldtype": "Table",
+   "label": "Sales",
+   "options": "Sales Closing Sales Detail"
+  },
+  {
+   "fieldname": "summary",
+   "fieldtype": "Section Break",
+   "label": "Total Summary"
+  },
+  {
+   "fieldname": "total_sales",
+   "fieldtype": "Float",
+   "label": "Total Sales",
+   "read_only": 1
+  },
+  {
+   "fieldname": "missing",
+   "fieldtype": "Float",
+   "label": "Missing Item",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-10-09 21:50:22.382374",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Sales Stock Closing",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

@@ -25,11 +25,9 @@
   "kadar",
   "warehouse_tujuan",
   "detail_produksi_section",
-  "kepala_line",
   "operator",
   "column_break_18",
   "no_line",
-  "no_mesin",
   "no_kotak",
   "detail_isi_pohon_section",
   "tabel_detail",
@@ -97,12 +95,6 @@
    "label": "Detail Produksi"
   },
   {
-   "fieldname": "kepala_line",
-   "fieldtype": "Link",
-   "label": "Kepala Line",
-   "options": "Employee"
-  },
-  {
    "fieldname": "operator",
    "fieldtype": "Data",
    "label": "Operator"
@@ -115,11 +107,6 @@
    "fieldname": "no_line",
    "fieldtype": "Data",
    "label": "No Line"
-  },
-  {
-   "fieldname": "no_mesin",
-   "fieldtype": "Data",
-   "label": "No Mesin"
   },
   {
    "depends_on": "eval: doc.area == \"Lilin - L\" && doc.proses == \"Finish\"",
@@ -252,7 +239,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-05-24 10:32:29.013405",
+ "modified": "2022-10-07 15:39:53.328888",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "NTHKO Lilin",

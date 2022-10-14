@@ -1,0 +1,73 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-09-29 22:45:05.298040",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "invoice",
+  "total",
+  "outstanding",
+  "due_date",
+  "tutupan",
+  "allocated"
+ ],
+ "fields": [
+  {
+   "fieldname": "invoice",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer Payment Return",
+   "options": "Customer Payment Return",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "invoice.total",
+   "fieldname": "total",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "invoice.outstanding",
+   "fieldname": "outstanding",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Outstanding",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "invoice.due_date",
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "label": "Due Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "allocated",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Payment Allocated"
+  },
+  {
+   "fetch_from": "invoice.tutupan",
+   "fieldname": "tutupan",
+   "fieldtype": "Currency",
+   "label": "Tutupan",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-09-29 23:10:12.409080",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Gold Payment Return",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

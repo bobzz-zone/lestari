@@ -2,11 +2,10 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("SPK Produksi", {
-  refresh: function(frm) {
-
-  // }
-  // area: function (frm) {
-  //   frm.clear_custom_buttons();
+  refresh: function (frm) {
+    // }
+    // area: function (frm) {
+    //   frm.clear_custom_buttons();
     frm.events.make_custom_buttons(frm);
   },
   make_custom_buttons: function (frm) {
@@ -23,7 +22,7 @@ frappe.ui.form.on("SPK Produksi", {
         customer: frm.doc.customer || undefined,
         delivery_date: undefined,
         currency: frm.doc.currency || undefined,
-        order_type: frm.doc.order_type || undefined
+        order_type: frm.doc.order_type || undefined,
       },
       size: "extra-large",
       add_filters_group: 1,

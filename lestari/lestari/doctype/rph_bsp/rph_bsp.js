@@ -38,7 +38,7 @@ frappe.ui.form.on("RPH BSP", {
       },
       allow_child_item_selection: true,
       child_fieldname: "transfer_detail",
-      child_columns: ["nthko_area", "nthko_id", "s_warehouse", "t_warehouse"],
+      child_columns: ["nthko_area", "nthko_id", "bsp_operation", "s_warehouse", "t_warehouse"],
     });
     // await cur_dialog.set_value("allow_child_item_selection",1)
     // await dialog.dialog.set_value("allow_child_item_selection",1)

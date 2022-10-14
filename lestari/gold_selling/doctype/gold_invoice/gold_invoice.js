@@ -5,6 +5,7 @@ frappe.ui.form.on("Gold Invoice", {
   // setup:function(frm){
   // 	frm.events.make_custom_buttons(frm);
   // },
+
   refresh: function (frm) {
     // your code here
     frm.events.make_custom_buttons(frm);
@@ -68,7 +69,6 @@ frappe.ui.form.on("Gold Invoice", {
       }
     });
   },
-
   discount: function (frm) {
     if (!frm.doc.discount_amount) {
       frm.doc.discount_amount = 0;
@@ -181,10 +181,13 @@ frappe.ui.form.on("Gold Invoice Item", {
     var d = locals[cdt][cdn];
     frappe.model.set_value(cdt, cdn, "amount", (d.rate * d.qty) / 100);
     var total = 0;
+    var total_bruto = 0;
     $.each(frm.doc.items, function (i, g) {
       total = total + g.amount;
+      total_bruto = total_bruto + g.qty;
     });
     frm.doc.total = total;
+    frm.doc.total_bruto = total_bruto;
     if (!frm.doc.discount_amount) {
       frm.doc.discount_amount = 0;
     }
@@ -195,6 +198,7 @@ frappe.ui.form.on("Gold Invoice Item", {
     frm.doc.outstanding = frm.doc.grand_total - frm.doc.total_advance;
     refresh_field("outstanding");
     refresh_field("total");
+    refresh_field("total_bruto");
     refresh_field("discount_amount");
     refresh_field("grand_total");
   },

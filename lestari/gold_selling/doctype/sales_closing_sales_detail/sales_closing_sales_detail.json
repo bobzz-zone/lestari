@@ -1,0 +1,80 @@
+{
+ "actions": [],
+ "creation": "2022-10-04 23:27:08.698184",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "category",
+  "item_group",
+  "kadar",
+  "qty_sales",
+  "qty_used",
+  "qty_difference"
+ ],
+ "fields": [
+  {
+   "columns": 2,
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Category",
+   "options": "Gold Selling Item",
+   "reqd": 1
+  },
+  {
+   "columns": 2,
+   "fetch_from": "category.item_group",
+   "fieldname": "item_group",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Group",
+   "options": "Item Group",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "columns": 1,
+   "fetch_from": "category.kadar",
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Kadar",
+   "options": "Data Logam",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "columns": 2,
+   "default": "0",
+   "fieldname": "qty_sales",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Qty Sold",
+   "precision": "2"
+  },
+  {
+   "fetch_from": "category.income_account",
+   "fieldname": "qty_used",
+   "fieldtype": "Float",
+   "label": "Qty Used",
+   "read_only": 1
+  },
+  {
+   "fieldname": "qty_difference",
+   "fieldtype": "Float",
+   "label": "Difference"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-10-04 23:27:08.698184",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Sales Closing Sales Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

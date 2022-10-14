@@ -1,0 +1,121 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-10-03 12:56:16.036392",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "produk_id",
+  "no_spk",
+  "pohon_id",
+  "column_break_6",
+  "j_setor",
+  "b_setor",
+  "section_break_7",
+  "j_ok",
+  "j_rep",
+  "j_ss",
+  "column_break_11",
+  "b_ok",
+  "b_rep",
+  "b_ss"
+ ],
+ "fields": [
+  {
+   "fieldname": "produk_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Produk ID",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "no_spk",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "No SPK",
+   "reqd": 1
+  },
+  {
+   "fieldname": "pohon_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Pohon ID",
+   "options": "Data Pohon Lilin"
+  },
+  {
+   "columns": 1,
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "columns": 1,
+   "fieldname": "j_setor",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "J. Setor"
+  },
+  {
+   "columns": 1,
+   "fieldname": "b_setor",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "B. Setor"
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "columns": 1,
+   "fieldname": "j_ok",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "J. OK"
+  },
+  {
+   "fieldname": "j_rep",
+   "fieldtype": "Float",
+   "label": "J. Rep"
+  },
+  {
+   "fieldname": "j_ss",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "J. SS"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "columns": 1,
+   "fieldname": "b_ok",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "B. OK"
+  },
+  {
+   "fieldname": "b_rep",
+   "fieldtype": "Float",
+   "label": "B. Rep"
+  },
+  {
+   "fieldname": "b_ss",
+   "fieldtype": "Float",
+   "label": "B. SS"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-10-03 12:56:16.036392",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "NTHKO BSP Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
