@@ -10,6 +10,21 @@ from erpnext.controllers.stock_controller import StockController
 from erpnext.stock.stock_ledger import NegativeStockError, get_previous_sle, get_valuation_rate
 class CustomerPaymentReturn(StockController):
 	def validate(self):
+		if self.name:
+			gp_used=frappe.db.sql("""select name from `tabCustomer Payment Return` where gold_payment="{}" and name !="{}" and docstatus!=2""".format(self.gold_payment,self.name),as_list=1)
+			if len(gp_used)>0:
+				frappe.throw("""Gold Payment telah di return pada Transaksi no {} """.format(gp_used[0][0]))
+		#validate payment return
+		payment_detail=frappe.db.sql("""select item,qty from `tabStock Payment` where parent="{}" """.format(self.gold_payment),as_list=1)
+		payment_map={}
+		for row in payment_detail:
+			payment_map[row[0]]=row[1]
+		#validate returned stock
+		for row in self.items:
+			if row.item not in payment_map:
+				frappe.throw("""{} Tidak ada pada Record Payment {}""".format(row.item,self.gold_payment))
+			if payment_map[row.item]<row.qty:
+				frappe.throw("""Jumlah {} Tidak boleh melebihi nilai pada Record Payment {} yaitu {}""".format(row.item,self.gold_payment,payment_map[row.item]))
 		#seharusnya validasi agaryang belum due, di pastikan tutupan sama..atau hanya 1 invoice agar di gold payment tutupan di samakan
 		#check unallocated harus 0
 		if not self.warehouse:
