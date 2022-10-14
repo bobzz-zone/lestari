@@ -19,7 +19,9 @@ class GoldInvoice(Document):
 	def add_row_action(self):
 		gi = frappe.db.sql("""select name,income_account from `tabGold Selling Item` where kadar="{}" and item_group="{}" """.format(self.kadar,self.category),as_list=1)
 		if gi and len(gi)>0:
-			self.append("items",{"category":gi[0][0],"rate":get_gold_rate(gi[0][0],self.customer,self.customer_group)['nilai'],"kadar":self.kadar,"item_group":self.category,"income_account":gi[0][1],"qty":self.add_bruto})
+#			self.append("items",{"category":gi[0][0],"rate":get_gold_rate(gi[0][0],self.customer,self.customer_group)['nilai'],"kadar":self.kadar,"item_group":self.category,"income_account":gi[0][1],"qty":self.add_bruto})
+			rate=flt(get_gold_rate(gi[0][0],self.customer,self.customer_group)['nilai'])
+			self.append("items",{"category":gi[0][0],"rate":rate,"kadar":self.kadar,"item_group":self.category,"income_account":gi[0][1],"qty":self.add_bruto,"amount":self.add_bruto*rate/100})
 		else:
 			frappe.msgprint("Product Not Found")
 	def before_submit(self):

@@ -6,13 +6,28 @@ frappe.ui.form.on('Gold Payment', {
 		if (frm.doc.discount<=0){
 			return
 		}
-		var disc=0
+		/*var disc=0
 		$.each(frm.doc.invoice_table,  function(i,  g) {
 			if (g.allocated>0){
 				disc=disc+(g.total_bruto/100*frm.doc.discount);
 			}
-		 });
-		frm.doc.discount_amount=disc;
+		 });*/
+		frm.doc.discount_amount=frm.doc.bruto_discount*frm.doc.discount/100;
+		refresh_field("total_payment");
+		frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.write_off+frm.doc.discount_amount+frm.doc.bonus;
+		refresh_field("discount_amount");
+	},
+	bruto_discount:function(frm){
+		if (frm.doc.discount<=0){
+			return
+		}
+		/*var disc=0
+		$.each(frm.doc.invoice_table,  function(i,  g) {
+			if (g.allocated>0){
+				disc=disc+(g.total_bruto/100*frm.doc.discount);
+			}
+		 });*/
+		frm.doc.discount_amount=frm.doc.bruto_discount*frm.doc.discount/100;
 		refresh_field("total_payment");
 		frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.write_off+frm.doc.discount_amount+frm.doc.bonus;
 		refresh_field("discount_amount");
@@ -156,10 +171,10 @@ frappe.ui.form.on('Gold Payment Invoice', {
 	},
 	allocated:function(frm,cdt,cdn) {
 		var allocated=0;
-		var disc=0
+		var bruto=0
 		$.each(frm.doc.invoice_table,  function(i,  g) {
 			if (g.allocated>0){
-				disc=disc+(g.total_bruto/100*frm.doc.discount);
+				bruto=bruto+g.total_bruto;
 		   		allocated=allocated+g.allocated;
 			}
 		});
@@ -168,7 +183,8 @@ frappe.ui.form.on('Gold Payment Invoice', {
 				allocated=allocated+g.allocated;
 			}
 		});
-		frm.doc.discount_amount=disc;
+		frm.doc.bruto_discount=bruto;
+		frm.doc.discount_amount=bruto/100*frm.doc.discount;
 		frm.doc.allocated_payment=allocated;
 		refresh_field("discount_amount");
 		refresh_field("allocated_payment");
@@ -202,10 +218,10 @@ frappe.ui.form.on('Gold Payment Return', {
 	},
 	allocated:function(frm,cdt,cdn) {
 		var allocated=0;
-		var disc=0
+		var bruto=0
 		$.each(frm.doc.invoice_table,  function(i,  g) {
 			if (g.allocated>0){
-				disc=disc+(g.total_bruto/100*frm.doc.discount);
+				bruto=bruto+g.total_bruto;
 		   		allocated=allocated+g.allocated;
 			}
 		});
@@ -214,7 +230,8 @@ frappe.ui.form.on('Gold Payment Return', {
 				allocated=allocated+g.allocated;
 			}
 		});
-		frm.doc.discount_amount=disc;
+		frm.doc.bruto_discount=bruto;
+		frm.doc.discount_amount=bruto/100*frm.doc.discount;
 		frm.doc.allocated_payment=allocated;
 		refresh_field("discount_amount");
 		refresh_field("allocated_payment");
