@@ -17,7 +17,9 @@
   "column_break_2",
   "posting_date",
   "due_date",
+  "bundle",
   "sales_partner",
+  "warehouse",
   "tutupan_section",
   "tutupan",
   "column_break_10",
@@ -288,10 +290,12 @@
    "read_only": 1
   },
   {
+   "fetch_from": "bundle.sales",
    "fieldname": "sales_partner",
    "fieldtype": "Link",
    "label": "Sales",
-   "options": "Sales Partner"
+   "options": "Sales Partner",
+   "read_only": 1
   },
   {
    "depends_on": "eval:doc.naming_series == \"Manual\"",
@@ -303,11 +307,26 @@
    "fieldname": "add_bruto",
    "fieldtype": "Float",
    "label": "Bruto"
+  },
+  {
+   "fieldname": "bundle",
+   "fieldtype": "Link",
+   "label": "Bundle",
+   "options": "Sales Stock Bundle",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "bundle.warehouse",
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Warehouse",
+   "options": "Warehouse",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-10-10 13:35:40.228874",
+ "modified": "2022-10-17 07:50:26.040307",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",

@@ -118,9 +118,35 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Stock",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Add Bundle Stock",
+   "link_to": "Add Bundle Stock",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Sales Stock Bundle",
+   "link_to": "Sales Stock Bundle",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2022-10-04 21:36:59.389099",
+ "modified": "2022-10-17 08:02:56.740587",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling",
@@ -144,6 +170,18 @@
    "doc_view": "List",
    "label": "Customer Payment Return",
    "link_to": "Customer Payment Return",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Sales Stock Bundle",
+   "link_to": "Sales Stock Bundle",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Add Bundle Stock",
+   "link_to": "Add Bundle Stock",
    "type": "DocType"
   }
  ]

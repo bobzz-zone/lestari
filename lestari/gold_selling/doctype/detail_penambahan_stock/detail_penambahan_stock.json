@@ -7,6 +7,7 @@
  "engine": "InnoDB",
  "field_order": [
   "item",
+  "gold_selling_item",
   "item_name",
   "qty_penambahan"
  ],
@@ -31,12 +32,19 @@
    "in_list_view": 1,
    "label": "Qty Penambahan",
    "reqd": 1
+  },
+  {
+   "fieldname": "gold_selling_item",
+   "fieldtype": "Link",
+   "label": "Gold Selling Item",
+   "options": "Gold Selling Item",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-10-09 21:53:03.959702",
+ "modified": "2022-10-17 07:45:30.521926",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Detail Penambahan Stock",
