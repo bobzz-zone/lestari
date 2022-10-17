@@ -10,13 +10,15 @@
   "date",
   "bundle",
   "pic",
+  "s_warehouse",
   "keterangan",
   "cb1",
   "purpose",
   "sales",
   "warehouse",
   "sb1",
-  "items"
+  "items",
+  "amended_from"
  ],
  "fields": [
   {
@@ -79,11 +81,27 @@
    "label": "Items",
    "options": "Detail Penambahan Stock",
    "reqd": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Add Bundle Stock",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "s_warehouse",
+   "fieldtype": "Link",
+   "label": "Source Warehouse",
+   "options": "Warehouse"
   }
  ],
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2022-10-17 07:48:43.016130",
+ "modified": "2022-10-17 08:16:14.903494",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Add Bundle Stock",
@@ -99,6 +117,20 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "All",
+   "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],
