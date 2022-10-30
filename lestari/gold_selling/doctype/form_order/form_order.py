@@ -9,6 +9,7 @@ class FormOrder(Document):
 	def match_data(self):
 		#reset valid Items
 		self.items_valid=[]
+		self.items_invalid=[]
 		#sort all item into grouped array of category
 		data={}
 		valid_data={}
