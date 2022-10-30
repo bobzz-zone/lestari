@@ -45,7 +45,7 @@ class FormOrder(Document):
 					#cari yang matching qty
 					for match in data[category]:
 						if match["used"]==0:
-							if match.qty==needed_qty:
+							if match["qty"]==needed_qty:
 								no_pohon=no_pohon+1
 								row["no_pohon"]=no_pohon
 								match["no_pohon"]=no_pohon
@@ -82,3 +82,4 @@ class FormOrder(Document):
 			#masukan invalid kalau ada sisa
 			for row in data[category]:
 				self.append("items_invalid",row)
+			self.total_pohon=no_pohon
