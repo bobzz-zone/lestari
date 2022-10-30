@@ -72,7 +72,7 @@ class FormOrder(Document):
 						for x in temp:
 							x["no_pohon"]=no_pohon
 							self.append("items_valid",x)
-						self.append("items_valid",{"model":row.model,"item_name":row.item_name,"kadar":row.kadar,"sub_kategori":row.sub_kategori,"kategori":row.kategori,"qty":qty,"qty_isi_pohon":row.qty_isi_pohon,"kategori_pohon":row.kategori_pohon,"no_pohon":no_pohon})
+						self.append("items_valid",{"model":row["model"],"item_name":row["item_name"],"kadar":row["kadar"],"sub_kategori":row["sub_kategori"],"kategori":row["kategori"],"qty":qty,"qty_isi_pohon":row["qty_isi_pohon"],"kategori_pohon":row["kategori_pohon"],"no_pohon":no_pohon})
 						if row["qty"]==0:
 							row["used"]=1
 						#reset
