@@ -80,4 +80,4 @@ class FormOrder(Document):
 						cur_qty=0
 			#masukan invalid kalau ada sisa
 			for row in data[category]:
-				self.append("items_valid",row)
+				self.append("items_invalid",row)
