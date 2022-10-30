@@ -23,7 +23,7 @@ class FormOrder(Document):
 				list_category.append(row.kategori_pohon)
 			#append yang sisa saja ,sisanya masukan ke valid data
 			to_made=row.qty
-			while to_made > row.qty_isi_pohon:
+			while to_made >= row.qty_isi_pohon:
 				valid_data[row.kategori_pohon].append({"used":0,"no_pohon":0,"model":row.model,"item_name":row.item_name,"kadar":row.kadar,"sub_kategori":row.sub_kategori,"kategori":row.kategori,"qty":row.qty_isi_pohon,"qty_isi_pohon":row.qty_isi_pohon,"kategori_pohon":row.kategori_pohon})
 				to_made=to_made-row.qty_isi_pohon
 			if to_made>0:
