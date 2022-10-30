@@ -44,8 +44,8 @@ class FormOrder(Document):
 					needed_qty=qty_should-row["qty"]
 					#cari yang matching qty
 					for match in data[category]:
-						if row["used"]==0:
-							if row.qty==needed_qty:
+						if match["used"]==0:
+							if match.qty==needed_qty:
 								no_pohon=no_pohon+1
 								row["no_pohon"]=no_pohon
 								match["no_pohon"]=no_pohon
