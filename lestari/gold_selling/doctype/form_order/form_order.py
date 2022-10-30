@@ -83,4 +83,7 @@ class FormOrder(Document):
 			for row in data[category]:
 				if row["used"]==0:
 					self.append("items_invalid",row)
+			#masukan tekp sisa
+			for row in temp:
+				self.append("items_invalid",row)
 			self.total_pohon=no_pohon
