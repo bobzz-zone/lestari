@@ -1,0 +1,195 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2022-10-27 09:45:30.366290",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "type",
+  "naming_series",
+  "customer",
+  "customer_name",
+  "customer_group",
+  "column_break_4",
+  "pic",
+  "pic_name",
+  "production_period_week",
+  "production_period_month",
+  "production_period_year",
+  "due_date",
+  "section_break_8",
+  "sorting_type",
+  "sorting",
+  "section_break_17",
+  "match",
+  "items",
+  "section_break_12",
+  "total_pohon",
+  "column_break_13",
+  "total_valid",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "STA\nSTO\nSTP\nCustomer"
+  },
+  {
+   "depends_on": "eval:doc.type == \"Customer\"",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "pic",
+   "fieldtype": "Link",
+   "label": "PIC",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "label": "Due Date"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Form Order Item"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Form Order",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_8",
+   "fieldtype": "Section Break",
+   "label": "Sorting Item"
+  },
+  {
+   "fieldname": "production_period_week",
+   "fieldtype": "Int",
+   "label": "Production Period Week"
+  },
+  {
+   "fieldname": "production_period_month",
+   "fieldtype": "Int",
+   "label": "Production Period Month"
+  },
+  {
+   "fieldname": "production_period_year",
+   "fieldtype": "Int",
+   "label": "Production Period Year"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_pohon",
+   "fieldtype": "Int",
+   "label": "Total Pohon",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_13",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_valid",
+   "fieldtype": "Int",
+   "label": "Total Valid",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_12",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fetch_from": "pic.employee_name",
+   "fieldname": "pic_name",
+   "fieldtype": "Data",
+   "label": "PIC Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Naming Series",
+   "options": "STO-FORD-.YYYY.-\nSTA-FORD-.YYYY.-\nSTP-FORD-.YYYY.-\nCUST-FORD-.YYYY.-"
+  },
+  {
+   "fetch_from": "customer.customer_group",
+   "fieldname": "customer_group",
+   "fieldtype": "Link",
+   "label": "Customer Group",
+   "options": "Customer Group",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sorting_type",
+   "fieldtype": "Select",
+   "label": "Sorting Type",
+   "options": "\nModel\nKadar\nSub Kategori\nKategori\nKategori Pohon\nNo Pohon\nValid"
+  },
+  {
+   "fieldname": "sorting",
+   "fieldtype": "Button",
+   "label": "Sorting"
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break",
+   "label": "Form Order Item"
+  },
+  {
+   "fieldname": "match",
+   "fieldtype": "Button",
+   "label": "Match"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-10-28 09:23:36.936167",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Form Order",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

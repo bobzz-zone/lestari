@@ -4,22 +4,21 @@
 import frappe
 from frappe.model.document import Document
 
-class AddBundleStock(Document):
+class UpdateBundleStock(Document):
 	def on_submit(self):
 		ste = frappe.new_doc("Stock Entry")
-		frappe.msgprint(str(ste))
+		# frappe.msgprint(str(ste))
 		ste.stock_entry_type = "Material Transfer"
 		ste.employee_id = self.pic
 		ste.remarks = self.keterangan
 		for items in self.items:
 			baris_baru = {
-				'item_code' : items['item'],
-				's_warehouse' : items['s_warehouse'],
-				't_warehouse' : items['warehouse'],
-				'qty' : items['qty_penambahan']
+				'item_code' : items.item,
+				's_warehouse' : self.s_warehouse,
+				't_warehouse' : self.warehouse,
+				'qty' : items.qty_penambahan,
+				'allow_zero_valuation_rate' : 1
 			}
 			ste.append("items",baris_baru)
 		ste.flags.ignore_permissions = True
 		ste.save()
-		
-	

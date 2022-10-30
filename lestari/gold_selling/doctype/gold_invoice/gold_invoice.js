@@ -5,7 +5,11 @@ frappe.ui.form.on("Gold Invoice", {
   // setup:function(frm){
   // 	frm.events.make_custom_buttons(frm);
   // },
-
+  validate: function (frm) {
+    if (!cur_frm.doc.no_invoice) {
+      cur_frm.set_df_property("no_invoice", "hidden", 1);
+    }
+  },
   refresh: function (frm) {
     // your code here
     frm.events.make_custom_buttons(frm);

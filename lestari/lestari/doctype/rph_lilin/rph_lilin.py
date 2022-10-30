@@ -14,10 +14,7 @@ class RPHLilin(Document):
 		sumber_doc = self
 		for row in sumber_doc.tabel_detail:
 			for col in range(row.jumlah_pohon):
-				target_doc = frappe.new_doc("Data Pohon Lilin")
-				target_doc.warehouse = "Lilin - L"
 				# target_doc.proses = sumber_doc.proses
-				target_doc.kadar = row.kadar
 				# sumber_resep = frappe.db.get_list("Resep Mul Karet", filters={"final_product":row.produk})		
 				sumber_resep = frappe.db.sql("""
 				SELECT
@@ -29,19 +26,24 @@ class RPHLilin(Document):
 				WHERE final_product = "{}"
 				""".format(row.produk_id),as_dict=1)
 				for col in sumber_resep:
-					baris_baru={
-						"no_spk":row.no_spk,
-						"produk_id":row.produk_id,
-						"mul_karet":col.rubber_mould,
-						"resep_mul_karet":col.name,
-						"qty":row.qty_isi_pohon,
-						"inject":col.hasil_inject,
-						"logo":frappe.get_doc("Item",row.produk_id).brand
-						}
-					target_doc.append("resep",baris_baru)
-				target_doc.flags.ignore_permissions = True
-				target_doc.save()
-				target_doc.submit()
+					frappe.msgprint(col)
+					# if row.qty_isi_pohon:
+					# 	baris_baru={
+					# 		"no_spk":row.no_spk,
+					# 		"produk_id":row.produk_id,
+					# 		"mul_karet":col.rubber_mould,
+					# 		"resep_mul_karet":col.name,
+					# 		"qty":row.qty_isi_pohon,
+					# 		"inject":col.hasil_inject,
+					# 		"logo":frappe.get_doc("Item",row.produk_id).brand
+					# 		}
+					# 	target_doc.append("resep",baris_baru)
+					# 	target_doc = frappe.new_doc("Data Pohon Lilin")
+					# 	target_doc.warehouse = "Lilin - L"
+					# 	target_doc.kadar = row.kadar
+					# 	target_doc.flags.ignore_permissions = True
+					# 	target_doc.save()
+					# 	target_doc.submit()
 
 @frappe.whitelist()
 def get_items_from_spk_produksi(source_name, target_doc=None, args=None):

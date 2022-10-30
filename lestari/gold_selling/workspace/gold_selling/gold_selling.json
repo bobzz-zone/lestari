@@ -130,8 +130,17 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Add Bundle Stock",
-   "link_to": "Add Bundle Stock",
+   "label": "Form Order",
+   "link_to": "Form Order",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Update Bundle Stock",
+   "link_to": "Update Bundle Stock",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -146,7 +155,7 @@
    "type": "Link"
   }
  ],
- "modified": "2022-10-17 08:02:56.740587",
+ "modified": "2022-10-30 19:54:56.080289",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling",
@@ -180,8 +189,14 @@
   },
   {
    "doc_view": "List",
-   "label": "Add Bundle Stock",
-   "link_to": "Add Bundle Stock",
+   "label": "Update Bundle Stock",
+   "link_to": "Update Bundle Stock",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Form Order",
+   "link_to": "Form Order",
    "type": "DocType"
   }
  ]

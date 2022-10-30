@@ -39,10 +39,10 @@
   {
    "fieldname": "warna_batu",
    "fieldtype": "Select",
+   "hidden": 1,
    "in_list_view": 1,
    "label": "Warna Batu",
-   "options": "Putih\nMerah\nHijau\nBiru\nKuning",
-   "reqd": 1
+   "options": "Putih\nMerah\nHijau\nBiru\nKuning"
   },
   {
    "fieldname": "total_qty",
@@ -66,7 +66,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-02-03 10:36:14.975975",
+ "modified": "2022-10-17 10:37:47.215573",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Work Order Lilin Batu",

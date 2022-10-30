@@ -5,16 +5,18 @@ from erpnext.accounts.utils import get_account_currency, get_fiscal_years, valid
 from frappe.utils import flt
 class GoldInvoice(Document):
 	def validate(self):
-		#total items
-		total=0
-		for row in self.items:
-			total=total+row.amount
-		self.total=total
-		if self.outstanding<0:
-			frappe.throw("Ouutstanding tidak boleh lebih kecil dari 0")
-		if not self.discount:
-			self.discount=0
-		self.grand_total=flt(self.total)-flt(self.discount)
+		if(self.no_invoice):
+			self.name = self.no_invoice		
+			#total items
+			total=0
+			for row in self.items:
+				total=total+row.amount
+			self.total=total
+			if self.outstanding<0:
+				frappe.throw("Ouutstanding tidak boleh lebih kecil dari 0")
+			if not self.discount:
+				self.discount=0
+			self.grand_total=flt(self.total)-flt(self.discount)
 	@frappe.whitelist(allow_guest=True)
 	def add_row_action(self):
 		gi = frappe.db.sql("""select name,income_account from `tabGold Selling Item` where kadar="{}" and item_group="{}" """.format(self.kadar,self.category),as_list=1)

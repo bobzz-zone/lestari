@@ -9,6 +9,7 @@
  "field_order": [
   "tanggal_nthko",
   "column_break_2",
+  "installedprintername",
   "naming_series",
   "detail_perencana_section",
   "employee_id",
@@ -231,13 +232,18 @@
    "fieldtype": "Link",
    "label": "Sprue Utama",
    "options": "Data Jenis Sprue Utama"
+  },
+  {
+   "fieldname": "installedprintername",
+   "fieldtype": "Select",
+   "label": "installedPrinterName"
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-10-14 14:00:04.984068",
+ "modified": "2022-10-26 09:59:39.229259",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "NTHKO Lilin",

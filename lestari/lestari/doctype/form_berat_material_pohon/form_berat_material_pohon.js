@@ -87,9 +87,10 @@ frappe.ui.form.on("Form Berat Material Pohon", {
     window.checkPort(false);
   },
   refresh: function (frm) {},
-  timbang: function (frm) {
-    sendSerialLine();
-  },
+  // timbang: function (frm) {
+  //   console.log()
+  //   sendSerialLine();
+  // },
   connect: function (frm) {
     connectSerial();
   },
@@ -102,5 +103,13 @@ frappe.ui.form.on("Form Berat Material Batu", {
     var d = locals[cdn][cdt];
     cur_frm.doc.total_berat_batu += d.berat;
     refresh_field("total_berat_batu");
+  },
+  timbang: function (frm, cdt, cdn) {
+    var d = locals[cdt][cdn];
+    // var berat = 1;
+    let berat = sendSerialLine();
+    frappe.model.set_value(cdt, cdn, "berat", berat);
+    // console.log(d);
+    // doc.refresh();
   },
 });
