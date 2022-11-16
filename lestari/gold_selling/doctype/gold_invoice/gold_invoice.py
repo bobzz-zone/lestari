@@ -26,6 +26,10 @@ class GoldInvoice(Document):
 			self.append("items",{"category":gi[0][0],"rate":rate,"kadar":self.kadar,"item_group":self.category,"income_account":gi[0][1],"qty":self.add_bruto,"amount":self.add_bruto*rate/100})
 		else:
 			frappe.msgprint("Product Not Found")
+		self.kadar = ""
+		self.category = ""
+		self.add_bruto = ""
+		
 	def before_submit(self):
 		if self.outstanding<0:
 			frappe.throw("Error, Outstanding should not be less than zero")

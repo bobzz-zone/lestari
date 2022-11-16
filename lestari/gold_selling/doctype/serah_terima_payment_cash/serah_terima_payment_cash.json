@@ -1,72 +1,81 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:BDL-{sales}-{MM}-{YYYY}-{###}",
- "creation": "2022-10-09 21:52:27.373554",
+ "autoname": "format:STC-{MM}-{YYYY}-{####}",
+ "creation": "2022-11-13 22:56:43.489160",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "date",
-  "purpose",
+  "posting_date",
   "sales",
-  "pendamping",
-  "warehouse",
+  "nilai_cash",
+  "get_payment",
+  "payment",
+  "keterangan",
+  "details",
   "amended_from"
  ],
  "fields": [
   {
    "default": "Today",
-   "fieldname": "date",
+   "fieldname": "posting_date",
    "fieldtype": "Date",
    "in_list_view": 1,
-   "label": "Posting Date",
+   "label": "Tanggal",
    "reqd": 1
   },
   {
-   "depends_on": "eval:doc.purpose==\"Sales\"",
    "fieldname": "sales",
    "fieldtype": "Link",
-   "in_list_view": 1,
    "label": "Sales",
    "options": "Sales Partner"
+  },
+  {
+   "fieldname": "nilai_cash",
+   "fieldtype": "Currency",
+   "label": "Nilai Cash"
+  },
+  {
+   "fieldname": "keterangan",
+   "fieldtype": "Text Editor",
+   "label": "Ketarangan"
   },
   {
    "fieldname": "amended_from",
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Sales Stock Bundle",
+   "options": "Serah Terima Payment Cash",
    "print_hide": 1,
    "read_only": 1
   },
   {
-   "fieldname": "purpose",
-   "fieldtype": "Select",
-   "label": "Purpose",
-   "options": "Sales\nEvent"
+   "fieldname": "details",
+   "fieldtype": "Table",
+   "label": "Details",
+   "options": "Serah Terima Payment Cash Detail"
   },
   {
-   "fetch_from": "sales.warehouse",
-   "fieldname": "warehouse",
-   "fieldtype": "Link",
-   "label": "Warehouse",
-   "options": "Warehouse"
+   "fieldname": "get_payment",
+   "fieldtype": "Button",
+   "label": "Get Payment",
+   "options": "get_payment"
   },
   {
-   "fieldname": "pendamping",
-   "fieldtype": "Link",
-   "label": "Pendamping",
-   "options": "Sales Partner"
+   "fieldname": "payment",
+   "fieldtype": "Table",
+   "label": "Payment",
+   "options": "Serah Terima Payment Cash Deposit"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-11-14 11:05:05.550784",
+ "modified": "2022-11-16 11:34:07.794907",
  "modified_by": "Administrator",
  "module": "Gold Selling",
- "name": "Sales Stock Bundle",
+ "name": "Serah Terima Payment Cash",
  "owner": "Administrator",
  "permissions": [
   {

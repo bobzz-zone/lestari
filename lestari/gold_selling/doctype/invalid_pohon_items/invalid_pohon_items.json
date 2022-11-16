@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2022-10-27 09:44:50.929600",
+ "creation": "2022-10-30 23:03:30.345524",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -11,37 +11,24 @@
   "kadar",
   "sub_kategori",
   "kategori",
-  "column_break_6",
   "kategori_pohon",
   "qty_isi_pohon",
-  "gambar_model",
-  "image",
-  "section_break_9",
-  "qty",
-  "remark",
-  "view"
+  "no_pohon",
+  "qty"
  ],
  "fields": [
   {
    "fieldname": "model",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Model",
    "options": "Item"
-  },
-  {
-   "fieldname": "qty",
-   "fieldtype": "Int",
-   "label": "Qty"
-  },
-  {
-   "fieldname": "remark",
-   "fieldtype": "Small Text",
-   "label": "Remark"
   },
   {
    "fetch_from": "model.item_name",
    "fieldname": "item_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Item Name",
    "read_only": 1
   },
@@ -51,21 +38,6 @@
    "fieldtype": "Link",
    "label": "Kadar",
    "options": "Data Logam",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "model.qty_isi_pohon",
-   "fieldname": "qty_isi_pohon",
-   "fieldtype": "Int",
-   "label": "Qty Isi Pohon",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "model.kategori_pohon",
-   "fieldname": "kategori_pohon",
-   "fieldtype": "Link",
-   "label": "Kategori Pohon",
-   "options": "Penggolongan Pohon",
    "read_only": 1
   },
   {
@@ -84,37 +56,42 @@
    "read_only": 1
   },
   {
-   "fieldname": "column_break_6",
-   "fieldtype": "Column Break"
+   "fetch_from": "model.kategori_pohon",
+   "fieldname": "kategori_pohon",
+   "fieldtype": "Link",
+   "label": "Kategori Pohon",
+   "options": "Penggolongan Pohon",
+   "read_only": 1
   },
   {
-   "fieldname": "section_break_9",
-   "fieldtype": "Section Break"
+   "fetch_from": "model.qty_isi_pohon",
+   "fieldname": "qty_isi_pohon",
+   "fieldtype": "Int",
+   "label": "Qty Isi Pohon",
+   "read_only": 1
   },
   {
-   "fieldname": "gambar_model",
-   "fieldtype": "Image",
-   "label": "Gambar Model",
-   "options": "image"
+   "fieldname": "no_pohon",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "No Pohon",
+   "read_only": 1
   },
   {
-   "fieldname": "image",
-   "fieldtype": "Attach Image",
-   "label": "Image"
-  },
-  {
-   "fieldname": "view",
-   "fieldtype": "Button",
-   "label": "View"
+   "fieldname": "qty",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Qty Sisa",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-11-08 14:22:57.499071",
+ "modified": "2022-10-30 23:29:01.515474",
  "modified_by": "Administrator",
  "module": "Gold Selling",
- "name": "Form Order Item",
+ "name": "Invalid Pohon Items",
  "owner": "Administrator",
  "permissions": [],
  "sort_field": "modified",

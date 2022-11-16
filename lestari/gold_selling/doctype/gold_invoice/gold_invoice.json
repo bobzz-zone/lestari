@@ -20,6 +20,10 @@
   "bundle",
   "sales_partner",
   "warehouse",
+  "subcustomer",
+  "subcustomer_name",
+  "enduser",
+  "enduser_name",
   "tutupan_section",
   "tutupan",
   "column_break_10",
@@ -321,11 +325,35 @@
    "label": "Warehouse",
    "options": "Warehouse",
    "read_only": 1
+  },
+  {
+   "fieldname": "subcustomer",
+   "fieldtype": "Link",
+   "label": "SubCustomer",
+   "options": "Customer"
+  },
+  {
+   "fetch_from": "subcustomer.customer_name",
+   "fieldname": "subcustomer_name",
+   "fieldtype": "Read Only",
+   "label": "SubCustomer Name"
+  },
+  {
+   "fieldname": "enduser",
+   "fieldtype": "Link",
+   "label": "End User",
+   "options": "Customer"
+  },
+  {
+   "fetch_from": "subcustomer.customer_name",
+   "fieldname": "enduser_name",
+   "fieldtype": "Read Only",
+   "label": "End User Name"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-10-20 14:33:35.526643",
+ "modified": "2022-11-08 14:19:25.793060",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",

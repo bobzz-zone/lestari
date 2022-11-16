@@ -26,24 +26,24 @@ class RPHLilin(Document):
 				WHERE final_product = "{}"
 				""".format(row.produk_id),as_dict=1)
 				for col in sumber_resep:
-					frappe.msgprint(col)
-					# if row.qty_isi_pohon:
-					# 	baris_baru={
-					# 		"no_spk":row.no_spk,
-					# 		"produk_id":row.produk_id,
-					# 		"mul_karet":col.rubber_mould,
-					# 		"resep_mul_karet":col.name,
-					# 		"qty":row.qty_isi_pohon,
-					# 		"inject":col.hasil_inject,
-					# 		"logo":frappe.get_doc("Item",row.produk_id).brand
-					# 		}
-					# 	target_doc.append("resep",baris_baru)
-					# 	target_doc = frappe.new_doc("Data Pohon Lilin")
-					# 	target_doc.warehouse = "Lilin - L"
-					# 	target_doc.kadar = row.kadar
-					# 	target_doc.flags.ignore_permissions = True
-					# 	target_doc.save()
-					# 	target_doc.submit()
+					# frappe.msgprint(col)
+					if row.qty_isi_pohon:
+						baris_baru={
+							"no_spk":row.no_spk,
+							"produk_id":row.produk_id,
+							"mul_karet":col.rubber_mould,
+							"resep_mul_karet":col.name,
+							"qty":row.qty_isi_pohon,
+							"inject":col.hasil_inject,
+							"logo":frappe.get_doc("Item",row.produk_id).brand
+							}
+						target_doc = frappe.new_doc("Data Pohon Lilin")
+						target_doc.append("resep",baris_baru)
+						target_doc.warehouse = "Lilin - L"
+						target_doc.kadar = row.kadar
+						target_doc.flags.ignore_permissions = True
+						target_doc.save()
+						target_doc.submit()
 
 @frappe.whitelist()
 def get_items_from_spk_produksi(source_name, target_doc=None, args=None):
@@ -92,40 +92,3 @@ def get_items_from_spk_produksi(source_name, target_doc=None, args=None):
 	}, target_doc)
 
 	return doc
-
-# @frappe.whitelist()
-# def make_purchase_order(source_name, target_doc=None, args=None):
-# 	if args is None:
-# 		args = {}
-# 	if isinstance(args, string_types):
-# 		args = json.loads(args)
-
-# 	def select_item(d):
-# 		filtered_items = args.get('filtered_children', [])
-# 		child_filter = d.name in filtered_items if filtered_items else True
-
-# 		return d.ordered_qty < d.stock_qty and child_filter
-
-# 	doclist = get_mapped_doc("Material Request", source_name, {
-# 		"Material Request": {
-# 			"doctype": "Purchase Order",
-# 			"validation": {
-# 				"docstatus": ["=", 1]
-# 			}
-# 		},
-# 		"Material Request Item": {
-# 			"doctype": "Purchase Order Item",
-# 			"field_map": [
-# 				["name", "material_request_item"],
-# 				["parent", "material_request"],
-# 				["uom", "stock_uom"],
-# 				["uom", "uom"],
-# 				["sales_order", "sales_order"],
-# 				["sales_order_item", "sales_order_item"]
-# 			],
-# 			"postprocess": update_item,
-# 			"condition": select_item
-# 		}
-# 	}, target_doc)
-
-# 	return doclistf

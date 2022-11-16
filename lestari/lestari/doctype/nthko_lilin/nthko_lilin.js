@@ -44,12 +44,15 @@ frappe.ui.form.on("NTHKO Lilin", {
   },
   make_custom_buttons: function (frm) {
     // if (frm.doc.docstatus === 0) {
-    frm.add_custom_button("PRINT SILENTLY TO PRINTER 1", () => {
-      send2bridge(frm, "NTHKO Lilin", "LABEL");
+    frm.add_custom_button("PRINT THERMAL", () => {
+      send2bridge(frm, "NTHKO Lilin", "THERMAL");
     });
-    frm.add_custom_button(__("Print Laser"), () =>
-      window.open("https://lms.digitalasiasolusindo.com/printview?doctype=NTHKO%20Lilin&name=NTHKO20221000001&trigger_print=1&format=NTHKO%20Lilin&no_letterhead=1&letterhead=No%20Letterhead&settings=%7B%7D&_lang=en", "_blank")
-    );
+    frm.add_custom_button("PRINT LASER", () => {
+      send2bridge(frm, "NTHKO Lilin", "LASER");
+    });
+    // frm.add_custom_button(__("Print Laser"), () =>
+    //   window.open("https://lms.digitalasiasolusindo.com/printview?doctype=NTHKO%20Lilin&name=NTHKO20221000001&trigger_print=1&format=NTHKO%20Lilin&no_letterhead=1&letterhead=No%20Letterhead&settings=%7B%7D&_lang=en", "_blank")
+    // );
     // }
   },
   total_berat_pohon_lilin: function (frm) {

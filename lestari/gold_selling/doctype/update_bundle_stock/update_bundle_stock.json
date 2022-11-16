@@ -19,6 +19,10 @@
   "warehouse",
   "sb1",
   "items",
+  "section_break_13",
+  "total_bruto",
+  "column_break_15",
+  "total_per_sub_kategori",
   "amended_from"
  ],
  "fields": [
@@ -36,7 +40,7 @@
   {
    "fieldname": "pic",
    "fieldtype": "Link",
-   "label": "PIC",
+   "label": "Stokist",
    "options": "Employee"
   },
   {
@@ -103,12 +107,30 @@
    "fieldtype": "Select",
    "label": "Type",
    "options": "\nAdd Stock\nDeduct Stock"
+  },
+  {
+   "fieldname": "section_break_13",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_bruto",
+   "fieldtype": "Float",
+   "label": "Total Bruto"
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_per_sub_kategori",
+   "fieldtype": "Float",
+   "label": "Total Per Sub Kategori"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-10-20 15:45:27.538993",
+ "modified": "2022-11-14 10:54:18.032183",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Update Bundle Stock",

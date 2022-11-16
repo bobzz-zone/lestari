@@ -14,7 +14,8 @@
   "cost_center",
   "item_ct",
   "uang_buat_beli_emas",
-  "default_warehouse"
+  "default_warehouse",
+  "default_kas_kantor"
  ],
  "fields": [
   {
@@ -81,12 +82,18 @@
    "fieldtype": "Link",
    "label": "Kas yang Rencana Di belikan Emas",
    "options": "Account"
+  },
+  {
+   "fieldname": "default_kas_kantor",
+   "fieldtype": "Link",
+   "label": "Default Kas Kantor",
+   "options": "Account"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-10-04 14:39:50.516593",
+ "modified": "2022-11-16 13:34:29.571807",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling Settings",

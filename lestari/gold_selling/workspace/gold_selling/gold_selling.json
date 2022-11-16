@@ -153,9 +153,27 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Serah Terima Payment Stock",
+   "link_to": "Serah Terima Payment Stock",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Serah Terima Payment Cash",
+   "link_to": "Serah Terima Payment Cash",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2022-10-30 19:54:56.080289",
+ "modified": "2022-11-13 22:59:47.234022",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling",
@@ -197,6 +215,18 @@
    "doc_view": "List",
    "label": "Form Order",
    "link_to": "Form Order",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Serah Terima Payment Cash",
+   "link_to": "Serah Terima Payment Cash",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Serah Terima Payment Stock",
+   "link_to": "Serah Terima Payment Stock",
    "type": "DocType"
   }
  ]
