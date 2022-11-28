@@ -120,7 +120,6 @@
   {
    "fieldname": "tutupan",
    "fieldtype": "Currency",
-   "hidden": 1,
    "label": "Tutupan",
    "read_only": 1
   },
@@ -353,7 +352,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-11-08 14:19:25.793060",
+ "modified": "2022-11-16 15:36:59.178433",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",

@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "field:item_code",
  "creation": "2022-06-06 08:01:57.741930",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -10,14 +11,20 @@
   "item_code",
   "item_name",
   "item_group",
+  "item_group_parent",
   "default_uom",
+  "barang_yang_dibawa_sales",
+  "kategori_pohon",
   "qty_isi_pohon",
   "logo",
   "berat_target",
   "uom_berat",
   "column_break_6",
   "description",
+  "image",
+  "gambar",
   "detail_kadar_section",
+  "get_kadar",
   "tabel_kadar",
   "detail_serial_dan_batch_section",
   "has_serial_no",
@@ -60,7 +67,8 @@
   {
    "fieldname": "item_code",
    "fieldtype": "Data",
-   "label": "Item Code"
+   "label": "Item Code",
+   "unique": 1
   },
   {
    "fieldname": "item_name",
@@ -85,6 +93,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "fetch_from": "kategori_pohon.qty",
    "fieldname": "qty_isi_pohon",
    "fieldtype": "Int",
    "label": "Qty Isi Pohon"
@@ -304,12 +313,48 @@
    "fieldname": "detail_serial_dan_batch_section",
    "fieldtype": "Section Break",
    "label": "Detail Serial dan Batch"
+  },
+  {
+   "fetch_from": "item_group.parent_item_group",
+   "fieldname": "item_group_parent",
+   "fieldtype": "Link",
+   "label": "Item Group Parent",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "kategori_pohon",
+   "fieldtype": "Link",
+   "label": "Kategori Pohon",
+   "options": "Penggolongan Pohon"
+  },
+  {
+   "default": "0",
+   "fieldname": "barang_yang_dibawa_sales",
+   "fieldtype": "Check",
+   "label": "Barang yang dibawa Sales"
+  },
+  {
+   "fieldname": "get_kadar",
+   "fieldtype": "Button",
+   "label": "Get Kadar",
+   "options": "get_kadar"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
+  },
+  {
+   "fieldname": "gambar",
+   "fieldtype": "Image",
+   "label": "Gambar",
+   "options": "image"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-06-06 08:07:27.579657",
+ "modified": "2022-11-23 21:45:16.584335",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Item Generator",

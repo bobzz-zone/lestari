@@ -51,6 +51,7 @@ frappe.ui.form.on("Form Order", {
     addnew.item_name = frm.doc.item_name;
     addnew.kadar = frm.doc.kadar;
     addnew.image = frm.doc.image;
+    addnew.qty_isi_pohon = frm.doc.qty_isi_pohon;
     addnew.sub_kategori = frm.doc.sub_kategori;
     addnew.kategori = frm.doc.kategori;
     addnew.qty = frm.doc.qty;

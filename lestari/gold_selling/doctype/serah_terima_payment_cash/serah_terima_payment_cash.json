@@ -13,7 +13,6 @@
   "get_payment",
   "payment",
   "keterangan",
-  "details",
   "amended_from"
  ],
  "fields": [
@@ -51,12 +50,6 @@
    "read_only": 1
   },
   {
-   "fieldname": "details",
-   "fieldtype": "Table",
-   "label": "Details",
-   "options": "Serah Terima Payment Cash Detail"
-  },
-  {
    "fieldname": "get_payment",
    "fieldtype": "Button",
    "label": "Get Payment",
@@ -72,7 +65,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-11-16 11:34:07.794907",
+ "modified": "2022-11-17 12:15:06.256856",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Serah Terima Payment Cash",
