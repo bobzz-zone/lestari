@@ -35,7 +35,7 @@ class ItemGenerator(Document):
 			new.qty_isi_pohon = self.qty_isi_pohon
 			new.kadar = row.kadar
 			new.weight_per_unit = row.berat_target
-			new.weight_uom = row.uom_berat
+			new.weight_uom = self.uom_berat
 			new.barang_yang_dibawa_sales = self.barang_yang_dibawa_sales
 			new.gold_selling_item = row.gold_selling_item
 			# new.opening_stock = 100
