@@ -19,7 +19,7 @@ class GoldPayment(StockController):
 			if row.allocated:
 				unallocated=unallocated-row.allocated
 		self.unallocated=unallocated
-		if self.unallocated_payment and self.unallocated_payment>0:
+		if self.unallocated_payment and self.unallocated_payment>0.0001:
 			frappe.throw("Error,unallocated Payment Masih tersisa {}".format(self.unallocated_payment))
 		if not self.warehouse:
 			self.warehouse = frappe.db.get_single_value('Gold Selling Settings', 'default_warehouse')
@@ -112,6 +112,7 @@ class GoldPayment(StockController):
 		from erpnext.accounts.general_ledger import make_gl_entries, make_reverse_gl_entries
 		if not gl_entries:
 			gl_entries = self.get_gl_entries()
+		print(gl_entries)
 		if gl_entries:
 			update_outstanding = "Yes"
 
@@ -382,4 +383,5 @@ class GoldPayment(StockController):
 		for row in gl:
 			gl_entries.append(frappe._dict(gl[row]))
 		gl_entries = merge_similar_entries(gl_entries)
+#		frappe.msgprint(gl_entries)
 		return gl_entries
