@@ -157,7 +157,7 @@ frappe.ui.form.on("Gold Invoice Item", {
     }
     frappe.call({
       method: "lestari.gold_selling.doctype.gold_invoice.gold_invoice.get_gold_rate",
-      args: { category: d.category, customer: frm.doc.customer, customer_group: frm.doc.customer_group, customer_print: frm.doc.subcustomer },
+      args: { category: d.category, customer: frm.doc.customer, customer_group: frm.doc.customer_group,customer_print : frm.doc.subcustomer || "" },
       callback: function (r) {
         frappe.model.set_value(cdt, cdn, "rate", r.message.nilai);
         frappe.model.set_value(cdt, cdn, "print_rate", r.message.nilai_print);
@@ -188,6 +188,36 @@ frappe.ui.form.on("Gold Invoice Item", {
     });
   },
   qty: function (frm, cdt, cdn) {
+    var d = locals[cdt][cdn];
+    frappe.model.set_value(cdt, cdn, "amount", (d.rate * d.qty) / 100);
+    frappe.model.set_value(cdt, cdn, "print_amount", (d.print_rate * d.qty) / 100);
+    var total = 0;
+    var total_print = 0;
+    var total_bruto = 0;
+    $.each(frm.doc.items, function (i, g) {
+      total = total + g.amount;
+      total_print = total_print + g.amount;
+      total_bruto = total_bruto + g.qty;
+    });
+    frm.doc.total = total;
+    frm.doc.total_print = total_print;
+    frm.doc.total_bruto = total_bruto;
+    if (!frm.doc.discount_amount) {
+      frm.doc.discount_amount = 0;
+    }
+    frm.doc.grand_total = frm.doc.total - frm.doc.discount_amount;
+    if (!frm.doc.total_advance) {
+      frm.doc.total_advance = 0;
+    }
+    frm.doc.outstanding = frm.doc.grand_total - frm.doc.total_advance;
+    refresh_field("outstanding");
+    refresh_field("total");
+    refresh_field("total_print");
+    refresh_field("total_bruto");
+    refresh_field("discount_amount");
+    refresh_field("grand_total");
+  },
+  rate: function (frm, cdt, cdn) {
     var d = locals[cdt][cdn];
     frappe.model.set_value(cdt, cdn, "amount", (d.rate * d.qty) / 100);
     frappe.model.set_value(cdt, cdn, "print_amount", (d.print_rate * d.qty) / 100);

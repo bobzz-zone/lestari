@@ -19,7 +19,7 @@ class GoldPayment(StockController):
 			if row.allocated:
 				unallocated=unallocated-row.allocated
 		self.unallocated=unallocated
-		if self.unallocated_payment and self.unallocated_payment>0:
+		if self.unallocated_payment and self.unallocated_payment>0.0001:
 			frappe.throw("Error,unallocated Payment Masih tersisa {}".format(self.unallocated_payment))
 		if not self.warehouse:
 			self.warehouse = frappe.db.get_single_value('Gold Selling Settings', 'default_warehouse')
@@ -112,6 +112,7 @@ class GoldPayment(StockController):
 		from erpnext.accounts.general_ledger import make_gl_entries, make_reverse_gl_entries
 		if not gl_entries:
 			gl_entries = self.get_gl_entries()
+		print(gl_entries)
 		if gl_entries:
 			update_outstanding = "Yes"
 
@@ -378,8 +379,57 @@ class GoldPayment(StockController):
 										"company":self.company,
 										"is_cancelled":0
 										}
-		
+		roundoff=0
 		for row in gl:
+			roundoff=roundoff+gl[row]['debit']-gl[row]['credit']
 			gl_entries.append(frappe._dict(gl[row]))
+		#add roundoff
+		if roundoff!=0:
+			roundoff_coa=frappe.db.get_value('Company', self.company, 'round_off_account')
+			if roundoff>0:
+				gl[roundoff_coa]={
+										"posting_date":self.posting_date,
+										"account":roundoff_coa,
+										"party_type":"",
+										"party":"",
+										"cost_center":cost_center,
+										"debit":roundoff,
+										"credit":0,
+										"account_currency":"IDR",
+										"debit_in_account_currency":roundoff,
+										"credit_in_account_currency":0,
+										#"against":"4110.000 - Penjualan - L",
+										"voucher_type":"Gold Payment",
+										"voucher_no":self.name,
+										#"remarks":"",
+										"is_opening":"No",
+										"is_advance":"No",
+										"fiscal_year":fiscal_years,
+										"company":self.company,
+										"is_cancelled":0
+										}
+			else:
+				gl[roundoff_coa]={
+										"posting_date":self.posting_date,
+										"account":roundoff_coa,
+										"party_type":"",
+										"party":"",
+										"cost_center":cost_center,
+										"debit":0,
+										"credit":roundoff*-1,
+										"account_currency":"IDR",
+										"debit_in_account_currency":0,
+										"credit_in_account_currency":roundoff*-1,
+										#"against":"4110.000 - Penjualan - L",
+										"voucher_type":"Gold Payment",
+										"voucher_no":self.name,
+										#"remarks":"",
+										"is_opening":"No",
+										"is_advance":"No",
+										"fiscal_year":fiscal_years,
+										"company":self.company,
+										"is_cancelled":0
+										}
+			gl_entries.append(frappe._dict(gl[roundoff_coa]))
 		gl_entries = merge_similar_entries(gl_entries)
 		return gl_entries

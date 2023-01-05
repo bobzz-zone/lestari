@@ -6,12 +6,15 @@ from frappe.utils import flt
 class GoldInvoice(Document):
 	def validate(self):
 		if(self.no_invoice):
-			self.name = self.no_invoice		
+			self.name = self.no_invoice
 			#total items
 			total=0
+			bruto=0
 			for row in self.items:
 				total=total+row.amount
+				bruto=bruto+row.qty
 			self.total=total
+			self.total_bruto=bruto
 			if self.outstanding<0:
 				frappe.throw("Ouutstanding tidak boleh lebih kecil dari 0")
 			if not self.discount:
@@ -30,7 +33,6 @@ class GoldInvoice(Document):
 		self.kadar = ""
 		self.category = ""
 		self.add_bruto = ""
-		
 	def before_submit(self):
 		if self.outstanding<0:
 			frappe.throw("Error, Outstanding should not be less than zero")

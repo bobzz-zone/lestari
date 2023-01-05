@@ -39,6 +39,8 @@
   "sb_bill",
   "total",
   "total_print",
+  "column_break_33",
+  "total_bruto",
   "discount",
   "discount_amount",
   "gold_invoice_has_gold_deposit",
@@ -50,7 +52,6 @@
   "total_gold",
   "summary_sec",
   "grand_total",
-  "total_bruto",
   "total_advance",
   "outstanding",
   "invoice_status",
@@ -121,7 +122,7 @@
   {
    "fieldname": "tutupan",
    "fieldtype": "Currency",
-   "label": "Tutupan",
+   "label": "Harga 24K",
    "read_only": 1
   },
   {
@@ -168,7 +169,7 @@
   {
    "fieldname": "outstanding",
    "fieldtype": "Float",
-   "label": "Outstanding",
+   "label": "Belum Terbayar",
    "read_only": 1
   },
   {
@@ -354,11 +355,15 @@
    "fieldname": "total_print",
    "fieldtype": "Float",
    "label": "Total Print"
+  },
+  {
+   "fieldname": "column_break_33",
+   "fieldtype": "Column Break"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-12-08 09:59:57.851061",
+ "modified": "2022-12-08 16:08:23.353951",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",
