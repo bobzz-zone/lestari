@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:tatakan_karet",
+ "autoname": "format:{sw}-{tatakan_karet}",
  "creation": "2022-04-21 15:00:52.894205",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -12,7 +12,16 @@
   "gips",
   "qty",
   "uom",
-  "ukuran"
+  "ukuran",
+  "maxcolumn",
+  "maxrow",
+  "maxcolumn1",
+  "maxrow1",
+  "maxspot",
+  "degree",
+  "active",
+  "remarks",
+  "sw"
  ],
  "fields": [
   {
@@ -52,11 +61,57 @@
    "fieldtype": "Select",
    "label": "ukuran",
    "options": "\nBesar\nSedang\nKecil"
+  },
+  {
+   "fieldname": "maxcolumn",
+   "fieldtype": "Int",
+   "label": "MaxColumn"
+  },
+  {
+   "fieldname": "maxrow",
+   "fieldtype": "Int",
+   "label": "MaxRow"
+  },
+  {
+   "fieldname": "maxcolumn1",
+   "fieldtype": "Int",
+   "label": "MaxColumn1"
+  },
+  {
+   "fieldname": "maxrow1",
+   "fieldtype": "Int",
+   "label": "MaxRow1"
+  },
+  {
+   "fieldname": "maxspot",
+   "fieldtype": "Int",
+   "label": "MaxSpot"
+  },
+  {
+   "fieldname": "degree",
+   "fieldtype": "Int",
+   "label": "Degree"
+  },
+  {
+   "default": "0",
+   "fieldname": "active",
+   "fieldtype": "Check",
+   "label": "Active"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "sw",
+   "fieldtype": "Data",
+   "label": "SW"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-05-24 10:49:24.929305",
+ "modified": "2022-12-13 15:11:26.661254",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Data Jenis Sprue Utama",

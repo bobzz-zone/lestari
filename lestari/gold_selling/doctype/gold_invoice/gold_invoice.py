@@ -339,7 +339,6 @@ def get_gold_rate(category,customer,customer_group,customer_print):
 	#check if customer has special rates
 	cr=0
 	pr=0
-	cgr=0
 	customer_rate=frappe.db.sql("""select nilai_tukar from `tabCustomer Rates` where customer="{}" and category="{}" and valid_from<="{}" and type="Selling" and customer_type="Primary" """.format(customer,category,now_datetime()),as_list=1)
 	if customer_rate and customer_rate[0]:
 		cr=customer_rate[0][0]
@@ -347,11 +346,12 @@ def get_gold_rate(category,customer,customer_group,customer_print):
 	if customer_rate_print and customer_rate_print[0]:
 		# return {"nilai_print":customer_rate_print[0][0]}
 		pr=customer_rate_print[0][0]
-	customer_group_rate=frappe.db.sql("""select nilai_tukar from `tabCustomer Group Rates` where customer_group="{}" and category="{}" and valid_from<="{}"  and type="Selling" """.format(customer_group,category,now_datetime()),as_list=1)
-	if customer_group_rate and customer_group_rate[0]:
-		# return {"nilai":customer_group_rate[0][0]}
-		cgr=customer_group_rate[0][0]
-	return {"nilai":cr,"nilai_print":pr,"nilai_cgr":cgr}
+	if cr==0:
+		customer_group_rate=frappe.db.sql("""select nilai_tukar from `tabCustomer Group Rates` where customer_group="{}" and category="{}" and valid_from<="{}"  and type="Selling" """.format(customer_group,category,now_datetime()),as_list=1)
+		if customer_group_rate and customer_group_rate[0]:
+			# return {"nilai":customer_group_rate[0][0]}
+			cr=customer_group_rate[0][0]
+	return {"nilai":cr,"nilai_print":pr}
 
 @frappe.whitelist(allow_guest=True)
 def get_gold_purchase_rate(item,customer,customer_group):

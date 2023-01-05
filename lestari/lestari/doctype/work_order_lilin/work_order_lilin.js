@@ -13,15 +13,16 @@ frappe.ui.form.on("Work Order Lilin", {
       };
     }),
       frm.set_query("nomor_base_karet", function () {
-        if (!cur_frm.doc.ukuran_base_karet) {
-          frappe.throw("Silakan Pilih Ukuran Base Karet Terlebih dahulu!");
-        } else {
-          return {
-            filters: {
-              item_code: cur_frm.doc.ukuran_base_karet,
-            },
-          };
-        }
+        // if (!cur_frm.doc.ukuran_base_karet) {
+        // frappe.throw("Silakan Pilih Ukuran Base Karet Terlebih dahulu!");
+        // } else {
+        return {
+          // filters: {
+          //   item_code: cur_frm.doc.ukuran_base_karet,
+          // },
+          filters: [["item_code", "IN", ["MT-Base Karet Besar", "MT-Base Karet Sedang", "MT-Base Karet Kecil"]]],
+        };
+        // }
       }),
       frm.set_query("mul_karet_id", "tabel_pohon", function (doc, cdn, cdt) {
         var d = locals[cdn][cdt];
