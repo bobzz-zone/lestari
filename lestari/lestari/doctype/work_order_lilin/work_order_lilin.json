@@ -8,8 +8,11 @@
  "engine": "InnoDB",
  "field_order": [
   "created_date",
+  "kadar",
+  "color_22",
   "column_break_2",
   "pohon_id",
+  "barcode",
   "section_break_2",
   "employee_id",
   "column_break_4",
@@ -27,13 +30,18 @@
   "berat_base_karet",
   "column_break_20",
   "warehouse_tujuan",
-  "kadar",
-  "color_22",
-  "barcode",
+  "catatan",
   "section_break_15",
   "tabel_pohon",
+  "section_break_26",
+  "total_qty_inject",
+  "column_break_28",
+  "total_qty",
   "detail_batu_section",
   "tabel_batu",
+  "section_break_30",
+  "column_break_33",
+  "total_batu",
   "amended_from"
  ],
  "fields": [
@@ -141,6 +149,7 @@
    "fetch_from": "kadar.label_warna",
    "fieldname": "color_22",
    "fieldtype": "Color",
+   "hidden": 1,
    "label": "Label Warna",
    "read_only": 1
   },
@@ -167,12 +176,14 @@
    "default": "Work In Progress - L",
    "fieldname": "warehouse_tujuan",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Warehouse Tujuan",
    "options": "Warehouse"
   },
   {
    "fieldname": "barcode",
    "fieldtype": "Barcode",
+   "hidden": 1,
    "label": "Barcode",
    "no_copy": 1,
    "read_only": 1
@@ -189,11 +200,13 @@
    "fieldtype": "Column Break"
   },
   {
+   "fetch_from": "nomor_base_karet.item_code",
    "fieldname": "ukuran_base_karet",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Ukuran Base Karet",
    "options": "Data Set Sprue",
-   "reqd": 1
+   "read_only": 1
   },
   {
    "fieldname": "nomor_base_karet",
@@ -207,12 +220,53 @@
    "fieldname": "berat_base_karet",
    "fieldtype": "Float",
    "label": "Berat Base Karet"
+  },
+  {
+   "fieldname": "section_break_26",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_qty",
+   "fieldtype": "Int",
+   "label": "Total Qty",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_30",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_batu",
+   "fieldtype": "Int",
+   "label": "Total Batu",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_qty_inject",
+   "fieldtype": "Int",
+   "label": "Total Qty Inject"
+  },
+  {
+   "fieldname": "column_break_28",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_33",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "catatan",
+   "fieldtype": "Small Text",
+   "label": "Catatan"
   }
  ],
+ "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-27 13:11:11.193435",
+ "modified": "2022-12-13 12:28:56.839571",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Work Order Lilin",
