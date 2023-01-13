@@ -56,6 +56,8 @@ class GoldPayment(StockController):
 		for row in doc:
 			# frappe.msgprint(str(row))
 			if row.outstanding:
+				if not self.total_invoice:
+					self.total_invoice=0
 				self.total_invoice = self.total_invoice + row.outstanding
 				baris_baru = {
 					'gold_invoice':row.name,
