@@ -320,7 +320,7 @@ class GoldInvoice(Document):
 	def get_gold_payment(self):
 		doc = frappe.new_doc("Gold Payment")
 		doc.customer = self.customer
-		doc.warehouse = "Inventory - L"
+		doc.warehouse = "Inventory - LMS"
 		doc.posting_date = now()
 
 		doc.total_invoice = self.outstanding
