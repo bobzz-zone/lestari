@@ -112,7 +112,7 @@ class GoldPayment(StockController):
 		from erpnext.accounts.general_ledger import make_gl_entries, make_reverse_gl_entries
 		if not gl_entries:
 			gl_entries = self.get_gl_entries()
-		print(gl_entries)
+		frappe.msgprint(gl_entries)
 		if gl_entries:
 			update_outstanding = "Yes"
 
