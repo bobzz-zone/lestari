@@ -226,7 +226,9 @@ class GoldPayment(StockController):
 								})
 				if row.tutupan!=self.tutupan:
 					nilai_selisih_kurs=nilai_selisih_kurs+((self.tutupan-row.tutupan)*payment)
+		roundoff=0
 		for row in gl_piutang:
+			roundoff=roundoff+row['debit']-row['credit']
 			gl_entries.append(frappe._dict(row))
 		#perlu check selisih kurs dari tutupan
 		#lebih dr 0 itu debit
@@ -382,8 +384,9 @@ class GoldPayment(StockController):
 										"company":self.company,
 										"is_cancelled":0
 										}
-		roundoff=0
+		#roundoff=0
 		for row in gl:
+		#	frappe.msgprint("RO {} Account {} has {} and {}".format(roundoff,gl[row]['account'],gl[row]['debit'],gl[row]['credit']))
 			roundoff=roundoff+gl[row]['debit']-gl[row]['credit']
 			gl_entries.append(frappe._dict(gl[row]))
 		#add roundoff
