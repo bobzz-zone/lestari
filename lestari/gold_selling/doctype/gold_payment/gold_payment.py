@@ -54,19 +54,6 @@ class GoldPayment(StockController):
 	def get_gold_invoice(self):
 		doc = frappe.db.get_list("Gold Invoice", filters={"customer": self.customer, "invoice_status":"Unpaid", 'docstatus':1}, fields=['name','outstanding','due_date','tutupan','total_bruto','grand_total'])
 		for row in doc:
-<<<<<<< HEAD
-			frappe.msgprint(str(row))
-			self.total_invoice = self.total_invoice + row.outstanding
-			baris_baru = {
-				'gold_invoice':row.name,
-				'outstanding':row.outstanding,
-				'total':row.grand_total,
-				'due_date':row.due_date,
-				'total_bruto':row.total_bruto,
-				'tutupan':row.tutupan
-			}
-			self.append("invoice_table",baris_baru)
-=======
 			# frappe.msgprint(str(row))
 			if row.outstanding:
 				if not self.total_invoice:
@@ -81,7 +68,6 @@ class GoldPayment(StockController):
 					'tutupan':row.tutupan
 				}
 				self.append("invoice_table",baris_baru)
->>>>>>> 4d18f67e0daca522dcae19cbe19d4760aee26e74
 		doc = frappe.db.get_list("Customer Payment Return", filters={"customer": self.customer, "invoice_status":"Unpaid", 'docstatus':1}, fields=['name','outstanding','due_date','tutupan','total'])
 		for row in doc:
 			# frappe.msgprint(str(row))
