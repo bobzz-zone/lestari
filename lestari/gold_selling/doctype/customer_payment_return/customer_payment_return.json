@@ -19,7 +19,9 @@
   "due_date",
   "return_detail_sb",
   "gold_payment",
+  "sales_bundle",
   "warehouse",
+  "get_from_bundle",
   "items",
   "summary_sb",
   "total",
@@ -104,6 +106,7 @@
    "label": "Return Detail"
   },
   {
+   "fetch_from": "sales_bundle.warehouse",
    "fieldname": "warehouse",
    "fieldtype": "Link",
    "label": "Source Warehouse",
@@ -157,15 +160,27 @@
   {
    "fieldname": "gold_payment",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Gold Payment",
-   "options": "Gold Payment",
-   "reqd": 1
+   "options": "Gold Payment"
+  },
+  {
+   "fieldname": "get_from_bundle",
+   "fieldtype": "Button",
+   "label": "Get From Bundle",
+   "options": "get_sales_bundle"
+  },
+  {
+   "fieldname": "sales_bundle",
+   "fieldtype": "Link",
+   "label": "Sales Bundle",
+   "options": "Sales Stock Bundle"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-10-14 00:21:42.249241",
+ "modified": "2023-01-30 10:15:28.445008",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Payment Return",

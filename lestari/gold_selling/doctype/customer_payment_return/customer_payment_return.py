@@ -56,6 +56,24 @@ class CustomerPaymentReturn(StockController):
 		self.make_gl_entries_on_cancel()
 		self.update_stock_ledger()
 		self.repost_future_sle_and_gle()
+	@frappe.whitelist()
+	def get_sales_bundle(self):
+		sales_bundle = frappe.db.get_list("Pencatatan Pengembalian Emas", filters={
+			'sales_bundle': self.sales_bundle,
+			'customer': self.customer,
+        	'status_pengembalian': 'Belum Diambil',
+			'docstatus':1
+    	})
+		for row in sales_bundle:
+			frappe.msgprint(str(row.name))
+			items = frappe.get_doc("Pencatatan Pengembalian Emas", row.name)
+			for col in items.item:
+				baris_baru = {
+					'category': col.category,
+					'qty': col.qty,
+					'no_document': row.name,
+				}
+				self.append('items',baris_baru)
 	def update_stock_ledger(self):
 		sl_entries = []
 		sl=[]
