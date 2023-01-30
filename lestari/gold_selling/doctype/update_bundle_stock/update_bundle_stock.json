@@ -17,16 +17,26 @@
   "purpose",
   "sales",
   "warehouse",
+  "item_selector_section",
+  "kadar",
+  "column_break_13",
+  "category",
+  "column_break_15",
+  "bruto",
+  "add",
   "sb1",
   "items",
+  "total_per_kadar_section",
+  "per_kadar",
+  "total_per_sub_category_section",
+  "per_sub_category",
   "section_break_13",
   "total_bruto",
-  "column_break_15",
-  "total_per_sub_kategori",
   "amended_from"
  ],
  "fields": [
   {
+   "default": "Today",
    "fieldname": "date",
    "fieldtype": "Date",
    "label": "Posting Date"
@@ -87,11 +97,11 @@
    "label": "Detail Item"
   },
   {
+   "depends_on": "eval:doc.bundle",
    "fieldname": "items",
    "fieldtype": "Table",
    "label": "Items",
-   "options": "Detail Penambahan Stock",
-   "reqd": 1
+   "options": "Detail Penambahan Stock"
   },
   {
    "fieldname": "amended_from",
@@ -115,22 +125,75 @@
   {
    "fieldname": "total_bruto",
    "fieldtype": "Float",
-   "label": "Total Bruto"
+   "label": "Total Bruto",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_15",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "total_per_sub_kategori",
+   "fieldname": "item_selector_section",
+   "fieldtype": "Section Break",
+   "label": "Item Selector"
+  },
+  {
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "label": "Kadar",
+   "options": "Data Logam"
+  },
+  {
+   "fieldname": "column_break_13",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "label": "Category",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "bruto",
    "fieldtype": "Float",
-   "label": "Total Per Sub Kategori"
+   "label": "Bruto",
+   "precision": "3"
+  },
+  {
+   "fieldname": "add",
+   "fieldtype": "Button",
+   "label": "Add",
+   "options": "add_row_action"
+  },
+  {
+   "fieldname": "total_per_kadar_section",
+   "fieldtype": "Section Break",
+   "label": "Total Per Kadar"
+  },
+  {
+   "fieldname": "per_kadar",
+   "fieldtype": "Table",
+   "label": "Per Kadar",
+   "options": "Update Bundle Stock Kadar",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_per_sub_category_section",
+   "fieldtype": "Section Break",
+   "label": "Total Per Sub Category"
+  },
+  {
+   "fieldname": "per_sub_category",
+   "fieldtype": "Table",
+   "label": "Per Sub Category",
+   "options": "Update Bundle Stock Sub",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-11-14 10:54:18.032183",
+ "modified": "2023-01-30 16:39:31.811298",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Update Bundle Stock",

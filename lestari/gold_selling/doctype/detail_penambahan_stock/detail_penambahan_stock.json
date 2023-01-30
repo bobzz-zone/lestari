@@ -6,34 +6,19 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "item",
   "kadar",
   "sub_kategori",
   "kategori",
   "gold_selling_item",
-  "item_name",
   "qty_penambahan"
  ],
  "fields": [
   {
-   "fieldname": "item",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Item",
-   "options": "Item",
-   "reqd": 1
-  },
-  {
-   "fetch_from": "item.item_name",
-   "fieldname": "item_name",
-   "fieldtype": "Read Only",
-   "label": "Item Name"
-  },
-  {
    "fieldname": "qty_penambahan",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Berat",
+   "label": "Bruto",
+   "precision": "3",
    "reqd": 1
   },
   {
@@ -44,31 +29,32 @@
    "read_only": 1
   },
   {
-   "fetch_from": "item.item_group_parent",
+   "fetch_from": "sub_kategori.parent_item_group",
    "fieldname": "kategori",
    "fieldtype": "Link",
    "label": "Kategori",
-   "options": "Item Group"
+   "options": "Item Group",
+   "read_only": 1
   },
   {
-   "fetch_from": "item.item_group",
    "fieldname": "sub_kategori",
    "fieldtype": "Link",
    "label": "Sub Kategori",
-   "options": "Item Group"
+   "options": "Item Group",
+   "reqd": 1
   },
   {
-   "fetch_from": "item.kadar",
    "fieldname": "kadar",
    "fieldtype": "Link",
    "label": "Kadar",
-   "options": "Data Logam"
+   "options": "Data Logam",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-11-14 10:56:00.475792",
+ "modified": "2023-01-30 16:39:09.759195",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Detail Penambahan Stock",

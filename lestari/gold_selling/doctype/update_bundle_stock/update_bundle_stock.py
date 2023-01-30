@@ -2,7 +2,10 @@
 # For license information, please see license.txt
 
 import frappe
+from frappe.utils import now_datetime ,now
 from frappe.model.document import Document
+from erpnext.accounts.utils import get_account_currency, get_fiscal_years, validate_fiscal_year
+from frappe.utils import flt
 
 class UpdateBundleStock(Document):
 	def on_submit(self):
@@ -24,4 +27,15 @@ class UpdateBundleStock(Document):
 		ste.flags.ignore_permissions = True
 		ste.save()
 		frappe.msgprint(str(frappe.get_last_doc("Stock Entry")))
-
+	@frappe.whitelist()
+	def add_row_action(self):
+		baris_baru = {
+      				"kadar":self.kadar,
+                	"sub_kategori":self.category,
+                   	"kategori":frappe.get_doc('Item Group',self.category).parent_item_group,
+                    "qty_penambahan":self.bruto
+                    }
+		self.append("items",baris_baru)
+		self.kadar = ""
+		self.category = ""
+		self.bruto = ""
