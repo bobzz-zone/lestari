@@ -11,6 +11,8 @@
   "customer",
   "customer_group",
   "territory",
+  "sales_bundle",
+  "sales_warehouse",
   "column_break_2",
   "posting_date",
   "posting_time",
@@ -210,6 +212,7 @@
    "read_only": 1
   },
   {
+   "default": "Today",
    "fieldname": "posting_date",
    "fieldtype": "Date",
    "label": "Date",
@@ -273,12 +276,26 @@
    "fieldname": "bruto_discount",
    "fieldtype": "Float",
    "label": "Total Bruto Discounted"
+  },
+  {
+   "fieldname": "sales_bundle",
+   "fieldtype": "Link",
+   "label": "Sales Bundle",
+   "options": "Sales Stock Bundle"
+  },
+  {
+   "fetch_from": "sales_bundle.warehouse",
+   "fieldname": "sales_warehouse",
+   "fieldtype": "Link",
+   "label": "Sales Warehouse",
+   "options": "Warehouse",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-10-14 00:12:37.907506",
+ "modified": "2023-02-01 11:18:41.767303",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",
