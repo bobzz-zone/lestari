@@ -8,9 +8,12 @@
  "engine": "InnoDB",
  "field_order": [
   "posting_date",
-  "sales",
-  "warehouse",
   "category",
+  "column_break_3",
+  "sales",
+  "sales_bundle",
+  "warehouse",
+  "section_break_7",
   "get_detail",
   "items",
   "keterangan",
@@ -85,12 +88,26 @@
    "fieldtype": "Button",
    "label": "Get Detail",
    "options": "get_detail"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sales_bundle",
+   "fieldtype": "Link",
+   "label": "Sales Bundle",
+   "options": "Sales Stock Bundle"
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-11-15 22:49:59.223862",
+ "modified": "2023-02-01 01:45:27.406879",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Serah Terima Payment Stock",

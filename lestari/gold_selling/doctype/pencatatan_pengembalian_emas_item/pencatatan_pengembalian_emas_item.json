@@ -8,14 +8,18 @@
  "field_order": [
   "category",
   "item_group",
-  "qty"
+  "qty",
+  "total_diterima",
+  "total_reject",
+  "gold_payment_no",
+  "sudah_return"
  ],
  "fields": [
   {
    "fieldname": "qty",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Bruto",
+   "label": "Total Seharusnya",
    "precision": "2",
    "reqd": 1
   },
@@ -34,12 +38,34 @@
    "label": "Item Group",
    "options": "Item Group",
    "read_only": 1
+  },
+  {
+   "fieldname": "total_diterima",
+   "fieldtype": "Float",
+   "label": "Total Diterima"
+  },
+  {
+   "fieldname": "total_reject",
+   "fieldtype": "Float",
+   "label": "Total Reject"
+  },
+  {
+   "fieldname": "gold_payment_no",
+   "fieldtype": "Link",
+   "label": "Gold Payment No",
+   "options": "Gold Payment"
+  },
+  {
+   "default": "0",
+   "fieldname": "sudah_return",
+   "fieldtype": "Check",
+   "label": "Sudah Return"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-01-30 10:02:14.739072",
+ "modified": "2023-02-01 00:40:39.837021",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Pencatatan Pengembalian Emas Item",

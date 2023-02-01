@@ -7,27 +7,40 @@ from frappe.model.document import Document
 class ItemGenerator(Document):
 	@frappe.whitelist()
 	def get_kadar(self):
+		item_group_parent = self.item_group_parent
+		if self.item_group_gold_selling:
+			item_group_parent = self.item_group_gold_selling
 		if not self.item_group:
 			frappe.throw('Tolong Isi Item Group Terlebih Dahulu.')
-
+   
 		kadar = frappe.get_list('Data Logam')
 		baris_baru = []
 		for row in sorted(kadar, key=lambda x: x.name):
-			frappe.msgprint(str(frappe.db.get_value('Gold Selling Item',{'kadar' : row.name, 'item_group': self.item_group_parent }, 'name')))
+			frappe.msgprint(str(frappe.db.get_value('Gold Selling Item',{'kadar' : row.name, 'item_group': item_group_parent }, 'name')))
 			baris_baru.append({
 				'kadar' : row.name,
-				'gold_selling_item' : frappe.db.get_value('Gold Selling Item',{'kadar' : row.name, 'item_group': self.item_group_parent }, 'name')
+				'gold_selling_item' : frappe.db.get_value('Gold Selling Item',{'kadar' : row.name, 'item_group': item_group_parent }, 'name')
 			})
 			
 		self.set('tabel_kadar', baris_baru)
-
 	def on_submit(self):
+		item_code = ''
+		if not self.item_code:
+			item_code = self.item_code_from_items
+		else:
+			item_code = self.item_code
+		index = item_code.index("-")
+		item_code = item_code[:index]
 		for row in self.tabel_kadar:
 			kadar = frappe.db.get_value('Data Logam',{'jenis_logam' : row.kadar }, 'sku')
 			alloy = frappe.db.get_value('Data Logam',{'jenis_logam' : row.kadar }, 'alloy')
+			item_name = self.item_name
 			new = frappe.new_doc('Item')
-			new.item_code = self.item_code+"-"+kadar+alloy
-			new.item_name = self.item_name+" "+row.kadar
+			new.item_code = item_code+"-"+kadar+alloy
+			# index1 = item_name.index("gr") + len("gr")
+			# new_item_name = item_name[:index1].strip()
+			new_item_name = item_name.split("06K-300")[0].strip()
+			new.item_name = new_item_name+" "+row.kadar
 			new.item_group = self.item_group
 			new.item_group_parent = self.item_group_parent
 			new.stock_uom = self.default_uom

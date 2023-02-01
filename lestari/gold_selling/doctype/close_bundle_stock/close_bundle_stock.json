@@ -2,7 +2,7 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "format:{bundle}-{###}",
- "creation": "2022-10-17 07:48:43.016130",
+ "creation": "2023-02-01 02:16:13.250129",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -54,6 +54,13 @@
    "options": "Employee"
   },
   {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "Close Stock",
+   "read_only": 1
+  },
+  {
    "fieldname": "s_warehouse",
    "fieldtype": "Link",
    "label": "Source Warehouse",
@@ -92,49 +99,6 @@
    "read_only": 1
   },
   {
-   "fieldname": "sb1",
-   "fieldtype": "Section Break",
-   "label": "Detail Item"
-  },
-  {
-   "depends_on": "eval:doc.bundle",
-   "fieldname": "items",
-   "fieldtype": "Table",
-   "label": "Items",
-   "options": "Detail Penambahan Stock",
-   "reqd": 1
-  },
-  {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Update Bundle Stock",
-   "print_hide": 1,
-   "read_only": 1
-  },
-  {
-   "fieldname": "type",
-   "fieldtype": "Select",
-   "label": "Type",
-   "options": "\nAdd Stock\nDeduct Stock"
-  },
-  {
-   "fieldname": "section_break_13",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "total_bruto",
-   "fieldtype": "Float",
-   "label": "Total Bruto",
-   "read_only": 1
-  },
-  {
-   "fieldname": "column_break_15",
-   "fieldtype": "Column Break"
-  },
-  {
-   "collapsible": 1,
    "fieldname": "item_selector_section",
    "fieldtype": "Section Break",
    "label": "Item Selector"
@@ -156,6 +120,10 @@
    "options": "Item Group"
   },
   {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
    "fieldname": "bruto",
    "fieldtype": "Float",
    "label": "Bruto",
@@ -166,6 +134,18 @@
    "fieldtype": "Button",
    "label": "Add",
    "options": "add_row_action"
+  },
+  {
+   "fieldname": "sb1",
+   "fieldtype": "Section Break",
+   "label": "Detail Item"
+  },
+  {
+   "depends_on": "eval:doc.bundle",
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Detail Close Stock"
   },
   {
    "fieldname": "total_per_kadar_section",
@@ -190,15 +170,43 @@
    "label": "Per Sub Category",
    "options": "Update Bundle Stock Sub",
    "read_only": 1
+  },
+  {
+   "fieldname": "section_break_13",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_bruto",
+   "fieldtype": "Float",
+   "label": "Total Bruto",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Close Bundle Stock",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Close Bundle Stock",
+   "print_hide": 1,
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-02-01 03:14:54.953352",
+ "modified": "2023-02-01 02:21:17.739699",
  "modified_by": "Administrator",
  "module": "Gold Selling",
- "name": "Update Bundle Stock",
+ "name": "Close Bundle Stock",
  "owner": "Administrator",
  "permissions": [
   {

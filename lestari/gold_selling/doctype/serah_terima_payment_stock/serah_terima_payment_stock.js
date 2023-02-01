@@ -6,6 +6,13 @@ frappe.ui.form.on("Serah Terima Payment Stock", {
     // frm.fields_dict.details.grid.grid_buttons.addClass("hidden");
     frm.set_df_property("details", "cannot_add_rows", true);
     frm.set_df_property("details", "cannot_delete_rows", true);
+    cur_frm.set_query("sales_bundle", function() {
+      return {
+          "filters": {
+              "sales": cur_frm.doc.sales
+          }
+      };
+  });
   },
 });
 frappe.ui.form.on("Serah Terima Stock Item", {

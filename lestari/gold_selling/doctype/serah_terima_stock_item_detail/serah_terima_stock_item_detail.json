@@ -11,7 +11,14 @@
   "voucher_type",
   "voucher_no",
   "child_table",
-  "child_id"
+  "child_id",
+  "column_break_7",
+  "customer",
+  "customer_name",
+  "customer_group",
+  "territory",
+  "rencana_pengembalian_kembali",
+  "sudah_cek"
  ],
  "fields": [
   {
@@ -59,12 +66,58 @@
    "fieldtype": "Data",
    "label": "Child ID",
    "read_only": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer.customer_group",
+   "fieldname": "customer_group",
+   "fieldtype": "Link",
+   "label": "Customer Group",
+   "options": "Customer Group",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer.territory",
+   "fieldname": "territory",
+   "fieldtype": "Link",
+   "label": "Territory",
+   "options": "Territory",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "rencana_pengembalian_kembali",
+   "fieldtype": "Check",
+   "label": "Rencana Pengembalian Kembali"
+  },
+  {
+   "default": "0",
+   "fieldname": "sudah_cek",
+   "fieldtype": "Check",
+   "label": "Sudah Cek"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-11-15 22:56:50.939423",
+ "modified": "2023-02-01 02:04:05.267286",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Serah Terima Stock Item Detail",

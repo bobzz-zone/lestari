@@ -8,9 +8,11 @@
  "field_order": [
   "kadar",
   "sub_kategori",
+  "qty_penambahan",
+  "column_break_4",
   "kategori",
-  "gold_selling_item",
-  "qty_penambahan"
+  "item",
+  "gold_selling_item"
  ],
  "fields": [
   {
@@ -40,6 +42,7 @@
    "fieldname": "sub_kategori",
    "fieldtype": "Link",
    "label": "Sub Kategori",
+   "length": 50,
    "options": "Item Group",
    "reqd": 1
   },
@@ -49,12 +52,23 @@
    "label": "Kadar",
    "options": "Data Logam",
    "reqd": 1
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-01-30 16:39:09.759195",
+ "modified": "2023-02-01 03:15:42.705639",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Detail Penambahan Stock",

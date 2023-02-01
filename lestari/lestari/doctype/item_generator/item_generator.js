@@ -18,4 +18,15 @@ frappe.ui.form.on('Item Generator', {
 	// refresh: function(frm) {
 
 	// }
+	before_save: function(frm){
+		frappe.msgprint('hallooo')
+		var item_code;
+		if(cur_frm.doc.item_code){
+			item_code = cur_frm.doc.item_code
+		}else{
+			item_code = cur_frm.doc.item_code_from_items
+		}
+		cur_frm.set_value("naming_series", item_code)
+		cur_frm.refresh_field('naming_series')
+	}
 });
