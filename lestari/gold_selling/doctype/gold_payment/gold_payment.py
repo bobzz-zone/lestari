@@ -25,24 +25,24 @@ class GoldPayment(StockController):
 			self.warehouse = frappe.db.get_single_value('Gold Selling Settings', 'default_warehouse')
 	def on_submit(self):
 		for cek in self.idr_payment:
-			if cek.mode_of_payment != "Cash":
-				frappe.throw("Silahkan Cek Transfer Bank Terlebih Dahulu")
-			else:				
-				self.make_gl_entries()
-				#posting Stock Ledger Post
-				self.update_stock_ledger()
-				self.repost_future_sle_and_gle()
-				#update invoice
-				for row in self.invoice_table:
-					if row.allocated==row.outstanding:
-						frappe.db.sql("""update `tabGold Invoice` set outstanding=outstanding-{} , invoice_status="Paid" where name = "{}" """.format(row.allocated,row.gold_invoice))
-					else:
-						frappe.db.sql("""update `tabGold Invoice` set outstanding=outstanding-{} where name = "{}" """.format(row.allocated,row.gold_invoice))
-				for row in self.customer_return:
-					if row.allocated==row.outstanding:
-						frappe.db.sql("""update `tabCustomer Payment Return` set outstanding=outstanding-{} , invoice_status="Paid" where name = "{}" """.format(row.allocated,row.invoice))
-					else:
-						frappe.db.sql("""update `tabCustomer Payment Return` set outstanding=outstanding-{} where name = "{}" """.format(row.allocated,row.invoice))
+			# if cek.mode_of_payment != "Cash":
+				# frappe.throw("Silahkan Cek Transfer Bank Terlebih Dahulu")
+			# else:				
+			self.make_gl_entries()
+			#posting Stock Ledger Post
+			self.update_stock_ledger()
+			self.repost_future_sle_and_gle()
+			#update invoice
+			for row in self.invoice_table:
+				if row.allocated==row.outstanding:
+					frappe.db.sql("""update `tabGold Invoice` set outstanding=outstanding-{} , invoice_status="Paid" where name = "{}" """.format(row.allocated,row.gold_invoice))
+				else:
+					frappe.db.sql("""update `tabGold Invoice` set outstanding=outstanding-{} where name = "{}" """.format(row.allocated,row.gold_invoice))
+			for row in self.customer_return:
+				if row.allocated==row.outstanding:
+					frappe.db.sql("""update `tabCustomer Payment Return` set outstanding=outstanding-{} , invoice_status="Paid" where name = "{}" """.format(row.allocated,row.invoice))
+				else:
+					frappe.db.sql("""update `tabCustomer Payment Return` set outstanding=outstanding-{} where name = "{}" """.format(row.allocated,row.invoice))
 	def on_cancel(self):
 		self.flags.ignore_links=True
 		self.make_gl_entries_on_cancel()
