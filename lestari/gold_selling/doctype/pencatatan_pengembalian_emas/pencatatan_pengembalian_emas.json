@@ -19,7 +19,7 @@
   "sales_bundle",
   "source_warehouse",
   "section_break_12",
-  "item",
+  "items",
   "section_break_14",
   "total_bruto",
   "column_break_16",
@@ -114,12 +114,6 @@
    "read_only": 1
   },
   {
-   "fieldname": "item",
-   "fieldtype": "Table",
-   "label": "Pencatatan Pengembalian Emas Item",
-   "options": "Pencatatan Pengembalian Emas Item"
-  },
-  {
    "fieldname": "total_bruto",
    "fieldtype": "Float",
    "label": "Total Bruto",
@@ -140,12 +134,18 @@
    "label": "Status Pengembalian",
    "options": "Diambil\nBelum Diambil",
    "read_only": 1
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Pencatatan Pengembalian Emas Item",
+   "options": "Pencatatan Pengembalian Emas Item"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-01-29 18:05:41.163287",
+ "modified": "2023-02-02 16:23:49.017809",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Pencatatan Pengembalian Emas",
