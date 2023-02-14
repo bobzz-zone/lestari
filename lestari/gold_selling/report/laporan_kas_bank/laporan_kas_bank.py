@@ -50,5 +50,7 @@ def execute(filters=None):
 	JOIN `tabCurrency` cur ON cur.name = gl.account_currency
 	WHERE 
  	{0}
+	ORDER BY
+	gl.voucher_no
 			 """.format(' AND '.join(conditional)))
 	return columns, data
