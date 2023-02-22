@@ -67,7 +67,7 @@ frappe.ui.form.on('Gold Payment', {
 			   			alo=need_to;
 			   		}
 			   		need_to=need_to-alo;
-			   		frappe.model.set_value(g.doctype, g.name, "allocated", alo);
+			   		frappe.model.set_value(g.doctype, g.name, "allocated", g.allocated+alo);
 			   	});
 			}
 			frm.doc.unallocated_payment=need_to;
