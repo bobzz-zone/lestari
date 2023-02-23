@@ -60,20 +60,20 @@ class GoldPayment(StockController):
 		for row in doc:
 # <<<<<<< HEAD
 			# frappe.msgprint(str(row))
-			self.total_invoice = flt(self.total_invoice) + flt(row.outstanding)
-			baris_baru = {
-				'gold_invoice':row.name,
-				'outstanding':row.outstanding,
-				'total':row.grand_total,
-				'due_date':row.due_date,
-				'total_bruto':row.total_bruto,
-				'tutupan':row.tutupan
-			}
-			self.append("invoice_table",baris_baru)
+			# self.total_invoice = flt(self.total_invoice) + flt(row.outstanding)
+			# baris_baru = {
+			# 	'gold_invoice':row.name,
+			# 	'outstanding':row.outstanding,
+			# 	'total':row.grand_total,
+			# 	'due_date':row.due_date,
+			# 	'total_bruto':row.total_bruto,
+			# 	'tutupan':row.tutupan
+			# }
+			# self.append("invoice_table",baris_baru)
 # =======
 # >>>>>>> 26667448793274c7c08aea84fc8d69f96f0cebbf
 			# frappe.msgprint(str(row))
-			if row.outstanding:
+			if row.outstanding and flt(row.outstanding)>0:
 				if not self.total_invoice:
 					self.total_invoice=0
 				self.total_invoice = self.total_invoice + row.outstanding
