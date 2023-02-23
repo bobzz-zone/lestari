@@ -61,11 +61,11 @@ class GoldPayment(StockController):
 		for row in doc:
 # <<<<<<< HEAD
 			# frappe.msgprint(str(row))
-<<<<<<< HEAD
+#<<<<<<< HEAD
 			# self.total_invoice = self.total_invoice + row.outstanding
-=======
+#=======
 			# self.total_invoice = flt(self.total_invoice) + flt(row.outstanding)
->>>>>>> d96d2a3021f492f6640ef9afae4f1b2060304bfb
+#>>>>>>> d96d2a3021f492f6640ef9afae4f1b2060304bfb
 			# baris_baru = {
 			# 	'gold_invoice':row.name,
 			# 	'outstanding':row.outstanding,
