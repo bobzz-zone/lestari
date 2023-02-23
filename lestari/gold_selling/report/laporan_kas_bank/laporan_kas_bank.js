@@ -5,10 +5,11 @@
 frappe.query_reports["Laporan Kas Bank"] = {
 	"filters": [
 		{
-		"fieldname":"name",
-			"label": __("Name"),
+			"fieldname":"account",
+			"label": __("Account"),
 			"fieldtype": "Link",
-			"options": "GL Entry",
+			"options": "Account",
+			"reqd": 1
 		},{
 			"fieldname":"from_date",
 			"label": __("From Date"),
@@ -22,11 +23,6 @@ frappe.query_reports["Laporan Kas Bank"] = {
 			"fieldtype": "Date",
 			"default": frappe.datetime.get_today(),
 			"reqd": 1
-		},{
-			"fieldname":"account",
-				"label": __("Account"),
-				"fieldtype": "Link",
-				"options": "Account",
 		},{
 			"fieldname":"against",
 				"label": __("Against"),
