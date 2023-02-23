@@ -18,7 +18,7 @@ class GoldInvoice(Document):
 			if not self.discount:
 				self.discount=0
 			self.grand_total=flt(self.total)-flt(self.discount)
-			self.outstanding = self.grand_total - self.total_advance;
+			self.outstanding = self.grand_total - flt(self.total_advance);
 			if self.outstanding<0:
 				frappe.throw("Ouutstanding tidak boleh lebih kecil dari 0")
 	@frappe.whitelist(allow_guest=True)
