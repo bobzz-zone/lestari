@@ -7,6 +7,7 @@ from erpnext.stock import get_warehouse_account_map
 from erpnext.accounts.utils import get_account_currency, get_fiscal_years, validate_fiscal_year
 from erpnext.accounts.doctype.sales_invoice.sales_invoice import get_bank_cash_account
 from erpnext.controllers.stock_controller import StockController
+from frappe.utils import flt
 class GoldPayment(StockController):
 	def validate(self):
 		#seharusnya validasi agaryang belum due, di pastikan tutupan sama..atau hanya 1 invoice agar di gold payment tutupan di samakan
@@ -60,7 +61,11 @@ class GoldPayment(StockController):
 		for row in doc:
 # <<<<<<< HEAD
 			# frappe.msgprint(str(row))
+<<<<<<< HEAD
 			# self.total_invoice = self.total_invoice + row.outstanding
+=======
+			# self.total_invoice = flt(self.total_invoice) + flt(row.outstanding)
+>>>>>>> d96d2a3021f492f6640ef9afae4f1b2060304bfb
 			# baris_baru = {
 			# 	'gold_invoice':row.name,
 			# 	'outstanding':row.outstanding,
@@ -73,7 +78,7 @@ class GoldPayment(StockController):
 # =======
 # >>>>>>> 26667448793274c7c08aea84fc8d69f96f0cebbf
 			# frappe.msgprint(str(row))
-			if row.outstanding:
+			if row.outstanding and flt(row.outstanding)>0:
 				if not self.total_invoice:
 					self.total_invoice=0
 				self.total_invoice = self.total_invoice + row.outstanding
