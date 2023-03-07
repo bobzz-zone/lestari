@@ -118,9 +118,7 @@ def get_conditions(filters):
 def get_data_with_opening_closing(filters, gl_entries):
 	data = []
 
-	gle_map = initialize_gle_map(gl_entries, filters)
-
-	totals, entries = get_accountwise_gle(filters, gl_entries, gle_map)
+	totals, entries = get_accountwise_gle(filters, gl_entries)
 
 	# Opening for filtered account
 	data.append(totals.opening)
@@ -151,14 +149,7 @@ def get_totals_dict():
 		closing=_get_debit_credit_dict(TRANSLATIONS.CLOSING_TOTAL),
 	)
 
-def initialize_gle_map(gl_entries, filters):
-	gle_map = OrderedDict()
-
-	for gle in gl_entries:
-		gle_map.setdefault(gle.get('account'), _dict(totals=get_totals_dict(), entries=[]))
-	return gle_map
-
-def get_accountwise_gle(filters, gl_entries, gle_map):
+def get_accountwise_gle(filters, gl_entries):
 	totals = get_totals_dict()
 	entries = []
 	consolidated_gle = OrderedDict()

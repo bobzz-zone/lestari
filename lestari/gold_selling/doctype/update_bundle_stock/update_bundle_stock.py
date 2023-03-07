@@ -39,6 +39,11 @@ class UpdateBundleStock(Document):
 		self.kadar = ""
 		self.category = ""
 		self.bruto = ""
+	@frappe.whitelist()
+	def get_bundle_sales(self):
+		bundle = frappe.db.get_list("Close Bundle Stock")
+		for row in bundle:
+			frappe.msgprint(row)
 	
 @frappe.whitelist()
 def get_sub_item(kadar, sub_kategori):

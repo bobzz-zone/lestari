@@ -17,6 +17,7 @@
   "purpose",
   "sales",
   "warehouse",
+  "get_bundle",
   "item_selector_section",
   "kadar",
   "column_break_13",
@@ -190,12 +191,18 @@
    "label": "Per Sub Category",
    "options": "Update Bundle Stock Sub",
    "read_only": 1
+  },
+  {
+   "fieldname": "get_bundle",
+   "fieldtype": "Button",
+   "label": "Get Bundle",
+   "options": "get_bundle_sales"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-02-01 03:14:54.953352",
+ "modified": "2023-03-01 13:00:32.536046",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Update Bundle Stock",
