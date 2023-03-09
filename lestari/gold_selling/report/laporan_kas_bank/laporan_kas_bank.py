@@ -16,18 +16,13 @@ def execute(filters=None):
 	if not filters:
 		return [], []
 		
-	account_details = {}
-
-	for acc in frappe.db.sql("""select name, is_group from tabAccount""", as_dict=1):
-		account_details.setdefault(acc.name, acc)
-
-	validate_filters(filters, account_details)
+	validate_filters(filters)
 
 	columns = get_column()
 	
 	update_translations()
 
-	data = get_result(filters, account_details)
+	data = get_result(filters)
 
 	return columns, data
 
@@ -36,7 +31,12 @@ def update_translations():
 		dict(OPENING=_("Opening"), TOTAL=_("Total"), CLOSING_TOTAL=_("Closing (Opening + Total)"))
 	)
 
-def validate_filters(filters, account_details):
+def validate_filters(filters):
+	if not filters.get("account"):
+		frappe.throw(
+			_("{0} are mandatory").format(frappe.bold(_("Account")))
+		)
+
 	if not filters.get("from_date") and not filters.get("to_date"):
 		frappe.throw(
 			_("{0} and {1} are mandatory").format(frappe.bold(_("From Date")), frappe.bold(_("To Date")))
@@ -45,10 +45,10 @@ def validate_filters(filters, account_details):
 	if filters.from_date > filters.to_date:
 		frappe.throw(_("From Date must be before To Date"))
 
-def get_result(filters, account_details):
+def get_result(filters):
 	gl_entries = get_gl_entries(filters)
 
-	data = get_data_with_opening_closing(filters, account_details, gl_entries)
+	data = get_data_with_opening_closing(filters, gl_entries)
 
 	result = get_result_as_list(data, filters)
 
@@ -102,25 +102,23 @@ def get_gl_entries(filters):
 def get_conditions(filters):
 	conditions = []
 
-	# if filters.name:
-	# 	conditions.append("gl.name = %(name)s")
-	# if filters.against: 
-	# 	conditions.append("gl.against = %(against)s")
-	# if filters.account:
-	# 	conditions.append("gl.account = '{}'".format(filters.account))
-	# if filters.cost_center:
-	# 	conditions.append("gl.cost_center = '{}'".format(filters.cost_center))
+	if filters.account:
+		conditions.append("account = %(account)s")
+		
+	if filters.against: 
+		conditions.append("against = %(against)s")
 
-	conditions.append("(posting_date <=%(to_date)s or is_opening = 'Yes')")
+	if filters.cost_center:
+		conditions.append("cost_center = %(cost_center)s")
+
+	conditions.append("(posting_date <= %(to_date)s or is_opening = 'Yes')")
 
 	return "and {}".format(" and ".join(conditions)) if conditions else ""
 
-def get_data_with_opening_closing(filters, account_details, gl_entries):
+def get_data_with_opening_closing(filters, gl_entries):
 	data = []
 
-	gle_map = initialize_gle_map(gl_entries, filters)
-
-	totals, entries = get_accountwise_gle(filters, gl_entries, gle_map)
+	totals, entries = get_accountwise_gle(filters, gl_entries)
 
 	# Opening for filtered account
 	data.append(totals.opening)
@@ -151,14 +149,7 @@ def get_totals_dict():
 		closing=_get_debit_credit_dict(TRANSLATIONS.CLOSING_TOTAL),
 	)
 
-def initialize_gle_map(gl_entries, filters):
-	gle_map = OrderedDict()
-
-	for gle in gl_entries:
-		gle_map.setdefault(gle.get('account'), _dict(totals=get_totals_dict(), entries=[]))
-	return gle_map
-
-def get_accountwise_gle(filters, gl_entries, gle_map):
+def get_accountwise_gle(filters, gl_entries):
 	totals = get_totals_dict()
 	entries = []
 	consolidated_gle = OrderedDict()
