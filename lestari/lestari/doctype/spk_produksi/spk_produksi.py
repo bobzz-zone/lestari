@@ -86,6 +86,7 @@ def get_items_from_form_order(source_name, target_doc=None, args=None):
 		# target.customer = source_parent.customer
 		target.so_type = source_parent.type
 		target.no_so = source_parent.name
+		target.tanggal_order = source_parent.posting_date
 
 	def select_item(d):
 		filtered_items = args.get('filtered_children', [])

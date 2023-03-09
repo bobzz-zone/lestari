@@ -8,12 +8,14 @@
  "field_order": [
   "no_so",
   "so_type",
+  "tanggal_order",
+  "column_break_4",
   "customer",
   "produk_id",
   "kadar",
   "kategori",
   "sub_kategori",
-  "column_break_6",
+  "section_break_10",
   "qty",
   "qty_isi_pohon",
   "jumlah_pohon",
@@ -22,21 +24,29 @@
  ],
  "fields": [
   {
+   "columns": 1,
    "fieldname": "kadar",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Kadar",
    "options": "Data Logam"
   },
   {
+   "columns": 1,
    "fieldname": "customer",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Customer",
-   "options": "Customer"
+   "options": "Customer",
+   "read_only": 1
   },
   {
+   "columns": 1,
    "fieldname": "qty",
    "fieldtype": "Int",
-   "label": "Qty"
+   "in_list_view": 1,
+   "label": "Qty",
+   "non_negative": 1
   },
   {
    "fieldname": "qty_isi_pohon",
@@ -59,42 +69,62 @@
    "label": "Target Berat"
   },
   {
+   "columns": 1,
    "fieldname": "so_type",
    "fieldtype": "Data",
-   "label": "SO Type"
+   "in_list_view": 1,
+   "label": "Order Type"
   },
   {
+   "columns": 2,
    "fieldname": "produk_id",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Produk ID",
    "options": "Item"
   },
   {
+   "columns": 1,
    "fieldname": "no_so",
    "fieldtype": "Data",
-   "label": "No SO"
+   "in_list_view": 1,
+   "label": "No Order"
   },
   {
-   "fieldname": "column_break_6",
-   "fieldtype": "Column Break"
-  },
-  {
+   "columns": 1,
    "fieldname": "kategori",
    "fieldtype": "Link",
    "label": "Kategori",
    "options": "Item Group"
   },
   {
+   "columns": 1,
    "fieldname": "sub_kategori",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Sub Kategori",
    "options": "Item Group"
+  },
+  {
+   "columns": 1,
+   "fieldname": "tanggal_order",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Tanggal Order"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_10",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-04-26 09:13:22.256703",
+ "modified": "2023-02-28 12:52:10.134778",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "SPK Produksi Detail",

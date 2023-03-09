@@ -58,7 +58,6 @@
   {
    "fieldname": "detail_spk_section",
    "fieldtype": "Section Break",
-   "hidden": 1,
    "label": "Detail SPK"
   },
   {
@@ -77,8 +76,7 @@
    "fieldname": "proses",
    "fieldtype": "Link",
    "label": "Proses",
-   "options": "Operation",
-   "read_only": 1
+   "options": "Operation"
   },
   {
    "fieldname": "detail_rencana_section",
@@ -101,10 +99,11 @@
    "read_only": 1
   }
  ],
+ "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-05 13:25:23.169654",
+ "modified": "2023-02-28 12:52:50.331322",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "SPK Produksi",
