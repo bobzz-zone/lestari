@@ -41,6 +41,7 @@
   {
    "fieldname": "sub_kategori",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Sub Kategori",
    "length": 50,
    "options": "Item Group",
@@ -49,6 +50,7 @@
   {
    "fieldname": "kadar",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Kadar",
    "options": "Data Logam",
    "reqd": 1
@@ -68,7 +70,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-02-01 03:15:42.705639",
+ "modified": "2023-03-10 15:02:59.776094",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Detail Penambahan Stock",
