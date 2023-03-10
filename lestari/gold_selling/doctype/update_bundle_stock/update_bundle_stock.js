@@ -21,7 +21,7 @@ frappe.ui.form.on('Detail Penambahan Stock', {
 	},
 	sub_kategori: function (doc,cdt, cdn){
 		var d = locals[cdt][cdn];
-		if(!d.kadar){
+		if(d.kadar != null){
 		frappe.call({
 			method: 'lestari.gold_selling.doctype.update_bundle_stock.update_bundle_stock.get_sub_item',
 			args: {
@@ -40,7 +40,7 @@ frappe.ui.form.on('Detail Penambahan Stock', {
 	}, 
 	kadar: function (doc,cdt, cdn){
 		var d = locals[cdt][cdn];
-		if(!d.sub_kategori){
+		if(d.sub_kategori != null){
 		frappe.call({
 			method: 'lestari.gold_selling.doctype.update_bundle_stock.update_bundle_stock.get_sub_item',
 			args: {
