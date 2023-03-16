@@ -36,6 +36,7 @@
   "status_timbangan",
   "jenis_timbangan",
   "sb1",
+  "total_perkadar",
   "items",
   "section_break_31",
   "total_bruto",
@@ -144,7 +145,8 @@
    "fieldname": "total_bruto",
    "fieldtype": "Float",
    "label": "Total Berat",
-   "precision": "2"
+   "precision": "2",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_15",
@@ -155,6 +157,7 @@
    "depends_on": "eval: doc.type != \"\" && doc.bundle != \"\"",
    "fieldname": "item_selector_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Item Selector"
   },
   {
@@ -236,10 +239,12 @@
    "label": "ID Employee"
   },
   {
+   "bold": 1,
    "fieldname": "berat",
    "fieldtype": "Float",
    "label": "Berat Timbangan",
-   "precision": "2"
+   "precision": "2",
+   "read_only": 1
   },
   {
    "fieldname": "detail_timbangan_section",
@@ -249,16 +254,19 @@
   {
    "fieldname": "id_row",
    "fieldtype": "Int",
+   "hidden": 1,
    "label": "ID Row"
   },
   {
    "fieldname": "field_row",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Field Row"
   },
   {
    "fieldname": "timbang",
    "fieldtype": "Button",
+   "hidden": 1,
    "label": "Timbang"
   },
   {
@@ -268,6 +276,7 @@
   {
    "fieldname": "jenis_timbangan",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Jenis Timbangan",
    "options": "\nShinko\nVibra\nMettler\nAND"
   },
@@ -279,17 +288,24 @@
    "fieldname": "total_berat_transfer",
    "fieldtype": "Float",
    "label": "Total Berat Transfer",
-   "precision": "2"
+   "precision": "2",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_34",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_perkadar",
+   "fieldtype": "Button",
+   "label": "Total Perkadar",
+   "options": "calculate_total"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-03-16 04:00:50.829347",
+ "modified": "2023-03-16 15:29:00.864767",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Update Bundle Stock",

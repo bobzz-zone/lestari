@@ -3,11 +3,24 @@
 
 import frappe
 from frappe.model.document import Document
+from frappe.utils import (
+	add_days,
+	add_months,
+	cint,
+	flt,
+	fmt_money,
+	formatdate,
+	get_last_day,
+	get_link_to_form,
+	getdate,
+	nowdate,
+	today,
+)
 from erpnext.stock import get_warehouse_account_map
 from erpnext.accounts.utils import get_account_currency, get_fiscal_years, validate_fiscal_year
 from erpnext.accounts.doctype.sales_invoice.sales_invoice import get_bank_cash_account
 from erpnext.controllers.stock_controller import StockController
-from frappe.utils import flt
+
 class GoldPayment(StockController):
 	def validate(self):
 		#seharusnya validasi agaryang belum due, di pastikan tutupan sama..atau hanya 1 invoice agar di gold payment tutupan di samakan
@@ -28,6 +41,7 @@ class GoldPayment(StockController):
 		# 	self.unallocated_payment = 0
 		if not self.warehouse:
 			self.warehouse = frappe.db.get_single_value('Gold Selling Settings', 'default_warehouse')
+
 	def on_submit(self):
 		for cek in self.idr_payment:
 			# if cek.mode_of_payment != "Cash":
@@ -48,6 +62,7 @@ class GoldPayment(StockController):
 					frappe.db.sql("""update `tabCustomer Payment Return` set outstanding=outstanding-{} , invoice_status="Paid" where name = "{}" """.format(row.allocated,row.invoice))
 				else:
 					frappe.db.sql("""update `tabCustomer Payment Return` set outstanding=outstanding-{} where name = "{}" """.format(row.allocated,row.invoice))
+
 	def on_cancel(self):
 		self.flags.ignore_links=True
 		self.make_gl_entries_on_cancel()
@@ -138,11 +153,14 @@ class GoldPayment(StockController):
 		# 	sl_entries.reverse()
 
 		self.make_sl_entries(sl_entries)
+		
 	def make_gl_entries(self, gl_entries=None, from_repost=False):
 		from erpnext.accounts.general_ledger import make_gl_entries, make_reverse_gl_entries
+
 		if not gl_entries:
 			gl_entries = self.get_gl_entries()
-		# frappe.msgprint(gl_entries)
+
+		#frappe.msgprint(gl_entries)
 		if gl_entries:
 			update_outstanding = "Yes"
 
@@ -169,91 +187,103 @@ class GoldPayment(StockController):
 
 		elif self.docstatus == 2 :
 			make_reverse_gl_entries(voucher_type=self.doctype, voucher_no=self.name)
+
 	def get_gl_entries(self, warehouse_account=None):
 		from erpnext.accounts.general_ledger import merge_similar_entries
 		#GL  Generate
 		#get configurasi
-		cost_center = frappe.db.get_single_value('Gold Selling Settings', 'cost_center')
-		selisih_kurs = frappe.db.get_single_value('Gold Selling Settings', 'selisih_kurs')
-		gl_entries=[]
-		gl={}
-		gl_piutang=[]
+
+		gl_entries = []
+		gl = {}
+		
+		gl_piutang = []
 		fiscal_years = get_fiscal_years(self.posting_date, company=self.company)[0][0]
 		#1 untuk GL untuk piutang Gold
 		piutang_gold = frappe.db.get_single_value('Gold Selling Settings', 'piutang_gold')
-
+		selisih_kurs = frappe.db.get_single_value('Gold Selling Settings', 'selisih_kurs')
+		cost_center = frappe.db.get_single_value('Gold Selling Settings', 'cost_center')
 		#mapping allocated
-		inv_payment_map={}
+		inv_payment_map = {}
 		for row in self.invoice_table:
-			inv_payment_map[row.gold_invoice]=row.allocated
+			inv_payment_map[row.gold_invoice] = row.allocated
+			
 		for row in self.customer_return:
-			inv_payment_map[row.invoice]=row.allocated
-		nilai_selisih_kurs=0
+			inv_payment_map[row.invoice] = row.allocated
+
+		nilai_selisih_kurs = 0
 		# distribute total gold perlu bagi per invoice
 		sisa= self.total_payment
+		credit=0
+		debit=0
 		for row in self.invoice_table:
 			if sisa>0 and row.allocated>0:
 				payment=row.allocated
-				if sisa<row.allocated:
-					payment=sisa;
+				if sisa < row.allocated:
+					payment=sisa
+
 				inv_payment_map[row.gold_invoice]=inv_payment_map[row.gold_invoice]-payment
 				gl_piutang.append({
-								"posting_date":self.posting_date,
-								"account":piutang_gold,
-								"party_type":"Customer",
-								"party":self.customer,
-								"cost_center":cost_center,
-								"debit":0,
-								"credit":payment*row.tutupan,
-								"account_currency":"GOLD",
-								"debit_in_account_currency":0,
-								"credit_in_account_currency":payment,
-								#"against":"4110.000 - Penjualan - L",
-								"voucher_type":"Gold Payment",
-								"against_voucher_type":"Gold Invoice",
-								"against_voucher":row.gold_invoice,
-								"voucher_no":self.name,
-								#"remarks":"",
-								"is_opening":"No",
-								"is_advance":"No",
-								"fiscal_year":fiscal_years,
-								"company":self.company,
-								"is_cancelled":0
-								})
+					"posting_date":self.posting_date,
+					"account":piutang_gold,
+					"party_type":"Customer",
+					"party":self.customer,
+					"cost_center":cost_center,
+					"debit":0,
+					"credit":payment*row.tutupan,
+					"account_currency":"GOLD",
+					"debit_in_account_currency":0,
+					"credit_in_account_currency":payment,
+					#"against":"4110.000 - Penjualan - L",
+					"voucher_type":"Gold Payment",
+					"against_voucher_type":"Gold Invoice",
+					"against_voucher":row.gold_invoice,
+					"voucher_no":self.name,
+					#"remarks":"",
+					"is_opening":"No",
+					"is_advance":"No",
+					"fiscal_year":fiscal_years,
+					"company":self.company,
+					"is_cancelled":0
+				})
+		#		credit=credit+(payment*row.tutupan)
 				if row.tutupan!=self.tutupan:
 					nilai_selisih_kurs=nilai_selisih_kurs+((self.tutupan-row.tutupan)*payment)
+		#frappe.msgprint("Invoice Payment credit = {} , debit = {}".format(credit,debit))
 		for row in self.customer_return:
 			if sisa>0 and row.allocated>0:
 				payment=row.allocated
 				if sisa<row.allocated:
-					payment=sisa;
+					payment = sisa
 				inv_payment_map[row.invoice]=inv_payment_map[row.invoice]-payment
+
 				gl_piutang.append({
-								"posting_date":self.posting_date,
-								"account":piutang_gold,
-								"party_type":"Customer",
-								"party":self.customer,
-								"cost_center":cost_center,
-								"debit":0,
-								"credit":payment*row.tutupan,
-								"account_currency":"GOLD",
-								"debit_in_account_currency":0,
-								"credit_in_account_currency":payment,
-								#"against":"4110.000 - Penjualan - L",
-								"voucher_type":"Gold Payment",
-								"against_voucher_type":"Customer Payment Return",
-								"against_voucher":row.invoice,
-								"voucher_no":self.name,
-								#"remarks":"",
-								"is_opening":"No",
-								"is_advance":"No",
-								"fiscal_year":fiscal_years,
-								"company":self.company,
-								"is_cancelled":0
-								})
+					"posting_date":self.posting_date,
+					"account":piutang_gold,
+					"party_type":"Customer",
+					"party":self.customer,
+					"cost_center":cost_center,
+					"debit":0,
+					"credit":payment*row.tutupan,
+					"account_currency":"GOLD",
+					"debit_in_account_currency":0,
+					"credit_in_account_currency":payment,
+					#"against":"4110.000 - Penjualan - L",
+					"voucher_type":"Gold Payment",
+					"against_voucher_type":"Customer Payment Return",
+					"against_voucher":row.invoice,
+					"voucher_no":self.name,
+					#"remarks":"",
+					"is_opening":"No",
+					"is_advance":"No",
+					"fiscal_year":fiscal_years,
+					"company":self.company,
+					"is_cancelled":0
+				})
+#				credit=credit+(payment*row.tutupan)
 				if row.tutupan!=self.tutupan:
 					nilai_selisih_kurs=nilai_selisih_kurs+((self.tutupan-row.tutupan)*payment)
 		roundoff=0
+#		frappe.msgprint("Customer Return credit = {} , debit = {}".format(credit,debit))
 		for row in gl_piutang:
 			roundoff=roundoff+row['debit']-row['credit']
 			gl_entries.append(frappe._dict(row))
@@ -267,120 +297,130 @@ class GoldPayment(StockController):
 			else:
 				csk=nilai_selisih_kurs
 			gl[selisih_kurs]={
-									"posting_date":self.posting_date,
-									"account":selisih_kurs,
-									"party_type":"",
-									"party":"",
-									"cost_center":cost_center,
-									"debit":dsk,
-									"credit":csk,
-									"account_currency":"IDR",
-									"debit_in_account_currency":dsk,
-									"credit_in_account_currency":csk,
-									#"against":"4110.000 - Penjualan - L",
-									"voucher_type":"Gold Payment",
-									"voucher_no":self.name,
-									#"remarks":"",
-									"is_opening":"No",
-									"is_advance":"No",
-									"fiscal_year":fiscal_years,
-									"company":self.company,
-									"is_cancelled":0
-									}
+				"posting_date":self.posting_date,
+				"account":selisih_kurs,
+				"party_type":"",
+				"party":"",
+				"cost_center":cost_center,
+				"debit":dsk,
+				"credit":csk,
+				"account_currency":"IDR",
+				"debit_in_account_currency":dsk,
+				"credit_in_account_currency":csk,
+				#"against":"4110.000 - Penjualan - L",
+				"voucher_type":"Gold Payment",
+				"voucher_no":self.name,
+				#"remarks":"",
+				"is_opening":"No",
+				"is_advance":"No",
+				"fiscal_year":fiscal_years,
+				"company":self.company,
+				"is_cancelled":0
+			}
+		#	credit=credit+csk
+		#	debit=debit+dsk
+		#frappe.msgprint("Selisih Kurs credit = {} , debit = {}".format(credit,debit))
 		#BONUS,DISCOUNT,WRITEOFF
 		if self.bonus>0:
 			bonus_payment = frappe.db.get_single_value('Gold Selling Settings', 'bonus_payment')
 			gl[bonus_payment]={
-									"posting_date":self.posting_date,
-									"account":bonus_payment,
-									"party_type":"",
-									"party":"",
-									"cost_center":cost_center,
-									"debit":self.bonus*self.tutupan,
-									"credit":0,
-									"account_currency":"IDR",
-									"debit_in_account_currency":self.bonus*self.tutupan,
-									"credit_in_account_currency":0,
-									#"against":"4110.000 - Penjualan - L",
-									"voucher_type":"Gold Payment",
-									"voucher_no":self.name,
-									#"remarks":"",
-									"is_opening":"No",
-									"is_advance":"No",
-									"fiscal_year":fiscal_years,
-									"company":self.company,
-									"is_cancelled":0
-									}
+				"posting_date":self.posting_date,
+				"account":bonus_payment,
+				"party_type":"",
+				"party":"",
+				"cost_center":cost_center,
+				"debit":self.bonus*self.tutupan,
+				"credit":0,
+				"account_currency":"IDR",
+				"debit_in_account_currency":self.bonus*self.tutupan,
+				"credit_in_account_currency":0,
+				#"against":"4110.000 - Penjualan - L",
+				"voucher_type":"Gold Payment",
+				"voucher_no":self.name,
+				#"remarks":"",
+				"is_opening":"No",
+				"is_advance":"No",
+				"fiscal_year":fiscal_years,
+				"company":self.company,
+				"is_cancelled":0
+			}
+		#	debit=debit+(self.bonus*self.tutupan)
+		#	frappe.msgprint("Bonus credit = {} , debit = {}".format(credit,debit))
 		if self.discount_amount>0:
 			discount_payment = frappe.db.get_single_value('Gold Selling Settings', 'discount_payment')
-			gl[discount_payment]={
-									"posting_date":self.posting_date,
-									"account":discount_payment,
-									"party_type":"",
-									"party":"",
-									"cost_center":cost_center,
-									"debit":self.discount_amount*self.tutupan,
-									"credit":0,
-									"account_currency":"IDR",
-									"debit_in_account_currency":self.discount_amount*self.tutupan,
-									"credit_in_account_currency":0,
-									#"against":"4110.000 - Penjualan - L",
-									"voucher_type":"Gold Payment",
-									"voucher_no":self.name,
-									#"remarks":"",
-									"is_opening":"No",
-									"is_advance":"No",
-									"fiscal_year":fiscal_years,
-									"company":self.company,
-									"is_cancelled":0
-									}
+			gl[discount_payment]= {
+				"posting_date":self.posting_date,
+				"account":discount_payment,
+				"party_type":"",
+				"party":"",
+				"cost_center":cost_center,
+				"debit":self.discount_amount*self.tutupan,
+				"credit":0,
+				"account_currency":"IDR",
+				"debit_in_account_currency":self.discount_amount*self.tutupan,
+				"credit_in_account_currency":0,
+				#"against":"4110.000 - Penjualan - L",
+				"voucher_type":"Gold Payment",
+				"voucher_no":self.name,
+				#"remarks":"",
+				"is_opening":"No",
+				"is_advance":"No",
+				"fiscal_year":fiscal_years,
+				"company":self.company,
+				"is_cancelled":0
+			}
+		#	debit=debit+(self.discount_amount*self.tutupan)
+		#	frappe.msgprint("Discount credit = {} , debit = {}".format(credit,debit))
 		if self.write_off>0:
 			gl[self.write_off_account]={
-									"posting_date":self.posting_date,
-									"account":self.write_off_account,
-									"party_type":"",
-									"party":"",
-									"cost_center":cost_center,
-									"debit":self.write_off*self.tutupan,
-									"credit":0,
-									"account_currency":"IDR",
-									"debit_in_account_currency":self.write_off*self.tutupan,
-									"credit_in_account_currency":0,
-									#"against":"4110.000 - Penjualan - L",
-									"voucher_type":"Gold Payment",
-									"voucher_no":self.name,
-									#"remarks":"",
-									"is_opening":"No",
-									"is_advance":"No",
-									"fiscal_year":fiscal_years,
-									"company":self.company,
-									"is_cancelled":0
-									}
+				"posting_date":self.posting_date,
+				"account":self.write_off_account,
+				"party_type":"",
+				"party":"",
+				"cost_center":cost_center,
+				"debit":self.write_off*self.tutupan,
+				"credit":0,
+				"account_currency":"IDR",
+				"debit_in_account_currency":self.write_off*self.tutupan,
+				"credit_in_account_currency":0,
+				#"against":"4110.000 - Penjualan - L",
+				"voucher_type":"Gold Payment",
+				"voucher_no":self.name,
+				#"remarks":"",
+				"is_opening":"No",
+				"is_advance":"No",
+				"fiscal_year":fiscal_years,
+				"company":self.company,
+				"is_cancelled":0
+			}
+		#	debit=debit+(self.write_off*self.tutupan)
+		#	frappe.msgprint("Writeoff credit = {} , debit = {}".format(credit,debit))
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		if self.total_gold_payment>0:
 			warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
 			gl[warehouse_account]={
-									"posting_date":self.posting_date,
-									"account":warehouse_account,
-									"party_type":"",
-									"party":"",
-									"cost_center":cost_center,
-									"debit":self.total_gold_payment*self.tutupan,
-									"credit":0,
-									"account_currency":"IDR",
-									"debit_in_account_currency":self.total_gold_payment*self.tutupan,
-									"credit_in_account_currency":0,
-									#"against":"4110.000 - Penjualan - L",
-									"voucher_type":"Gold Payment",
-									"voucher_no":self.name,
-									#"remarks":"",
-									"is_opening":"No",
-									"is_advance":"No",
-									"fiscal_year":fiscal_years,
-									"company":self.company,
-									"is_cancelled":0
-									}
-		
+				"posting_date":self.posting_date,
+				"account":warehouse_account,
+				"party_type":"",
+				"party":"",
+				"cost_center":cost_center,
+				"debit":self.total_gold_payment*self.tutupan,
+				"credit":0,
+				"account_currency":"IDR",
+				"debit_in_account_currency":self.total_gold_payment*self.tutupan,
+				"credit_in_account_currency":0,
+				#"against":"4110.000 - Penjualan - L",
+				"voucher_type":"Gold Payment",
+				"voucher_no":self.name,
+				#"remarks":"",
+				"is_opening":"No",
+				"is_advance":"No",
+				"fiscal_year":fiscal_years,
+				"company":self.company,
+				"is_cancelled":0
+			}
+		#	debit=debit+(self.total_gold_payment*self.tutupan)
+		#	frappe.msgprint("Gold Payment credit = {} , debit = {}".format(credit,debit))
 		#untuk payment IDR
 		if self.total_idr_payment>0:
 			#journal IDR nya aja
@@ -391,26 +431,28 @@ class GoldPayment(StockController):
 					gl[account]['debit_in_account_currency']=gl[account]['debit']
 				else:
 					gl[account]={
-										"posting_date":self.posting_date,
-										"account":account,
-										"party_type":"",
-										"party":"",
-										"cost_center":cost_center,
-										"debit":row.amount,
-										"credit":0,
-										"account_currency":"IDR",
-										"debit_in_account_currency":row.amount,
-										"credit_in_account_currency":0,
-										#"against":"4110.000 - Penjualan - L",
-										"voucher_type":"Gold Payment",
-										"voucher_no":self.name,
-										#"remarks":"",
-										"is_opening":"No",
-										"is_advance":"No",
-										"fiscal_year":fiscal_years,
-										"company":self.company,
-										"is_cancelled":0
-										}
+						"posting_date":self.posting_date,
+						"account":account,
+						"party_type":"",
+						"party":"",
+						"cost_center":cost_center,
+						"debit":row.amount,
+						"credit":0,
+						"account_currency":"IDR",
+						"debit_in_account_currency":row.amount,
+						"credit_in_account_currency":0,
+						#"against":"4110.000 - Penjualan - L",
+						"voucher_type":"Gold Payment",
+						"voucher_no":self.name,
+						#"remarks":"",
+						"is_opening":"No",
+						"is_advance":"No",
+						"fiscal_year":fiscal_years,
+						"company":self.company,
+						"is_cancelled":0
+					}
+#				debit=debit+row.amount
+#			frappe.msgprint("IDR Payment credit = {} , debit = {}".format(credit,debit))
 		#roundoff=0
 		for row in gl:
 		#	frappe.msgprint("RO {} Account {} has {} and {}".format(roundoff,gl[row]['account'],gl[row]['debit'],gl[row]['credit']))
@@ -421,48 +463,51 @@ class GoldPayment(StockController):
 			roundoff_coa=frappe.db.get_value('Company', self.company, 'round_off_account')
 			if roundoff>0:
 				gl[roundoff_coa]={
-										"posting_date":self.posting_date,
-										"account":roundoff_coa,
-										"party_type":"",
-										"party":"",
-										"cost_center":cost_center,
-										"debit":roundoff,
-										"credit":0,
-										"account_currency":"IDR",
-										"debit_in_account_currency":roundoff,
-										"credit_in_account_currency":0,
-										#"against":"4110.000 - Penjualan - L",
-										"voucher_type":"Gold Payment",
-										"voucher_no":self.name,
-										#"remarks":"",
-										"is_opening":"No",
-										"is_advance":"No",
-										"fiscal_year":fiscal_years,
-										"company":self.company,
-										"is_cancelled":0
-										}
+					"posting_date":self.posting_date,
+					"account":roundoff_coa,
+					"party_type":"",
+					"party":"",
+					"cost_center":cost_center,
+					"debit":0,
+					"credit":roundoff,
+					"account_currency":"IDR",
+					"debit_in_account_currency":0,
+					"credit_in_account_currency":roundoff,
+					#"against":"4110.000 - Penjualan - L",
+					"voucher_type":"Gold Payment",
+					"voucher_no":self.name,
+					#"remarks":"",
+					"is_opening":"No",
+					"is_advance":"No",
+					"fiscal_year":fiscal_years,
+					"company":self.company,
+					"is_cancelled":0
+				}
+#				debit=debit+roundoff
 			else:
 				gl[roundoff_coa]={
-										"posting_date":self.posting_date,
-										"account":roundoff_coa,
-										"party_type":"",
-										"party":"",
-										"cost_center":cost_center,
-										"debit":0,
-										"credit":roundoff*-1,
-										"account_currency":"IDR",
-										"debit_in_account_currency":0,
-										"credit_in_account_currency":roundoff*-1,
-										#"against":"4110.000 - Penjualan - L",
-										"voucher_type":"Gold Payment",
-										"voucher_no":self.name,
-										#"remarks":"",
-										"is_opening":"No",
-										"is_advance":"No",
-										"fiscal_year":fiscal_years,
-										"company":self.company,
-										"is_cancelled":0
-										}
+					"posting_date":self.posting_date,
+					"account":roundoff_coa,
+					"party_type":"",
+					"party":"",
+					"cost_center":cost_center,
+					"debit":roundoff*-1,
+					"credit":0,
+					"account_currency":"IDR",
+					"debit_in_account_currency":roundoff*-1,
+					"credit_in_account_currency":0,
+					#"against":"4110.000 - Penjualan - L",
+					"voucher_type":"Gold Payment",
+					"voucher_no":self.name,
+					#"remarks":"",
+					"is_opening":"No",
+					"is_advance":"No",
+					"fiscal_year":fiscal_years,
+					"company":self.company,
+					"is_cancelled":0
+				}
+#				credit=credit+roundoff
 			gl_entries.append(frappe._dict(gl[roundoff_coa]))
+#			frappe.msgprint("Round Off credit = {} , debit = {}".format(credit,debit))
 		gl_entries = merge_similar_entries(gl_entries)
 		return gl_entries
