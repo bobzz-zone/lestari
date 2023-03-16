@@ -56,8 +56,9 @@ async function appendToTerminal(newStuff) {
   // newStuff = newStuff.match(/[0-9]*[.]*[0-9]+\w/g);
   // newStuff = newStuff.match(/([0-9]*[.])\w+/s);
   cur_frm.set_value("berat", flt(newStuff));
-  // newStuff = newStuff.replace(/[A-Z]|[a-z]/g, "").trim();/ timbangan suncho dan metler
-  newStuff = newStuff.replace(/[^\d.]/g, "").trim(); //timbangan AND
+  newStuff = newStuff.replace(/[A-Z]|[a-z]/g, "").trim(); //timbangan suncho dan metler
+  // newStuff = newStuff.replace(/[^\d.]/g, "").trim(); //timbangan AND
+  console.log(newStuff)
   cur_frm.set_value("berat_1", newStuff);
 }
 frappe.ui.form.on("Form Berat Material Pohon", {

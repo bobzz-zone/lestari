@@ -20,7 +20,7 @@ class GoldPayment(StockController):
 			if row.allocated:
 				unallocated=unallocated-row.allocated
 		self.unallocated=unallocated
-		if self.unallocated_payment and self.unallocated_payment>0.0001:
+		if self.unallocated_payment and self.unallocated_payment>0.001:
 			frappe.throw("Error,unallocated Payment Masih tersisa {}".format(self.unallocated_payment))
 		if not self.warehouse:
 			self.warehouse = frappe.db.get_single_value('Gold Selling Settings', 'default_warehouse')

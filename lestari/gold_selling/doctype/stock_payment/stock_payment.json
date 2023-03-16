@@ -18,6 +18,7 @@
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Bruto",
+   "precision": "3",
    "reqd": 1
   },
   {
@@ -33,6 +34,7 @@
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "24k",
+   "precision": "3",
    "read_only": 1,
    "reqd": 1
   },
@@ -55,7 +57,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-01-27 14:57:20.825520",
+ "modified": "2023-03-16 01:36:35.872445",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Stock Payment",

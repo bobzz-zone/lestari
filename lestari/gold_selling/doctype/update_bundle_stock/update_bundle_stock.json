@@ -9,11 +9,13 @@
  "field_order": [
   "date",
   "bundle",
-  "pic",
   "type",
-  "s_warehouse",
   "keterangan",
   "cb1",
+  "id_employee",
+  "pic",
+  "nama_stokist",
+  "s_warehouse",
   "purpose",
   "sales",
   "warehouse",
@@ -25,14 +27,25 @@
   "column_break_15",
   "bruto",
   "add",
+  "detail_timbangan_section",
+  "berat",
+  "id_row",
+  "field_row",
+  "timbang",
+  "column_break_26",
+  "status_timbangan",
+  "jenis_timbangan",
   "sb1",
   "items",
+  "section_break_31",
+  "total_bruto",
+  "column_break_34",
+  "total_berat_transfer",
   "total_per_kadar_section",
   "per_kadar",
   "total_per_sub_category_section",
   "per_sub_category",
   "section_break_13",
-  "total_bruto",
   "amended_from"
  ],
  "fields": [
@@ -51,10 +64,13 @@
   {
    "fieldname": "pic",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Stokist",
-   "options": "Employee"
+   "options": "Employee",
+   "read_only": 1
   },
   {
+   "default": "Stockist - LMS",
    "fieldname": "s_warehouse",
    "fieldtype": "Link",
    "label": "Source Warehouse",
@@ -127,8 +143,8 @@
   {
    "fieldname": "total_bruto",
    "fieldtype": "Float",
-   "label": "Total Bruto",
-   "read_only": 1
+   "label": "Total Berat",
+   "precision": "2"
   },
   {
    "fieldname": "column_break_15",
@@ -136,6 +152,7 @@
   },
   {
    "collapsible": 1,
+   "depends_on": "eval: doc.type != \"\" && doc.bundle != \"\"",
    "fieldname": "item_selector_section",
    "fieldtype": "Section Break",
    "label": "Item Selector"
@@ -159,8 +176,8 @@
   {
    "fieldname": "bruto",
    "fieldtype": "Float",
-   "label": "Bruto",
-   "precision": "3"
+   "label": "Berat",
+   "precision": "2"
   },
   {
    "fieldname": "add",
@@ -193,16 +210,86 @@
    "read_only": 1
   },
   {
+   "depends_on": "eval: doc.type != \"\" && doc.bundle != \"\"",
    "fieldname": "get_bundle",
    "fieldtype": "Button",
    "label": "Get Bundle",
    "options": "get_bundle_sales"
+  },
+  {
+   "fetch_from": "pic.employee_name",
+   "fieldname": "nama_stokist",
+   "fieldtype": "Data",
+   "label": "Nama Stokist",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status_timbangan",
+   "fieldtype": "Select",
+   "label": "Status Timbangan",
+   "options": "\nNot Connect\nConnected",
+   "read_only": 1
+  },
+  {
+   "fieldname": "id_employee",
+   "fieldtype": "Data",
+   "label": "ID Employee"
+  },
+  {
+   "fieldname": "berat",
+   "fieldtype": "Float",
+   "label": "Berat Timbangan",
+   "precision": "2"
+  },
+  {
+   "fieldname": "detail_timbangan_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Timbangan"
+  },
+  {
+   "fieldname": "id_row",
+   "fieldtype": "Int",
+   "label": "ID Row"
+  },
+  {
+   "fieldname": "field_row",
+   "fieldtype": "Data",
+   "label": "Field Row"
+  },
+  {
+   "fieldname": "timbang",
+   "fieldtype": "Button",
+   "label": "Timbang"
+  },
+  {
+   "fieldname": "column_break_26",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "jenis_timbangan",
+   "fieldtype": "Select",
+   "label": "Jenis Timbangan",
+   "options": "\nShinko\nVibra\nMettler\nAND"
+  },
+  {
+   "fieldname": "section_break_31",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_berat_transfer",
+   "fieldtype": "Float",
+   "label": "Total Berat Transfer",
+   "precision": "2"
+  },
+  {
+   "fieldname": "column_break_34",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-03-01 13:00:32.536046",
+ "modified": "2023-03-16 04:00:50.829347",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Update Bundle Stock",

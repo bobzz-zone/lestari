@@ -1,14 +1,17 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:{sales}{date}",
+ "autoname": "field:no_bundle",
  "creation": "2022-10-09 21:52:27.373554",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "no_bundle",
   "date",
   "purpose",
+  "aktif",
+  "column_break_5",
   "sales",
   "pendamping",
   "warehouse",
@@ -27,9 +30,12 @@
    "depends_on": "eval:doc.purpose==\"Sales\"",
    "fieldname": "sales",
    "fieldtype": "Link",
+   "in_global_search": 1,
    "in_list_view": 1,
+   "in_preview": 1,
    "label": "Sales",
-   "options": "Sales Partner"
+   "options": "Sales Partner",
+   "search_index": 1
   },
   {
    "fieldname": "amended_from",
@@ -58,12 +64,29 @@
    "fieldtype": "Link",
    "label": "Pendamping",
    "options": "Sales Partner"
+  },
+  {
+   "fieldname": "no_bundle",
+   "fieldtype": "Data",
+   "label": "No Bundle",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "aktif",
+   "fieldtype": "Check",
+   "label": "Aktif"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-02-21 15:26:38.750972",
+ "modified": "2023-03-14 02:14:13.945228",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Sales Stock Bundle",
