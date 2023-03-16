@@ -107,13 +107,15 @@
    "fieldname": "total_gold_payment",
    "fieldtype": "Float",
    "label": "Total Gold Payment",
+   "precision": "3",
    "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "bonus",
    "fieldtype": "Float",
-   "label": "Bonus in 24K"
+   "label": "Bonus in 24K",
+   "precision": "3"
   },
   {
    "fieldname": "column_break_14",
@@ -124,7 +126,8 @@
    "depends_on": "write_off_account",
    "fieldname": "write_off",
    "fieldtype": "Float",
-   "label": "Write Off"
+   "label": "Write Off",
+   "precision": "3"
   },
   {
    "fieldname": "amended_from",
@@ -171,6 +174,7 @@
    "fieldname": "total_idr_gold",
    "fieldtype": "Float",
    "label": "Total IDR in Gold",
+   "precision": "3",
    "read_only": 1
   },
   {
@@ -183,6 +187,7 @@
    "fieldname": "total_payment",
    "fieldtype": "Float",
    "label": "Total Payment In Gold",
+   "precision": "3",
    "read_only": 1
   },
   {
@@ -190,18 +195,21 @@
    "fieldname": "discount_amount",
    "fieldtype": "Float",
    "label": "Discount Amount",
+   "precision": "3",
    "read_only": 1
   },
   {
    "fieldname": "total_invoice",
    "fieldtype": "Float",
    "label": "Total Invoice",
+   "precision": "3",
    "read_only": 1
   },
   {
    "fieldname": "unallocated_payment",
    "fieldtype": "Float",
    "label": "UnAllocated",
+   "precision": "3",
    "read_only": 1
   },
   {
@@ -247,6 +255,7 @@
    "fieldname": "allocated_payment",
    "fieldtype": "Float",
    "label": "allocated",
+   "precision": "3",
    "read_only": 1
   },
   {
@@ -264,7 +273,8 @@
   {
    "fieldname": "discount",
    "fieldtype": "Percent",
-   "label": "Discount"
+   "label": "Discount",
+   "precision": "2"
   },
   {
    "fieldname": "customer_return",
@@ -275,7 +285,8 @@
   {
    "fieldname": "bruto_discount",
    "fieldtype": "Float",
-   "label": "Total Bruto Discounted"
+   "label": "Total Bruto Discounted",
+   "precision": "3"
   },
   {
    "fieldname": "sales_bundle",
@@ -295,7 +306,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-02-01 11:18:41.767303",
+ "modified": "2023-03-16 01:37:00.474932",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

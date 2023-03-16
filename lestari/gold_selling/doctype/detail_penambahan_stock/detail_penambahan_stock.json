@@ -6,9 +6,12 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "kadar",
   "sub_kategori",
+  "kadar",
   "qty_penambahan",
+  "timbang",
+  "berat_transfer",
+  "timbang1",
   "column_break_4",
   "kategori",
   "item",
@@ -19,8 +22,8 @@
    "fieldname": "qty_penambahan",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Bruto",
-   "precision": "3",
+   "label": "Berat",
+   "precision": "2",
    "reqd": 1
   },
   {
@@ -65,12 +68,29 @@
   {
    "fieldname": "column_break_4",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "berat_transfer",
+   "fieldtype": "Float",
+   "label": "Berat Transfer",
+   "precision": "2"
+  },
+  {
+   "fieldname": "timbang",
+   "fieldtype": "Button",
+   "in_list_view": 1,
+   "label": "Timbang"
+  },
+  {
+   "fieldname": "timbang1",
+   "fieldtype": "Button",
+   "label": "Timbang"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-03-10 15:02:59.776094",
+ "modified": "2023-03-16 03:06:18.898014",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Detail Penambahan Stock",
