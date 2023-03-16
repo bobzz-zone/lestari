@@ -15,13 +15,17 @@ class GoldPayment(StockController):
 		unallocated=self.total_payment
 		for row in self.invoice_table:
 			if row.allocated:
-				unallocated=unallocated-row.allocated
+				# frappe.msgprint(row.allocated)
+				unallocated=flt(unallocated,3)-flt(row.allocated,3)
 		for row in self.customer_return:
 			if row.allocated:
-				unallocated=unallocated-row.allocated
-		self.unallocated=unallocated
-		if self.unallocated_payment and self.unallocated_payment>0.001:
+				unallocated=flt(unallocated,3)-flt(row.allocated,3)
+		self.unallocated_payment=flt(unallocated,3)
+		if self.unallocated_payment and self.unallocated_payment>0.0001:
+			# frappe.msgprint(self.total_invoice)
 			frappe.throw("Error,unallocated Payment Masih tersisa {}".format(self.unallocated_payment))
+		# if self.unallocated_payment<0.0001:
+		# 	self.unallocated_payment = 0
 		if not self.warehouse:
 			self.warehouse = frappe.db.get_single_value('Gold Selling Settings', 'default_warehouse')
 	def on_submit(self):

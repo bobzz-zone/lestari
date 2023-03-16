@@ -45,6 +45,9 @@ frappe.ui.form.on('Gold Payment', {
 			frappe.throw("Tidak ada Invoice yang terpilih");
 		}else{
 			var need_to=frm.doc.unallocated_payment;
+			console.log(need_to)
+			need_to = need_to.toFixed(3);
+			console.log(need_to)
 			if(need_to<=0){
 				frappe.throw("Tidak ada pembayaran yang dapat di alokasikan");
 			}
@@ -70,9 +73,11 @@ frappe.ui.form.on('Gold Payment', {
 			   		frappe.model.set_value(g.doctype, g.name, "allocated", g.allocated+alo);
 			   	});
 			}
-			frm.doc.unallocated_payment=need_to;
+			// frm.doc.unallocated_payment=need_to;
+			cur_frm.set_value("unallocated_payment",need_to.toFixed(3))
+			console.log(cur_frm.doc.unallocated_payment)
 			refresh_field("unallocated_payment");
-			frappe.throw("Pembayaran Telah di Alokasikan");
+			frappe.msgprint("Pembayaran Telah di Alokasikan");
 		}
 
 	},
