@@ -41,7 +41,7 @@ async function listenToPort() {
     }
     // value is a string.
     //   document.getElementById("lineToSend").value = value;
-    console.log("value:" + value);
+    // console.log("value:" + value);
     // cur_frm.set_value("berat", value);
     // cur_frm.refresh_field("berat");
     appendToTerminal(value);
@@ -78,31 +78,39 @@ async function appendToTerminal(newStuff) {
   // newStuff = newStuff.match(/[0-9]*[.]*[0-9]+\w/g);
   // newStuff = newStuff.match(/([0-9]*[.])\w+/s);
   // cur_frm.set_value("berat", flt(newStuff));
-//   const valueString = new TextDecoder().decode(value);
-  const filteredValue = newStuff.match(/[-+]?0*(\.\d+)/g).map(x => x.replace(/^[-+]?0*([^0]+)/g, "$1")).join('');
+  // const valueString = new TextDecoder().decode(value);
+  // const filteredValue = newStuff.match(/[-+]?0*(\.\d+)/g).map(x => x.replace(/^[-+]?0*([^0]+)/g, "$1")).join('');
   newStuff = newStuff.replace(/[A-Z]|[a-z]/g, "").trim(); //timbangan suncho dan metler
 //   let formattedValue = newStuff.replace(".", ",");
   
   // newStuff = newStuff.replace(/[^\d.]/g, "").trim(); //timbangan AND
-  console.log(newStuff)
+//   console.log(newStuff)
   cur_frm.set_value("berat", newStuff);
   cur_frm.refresh_field("berat");
 }
 
-function hitung(frm, cdt, cdn){
-	var d = locals[cdt][cdn];
-	console.log(d.kadar)
-	
-	$.each(d, function(i,e){
-		console.log(i.kadar)
-		// console.log(i)
+function hitung(){
+	// var d = locals[cdt][cdn];
+	var totalberat = 0,
+  	totaltransfer = 0;
+	$.each(cur_frm.doc.items, function(i,e){
+		// console.log(e.qty_penambahan)
+		if(e.qty_penambahan != null && e.berat_transfer != null){
+		totalberat = parseFloat(totalberat) + parseFloat(e.qty_penambahan)
+		totaltransfer = parseFloat(totaltransfer) + parseFloat(e.berat_transfer)
+		console.log(totalberat)
+		}
 	})
+	cur_frm.set_value("total_bruto", totalberat)
+	cur_frm.set_value("total_berat_transfer", totaltransfer)
+	cur_frm.refresh_field("total_bruto")
+	cur_frm.refresh_field("total_berat_transfer")
 }
 frappe.ui.form.on('Update Bundle Stock', {
 	refresh: function(frm) {
 		cur_frm.get_field("id_employee").set_focus()
 		frm.add_custom_button(__("Connect"), () => frm.events.get_connect(frm));
-		frm.add_custom_button(__("Disconnect"), () => frm.events.get_disconnect(frm));
+		// frm.add_custom_button(__("Disconnect"), () => frm.events.get_disconnect(frm));
 		// frappe.db.get_value("Employee", { "user_id": frappe.session.user }, "name").then(function (responseJSON) {
 		//   cur_frm.set_value("pic", responseJSON.message.name);
 		//   cur_frm.get_field("bundle").set_focus()
@@ -126,6 +134,25 @@ frappe.ui.form.on('Update Bundle Stock', {
 			}
 		});
 		
+	},
+	total_perkadar:function(frm){
+		var totals = {};
+			cur_frm.doc.items.forEach(function(row) {
+				var kadar = row.kadar;
+				var berat = parseFloat(row.qty_penambahan);
+				if (!totals[kadar]) {
+					totals[kadar] = 0;
+				}
+				totals[kadar] += berat;
+			});
+			for (var kadar in totals) {
+				var total_berat = totals[kadar];
+				var child = cur_frm.add_child('per_kadar');
+				child.kadar = kadar;
+				child.bruto = total_berat;
+				console.log(total_berat)
+			}
+			cur_frm.refresh_field('per_kadar');
 	},
 	get_disconnect: function(frm){
 		disconnect()
@@ -198,6 +225,7 @@ frappe.ui.form.on('Detail Penambahan Stock', {
         // frappe.model.set_value(cdt, cdn, 'kadar', prev_kadar);
 		d.kadar = prev_kadar
         cur_frm.refresh_field('items');
+		hitung()
 		// hitung(frm, cdt, cdn)
 		if(cur_frm.doc.status_timbangan == "Connected"){
 		// 	d.set_df_property("qty_penambahan","read_only",1)
@@ -207,6 +235,9 @@ frappe.ui.form.on('Detail Penambahan Stock', {
 		// df.read_only = 1;
 		// cur_frm.refresh_fields('items');
 		}
+	},
+	items_remove: function(frm,cdt,cdn){
+		hitung()
 	},
 	// item: function(frm,cdt,cdn){
 	// 	var d = locals[cdt][cdn];	
@@ -262,10 +293,10 @@ frappe.ui.form.on('Detail Penambahan Stock', {
 	}, 
 	timbang: function(frm,cdt,cdn){
 		var d = locals[cdt][cdn];
-		var berat = d.qty_penambahan;
-		const { usbProductId, usbVendorId } = port.getInfo();
-		console.log("usbProductId :"+usbProductId)
-		console.log("usbVendorId :"+usbVendorId)
-		frappe.msgprint("haloo")
+		frappe.model.set_value(cdt, cdn, 'qty_penambahan', cur_frm.doc.berat);
+	},
+	timbang1: function(frm,cdt,cdn){
+		var d = locals[cdt][cdn];
+		frappe.model.set_value(cdt, cdn, 'berat_transfer', cur_frm.doc.berat);
 	}
 });
