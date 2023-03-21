@@ -52,3 +52,39 @@ def get_sub_item(kadar, sub_kategori):
                               """.format(kadar,sub_kategori))
     # frappe.msgprint(item_code)
     return item_code
+
+@frappe.whitelist()
+@frappe.validate_and_sanitize_search_inputs
+def get_sub_kategori(doctype, txt, searchfield, start, page_len, filters=None):
+
+	item_mr = frappe.get_list("Material Request Item", filters={'parent':filters.get("parent")}, fields=['name'])
+	conditions = ""
+	for x in item_mr:
+		# frappe.msgprint(str(x))
+		if conditions == "":
+			conditions = "'{}'".format(x.name)
+		else:
+			conditions = "{},'{}'".format(conditions, x.name)
+			
+	items = []
+	for item in item_mr:
+		items.append(item.name)
+
+	txt = ','.join('"%s"' % _ for _ in items)
+	# frappe.msgprint(txt)
+	return frappe.db.sql("""
+			SELECT 
+			mri.name, 
+			mri.item_name,
+			mri.item_code 
+			FROM `tabMaterial Request` mr
+			JOIN `tabMaterial Request Item` mri ON mri.parent = mr.name 
+			WHERE TRUE
+			AND mr.name = "{}"
+			AND mri.name in ({})			
+		""".format(filters.get("parent"),txt), {
+		# 'txt': "%{}%".format(txt),
+		# '_txt': txt.replace("%", ""),
+		'start': start,
+		'page_len': page_len
+	})
