@@ -10,21 +10,28 @@ class SerahTerimaPaymentCash(Document):
 		payment = frappe.get_list('IDR Payment',filters={'docstatus': 1, 'mode_of_payment':"Cash",'is_done':["<",1]}, fields=['parent','parenttype','name','mode_of_payment','amount','is_done'])
 		total_cash = 0
 		for row in payment:
+			# frappe.msgprint(row)
 			total_cash += row.amount
 			payment_baru = {
 				'mode_of_payment': row.mode_of_payment,
 				'amount': row.amount,
-				'deposit_account': frappe.get_doc('Mode of Payment', row.mode_of_payment).accounts[0].default_account
-			}
-			self.append('payment',payment_baru)
-			baris_baru = {
-				'amount':row.amount,
+				'customer': frappe.get_value(row.parenttype, row.parent, 'customer'),
+				'deposit_account': frappe.get_doc('Mode of Payment', row.mode_of_payment).accounts[0].default_account,
 				'voucher_type':row.parenttype,
 				'voucher_no':row.parent,
-				'child_table':"Stock Payment",
+				'child_table':"IDR Payment",
 				'child_id':row.name
 			}
-			self.append('details',baris_baru)
+			self.append('payment',payment_baru)
+			# baris_baru = {
+			# 	'amount':row.amount,
+			# 	'voucher_type':row.parenttype,
+			# 	'voucher_no':row.parent,
+			# 	'child_table':"Stock Payment",
+			# 	'child_id':row.name
+			# }
+			# frappe.msgprint(baris_baru)
+			# self.append('details',baris_baru)
 		self.nilai_cash = total_cash
 	def on_submit(self):
 		je = frappe.new_doc('Journal Entry')
