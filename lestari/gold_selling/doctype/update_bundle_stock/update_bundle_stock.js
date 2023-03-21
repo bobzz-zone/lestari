@@ -125,6 +125,13 @@ frappe.ui.form.on('Update Bundle Stock', {
 				]
 			}
 		});
+		frm.set_query("items","sub_kategori", function(){
+			return {
+				"filters": [
+					["Item Group", "parent_item_group", "=", "Product"],
+				]
+			}
+		});
 		frm.set_query("bundle", function(){
 			return {
 				"filters": [

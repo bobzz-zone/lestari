@@ -83,9 +83,9 @@ def get_gl_entries(filters):
 
 	gl_entries = frappe.db.sql("""
 		SELECT 
-			name as gl_entry, posting_date, (select account_name from `tabAccount` where name = account) as buku, cost_center,
-			remarks as keterangan, account, against,
-			debit, credit,
+			name as gl_entry, posting_date, (select account_name from `tabAccount` where name = account) as buku,(select account_number from `tabAccount` where name = account) as lawan , cost_center,
+			remarks as keterangan, account as against, against as account,
+			debit as credit, credit as debit,
 			voucher_type, voucher_no
 			FROM `tabGL Entry`
 		WHERE is_cancelled = 0
@@ -103,10 +103,10 @@ def get_conditions(filters):
 	conditions = []
 
 	if filters.account:
-		conditions.append("account = %(account)s")
+		conditions.append("against = %(account)s")
 		
 	if filters.against: 
-		conditions.append("against = %(against)s")
+		conditions.append("account = %(against)s")
 
 	if filters.cost_center:
 		conditions.append("cost_center = %(cost_center)s")
@@ -137,6 +137,7 @@ def get_totals_dict():
 	def _get_debit_credit_dict(label):
 		return _dict(
 			buku="{0}".format(label),
+			lawan="{0}".format(label),
 			debit=0.0,
 			credit=0.0,
 			debit_in_account_currency=0.0,
@@ -156,7 +157,9 @@ def get_accountwise_gle(filters, gl_entries):
 
 	def update_value_in_dict(data, key, gle):
 		data[key].debit += gle.debit
+		# data[key].debit += gle.credit
 		data[key].credit += gle.credit
+		# data[key].credit += gle.debit
 
 	from_date, to_date = getdate(filters.from_date), getdate(filters.to_date)
 	
@@ -214,10 +217,16 @@ def get_column():
 			"options": "GL Entry",
 			"width": 150
 		},
-		{"label": _("Posting Date"), "fieldname": "posting_date", "fieldtype": "Date", "width": 90},
+		{"label": _("Posting Date"), "fieldname": "posting_date", "fieldtype": "Date", "width": 120},
 		{
 			"label": _("Buku"), 
 			"fieldname": "buku", 
+			"fieldtype": "Data", 
+			"width": 150
+		},
+		{
+			"label": _("Lawan"), 
+			"fieldname": "lawan", 
 			"fieldtype": "Data", 
 			"width": 150
 		},
@@ -234,20 +243,20 @@ def get_column():
 			"fieldtype": "Data", 
 			"width": 150
 		},
-		{
-			"label": _("Debit"), 
-			"fieldname": "account", 
-			"fieldtype": "Link",
-			"options": "Account",
-			"width": 150
-		},
-		{
-			"label": _("Credit"), 
-			"fieldname": "against", 
-			"fieldtype": "Link",
-			"options": "Account",
-			"width": 150
-		},
+		# {
+		# 	"label": _("Debit"), 
+		# 	"fieldname": "account", 
+		# 	"fieldtype": "Link",
+		# 	"options": "Account",
+		# 	"width": 150
+		# },
+		# {
+		# 	"label": _("Credit"), 
+		# 	"fieldname": "against", 
+		# 	"fieldtype": "Link",
+		# 	"options": "Account",
+		# 	"width": 150
+		# },
 		{
 			"label": _("Masuk ({0})").format(currency),
 			"fieldname": "debit",
