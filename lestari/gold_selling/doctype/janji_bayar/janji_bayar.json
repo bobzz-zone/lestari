@@ -21,6 +21,7 @@
  ],
  "fields": [
   {
+   "default": "Today",
    "fieldname": "posting_date",
    "fieldtype": "Date",
    "in_list_view": 1,
@@ -28,6 +29,7 @@
    "reqd": 1
   },
   {
+   "default": "Today",
    "fieldname": "tanggal_janji",
    "fieldtype": "Date",
    "in_list_view": 1,
@@ -69,13 +71,15 @@
   {
    "fieldname": "total_bayar",
    "fieldtype": "Float",
-   "label": "Total Bayar"
+   "label": "Total Bayar",
+   "precision": "2"
   },
   {
    "fetch_from": "gold_invoice.outstanding",
    "fieldname": "outstanding",
    "fieldtype": "Float",
-   "label": "Outstanding"
+   "label": "Outstanding",
+   "precision": "2"
   },
   {
    "fetch_from": "gold_invoice.invoice_status",
@@ -101,7 +105,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-03-21 12:10:02.391484",
+ "modified": "2023-03-21 13:55:42.539887",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Janji Bayar",
