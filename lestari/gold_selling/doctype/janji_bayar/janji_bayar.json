@@ -1,0 +1,125 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-03-21 12:04:10.962972",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "posting_date",
+  "customer",
+  "customer_name",
+  "customer_group",
+  "territory",
+  "column_break_7",
+  "tanggal_janji",
+  "gold_invoice",
+  "total_bayar",
+  "outstanding",
+  "status",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": " Posting Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "tanggal_janji",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Tanggal Janji",
+   "reqd": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name"
+  },
+  {
+   "fetch_from": "customer.customer_group",
+   "fieldname": "customer_group",
+   "fieldtype": "Link",
+   "label": "Customer Group",
+   "options": "Customer Group"
+  },
+  {
+   "fetch_from": "customer.territory",
+   "fieldname": "territory",
+   "fieldtype": "Link",
+   "label": "Territory",
+   "options": "Territory"
+  },
+  {
+   "fieldname": "gold_invoice",
+   "fieldtype": "Link",
+   "label": "Gold Invoice",
+   "options": "Gold Invoice"
+  },
+  {
+   "fieldname": "total_bayar",
+   "fieldtype": "Float",
+   "label": "Total Bayar"
+  },
+  {
+   "fetch_from": "gold_invoice.outstanding",
+   "fieldname": "outstanding",
+   "fieldtype": "Float",
+   "label": "Outstanding"
+  },
+  {
+   "fetch_from": "gold_invoice.invoice_status",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Unpaid\nPaid"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Janji Bayar",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-03-21 12:10:02.391484",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Janji Bayar",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
