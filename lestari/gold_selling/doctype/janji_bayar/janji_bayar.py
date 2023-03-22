@@ -1,12 +1,14 @@
 # Copyright (c) 2023, DAS and contributors
 # For license information, please see license.txt
 
-# import frappe
+import frappe
 from frappe.model.document import Document
 
 class JanjiBayar(Document):
 	def on_submit(self):
 		self.sisa_janji=self.total_bayar
+	def on_cancel(self):
+		self.status="Cancelled"
 	@frappe.whitelist(allow_guest=True)
 	def get_gold_payment(self):
 		inv = frappe.get_doc("Gold Invoice",self.gold_invoice)
