@@ -132,9 +132,14 @@ frappe.ui.form.on('Update Bundle Stock', {
 		// 		]
 		// 	}
 		// });
+		var list_parent = frappe.db.get_list('Item Group', filters={'parent_item_group': 'Products'}, pluck = 'name',as_list=True).then(function (list_parent){
+			console.log(list_parent)
+		})
 		frm.set_query("sub_kategori", "items", function () {
 			return {
-			  query: "lestari.gold_selling.doctype.update_bundle_stock.update_bundle_stock.get_sub_kategori",
+			  "filters": {
+				"parent_item_group":["in",list_parent],
+			  },
 			};
 		  });
 		frm.set_query("bundle", function(){

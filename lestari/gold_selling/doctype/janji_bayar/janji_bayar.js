@@ -11,5 +11,17 @@ frappe.ui.form.on('Janji Bayar', {
 				]
 			}
 		});
+	},
+	gold_invoice: function(frm){
+		var total_idr = 0;
+		total_idr = cur_frm.doc.total_invoice * cur_frm.doc.tutupan
+		cur_frm.set_value("total_idr_payment", total_idr)
+		cur_frm.refresh_field("total_idr_payment")
+	},
+	tutupan: function(frm){
+		var total_idr = 0;
+		total_idr = cur_frm.doc.total_invoice * cur_frm.doc.tutupan
+		cur_frm.set_value("total_idr_payment", total_idr)
+		cur_frm.refresh_field("total_idr_payment")
 	}
 });
