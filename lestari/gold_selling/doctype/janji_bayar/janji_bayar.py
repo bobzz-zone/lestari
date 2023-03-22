@@ -3,7 +3,7 @@
 
 import frappe
 from frappe.model.document import Document
-
+from frappe.utils import now
 class JanjiBayar(Document):
 	def on_submit(self):
 		self.sisa_janji=self.total_bayar
