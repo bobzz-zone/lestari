@@ -62,7 +62,11 @@ class GoldPayment(StockController):
 					frappe.db.sql("""update `tabCustomer Payment Return` set outstanding=outstanding-{} , invoice_status="Paid" where name = "{}" """.format(row.allocated,row.invoice))
 				else:
 					frappe.db.sql("""update `tabCustomer Payment Return` set outstanding=outstanding-{} where name = "{}" """.format(row.allocated,row.invoice))
-
+			if self.janji_bayar and self.total_idr_payment>0:
+				frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_payment,self.janji_bayar))
+				janji=frappe.get_doc("Janji Bayar",self.janji_bayar)
+				if janji.sisa_janji<1:
+					frappe.db.sql("""update `tabJanji Bayar` set status="Lunas" where name = "{0}" """.format(self.janji_bayar))
 	def on_cancel(self):
 		self.flags.ignore_links=True
 		self.make_gl_entries_on_cancel()
