@@ -1,0 +1,41 @@
+{
+ "category": "Modules",
+ "charts": [],
+ "creation": "2023-03-23 11:27:29.541986",
+ "developer_mode_only": 0,
+ "disable_user_customization": 0,
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "extends_another_page": 0,
+ "hide_custom": 0,
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "label": "Stockist",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Update Bundle Stock",
+   "link_to": "Update Bundle Stock",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2023-03-23 11:29:10.784937",
+ "modified_by": "Administrator",
+ "module": "Stockist",
+ "name": "Stockist",
+ "owner": "Administrator",
+ "pin_to_bottom": 0,
+ "pin_to_top": 1,
+ "shortcuts": [
+  {
+   "doc_view": "List",
+   "label": "Update Bundle Stock",
+   "link_to": "Update Bundle Stock",
+   "type": "DocType"
+  }
+ ]
+}

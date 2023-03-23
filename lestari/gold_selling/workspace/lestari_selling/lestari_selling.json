@@ -71,7 +71,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Customer Rates",
-   "link_to": "Customer Selling Rates",
+   "link_to": "Customer Rates",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -80,7 +80,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Customer Group Rates",
-   "link_to": "Customer Group Selling Rates",
+   "link_to": "Customer Group Rates",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -102,9 +102,18 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Transfer Salesman",
+   "link_to": "Update Bundle Stock",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2022-09-01 01:14:57.850712",
+ "modified": "2023-03-10 15:23:19.771718",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Lestari Selling",
