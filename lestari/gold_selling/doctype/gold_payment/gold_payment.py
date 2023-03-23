@@ -62,7 +62,13 @@ class GoldPayment(StockController):
 					frappe.db.sql("""update `tabCustomer Payment Return` set outstanding=outstanding-{} , invoice_status="Paid" where name = "{}" """.format(row.allocated,row.invoice))
 				else:
 					frappe.db.sql("""update `tabCustomer Payment Return` set outstanding=outstanding-{} where name = "{}" """.format(row.allocated,row.invoice))
-
+			if self.janji_bayar and self.total_idr_payment>0:
+				janji=frappe.get_doc("Janji Bayar",self.janji_bayar)
+				if janji.status=="Pending":
+					if janji.sisa_janji<=self.total_idr_payment : 
+						frappe.db.sql("""update `tabJanji Bayar` set status="Lunas",total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_payment,self.janji_bayar))
+					else:
+						frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_payment,self.janji_bayar))
 	def on_cancel(self):
 		self.flags.ignore_links=True
 		self.make_gl_entries_on_cancel()
@@ -73,7 +79,12 @@ class GoldPayment(StockController):
 			frappe.db.sql("""update `tabGold Invoice` set outstanding=outstanding+{} , invoice_status="Unpaid" where name = "{}" """.format(row.allocated,row.gold_invoice))
 		for row in self.customer_return:
 			frappe.db.sql("""update `tabCustomer Payment Return` set outstanding=outstanding+{} , invoice_status="Unpaid" where name = "{}" """.format(row.allocated,row.invoice))
-
+		if self.janji_bayar and self.total_idr_payment>0:
+				janji=frappe.get_doc("Janji Bayar",self.janji_bayar)
+				if janji.status == "Lunas":
+					frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar-{0} ,status="Pending", sisa_janji=sisa_janji+{0} where name = "{1}" """.format(self.total_idr_payment,self.janji_bayar))
+				else:
+					frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar-{0} , sisa_janji=sisa_janji+{0} where name = "{1}" """.format(self.total_idr_payment,self.janji_bayar))
 	@frappe.whitelist()
 	def get_gold_invoice(self):
 		doc = frappe.db.get_list("Gold Invoice", filters={"customer": self.customer, "invoice_status":"Unpaid", 'docstatus':1}, fields=['name','outstanding','due_date','tutupan','total_bruto','grand_total'])

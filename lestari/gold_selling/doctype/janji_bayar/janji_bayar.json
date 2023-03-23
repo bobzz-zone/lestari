@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "JB.#####",
  "creation": "2023-03-21 12:04:10.962972",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -11,12 +12,20 @@
   "customer_name",
   "customer_group",
   "territory",
+  "catatan",
   "column_break_7",
   "tanggal_janji",
   "gold_invoice",
-  "total_bayar",
+  "total_invoice",
+  "status_invoice",
   "outstanding",
+  "tutupan",
+  "total_idr_payment",
+  "total_bayar",
+  "sb_summary",
   "status",
+  "total_terbayar",
+  "sisa_janji",
   "amended_from"
  ],
  "fields": [
@@ -29,6 +38,7 @@
    "reqd": 1
   },
   {
+   "allow_on_submit": 1,
    "default": "Today",
    "fieldname": "tanggal_janji",
    "fieldtype": "Date",
@@ -40,53 +50,54 @@
    "fieldname": "customer",
    "fieldtype": "Link",
    "label": "Customer",
-   "options": "Customer"
+   "options": "Customer",
+   "reqd": 1
   },
   {
    "fetch_from": "customer.customer_name",
    "fieldname": "customer_name",
    "fieldtype": "Data",
-   "label": "Customer Name"
+   "label": "Customer Name",
+   "read_only": 1
   },
   {
    "fetch_from": "customer.customer_group",
    "fieldname": "customer_group",
    "fieldtype": "Link",
    "label": "Customer Group",
-   "options": "Customer Group"
+   "options": "Customer Group",
+   "read_only": 1
   },
   {
    "fetch_from": "customer.territory",
    "fieldname": "territory",
    "fieldtype": "Link",
    "label": "Territory",
-   "options": "Territory"
+   "options": "Territory",
+   "read_only": 1
   },
   {
    "fieldname": "gold_invoice",
    "fieldtype": "Link",
    "label": "Gold Invoice",
-   "options": "Gold Invoice"
+   "options": "Gold Invoice",
+   "reqd": 1
   },
   {
+   "depends_on": "eval: doc.gold_invoice",
    "fieldname": "total_bayar",
-   "fieldtype": "Float",
-   "label": "Total Bayar",
-   "precision": "2"
+   "fieldtype": "Currency",
+   "label": "Total Janji Bayar",
+   "precision": "2",
+   "reqd": 1
   },
   {
    "fetch_from": "gold_invoice.outstanding",
    "fieldname": "outstanding",
-   "fieldtype": "Float",
-   "label": "Outstanding",
-   "precision": "2"
-  },
-  {
-   "fetch_from": "gold_invoice.invoice_status",
-   "fieldname": "status",
-   "fieldtype": "Select",
-   "label": "Status",
-   "options": "Unpaid\nPaid"
+   "fieldtype": "Currency",
+   "label": "Belum Dibayar",
+   "precision": "2",
+   "read_only": 1
   },
   {
    "fieldname": "amended_from",
@@ -100,12 +111,76 @@
   {
    "fieldname": "column_break_7",
    "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.gold_invoice",
+   "fetch_from": "gold_invoice.tutupan",
+   "fieldname": "tutupan",
+   "fieldtype": "Currency",
+   "label": "Tutupan",
+   "precision": "2"
+  },
+  {
+   "fetch_from": "gold_invoice.outstanding",
+   "fieldname": "total_invoice",
+   "fieldtype": "Float",
+   "label": "Total Invoice",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.gold_invoice",
+   "fetch_from": "gold_invoice.invoice_status",
+   "fieldname": "status_invoice",
+   "fieldtype": "Select",
+   "label": "Status Invoice",
+   "options": "Unpaid\nPaid",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_idr_payment",
+   "fieldtype": "Currency",
+   "label": "Total IDR Payment",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "catatan",
+   "fieldtype": "Text",
+   "label": "Catatan"
+  },
+  {
+   "fieldname": "sb_summary",
+   "fieldtype": "Section Break",
+   "label": "Summary"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Pending",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Pending\nLunas\nCancel\nStopped",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_terbayar",
+   "fieldtype": "Currency",
+   "label": "Janji Terbayar",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sisa_janji",
+   "fieldtype": "Currency",
+   "label": "Sisa Janji",
+   "read_only": 1
   }
  ],
- "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-03-21 13:55:42.539887",
+ "modified": "2023-03-22 16:35:27.322819",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Janji Bayar",

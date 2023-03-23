@@ -12,6 +12,7 @@
   "customer_group",
   "territory",
   "sales_bundle",
+  "janji_bayar",
   "sales_warehouse",
   "column_break_2",
   "posting_date",
@@ -301,12 +302,18 @@
    "label": "Sales Warehouse",
    "options": "Warehouse",
    "read_only": 1
+  },
+  {
+   "fieldname": "janji_bayar",
+   "fieldtype": "Link",
+   "label": "Janji Bayar",
+   "options": "Janji Bayar"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-03-16 01:37:00.474932",
+ "modified": "2023-03-22 16:22:25.736257",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",
