@@ -85,7 +85,7 @@ async function appendToTerminal(newStuff) {
   
   // newStuff = newStuff.replace(/[^\d.]/g, "").trim(); //timbangan AND
 //   console.log(newStuff)
-  cur_frm.set_value("berat", (parseFloat(newStuff) / 100));
+  cur_frm.set_value("berat", newStuff);
   cur_frm.refresh_field("berat");
 }
 
