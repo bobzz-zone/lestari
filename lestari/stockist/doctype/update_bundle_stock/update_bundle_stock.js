@@ -85,7 +85,7 @@ async function appendToTerminal(newStuff) {
   
   // newStuff = newStuff.replace(/[^\d.]/g, "").trim(); //timbangan AND
 //   console.log(newStuff)
-  cur_frm.set_value("berat", newStuff);
+  cur_frm.set_value("berat", (parseFloat(newStuff) / 100));
   cur_frm.refresh_field("berat");
 }
 
@@ -138,7 +138,8 @@ frappe.ui.form.on('Update Bundle Stock', {
 		frm.set_query("sub_kategori", "items", function () {
 			return {
 			  "filters": {
-				"parent_item_group":["in",list_parent],
+				"is_group":0,
+				// "lft":[">":2],
 			  },
 			};
 		  });
@@ -264,7 +265,7 @@ frappe.ui.form.on('Detail Penambahan Stock', {
 		var d = locals[cdt][cdn];
 		if(d.kadar != null){
 		frappe.call({
-			method: 'lestari.gold_selling.doctype.update_bundle_stock.update_bundle_stock.get_sub_item',
+			method: 'lestari.stockist.doctype.update_bundle_stock.update_bundle_stock.get_sub_item',
 			args: {
 				'kadar': d.kadar,
 				'sub_kategori': d.sub_kategori
@@ -286,7 +287,7 @@ frappe.ui.form.on('Detail Penambahan Stock', {
 		frappe.model.set_value(cdt, cdn, 'qty_penambahan', "read_only", true);
 		if(d.sub_kategori != null){
 		frappe.call({
-			method: 'lestari.gold_selling.doctype.update_bundle_stock.update_bundle_stock.get_sub_item',
+			method: 'lestari.stockist.doctype.update_bundle_stock.update_bundle_stock.get_sub_item',
 			args: {
 				'kadar': d.kadar,
 				'sub_kategori': d.sub_kategori
@@ -314,6 +315,6 @@ frappe.ui.form.on('Detail Penambahan Stock', {
 	},
 	timbang1: function(frm,cdt,cdn){
 		var d = locals[cdt][cdn];
-		frappe.model.set_value(cdt, cdn, 'berat_transfer', cur_frm.doc.berat);
+		frappe.model.set_value(cdt, cdn, 'berat_transfer', cur_frm.doc.berat / 100);
 	}
 });
