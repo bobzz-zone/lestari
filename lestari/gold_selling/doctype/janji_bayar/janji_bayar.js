@@ -2,6 +2,7 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Janji Bayar', {
+	
 	refresh: function(frm) {
 		frm.events.make_custom_buttons(frm);
 		frm.set_query("gold_invoice", function(){

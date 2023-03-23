@@ -4,8 +4,10 @@
 import frappe
 from frappe.model.document import Document
 from frappe.utils import now
+
 class JanjiBayar(Document):
-	def on_submit(self):
+	def validate(self):
+		self.status = "Pending"
 		self.sisa_janji=self.total_bayar
 	def on_cancel(self):
 		self.status="Cancelled"
@@ -16,7 +18,7 @@ class JanjiBayar(Document):
 		doc.customer = self.customer
 		doc.warehouse = inv.warehouse
 		doc.posting_date = now()
-		doc.janji_bayar=self.janji_bayar
+		doc.janji_bayar = self.name
 		doc.total_invoice = inv.outstanding
 		baris_baru = {
 			'gold_invoice':inv.name,
