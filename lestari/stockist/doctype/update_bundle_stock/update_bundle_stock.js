@@ -81,10 +81,11 @@ async function appendToTerminal(newStuff) {
   // const valueString = new TextDecoder().decode(value);
   // const filteredValue = newStuff.match(/[-+]?0*(\.\d+)/g).map(x => x.replace(/^[-+]?0*([^0]+)/g, "$1")).join('');
   newStuff = newStuff.replace(/[A-Z]|[a-z]/g, "").trim(); //timbangan suncho dan metler
+  newStuff = parseFloat(newStuff)
 //   let formattedValue = newStuff.replace(".", ",");
   
   // newStuff = newStuff.replace(/[^\d.]/g, "").trim(); //timbangan AND
-//   console.log(newStuff)
+  console.log(newStuff)
   cur_frm.set_value("berat", newStuff);
   cur_frm.refresh_field("berat");
 }
@@ -106,6 +107,7 @@ function hitung(){
 	cur_frm.refresh_field("total_bruto")
 	cur_frm.refresh_field("total_berat_transfer")
 }
+var list_kat = [];
 frappe.ui.form.on('Update Bundle Stock', {
 	refresh: function(frm) {
 		cur_frm.get_field("id_employee").set_focus()
@@ -132,15 +134,29 @@ frappe.ui.form.on('Update Bundle Stock', {
 		// 		]
 		// 	}
 		// });
-		var list_parent = frappe.db.get_list('Item Group', filters={'parent_item_group': 'Products'}, pluck = 'name',as_list=True).then(function (list_parent){
-			console.log(list_parent)
+		frappe.db.get_list('Item Group', {
+			filters: {
+				parent_item_group: 'Products'
+			}
+		}).then(records => {
+			for(var i = 0; i<= records.length; i++){
+				list_kat.push(records[i].name)
+				// console.log(records[i].name);
+				// console.log(list_kat)
+			}
 		})
+		// frm.set_query("sub_kategori", "items", function () {
+		// 	return {
+		// 		"filters": [
+		// 			["Item Group", "is_group", "=", 0],
+		// 		]
+		// 	};
+		//   });
 		frm.set_query("sub_kategori", "items", function () {
 			return {
-			  "filters": {
-				"is_group":0,
-				// "lft":[">":2],
-			  },
+				"filters": [
+					["Item Group", "parent_item_group", "in", list_kat],
+				]
 			};
 		  });
 		frm.set_query("bundle", function(){
@@ -315,6 +331,6 @@ frappe.ui.form.on('Detail Penambahan Stock', {
 	},
 	timbang1: function(frm,cdt,cdn){
 		var d = locals[cdt][cdn];
-		frappe.model.set_value(cdt, cdn, 'berat_transfer', cur_frm.doc.berat / 100);
+		frappe.model.set_value(cdt, cdn, 'berat_transfer', cur_frm.doc.berat);
 	}
 });
