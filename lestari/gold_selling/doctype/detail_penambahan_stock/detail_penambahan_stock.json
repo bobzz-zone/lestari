@@ -8,17 +8,18 @@
  "field_order": [
   "sub_kategori",
   "kadar",
+  "item",
   "qty_penambahan",
   "timbang",
   "berat_transfer",
   "timbang1",
   "column_break_4",
   "kategori",
-  "item",
   "gold_selling_item"
  ],
  "fields": [
   {
+   "columns": 1,
    "fieldname": "qty_penambahan",
    "fieldtype": "Float",
    "in_list_view": 1,
@@ -42,6 +43,7 @@
    "read_only": 1
   },
   {
+   "columns": 2,
    "fieldname": "sub_kategori",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -51,6 +53,7 @@
    "reqd": 1
   },
   {
+   "columns": 1,
    "fieldname": "kadar",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -59,8 +62,10 @@
    "reqd": 1
   },
   {
+   "columns": 2,
    "fieldname": "item",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Item",
    "options": "Item",
    "read_only": 1
@@ -70,27 +75,32 @@
    "fieldtype": "Column Break"
   },
   {
+   "columns": 1,
    "fieldname": "berat_transfer",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "Berat Transfer",
    "precision": "2"
   },
   {
+   "columns": 1,
    "fieldname": "timbang",
    "fieldtype": "Button",
    "in_list_view": 1,
    "label": "Timbang"
   },
   {
+   "columns": 1,
    "fieldname": "timbang1",
    "fieldtype": "Button",
+   "in_list_view": 1,
    "label": "Timbang"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-03-16 03:06:18.898014",
+ "modified": "2023-03-21 15:02:00.730044",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Detail Penambahan Stock",
