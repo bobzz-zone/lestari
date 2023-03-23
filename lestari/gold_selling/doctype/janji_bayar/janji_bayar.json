@@ -94,7 +94,7 @@
   {
    "fetch_from": "gold_invoice.outstanding",
    "fieldname": "outstanding",
-   "fieldtype": "Currency",
+   "fieldtype": "Float",
    "label": "Belum Dibayar",
    "precision": "2",
    "read_only": 1
@@ -162,7 +162,8 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Status",
-   "options": "Pending\nLunas\nCancel\nStopped",
+   "no_copy": 1,
+   "options": "Pending\nLunas\nCancelled\nStopped",
    "read_only": 1
   },
   {
@@ -180,7 +181,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-03-22 16:35:27.322819",
+ "modified": "2023-03-23 10:19:32.242299",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Janji Bayar",
