@@ -120,7 +120,7 @@ function hitung(){
 				var child = cur_frm.add_child('per_kadar');
 				child.kadar = kadar;
 				child.bruto = total_berat;
-				console.log(total_berat)
+				console.log(total_berat);
 			}
 			cur_frm.refresh_field('per_kadar');
 }
