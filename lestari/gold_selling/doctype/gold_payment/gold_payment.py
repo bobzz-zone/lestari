@@ -34,41 +34,45 @@ class GoldPayment(StockController):
 			if row.allocated:
 				unallocated=flt(unallocated,3)-flt(row.allocated,3)
 		self.unallocated_payment=flt(unallocated,3)
-		if self.unallocated_payment and self.unallocated_payment>0.0001:
+		# if self.unallocated_payment and self.unallocated_payment>0.0001:
 			# frappe.msgprint(self.total_invoice)
-			frappe.throw("Error,unallocated Payment Masih tersisa {}".format(self.unallocated_payment))
+			# frappe.throw("Error,unallocated Payment Masih tersisa {}".format(self.unallocated_payment))
 		# if self.unallocated_payment<0.0001:
 		# 	self.unallocated_payment = 0
 		if not self.warehouse:
 			self.warehouse = frappe.db.get_single_value('Gold Selling Settings', 'default_warehouse')
 
 	def on_submit(self):
-		for cek in self.idr_payment:
-			# if cek.mode_of_payment != "Cash":
-				# frappe.throw("Silahkan Cek Transfer Bank Terlebih Dahulu")
-			# else:				
-			self.make_gl_entries()
-			#posting Stock Ledger Post
-			self.update_stock_ledger()
-			self.repost_future_sle_and_gle()
-			#update invoice
-			for row in self.invoice_table:
-				if row.allocated==row.outstanding:
-					frappe.db.sql("""update `tabGold Invoice` set outstanding=outstanding-{} , invoice_status="Paid" where name = "{}" """.format(row.allocated,row.gold_invoice))
-				else:
-					frappe.db.sql("""update `tabGold Invoice` set outstanding=outstanding-{} where name = "{}" """.format(row.allocated,row.gold_invoice))
-			for row in self.customer_return:
-				if row.allocated==row.outstanding:
-					frappe.db.sql("""update `tabCustomer Payment Return` set outstanding=outstanding-{} , invoice_status="Paid" where name = "{}" """.format(row.allocated,row.invoice))
-				else:
-					frappe.db.sql("""update `tabCustomer Payment Return` set outstanding=outstanding-{} where name = "{}" """.format(row.allocated,row.invoice))
-			if self.janji_bayar and self.total_idr_payment>0:
-				janji=frappe.get_doc("Janji Bayar",self.janji_bayar)
-				if janji.status=="Pending":
-					if janji.sisa_janji<=self.total_idr_payment : 
-						frappe.db.sql("""update `tabJanji Bayar` set status="Lunas",total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_payment,self.janji_bayar))
+		if self.unallocated_payment and self.unallocated_payment>0.0001:
+			# frappe.msgprint(self.total_invoice)
+			frappe.throw("Error,unallocated Payment Masih tersisa {}".format(self.unallocated_payment))
+		else:
+			for cek in self.idr_payment:
+				# if cek.mode_of_payment != "Cash":
+					# frappe.throw("Silahkan Cek Transfer Bank Terlebih Dahulu")
+				# else:				
+				self.make_gl_entries()
+				#posting Stock Ledger Post
+				self.update_stock_ledger()
+				self.repost_future_sle_and_gle()
+				#update invoice
+				for row in self.invoice_table:
+					if row.allocated==row.outstanding:
+						frappe.db.sql("""update `tabGold Invoice` set outstanding=outstanding-{} , invoice_status="Paid" where name = "{}" """.format(row.allocated,row.gold_invoice))
 					else:
-						frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_payment,self.janji_bayar))
+						frappe.db.sql("""update `tabGold Invoice` set outstanding=outstanding-{} where name = "{}" """.format(row.allocated,row.gold_invoice))
+				for row in self.customer_return:
+					if row.allocated==row.outstanding:
+						frappe.db.sql("""update `tabCustomer Payment Return` set outstanding=outstanding-{} , invoice_status="Paid" where name = "{}" """.format(row.allocated,row.invoice))
+					else:
+						frappe.db.sql("""update `tabCustomer Payment Return` set outstanding=outstanding-{} where name = "{}" """.format(row.allocated,row.invoice))
+				if self.janji_bayar and self.total_idr_payment>0:
+					janji=frappe.get_doc("Janji Bayar",self.janji_bayar)
+					if janji.status=="Pending":
+						if janji.sisa_janji<=self.total_idr_payment : 
+							frappe.db.sql("""update `tabJanji Bayar` set status="Lunas",total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_payment,self.janji_bayar))
+						else:
+							frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_payment,self.janji_bayar))
 	def on_cancel(self):
 		self.flags.ignore_links=True
 		self.make_gl_entries_on_cancel()

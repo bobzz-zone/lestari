@@ -91,34 +91,53 @@ async function appendToTerminal(newStuff) {
 }
 
 function hitung(){
-	// var d = locals[cdt][cdn];
 	var totalberat = 0,
   	totaltransfer = 0;
 	$.each(cur_frm.doc.items, function(i,e){
 		// console.log(e.qty_penambahan)
-		if(e.qty_penambahan != null && e.berat_transfer != null){
+		if(e.qty_penambahan != null){
 		totalberat = parseFloat(totalberat) + parseFloat(e.qty_penambahan)
-		totaltransfer = parseFloat(totaltransfer) + parseFloat(e.berat_transfer)
 		console.log(totalberat)
 		}
 	})
 	cur_frm.set_value("total_bruto", totalberat)
-	cur_frm.set_value("total_berat_transfer", totaltransfer)
 	cur_frm.refresh_field("total_bruto")
-	cur_frm.refresh_field("total_berat_transfer")
+
+	cur_frm.clear_table("per_kadar")
+		cur_frm.refresh_field('per_kadar');
+		var totals = {};
+			cur_frm.doc.items.forEach(function(row) {
+				var kadar = row.kadar;
+				var berat = parseFloat(row.qty_penambahan);
+				var berat_transfer = parseFloat(row.berat_transfer);
+				if (!totals[kadar]) {
+					totals[kadar] = 0;
+				}
+				totals[kadar] += berat;
+			});
+			for (var kadar in totals) {
+				var total_berat = totals[kadar];
+				var child = cur_frm.add_child('per_kadar');
+				child.kadar = kadar;
+				child.bruto = total_berat;
+				console.log(total_berat)
+			}
+			cur_frm.refresh_field('per_kadar');
 }
 var list_kat = [];
 frappe.ui.form.on('Update Bundle Stock', {
 	refresh: function(frm) {
-		cur_frm.get_field("id_employee").set_focus()
+		cur_frm.get_field("bundle").set_focus()
 		frm.add_custom_button(__("Connect"), () => frm.events.get_connect(frm));
 		// frm.add_custom_button(__("Disconnect"), () => frm.events.get_disconnect(frm));
-		// frappe.db.get_value("Employee", { "user_id": frappe.session.user }, "name").then(function (responseJSON) {
-		//   cur_frm.set_value("pic", responseJSON.message.name);
-		//   cur_frm.get_field("bundle").set_focus()
-		//   cur_frm.refresh_field("pic");
-		// //   console.log(responseJSON)
-		// })
+		frappe.db.get_value("Employee", { "user_id": frappe.session.user }, ["name","id_employee"]).then(function (responseJSON) {
+		  cur_frm.set_value("pic", responseJSON.message.name);
+		  cur_frm.set_value("id_employee", responseJSON.message.id_employee);
+		  cur_frm.get_field("bundle").set_focus()
+		  cur_frm.refresh_field("pic");
+		  cur_frm.refresh_field("id_employee");
+		//   console.log(responseJSON)
+		})
 		
 		frm.set_query("pic", function(){
 			return {
@@ -170,23 +189,7 @@ frappe.ui.form.on('Update Bundle Stock', {
 		
 	},
 	total_perkadar:function(frm){
-		var totals = {};
-			cur_frm.doc.items.forEach(function(row) {
-				var kadar = row.kadar;
-				var berat = parseFloat(row.qty_penambahan);
-				if (!totals[kadar]) {
-					totals[kadar] = 0;
-				}
-				totals[kadar] += berat;
-			});
-			for (var kadar in totals) {
-				var total_berat = totals[kadar];
-				var child = cur_frm.add_child('per_kadar');
-				child.kadar = kadar;
-				child.bruto = total_berat;
-				console.log(total_berat)
-			}
-			cur_frm.refresh_field('per_kadar');
+		hitung()
 	},
 	get_disconnect: function(frm){
 		disconnect()
@@ -247,8 +250,7 @@ frappe.ui.form.on('Detail Penambahan Stock', {
 			}else{
 				g.kadar = prev_kadar
 			}
-			cur_frm.get_field('items').grid.get_row(g.name).columns_list[3].df.read_only = 1;
-			cur_frm.get_field('items').grid.get_row(g.name).columns_list[5].df.read_only = 1;
+			// cur_frm.get_field('items').grid.get_row(g.name).columns_list[3].df.read_only = 1;
 			cur_frm.refresh_field("item")
 		})
         // if (idx > 1) {
@@ -313,8 +315,7 @@ frappe.ui.form.on('Detail Penambahan Stock', {
 					d.item = r.message[0][0]
 					d.gold_selling_item = r.message[0][1]
 					cur_frm.doc.id_row = d.idx
-					cur_frm.get_field('items').grid.get_row(cdn).columns_list[3].df.read_only = 1;
-					cur_frm.get_field('items').grid.get_row(cdn).columns_list[5].df.read_only = 1;
+					// cur_frm.get_field('items').grid.get_row(cdn).columns_list[3].df.read_only = 1;
 					cur_frm.doc.field_row = "qty_penambahan"
 					cur_frm.refresh_field("id_row")
 					cur_frm.refresh_field("field_row")
@@ -325,6 +326,9 @@ frappe.ui.form.on('Detail Penambahan Stock', {
 		});
 		}
 	}, 
+	qty_penambahan: function(frm,cdt,cdn){
+		hitung()
+	},
 	timbang: function(frm,cdt,cdn){
 		var d = locals[cdt][cdn];
 		frappe.model.set_value(cdt, cdn, 'qty_penambahan', cur_frm.doc.berat);
