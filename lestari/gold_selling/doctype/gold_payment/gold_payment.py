@@ -60,6 +60,7 @@ class GoldPayment(StockController):
 					if row.allocated==row.outstanding:
 						frappe.db.sql("""update `tabGold Invoice` set outstanding=outstanding-{} , invoice_status="Paid" where name = "{}" """.format(row.allocated,row.gold_invoice))
 					else:
+						# frappe.msgprint("Gold Invoice {}, Allocatted {}".format(row.gold_invoice,row.allocated))
 						frappe.db.sql("""update `tabGold Invoice` set outstanding=outstanding-{} where name = "{}" """.format(row.allocated,row.gold_invoice))
 				for row in self.customer_return:
 					if row.allocated==row.outstanding:
