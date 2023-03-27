@@ -8,6 +8,8 @@
  "engine": "InnoDB",
  "field_order": [
   "tanggal_spk",
+  "column_break_2",
+  "work_order",
   "detail_perencana_section",
   "employee_id",
   "column_break_4",
@@ -97,13 +99,22 @@
    "options": "SPK Produksi",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "work_order",
+   "fieldtype": "Data",
+   "label": "Work Order"
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-02-28 12:52:50.331322",
+ "modified": "2023-03-27 10:48:40.943767",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "SPK Produksi",

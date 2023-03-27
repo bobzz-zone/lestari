@@ -5,7 +5,7 @@ from collections import OrderedDict
 
 import frappe
 from frappe import _, _dict
-from frappe.utils import getdate
+from frappe.utils import cstr, getdate
 
 from erpnext import get_company_currency, get_default_company
 
@@ -85,7 +85,7 @@ def get_gl_entries(filters):
 		SELECT 
 			name as gl_entry, posting_date, (select account_name from `tabAccount` where name = account) as buku,(select account_number from `tabAccount` where name = account) as lawan , cost_center,
 			remarks as keterangan, account as against, against as account,
-			debit as credit, credit as debit,
+			debit as credit, credit as debit, is_opening
 			voucher_type, voucher_no
 			FROM `tabGL Entry`
 		WHERE is_cancelled = 0
@@ -165,10 +165,10 @@ def get_accountwise_gle(filters, gl_entries):
 	
 	for gle in gl_entries:
 		group_by_value = gle.get('account')
-		if gle.posting_date < from_date:
+		if gle.posting_date < from_date or (cstr(gle.is_opening) == "Yes"):
 			update_value_in_dict(totals, "opening", gle)
 			update_value_in_dict(totals, "closing", gle)
-		elif gle.posting_date <= to_date:
+		elif gle.posting_date <= to_date or (cstr(gle.is_opening) == "Yes"):
 			keylist = [
 				gle.get("voucher_type"),
 				gle.get("voucher_no"),

@@ -54,7 +54,9 @@
   "grand_total",
   "total_advance",
   "outstanding",
+  "column_break_48",
   "invoice_status",
+  "gold_payment",
   "amended_from"
  ],
  "fields": [
@@ -369,11 +371,22 @@
   {
    "fieldname": "column_break_33",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "gold_payment",
+   "fieldtype": "Link",
+   "label": "Gold Payment",
+   "options": "Gold Payment",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_48",
+   "fieldtype": "Column Break"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-03-16 12:48:57.317793",
+ "modified": "2023-03-27 15:35:22.514724",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",
