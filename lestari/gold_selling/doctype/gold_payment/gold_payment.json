@@ -293,7 +293,8 @@
    "fieldname": "sales_bundle",
    "fieldtype": "Link",
    "label": "Sales Bundle",
-   "options": "Sales Stock Bundle"
+   "options": "Sales Stock Bundle",
+   "read_only": 1
   },
   {
    "fetch_from": "sales_bundle.warehouse",
@@ -307,13 +308,14 @@
    "fieldname": "janji_bayar",
    "fieldtype": "Link",
    "label": "Janji Bayar",
-   "options": "Janji Bayar"
+   "options": "Janji Bayar",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-03-22 16:22:25.736257",
+ "modified": "2023-03-27 23:38:18.531982",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

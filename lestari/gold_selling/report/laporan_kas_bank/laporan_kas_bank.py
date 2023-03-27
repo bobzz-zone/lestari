@@ -85,8 +85,8 @@ def get_gl_entries(filters):
 		SELECT 
 			name as gl_entry, posting_date, (select account_name from `tabAccount` where name = account) as buku,(select account_number from `tabAccount` where name = account) as lawan , cost_center,
 			remarks as keterangan, account as against, against as account,
-			debit as credit, credit as debit, is_opening
-			voucher_type, voucher_no
+			debit as credit, credit as debit,
+			voucher_type, voucher_no, is_opening
 			FROM `tabGL Entry`
 		WHERE is_cancelled = 0
 		{conditions}
@@ -164,11 +164,12 @@ def get_accountwise_gle(filters, gl_entries):
 	from_date, to_date = getdate(filters.from_date), getdate(filters.to_date)
 	
 	for gle in gl_entries:
-		group_by_value = gle.get('account')
-		if gle.posting_date < from_date or (cstr(gle.is_opening) == "Yes"):
+		# group_by_value = gle.get('account')
+		
+		if gle.posting_date < from_date or cstr(gle.is_opening) == "Yes":
 			update_value_in_dict(totals, "opening", gle)
 			update_value_in_dict(totals, "closing", gle)
-		elif gle.posting_date <= to_date or (cstr(gle.is_opening) == "Yes"):
+		elif gle.posting_date <= to_date:
 			keylist = [
 				gle.get("voucher_type"),
 				gle.get("voucher_no"),

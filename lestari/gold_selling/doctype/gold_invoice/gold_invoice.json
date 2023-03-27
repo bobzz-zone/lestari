@@ -119,6 +119,7 @@
   {
    "fieldname": "tutupan_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Tutupan"
   },
   {
@@ -240,6 +241,7 @@
   {
    "fieldname": "item_sel_sec",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Item Selector"
   },
   {
@@ -386,7 +388,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-03-27 15:35:22.514724",
+ "modified": "2023-03-27 23:32:56.533429",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",
