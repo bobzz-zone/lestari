@@ -23,12 +23,14 @@ frappe.query_reports["Laporan Kas Bank"] = {
 			"fieldtype": "Date",
 			"default": frappe.datetime.get_today(),
 			"reqd": 1
-		},{
+		},
+/**		{
 			"fieldname":"against",
 				"label": __("Against"),
 				"fieldtype": "Link",
 				"options": "Account",
-		},{
+		},*/
+		{
 			"fieldname":"cost_center",
 				"label": __("Cost Center"),
 				"fieldtype": "Link",

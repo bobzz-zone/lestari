@@ -5,7 +5,7 @@ from collections import OrderedDict
 
 import frappe
 from frappe import _, _dict
-from frappe.utils import cstr, getdate
+from frappe.utils import getdate,flt
 
 from erpnext import get_company_currency, get_default_company
 
@@ -47,54 +47,57 @@ def validate_filters(filters):
 
 def get_result(filters):
 	gl_entries = get_gl_entries(filters)
-
+#	gl_opening = get_gl_opening(filters)
 	data = get_data_with_opening_closing(filters, gl_entries)
 
 	result = get_result_as_list(data, filters)
 
 	return result
 
+#def get_gl_opening(filters):
+#	gl_entries = frappe.db.sql(
+#		"""
+#		SELECT 
+#			gl.name as gl_entry,
+#			gl.posting_date,
+#			acc.account_name as buku,
+#			gl.cost_center,
+#			gl.remarks as keterangan,
+#			gl.account,
+#			gl.against,
+#			gl.debit,
+#			gl.credit,
+#			gl.voucher_type,
+#			gl.voucher_no
+#			FROM `tabGL Entry` gl
+#			JOIN `tabAccount` acc ON acc.name = gl.account
+#			JOIN `tabCurrency` cur ON cur.name = gl.account_currency
+#		WHERE is_cancelled = 0
+#		{conditions}
+#		ORDER BY gl.voucher_no
+#		""".format(
+#			conditions=get_conditions(filters),
+#		),
+#		filters,as_dict=1
+#	)
+#	return gl_entries
 def get_gl_entries(filters):
-	# gl_entries = frappe.db.sql(
-	# 	"""
-	# 	SELECT 
-	# 		gl.name as gl_entry,
-	# 		gl.posting_date,
-	# 		acc.account_name as buku,
-	# 		gl.cost_center,
-	# 		gl.remarks as keterangan,
-	# 		gl.account,
-	# 		gl.against,
-	# 		gl.debit_in_account_currency,
-	# 		gl.credit_in_account_currency,
-	# 		gl.voucher_type,
-	# 		gl.voucher_no
-	# 		FROM `tabGL Entry` gl
-	# 		JOIN `tabAccount` acc ON acc.name = gl.account
-	# 		JOIN `tabCurrency` cur ON cur.name = gl.account_currency
-	# 	WHERE is_cancelled = 0
-	# 	{conditions}
-	# 	ORDER BY gl.voucher_no
-	# 	""".format(
-	# 		conditions=get_conditions(filters),
-	# 	),
-	# 	filters
-	# )
-
 	gl_entries = frappe.db.sql("""
 		SELECT 
-			name as gl_entry, posting_date, (select account_name from `tabAccount` where name = account) as buku,(select account_number from `tabAccount` where name = account) as lawan , cost_center,
-			remarks as keterangan, account as against, against as account,
-			debit as credit, credit as debit,
-			voucher_type, voucher_no, is_opening
-			FROM `tabGL Entry`
-		WHERE is_cancelled = 0
+			gl.name as gl_entry, gl.posting_date, 
+			a.account_name as buku, a.account_number as lawan,
+			gl.cost_center,
+			gl.remarks as keterangan, gl.account as against, gl.against as account,
+			gl.debit as credit, gl.credit as debit,
+			gl.voucher_type, gl.voucher_no
+			FROM `tabGL Entry` gl left join `tabAccount` a on gl.account=a.name
+		WHERE gl.is_cancelled = 0
 		{conditions}
-		order by posting_date, voucher_type, voucher_no
+		order by gl.posting_date, gl.voucher_type, gl.voucher_no
 	""".format(
 			conditions=get_conditions(filters),
 		),
-		filters, as_dict=1, debug=1
+		 as_dict=1, debug=1
 	)
 
 	return gl_entries
@@ -103,22 +106,27 @@ def get_conditions(filters):
 	conditions = []
 
 	if filters.account:
-		conditions.append("against = %(account)s")
-		
-	if filters.against: 
-		conditions.append("account = %(against)s")
+		#conditions.append(" (gl.against = %(account)s or gl.account= %(account)s) ")
+		#conditions.append(" gl.against = %(account)s ")
+		#frappe.msgprint(""" gl.against LIKE "%{}%" """.format(filters.get("account")))
+		conditions.append(""" gl.against LIKE "%{}%" """.format(filters.get("account")))
+#	if filters.against: 
+#		conditions.append("account = %(against)s")
 
 	if filters.cost_center:
-		conditions.append("cost_center = %(cost_center)s")
+		conditions.append("""gl.cost_center = {} """.format(filters.get("cost_center")))
 
-	conditions.append("(posting_date <= %(to_date)s or is_opening = 'Yes')")
+	conditions.append(""" gl.posting_date <= "{}" and gl.posting_date >= "{}" """.format(filters.get("to_date"),filters.get("from_date")))
 
 	return "and {}".format(" and ".join(conditions)) if conditions else ""
 
 def get_data_with_opening_closing(filters, gl_entries):
 	data = []
-
-	totals, entries = get_accountwise_gle(filters, gl_entries)
+	opening = frappe.db.sql("select sum(debit-credit) as total from `tabGL Entry` where ((posting_date <'{}' and account='{}') or is_opening='Yes') and is_cancelled = 0 group by account ".format(filters.get("from_date"),filters.get("account")),as_list=1)
+	nilai_opening=0
+	if opening:
+		nilai_opening=flt(opening[0][0])
+	totals, entries = get_accountwise_gle(filters, gl_entries , nilai_opening)
 
 	# Opening for filtered account
 	data.append(totals.opening)
@@ -150,26 +158,32 @@ def get_totals_dict():
 		closing=_get_debit_credit_dict(TRANSLATIONS.CLOSING_TOTAL),
 	)
 
-def get_accountwise_gle(filters, gl_entries):
+def get_accountwise_gle(filters, gl_entries,opening):
 	totals = get_totals_dict()
 	entries = []
 	consolidated_gle = OrderedDict()
 
 	def update_value_in_dict(data, key, gle):
 		data[key].debit += gle.debit
-		# data[key].debit += gle.credit
+		#data[key].debit += gle.credit
 		data[key].credit += gle.credit
-		# data[key].credit += gle.debit
+		#data[key].credit += gle.debit
 
 	from_date, to_date = getdate(filters.from_date), getdate(filters.to_date)
-	
+	if opening > 0 :
+		totals["opening"].debit += opening
+		totals["closing"].debit += opening
+	else:
+		totals["opening"].credit += opening*-1
+		totals["closing"].credit += opening*-1
 	for gle in gl_entries:
-		# group_by_value = gle.get('account')
-		
-		if gle.posting_date < from_date or cstr(gle.is_opening) == "Yes":
-			update_value_in_dict(totals, "opening", gle)
-			update_value_in_dict(totals, "closing", gle)
-		elif gle.posting_date <= to_date:
+		#frappe.msgprint("{}".format(gle))
+		group_by_value = gle.get('account')
+#		if gle.posting_date < from_date:
+#			update_value_in_dict(totals, "opening", gle)
+#			update_value_in_dict(totals, "closing", gle)
+#		el
+		if gle.posting_date <= to_date:
 			keylist = [
 				gle.get("voucher_type"),
 				gle.get("voucher_no"),
