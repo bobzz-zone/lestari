@@ -45,6 +45,8 @@ frappe.ui.form.on('Close Bundle Stock', {
 		})
 	}
 });
-frappe.ui.form.on('Close Bundle Stock', {
-	
+frappe.ui.form.on('Detail Close Stock', {
+	qty_penambahan: function(frm,cdt,cdn){
+		
+	}
 })
