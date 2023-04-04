@@ -27,6 +27,27 @@ class UpdateBundleStock(Document):
 		ste.flags.ignore_permissions = True
 		ste.save()
 		frappe.msgprint(str(frappe.get_last_doc("Stock Entry")))
+		for row in self.items:
+			if self.type == "Add Stock":
+				kss = frappe.new_doc("Kartu Stock Sales")
+				kss.item = row.gold_selling_item
+				kss.bundle = self.bundle
+				kss.kategori = row.kategori
+				kss.sub_kategori = row.sub_kategori
+				kss.kadar = row.kadar
+				kss.warehouse = self.warehouse
+				kss.qty = row.qty_penambahan
+				kss.flags.ignore_permissions = True
+				kss.save()
+			else:
+				doc = frappe.db.get_list(doctype = "Kartu Stock Sales", filters={"bundle" : self.bundle, "item":row.gold_selling_item, "sub_kategori": row.sub_kategori})
+				# frappe.db.set_value('Task', 'TASK00002', 'subject', 'New Subject')
+				for col in doc:
+					kss = frappe.get_doc("Kartu Stock Sales", col)
+					kss.qty = kss.qty - row.qty_penambahan
+					kss.flags.ignore_permissions = True
+					kss.save()
+    
 	@frappe.whitelist()
 	def add_row_action(self):
 		baris_baru = {

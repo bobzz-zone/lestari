@@ -6,28 +6,32 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "kadar",
   "sub_kategori",
-  "kategori",
-  "item",
-  "gold_selling_item",
+  "kadar",
   "qty_penambahan",
   "rencana_dibawa_kembali",
-  "total_dibawa_kembali",
+  "item",
+  "total_dibawa_sales",
   "total_dikembalikan",
-  "total_clossing"
+  "total_clossing",
+  "kategori",
+  "gold_selling_item"
  ],
  "fields": [
   {
+   "columns": 1,
    "fieldname": "kadar",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Kadar",
    "options": "Data Logam",
    "reqd": 1
   },
   {
+   "columns": 2,
    "fieldname": "sub_kategori",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Sub Kategori",
    "options": "Item Group",
    "reqd": 1
@@ -48,45 +52,60 @@
    "read_only": 1
   },
   {
+   "columns": 1,
    "fieldname": "qty_penambahan",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Bruto",
+   "label": "Berat",
    "precision": "3",
    "reqd": 1
   },
   {
+   "columns": 2,
    "fieldname": "item",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Item",
-   "options": "Item"
+   "options": "Item",
+   "read_only": 1
   },
   {
+   "columns": 1,
    "default": "0",
    "fieldname": "rencana_dibawa_kembali",
    "fieldtype": "Check",
+   "in_list_view": 1,
    "label": "Rencana Dibawa Kembali"
   },
   {
-   "fieldname": "total_dibawa_kembali",
-   "fieldtype": "Float",
-   "label": "Total Dibawa Kembali"
-  },
-  {
+   "columns": 1,
    "fieldname": "total_dikembalikan",
    "fieldtype": "Float",
-   "label": "Total Dikembalikan"
+   "in_list_view": 1,
+   "label": "Total Dikembalikan",
+   "precision": "3"
   },
   {
+   "columns": 1,
    "fieldname": "total_clossing",
    "fieldtype": "Float",
-   "label": "Total Clossing"
+   "in_list_view": 1,
+   "label": "Total Clossing",
+   "precision": "3"
+  },
+  {
+   "columns": 1,
+   "fieldname": "total_dibawa_sales",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Dibawa Sales",
+   "precision": "3"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-02-01 02:18:39.808290",
+ "modified": "2023-04-04 04:38:40.804893",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Detail Close Stock",

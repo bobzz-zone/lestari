@@ -109,7 +109,7 @@ def get_conditions(filters):
 		#conditions.append(" (gl.against = %(account)s or gl.account= %(account)s) ")
 		#conditions.append(" gl.against = %(account)s ")
 		#frappe.msgprint(""" gl.against LIKE "%{}%" """.format(filters.get("account")))
-		conditions.append(""" gl.against LIKE "%{}%" """.format(filters.get("account")))
+		conditions.append(""" is_opening="No" and gl.against LIKE "%{}%" """.format(filters.get("account")))
 #	if filters.against: 
 #		conditions.append("account = %(against)s")
 
@@ -122,7 +122,7 @@ def get_conditions(filters):
 
 def get_data_with_opening_closing(filters, gl_entries):
 	data = []
-	opening = frappe.db.sql("select sum(debit-credit) as total from `tabGL Entry` where ((posting_date <'{}' and account='{}') or is_opening='Yes') and is_cancelled = 0 group by account ".format(filters.get("from_date"),filters.get("account")),as_list=1)
+	opening = frappe.db.sql("select sum(debit-credit) as total from `tabGL Entry` where (posting_date <'{}'  or is_opening='Yes') and account='{}' and is_cancelled = 0 group by account ".format(filters.get("from_date"),filters.get("account")),as_list=1)
 	nilai_opening=0
 	if opening:
 		nilai_opening=flt(opening[0][0])

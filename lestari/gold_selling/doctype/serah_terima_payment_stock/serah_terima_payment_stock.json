@@ -9,15 +9,15 @@
  "field_order": [
   "posting_date",
   "category",
+  "keterangan",
   "column_break_3",
   "sales",
   "sales_bundle",
   "warehouse",
   "section_break_7",
   "get_detail",
-  "items",
-  "keterangan",
   "details",
+  "items",
   "amended_from"
  ],
  "fields": [
@@ -38,13 +38,16 @@
   {
    "fieldname": "items",
    "fieldtype": "Table",
+   "hidden": 1,
    "label": "item",
-   "options": "Serah Terima Stock Item"
+   "options": "Serah Terima Stock Item",
+   "print_hide": 1,
+   "report_hide": 1
   },
   {
    "fieldname": "keterangan",
    "fieldtype": "Text Editor",
-   "label": "Ketarangan"
+   "label": "Keterangan"
   },
   {
    "fieldname": "amended_from",
@@ -107,7 +110,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-02-01 01:45:27.406879",
+ "modified": "2023-03-30 19:18:42.169590",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Serah Terima Payment Stock",
