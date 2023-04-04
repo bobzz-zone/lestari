@@ -113,8 +113,8 @@
    "type": "Link"
   }
  ],
- "modified": "2023-03-10 15:23:19.771718",
- "modified_by": "Administrator",
+ "modified": "2023-04-03 09:28:06.757202",
+ "modified_by": "arikba@lms.com",
  "module": "Gold Selling",
  "name": "Lestari Selling",
  "owner": "Administrator",
@@ -132,6 +132,30 @@
    "label": "Customer Deposit",
    "link_to": "Customer Deposit",
    "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Info Sales",
+   "link_to": "Report Sales",
+   "type": "Report"
+  },
+  {
+   "doc_view": "",
+   "label": "Info Pembayaran Penjualan",
+   "link_to": "Pembayaran Penjualan",
+   "type": "Report"
+  },
+  {
+   "doc_view": "",
+   "label": "Info Serah Terima Payment Cash",
+   "link_to": "Serah Terima Payment Cash",
+   "type": "Report"
+  },
+  {
+   "doc_view": "",
+   "label": "Info Serah Terima Payment Stock",
+   "link_to": "Serah Terima Payment Stock",
+   "type": "Report"
   }
  ]
 }

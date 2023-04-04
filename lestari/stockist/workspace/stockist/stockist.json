@@ -23,8 +23,8 @@
    "type": "Link"
   }
  ],
- "modified": "2023-03-23 11:29:10.784937",
- "modified_by": "Administrator",
+ "modified": "2023-04-03 09:29:16.068441",
+ "modified_by": "arikba@lms.com",
  "module": "Stockist",
  "name": "Stockist",
  "owner": "Administrator",
@@ -36,6 +36,12 @@
    "label": "Update Bundle Stock",
    "link_to": "Update Bundle Stock",
    "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Info Transfer Salesman",
+   "link_to": "Sales Transfer",
+   "type": "Report"
   }
  ]
 }

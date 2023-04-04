@@ -9,11 +9,12 @@
  "field_order": [
   "date",
   "bundle",
-  "pic",
   "type",
-  "s_warehouse",
   "keterangan",
   "cb1",
+  "pic",
+  "nama_stokist",
+  "s_warehouse",
   "purpose",
   "sales",
   "warehouse",
@@ -61,9 +62,10 @@
    "read_only": 1
   },
   {
+   "default": "Stockist - LMS",
    "fieldname": "s_warehouse",
    "fieldtype": "Link",
-   "label": "Source Warehouse",
+   "label": "Stokist Warehouse",
    "options": "Warehouse"
   },
   {
@@ -101,6 +103,7 @@
   {
    "fieldname": "item_selector_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Item Selector"
   },
   {
@@ -189,12 +192,19 @@
    "options": "Close Bundle Stock",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fetch_from": "pic.employee_name",
+   "fieldname": "nama_stokist",
+   "fieldtype": "Data",
+   "label": "Nama Stokist",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-03-23 11:31:50.548037",
+ "modified": "2023-04-04 02:32:36.449663",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Close Bundle Stock",
