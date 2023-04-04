@@ -223,7 +223,7 @@ frappe.ui.form.on('Gold Payment Invoice', {
 				allocated=allocated+g.allocated;
 			}
 		});
-		frm.doc.bruto_discount=bruto;
+		//frm.doc.bruto_discount=bruto;
 		frm.doc.discount_amount=bruto/100*frm.doc.discount;
 		frm.doc.allocated_payment=allocated;
 		refresh_field("discount_amount");
@@ -273,7 +273,7 @@ frappe.ui.form.on('Gold Payment Return', {
 				allocated=allocated+g.allocated;
 			}
 		});
-		frm.doc.bruto_discount=bruto;
+		//frm.doc.bruto_discount=bruto;
 		frm.doc.discount_amount=bruto/100*frm.doc.discount;
 		frm.doc.allocated_payment=allocated;
 		refresh_field("discount_amount");
