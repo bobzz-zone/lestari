@@ -41,6 +41,7 @@
   "total_print",
   "column_break_33",
   "total_bruto",
+  "cash_back",
   "discount",
   "discount_amount",
   "gold_invoice_has_gold_deposit",
@@ -318,7 +319,8 @@
   {
    "fieldname": "no_invoice",
    "fieldtype": "Data",
-   "label": "No Invoice"
+   "label": "No Invoice",
+   "reqd": 1
   },
   {
    "fieldname": "add_bruto",
@@ -384,11 +386,17 @@
   {
    "fieldname": "column_break_48",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cash_back",
+   "fieldtype": "Currency",
+   "label": "Cash Back",
+   "precision": "3"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-03-27 23:32:56.533429",
+ "modified": "2023-04-04 14:05:52.669516",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",
