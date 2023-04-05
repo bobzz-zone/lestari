@@ -216,7 +216,7 @@ class GoldPayment(StockController):
 										"debit":debit,
 										"credit":credit,
 										"account_currency":"IDR",
-										"debit_in_account_currency":debit
+										"debit_in_account_currency":debit,
 										"credit_in_account_currency":credit,
 										#"against":"4110.000 - Penjualan - L",
 										"voucher_type":"Gold Payment",
@@ -238,7 +238,7 @@ class GoldPayment(StockController):
 										"debit":debit,
 										"credit":credit,
 										"account_currency":"IDR",
-										"debit_in_account_currency":debit
+										"debit_in_account_currency":debit,
 										"credit_in_account_currency":credit,
 										#"against":"4110.000 - Penjualan - L",
 										"voucher_type":"Gold Payment",
