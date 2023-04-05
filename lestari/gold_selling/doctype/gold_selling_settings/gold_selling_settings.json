@@ -14,6 +14,7 @@
   "cost_center",
   "item_ct",
   "uang_buat_beli_emas",
+  "payment_deposit_coa",
   "default_warehouse",
   "default_kas_kantor"
  ],
@@ -80,7 +81,7 @@
    "description": "Saat Conversi tidak nambah stock sehingga , perlu penampung uang rupiah yang harusnya di keluarkan",
    "fieldname": "uang_buat_beli_emas",
    "fieldtype": "Link",
-   "label": "Kas yang Rencana Di belikan Emas",
+   "label": "Hutang Pembelian Emas",
    "options": "Account"
   },
   {
@@ -88,12 +89,18 @@
    "fieldtype": "Link",
    "label": "Default Kas Kantor",
    "options": "Account"
+  },
+  {
+   "fieldname": "payment_deposit_coa",
+   "fieldtype": "Link",
+   "label": "Pembayaran Emas Tanpa Stock",
+   "options": "Account"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-11-16 13:34:29.571807",
+ "modified": "2023-04-05 15:07:11.602248",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling Settings",

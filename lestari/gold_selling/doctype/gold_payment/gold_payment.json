@@ -39,13 +39,13 @@
   "total_idr_gold",
   "write_off_account",
   "write_off",
+  "total_payment",
   "additional_price_section",
   "total_invoice",
   "total_sisa_invoice",
   "column_break_36",
   "allocated_payment",
   "unallocated_payment",
-  "total_payment",
   "auto_distribute",
   "amended_from"
  ],
@@ -63,6 +63,7 @@
    "fieldname": "customer",
    "fieldtype": "Link",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Customer",
    "options": "Customer",
    "reqd": 1
@@ -84,6 +85,7 @@
   {
    "fieldname": "invoice_table",
    "fieldtype": "Table",
+   "in_standard_filter": 1,
    "label": "Gold Payment Invoice",
    "options": "Gold Payment Invoice"
   },
@@ -322,7 +324,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-05 14:08:27.659902",
+ "modified": "2023-04-05 14:58:43.552331",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",
