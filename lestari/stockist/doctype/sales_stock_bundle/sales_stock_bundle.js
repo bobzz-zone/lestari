@@ -27,7 +27,7 @@ function updnobundle(){
 	var tgl;
 	tgl = new Date(cur_frm.doc.date);
 	if(cur_frm.doc.sales != null){
-	nobunble = cur_frm.doc.sales + formatDate(tgl);
+	nobunble = cur_frm.doc.abbr + formatDate(tgl);
 	cur_frm.set_value("no_bundle",nobunble);
 	cur_frm.refresh_field("no_bundle");
 	}else{

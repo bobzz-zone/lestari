@@ -13,6 +13,7 @@
   "aktif",
   "column_break_5",
   "sales",
+  "abbr",
   "pendamping",
   "warehouse",
   "amended_from"
@@ -51,7 +52,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "depends_on": "eval:doc.purpose==\"Sales\"",
    "fieldname": "sales",
    "fieldtype": "Link",
    "in_global_search": 1,
@@ -82,12 +82,19 @@
    "options": "Sales Stock Bundle",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fetch_from": "sales.abbr",
+   "fieldname": "abbr",
+   "fieldtype": "Data",
+   "label": "Kode",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-04 03:30:12.739442",
+ "modified": "2023-04-05 14:00:47.262691",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Sales Stock Bundle",
