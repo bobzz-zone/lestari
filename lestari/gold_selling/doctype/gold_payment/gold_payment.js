@@ -20,6 +20,7 @@ function calculate_table_invoice(frm,cdt,cdn){
 		refresh_field("allocated_payment");
 		frm.doc.unallocated_payment=frm.doc.total_payment+frm.doc.allocated_payment;
 		refresh_field("unallocated_payment");
+		
 }
 
 function calculate_table_idr(frm,cdt,cdn){
@@ -99,6 +100,9 @@ frappe.ui.form.on('Gold Payment', {
 		}else{
 			var need_to=frm.doc.unallocated_payment;
 			// console.log(need_to)
+			var sisa_invoice = parseFloat(cur_frm.doc.total_invoice) - parseFloat(need_to)
+			cur_frm.set_value("total_sisa_invoice",sisa_invoice)
+			cur_frm.refresh_field("total_sisa_invoice")
 			need_to = need_to.toFixed(3);
 			// console.log(need_to)
 			if(need_to<=0){
@@ -132,6 +136,7 @@ frappe.ui.form.on('Gold Payment', {
 			// console.log(cur_frm.doc.unallocated_payment)
 			refresh_field("unallocated_payment");
 			frappe.msgprint("Pembayaran Telah di Alokasikan");
+
 		}
 
 	},
@@ -229,9 +234,6 @@ frappe.ui.form.on('Gold Payment Invoice', {
 		frm.doc.allocated_payment=allocated;
 		refresh_field("discount_amount");
 		refresh_field("allocated_payment");
-		var sisa_invoice = cur_frm.doc.total_invoice - cur_frm.doc.allocated_payment
-		cur_frm.set_value("total_sisa_invoice",sisa_invoice)
-		cur_frm.refresh_field("total_sisa_invoice")
 		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment;
 		refresh_field("unallocated_payment");
 		frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.write_off+frm.doc.discount_amount+frm.doc.bonus;
