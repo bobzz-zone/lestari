@@ -346,12 +346,12 @@ class CustomerDeposit(StockController):
 @frappe.whitelist()
 def get_idr_advance(doctype, txt, searchfield, start, page_len, filters):
 	return frappe.db.sql(
-		"""select name , idr_left from `tabCustomer Deposit` where name LIKE %(txt)s and deposit_type="IDR" and docstatus=1 and customer=%(customer)s """,
-		{"customer": filters.get("customer", ""), "txt": "%" + txt + "%"},
+		"""select name , idr_left from `tabCustomer Deposit` where name LIKE %(txt)s and deposit_type="IDR" and docstatus=1 and (customer=%(customer)s or subcustomer=%(subcustomer)s ) """,
+		{"customer": filters.get("customer", ""),"subcustomer": filters.get("subcustomer", ""), "txt": "%" + txt + "%"},
 	)
 @frappe.whitelist()
 def get_gold_advance(doctype, txt, searchfield, start, page_len, filters):
 	return frappe.db.sql(
-		"""select name , gold_left from `tabCustomer Deposit` where name LIKE %(txt)s and deposit_type="Emas" and docstatus=1 and customer=%(customer)s """,
-		{"customer": filters.get("customer", ""), "txt": "%" + txt + "%"},
+		"""select name , gold_left from `tabCustomer Deposit` where name LIKE %(txt)s and deposit_type="Emas" and docstatus=1 and (customer=%(customer)s or subcustomer=%(subcustomer)s ) """,
+		{"customer": filters.get("customer", ""),"subcustomer": filters.get("subcustomer", ""), "txt": "%" + txt + "%"},
 	)
