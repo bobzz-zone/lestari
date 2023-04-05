@@ -29,24 +29,24 @@
   "gold_payment_col",
   "stock_payment",
   "total_gold_payment",
-  "idr_payment_col",
-  "idr_payment",
-  "total_idr_payment",
-  "total_idr_gold",
-  "additional_price_section",
-  "total_invoice",
-  "total_sisa_invoice",
-  "allocated_payment",
-  "unallocated_payment",
-  "write_off_account",
-  "write_off",
-  "total_payment",
-  "auto_distribute",
-  "column_break_14",
   "bruto_discount",
   "discount",
   "discount_amount",
   "bonus",
+  "idr_payment_col",
+  "idr_payment",
+  "total_idr_payment",
+  "total_idr_gold",
+  "write_off_account",
+  "write_off",
+  "additional_price_section",
+  "total_invoice",
+  "total_sisa_invoice",
+  "column_break_36",
+  "allocated_payment",
+  "unallocated_payment",
+  "total_payment",
+  "auto_distribute",
   "amended_from"
  ],
  "fields": [
@@ -118,10 +118,6 @@
    "fieldtype": "Float",
    "label": "Bonus in 24K",
    "precision": "3"
-  },
-  {
-   "fieldname": "column_break_14",
-   "fieldtype": "Column Break"
   },
   {
    "default": "0",
@@ -315,14 +311,22 @@
    "fieldname": "total_sisa_invoice",
    "fieldtype": "Float",
    "label": "Total Sisa Invoice",
-   "precision": "3"
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_36",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
+<<<<<<< HEAD
+=======
+ "modified": "2023-04-05 14:08:27.659902",
+>>>>>>> 28db3edb658686d8c8a654c52ef883b233a69a9f
  "modified_by": "Administrator",
- "modified": "2023-04-05 13:01:01.981498",
  "module": "Gold Selling",
  "name": "Gold Payment",
  "owner": "Administrator",

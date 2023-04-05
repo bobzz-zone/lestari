@@ -354,6 +354,7 @@
    "fetch_from": "subcustomer.customer_name",
    "fieldname": "subcustomer_name",
    "fieldtype": "Read Only",
+   "hidden": 1,
    "label": "SubCustomer Name"
   },
   {
@@ -366,6 +367,7 @@
    "fetch_from": "subcustomer.customer_name",
    "fieldname": "enduser_name",
    "fieldtype": "Read Only",
+   "hidden": 1,
    "label": "End User Name"
   },
   {
@@ -398,7 +400,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-05 13:23:46.677642",
+ "modified": "2023-04-05 14:05:40.034993",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",

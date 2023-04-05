@@ -7,6 +7,7 @@
  "engine": "InnoDB",
  "field_order": [
   "gold_invoice",
+  "customer",
   "total",
   "outstanding",
   "due_date",
@@ -68,12 +69,20 @@
    "fieldtype": "Float",
    "label": "Total Bruto",
    "precision": "3"
+  },
+  {
+   "fetch_from": "gold_invoice.customer",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-03-16 01:34:29.435859",
+ "modified": "2023-04-05 14:09:40.814433",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment Invoice",
