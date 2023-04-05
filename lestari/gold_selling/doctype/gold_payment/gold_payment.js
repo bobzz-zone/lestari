@@ -108,6 +108,7 @@ frappe.ui.form.on('Gold Payment', {
 				var alo=0;
 		   		if (need_to>(g.outstanding-g.allocated)){
 		   			alo=g.outstanding-g.allocated;
+					cur_frm.doc.total_sisa_invoice = alo
 		   		}else{
 		   			alo=need_to;
 		   		}
@@ -128,7 +129,7 @@ frappe.ui.form.on('Gold Payment', {
 			}
 			// frm.doc.unallocated_payment=need_to;
 			cur_frm.set_value("unallocated_payment",need_to.toFixed(3))
-			console.log(cur_frm.doc.unallocated_payment)
+			// console.log(cur_frm.doc.unallocated_payment)
 			refresh_field("unallocated_payment");
 			frappe.msgprint("Pembayaran Telah di Alokasikan");
 		}
@@ -223,11 +224,14 @@ frappe.ui.form.on('Gold Payment Invoice', {
 				allocated=allocated+g.allocated;
 			}
 		});
-		frm.doc.bruto_discount=bruto;
+		//frm.doc.bruto_discount=bruto;
 		frm.doc.discount_amount=bruto/100*frm.doc.discount;
 		frm.doc.allocated_payment=allocated;
 		refresh_field("discount_amount");
 		refresh_field("allocated_payment");
+		var sisa_invoice = cur_frm.doc.total_invoice - cur_frm.doc.allocated_payment
+		cur_frm.set_value("total_sisa_invoice",sisa_invoice)
+		cur_frm.refresh_field("total_sisa_invoice")
 		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment;
 		refresh_field("unallocated_payment");
 		frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.write_off+frm.doc.discount_amount+frm.doc.bonus;
@@ -273,7 +277,7 @@ frappe.ui.form.on('Gold Payment Return', {
 				allocated=allocated+g.allocated;
 			}
 		});
-		frm.doc.bruto_discount=bruto;
+		//frm.doc.bruto_discount=bruto;
 		frm.doc.discount_amount=bruto/100*frm.doc.discount;
 		frm.doc.allocated_payment=allocated;
 		refresh_field("discount_amount");
