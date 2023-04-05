@@ -6,7 +6,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "category",
+  "item",
   "qty",
   "rate",
   "amount",
@@ -55,24 +55,24 @@
    "read_only": 1
   },
   {
-   "fieldname": "category",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Category",
-   "options": "Item",
-   "reqd": 1
-  },
-  {
    "fieldname": "no_document",
    "fieldtype": "Link",
    "label": "No Document",
    "options": "Pencatatan Pengembalian Emas"
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item",
+   "options": "Item",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-04-04 13:43:32.188890",
+ "modified": "2023-04-04 14:53:03.527611",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Stock Payment Return Item",

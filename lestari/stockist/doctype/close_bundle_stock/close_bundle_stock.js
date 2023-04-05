@@ -20,6 +20,10 @@ frappe.ui.form.on('Close Bundle Stock', {
 		  })
 	},
 	bundle: function(frm){
+		// if(cur_frm.doc.items != null){
+		// 	cur_frm.clear_table("items")
+		// 	cur_frm.refresh_field('items');
+		// }
 		frappe.call({
 			method: 'lestari.stockist.doctype.close_bundle_stock.close_bundle_stock.get_detail_bundle',
 			args: {

@@ -25,10 +25,6 @@
   "get_gold_invoice",
   "invoice_table",
   "customer_return",
-  "total_invoice",
-  "allocated_payment",
-  "unallocated_payment",
-  "auto_distribute",
   "payment_detail_sec",
   "gold_payment_col",
   "stock_payment",
@@ -38,9 +34,14 @@
   "total_idr_payment",
   "total_idr_gold",
   "additional_price_section",
+  "total_invoice",
+  "total_sisa_invoice",
+  "allocated_payment",
+  "unallocated_payment",
   "write_off_account",
   "write_off",
   "total_payment",
+  "auto_distribute",
   "column_break_14",
   "bruto_discount",
   "discount",
@@ -230,9 +231,9 @@
   {
    "fieldname": "company",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Company",
-   "options": "Company",
-   "reqd": 1
+   "options": "Company"
   },
   {
    "fieldname": "warehouse",
@@ -310,12 +311,18 @@
    "label": "Janji Bayar",
    "options": "Janji Bayar",
    "read_only": 1
+  },
+  {
+   "fieldname": "total_sisa_invoice",
+   "fieldtype": "Float",
+   "label": "Total Sisa Invoice",
+   "precision": "3"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-03-27 23:38:18.531982",
+ "modified": "2023-04-05 13:01:01.981498",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

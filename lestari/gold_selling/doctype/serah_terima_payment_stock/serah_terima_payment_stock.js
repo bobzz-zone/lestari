@@ -14,6 +14,11 @@ frappe.ui.form.on("Serah Terima Payment Stock", {
       };
   });
   },
+  reset: function(frm){
+    cur_frm.clear_table("details")
+    cur_frm.clear_table("items")
+    cur_frm.refresh_fields()
+  }
 });
 frappe.ui.form.on("Serah Terima Stock Item Detail", {
   // refresh: function(frm) {
@@ -21,6 +26,7 @@ frappe.ui.form.on("Serah Terima Stock Item Detail", {
   // }
   before_details_remove: function (frm, cdt, cdn) {
     var d = locals[cdt][cdn];
+    console.log(d.idx)
     // cur_frm.get_field("items").grid.grid_rows_by_docname[d.name].remove();
     cur_frm.get_field("items").grid.grid_rows[d.idx - 1].remove();
     cur_frm.refresh_field("items");
