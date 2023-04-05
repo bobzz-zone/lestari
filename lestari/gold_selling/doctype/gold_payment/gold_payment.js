@@ -22,10 +22,27 @@ function calculate_table_invoice(frm,cdt,cdn){
 		refresh_field("unallocated_payment");
 		
 }
-
+function reset_allocated(frm){
+	$.each(frm.doc.invoice_table,  function(i,  g) {
+		g.allocated=0;
+		frappe.model.set_value(g.doctype, g.name, "allocated", 0);
+	});
+	$.each(frm.doc.customer_return,  function(i,  g) {
+		g.allocated=0;
+		frappe.model.set_value(g.doctype, g.name, "allocated", 0);
+	});
+	frm.doc.allocated_payment=0;
+	refresh_field("allocated_payment");
+	frm.doc.unallocated_payment=frm.doc.total_payment;
+	refresh_field("unallocated_payment");
+	frm.doc.unallocated_write_off=0;
+	refresh_field("unallocated_write_off");
+	frm.doc.jadi_deposit=0;
+	refresh_field("jadi_deposit");
+}
 function calculate_table_idr(frm,cdt,cdn){
 	var total=0;
-		$.each(frm.doc.idr_payment,  function(i,  g) {
+	$.each(frm.doc.idr_payment,  function(i,  g) {
 		   	total=total+g.amount;
 		});
 		frm.doc.total_idr_payment=total;
@@ -34,9 +51,14 @@ function calculate_table_idr(frm,cdt,cdn){
 		refresh_field("total_idr_gold");
 		//calculate total payment
 		frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.write_off+frm.doc.discount_amount+frm.doc.bonus;
-		refresh_field("total_payment");
 		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment;
-		refresh_field("unallocated_payment");
+		refresh_field("total_payment");
+		if(frm.doc.unallocated_payment<0){
+			reset_allocated(frm);
+		}else{
+			refresh_field("unallocated_payment");
+
+		}
 }
 
 function calculate_table_stock(frm,cdt,cdn){
@@ -93,6 +115,18 @@ frappe.ui.form.on('Gold Payment', {
 	bonus:function(frm){
 		frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.write_off+frm.doc.discount_amount+frm.doc.bonus;
 		refresh_field("total_payment");
+	},
+	writeoff_sisa:function(frm){
+		frm.doc.write_off=frm.doc.write_off-frm.doc.unallocated_payment;
+		frm.doc.unallocated_payment=0;
+		refresh_field("unallocated_payment");
+		refresh_field("write_off");
+	},
+	jadikan_deposit:function(frm){
+		frm.doc.jadi_deposit=frm.doc.unallocated_payment+frm.doc.unallocated_write_off;
+		frm.doc.unallocated_payment=0;
+		refresh_field("unallocated_payment");
+		refresh_field("jadi_deposit");
 	},
 	auto_distribute:function(frm){
 		if (frm.doc.invoice_table==[] && frm.doc.customer_return==[]){

@@ -49,23 +49,24 @@ class CustomerDeposit(StockController):
 		sl=[]
 		fiscal_years = get_fiscal_years(self.posting_date, company=self.company)[0][0]
 		for row in self.stock_deposit:
-			sl.append({
-				"item_code":row.item,
-				"actual_qty":row.qty,
-				"fiscal_year":fiscal_years,
-				"voucher_type": self.doctype,
-				"voucher_no": self.name,
-				"company": self.company,
-				"posting_date": self.posting_date,
-				"posting_time": self.posting_time,
-				"is_cancelled": 0,
-				"stock_uom":frappe.db.get_value("Item", row.item, "stock_uom"),
-				"warehouse":self.warehouse,
-				"incoming_rate":row.rate*self.tutupan/100,
-				"recalculate_rate": 1,
-				"dependant_sle_voucher_detail_no": row.name,
-				"is_cancelled":1 if self.docstatus == 2 else 0
-				})
+			if row.in_supplier==0:
+				sl.append({
+					"item_code":row.item,
+					"actual_qty":row.qty,
+					"fiscal_year":fiscal_years,
+					"voucher_type": self.doctype,
+					"voucher_no": self.name,
+					"company": self.company,
+					"posting_date": self.posting_date,
+					"posting_time": self.posting_time,
+					"is_cancelled": 0,
+					"stock_uom":frappe.db.get_value("Item", row.item, "stock_uom"),
+					"warehouse":self.warehouse,
+					"incoming_rate":row.rate*self.tutupan/100,
+					"recalculate_rate": 1,
+					"dependant_sle_voucher_detail_no": row.name,
+					"is_cancelled":1 if self.docstatus == 2 else 0
+					})
 		for row in sl:
 			sl_entries.append(frappe._dict(row))
 
@@ -105,6 +106,50 @@ class CustomerDeposit(StockController):
 
 		elif self.docstatus == 2 :
 			make_reverse_gl_entries(voucher_type=self.doctype, voucher_no=self.name)
+	def gl_dict(self,cost_center,account,debit,credit,fiscal_years):
+		return {
+										"posting_date":self.posting_date,
+										"account":account,
+										"party_type":"",
+										"party":"",
+										"cost_center":cost_center,
+										"debit":debit,
+										"credit":credit,
+										"account_currency":"IDR",
+										"debit_in_account_currency":debit
+										"credit_in_account_currency":credit,
+										#"against":"4110.000 - Penjualan - L",
+										"voucher_type":"Customer Deposit",
+										"voucher_no":self.name,
+										#"remarks":"",
+										"is_opening":"No",
+										"is_advance":"No",
+										"fiscal_year":fiscal_years,
+										"company":self.company,
+										"is_cancelled":0
+										}
+	def gl_dict_with_sup(self,cost_center,account,debit,credit,fiscal_years,sup):
+		return {
+										"posting_date":self.posting_date,
+										"account":account,
+										"party_type":"Supplier",
+										"party":sup,
+										"cost_center":cost_center,
+										"debit":debit,
+										"credit":credit,
+										"account_currency":"IDR",
+										"debit_in_account_currency":debit
+										"credit_in_account_currency":credit,
+										#"against":"4110.000 - Penjualan - L",
+										"voucher_type":"Customer Deposit",
+										"voucher_no":self.name,
+										#"remarks":"",
+										"is_opening":"No",
+										"is_advance":"No",
+										"fiscal_year":fiscal_years,
+										"company":self.company,
+										"is_cancelled":0
+										}
 	def get_gl_entries(self, warehouse_account=None):
 		from erpnext.accounts.general_ledger import merge_similar_entries
 		#GL  Generate
@@ -137,52 +182,35 @@ class CustomerDeposit(StockController):
 											"company":self.company,
 											"is_cancelled":0
 											}
-				if self.terima_barang==1:
-					warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
-					gl[warehouse_account]={
-										"posting_date":self.posting_date,
-										"account":warehouse_account,
-										"party_type":"",
-										"party":"",
-										"cost_center":cost_center,
-										"debit":self.total_gold_deposit*self.tutupan,
-										"credit":0,
-										"account_currency":"IDR",
-										"debit_in_account_currency":self.total_gold_deposit*self.tutupan,
-										"credit_in_account_currency":0,
-										#"against":"4110.000 - Penjualan - L",
-										"voucher_type":"Customer Deposit",
-										"voucher_no":self.name,
-										#"remarks":"",
-										"is_opening":"No",
-										"is_advance":"No",
-										"fiscal_year":fiscal_years,
-										"company":self.company,
-										"is_cancelled":0
-										}
+				if self.deposit_payment==1:
+					depo_account = frappe.db.get_single_value('Gold Selling Settings', 'payment_deposit_coa')
+					gl[depo_account]=gl_dict(cost_center,depo_account,self.total_gold_deposit*self.tutupan,0,fiscal_years)
 				else:
-					uang_buat_beli_emas= frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
-					gl[uang_buat_beli_emas]={
-										"posting_date":self.posting_date,
-										"account":uang_buat_beli_emas,
-										"party_type":"",
-										"party":"",
-										"cost_center":cost_center,
-										"debit":self.total_gold_deposit*self.tutupan,
-										"credit":0,
-										"account_currency":"IDR",
-										"debit_in_account_currency":self.total_gold_deposit*self.tutupan,
-										"credit_in_account_currency":0,
-										#"against":"4110.000 - Penjualan - L",
-										"voucher_type":"Customer Deposit",
-										"voucher_no":self.name,
-										#"remarks":"",
-										"is_opening":"No",
-										"is_advance":"No",
-										"fiscal_year":fiscal_years,
-										"company":self.company,
-										"is_cancelled":0
-										}
+					warehouse_value=0
+					titip={}
+					supplier_list=[]
+					for row in self.stock_deposit:
+						if row.in_supplier==1:
+							if row.supplier in supplier_list:
+								titip[row.supplier]=row.amount
+								supplier_list.append(row.supplier)
+							else:
+								titip[row.supplier]=titip[row.supplier]+row.amount
+						else :
+							warehouse_value=warehouse_value+row.amount
+					if warehouse_value>0:
+						self.terima_barang=1
+						warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
+						gl[warehouse_account]=gl_dict(cost_center,warehouse_account,self.total_gold_deposit*self.tutupan,0,fiscal_years)
+					if len(supplier_list)>0:
+						uang_buat_beli_emas= frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
+						for sup in supplier_list:
+							gl[sup]=gl_dict_with_sup(cost_center,uang_buat_beli_emas,titip[sup],0,fiscal_years,sup)
+				# elif self.terima_barang==1:
+				# else:
+				# 	uang_buat_beli_emas= frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
+				# 	gl[uang_buat_beli_emas]=gl_dict(cost_center,uang_buat_beli_emas,self.total_gold_deposit*self.tutupan,0,fiscal_years)
+
 			#untuk deposit IDR
 			if self.total_idr_deposit>0 and self.deposit_type=="IDR":
 				piutang_idr = frappe.db.get_single_value('Gold Selling Settings', 'piutang_idr')
@@ -214,27 +242,8 @@ class CustomerDeposit(StockController):
 						gl[account]['debit']=gl[account]['debit']+row.amount
 						gl[account]['debit_in_account_currency']=gl[account]['debit']
 					else:
-						gl[account]={
-											"posting_date":self.posting_date,
-											"account":account,
-											"party_type":"",
-											"party":"",
-											"cost_center":cost_center,
-											"debit":row.amount,
-											"credit":0,
-											"account_currency":"IDR",
-											"debit_in_account_currency":row.amount,
-											"credit_in_account_currency":0,
-											#"against":"4110.000 - Penjualan - L",
-											"voucher_type":"Customer Deposit",
-											"voucher_no":self.name,
-											#"remarks":"",
-											"is_opening":"No",
-											"is_advance":"No",
-											"fiscal_year":fiscal_years,
-											"company":self.company,
-											"is_cancelled":0
-											}
+						gl[account]=gl_dict(cost_center,account,row.amount,0,fiscal_years)
+						
 		else:
 			if self.deposit_type!="Emas":
 				frappe.throw("Conversion hanya bisa untuk Deposit Rupiah menjadi emas")
