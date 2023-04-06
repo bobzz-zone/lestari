@@ -25,18 +25,31 @@ class GoldPayment(StockController):
 	def validate(self):
 		#seharusnya validasi agaryang belum due, di pastikan tutupan sama..atau hanya 1 invoice agar di gold payment tutupan di samakan
 		#check unallocated harus 00
-		if self.unallocated_payment<0.0001:
-			self.unallocated_payment = 0
-		else:
-			unallocated=self.total_payment
-			for row in self.invoice_table:
-				if row.allocated:
-					# frappe.msgprint(row.allocated)
-					unallocated=flt(unallocated,3)-flt(row.allocated,3)
-			for row in self.customer_return:
-				if row.allocated:
-					unallocated=flt(unallocated,3)-flt(row.allocated,3)
-			self.unallocated_payment=flt(unallocated,3)
+# <<<<<<< HEAD
+# 		if self.unallocated_payment<0.0001:
+# 			self.unallocated_payment = 0
+# 		else:
+# 			unallocated=self.total_payment
+# 			for row in self.invoice_table:
+# 				if row.allocated:
+# 					# frappe.msgprint(row.allocated)
+# 					unallocated=flt(unallocated,3)-flt(row.allocated,3)
+# 			for row in self.customer_return:
+# 				if row.allocated:
+# 					unallocated=flt(unallocated,3)-flt(row.allocated,3)
+# 			self.unallocated_payment=flt(unallocated,3)
+# =======
+		unallocated=self.total_payment
+		for row in self.invoice_table:
+			if row.allocated:
+				# frappe.msgprint(row.allocated)
+				unallocated=flt(unallocated,3)-flt(row.allocated,3)
+		for row in self.customer_return:
+			if row.allocated:
+				unallocated=flt(unallocated,3)-flt(row.allocated,3)
+		unallocated=flt(unallocated,3)-flt(self.jadi_deposit,3)-flt(self.write_off)
+		self.unallocated_payment=flt(unallocated,3)
+# >>>>>>> 4ff73b59f620a2c5a1982c33c1414d63f5363615
 		# if self.unallocated_payment and self.unallocated_payment>0.0001:
 			# frappe.msgprint(self.total_invoice)
 			# frappe.throw("Error,unallocated Payment Masih tersisa {}".format(self.unallocated_payment))
