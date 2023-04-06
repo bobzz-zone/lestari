@@ -93,14 +93,14 @@
   {
    "fieldname": "payment_deposit_coa",
    "fieldtype": "Link",
-   "label": "Pembayaran Emas Tanpa Stock",
+   "label": "Transit Deposit Account",
    "options": "Account"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-04-05 15:07:11.602248",
+ "modified": "2023-04-05 20:57:17.254663",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling Settings",
