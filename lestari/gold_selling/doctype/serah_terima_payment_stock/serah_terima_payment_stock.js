@@ -11,8 +11,15 @@ frappe.ui.form.on("Serah Terima Payment Stock", {
           "filters": {
               "sales": cur_frm.doc.sales
           }
-      };
-  });
+        };
+    });
+    frm.set_query("sales_bundle", function () {
+			return {
+				"filters": [
+					["Sales Stock Bundle", "aktif", "=", 1],
+				]
+			};
+		  });
   },
   reset: function(frm){
     cur_frm.clear_table("details")

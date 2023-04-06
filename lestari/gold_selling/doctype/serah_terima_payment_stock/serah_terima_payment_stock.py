@@ -7,30 +7,34 @@ from frappe.model.document import Document
 class SerahTerimaPaymentStock(Document):
 	@frappe.whitelist()
 	def get_detail(self):
+		
 		if self.category == "Emas 24":
 			depo_list = frappe.get_list('Stock Payment',filters={'docstatus': 1, "rate":['>=',95], 'is_done':["<",1]}, fields=['parent','parenttype','name','item','qty','rate','amount','is_done'])
 		else:
 			depo_list = frappe.get_list('Stock Payment',filters={'docstatus': 1, "rate":['<',95], 'is_done':["<",1]}, fields=['parent','parenttype','name','item','qty','rate','amount','is_done'])
 		for row in depo_list:
-			item_baru = {
-				'item':row.item,
-				'qty':row.qty,
-			}
-			self.append('items',item_baru)
-			customer = frappe.db.get_value(row.parenttype,row.parent,'customer')
-			baris_baru = {
-				'item':row.item,
-				'qty':row.qty,
-				'voucher_type':row.parenttype,
-				'voucher_no':row.parent,
-				'customer': customer,
-				'customer_name':frappe.db.get_value("Customer",customer,'customer_name'),
-				'customer_group':frappe.db.get_value(row.parenttype,row.parent,'customer_group'),
-				'territory':frappe.db.get_value(row.parenttype,row.parent,'territory'),
-				'child_table':"Stock Payment",
-				'child_id':row.name
-			}
-			self.append('details',baris_baru)
+			# frappe.msgprint(str(row.voucher_type))
+			doc = frappe.get_doc(str(row.parenttype), row.parent).sales_bundle
+			if doc and doc == self.sales_bundle:
+				item_baru = {
+					'item':row.item,
+					'qty':row.qty,
+				}
+				self.append('items',item_baru)
+				customer = frappe.db.get_value(row.parenttype,row.parent,'customer')
+				baris_baru = {
+					'item':row.item,
+					'qty':row.qty,
+					'voucher_type':row.parenttype,
+					'voucher_no':row.parent,
+					'customer': customer,
+					'customer_name':frappe.db.get_value("Customer",customer,'customer_name'),
+					'customer_group':frappe.db.get_value(row.parenttype,row.parent,'customer_group'),
+					'territory':frappe.db.get_value(row.parenttype,row.parent,'territory'),
+					'child_table':"Stock Payment",
+					'child_id':row.name
+				}
+				self.append('details',baris_baru)
 		# self.flags.ignore_permissions = True
 		# self.save()
 	def on_submit(self):

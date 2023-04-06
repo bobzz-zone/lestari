@@ -209,6 +209,13 @@ frappe.ui.form.on('Gold Payment', {
     			};
 
     		});
+		frm.set_query("sales_bundle", function(){
+			return {
+				"filters": [
+					["Sales Stock Bundle", "aktif", "=", "1"],
+				]
+			}
+		});
 		if(!frm.doc.tutupan){
 		    frappe.call({
                 method: "lestari.gold_selling.doctype.gold_rates.gold_rates.get_latest_rates",

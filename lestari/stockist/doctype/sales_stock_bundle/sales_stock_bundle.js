@@ -37,8 +37,8 @@ function updnobundle(){
 
 frappe.ui.form.on('Sales Stock Bundle', {
 	// refresh: function(frm) {
-
-	// }
+	
+	// },
 	sales: function(frm){
 		updnobundle();
 	},

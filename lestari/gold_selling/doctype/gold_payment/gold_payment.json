@@ -299,8 +299,7 @@
    "fieldname": "sales_bundle",
    "fieldtype": "Link",
    "label": "Sales Bundle",
-   "options": "Sales Stock Bundle",
-   "read_only": 1
+   "options": "Sales Stock Bundle"
   },
   {
    "fetch_from": "sales_bundle.warehouse",
@@ -357,7 +356,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-05 21:12:44.570763",
+ "modified": "2023-04-06 14:07:53.419414",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",
