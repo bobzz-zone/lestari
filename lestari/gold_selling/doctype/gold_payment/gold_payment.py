@@ -25,25 +25,26 @@ class GoldPayment(StockController):
 	def validate(self):
 		#seharusnya validasi agaryang belum due, di pastikan tutupan sama..atau hanya 1 invoice agar di gold payment tutupan di samakan
 		#check unallocated harus 00
-		unallocated=self.total_payment
-		for row in self.invoice_table:
-			if row.allocated:
-				# frappe.msgprint(row.allocated)
-				unallocated=flt(unallocated,3)-flt(row.allocated,3)
-		for row in self.customer_return:
-			if row.allocated:
-				unallocated=flt(unallocated,3)-flt(row.allocated,3)
-		self.unallocated_payment=flt(unallocated,3)
+		if self.unallocated_payment<0.0001:
+			self.unallocated_payment = 0
+		else:
+			unallocated=self.total_payment
+			for row in self.invoice_table:
+				if row.allocated:
+					# frappe.msgprint(row.allocated)
+					unallocated=flt(unallocated,3)-flt(row.allocated,3)
+			for row in self.customer_return:
+				if row.allocated:
+					unallocated=flt(unallocated,3)-flt(row.allocated,3)
+			self.unallocated_payment=flt(unallocated,3)
 		# if self.unallocated_payment and self.unallocated_payment>0.0001:
 			# frappe.msgprint(self.total_invoice)
 			# frappe.throw("Error,unallocated Payment Masih tersisa {}".format(self.unallocated_payment))
-		# if self.unallocated_payment<0.0001:
-		# 	self.unallocated_payment = 0
 		if not self.warehouse:
 			self.warehouse = frappe.db.get_single_value('Gold Selling Settings', 'default_warehouse')
 
 	def on_submit(self):
-		if self.unallocated_payment and self.unallocated_payment!=0:
+		if self.unallocated_payment>0:
 			# frappe.msgprint(self.total_invoice)
 			frappe.throw("Error,unallocated Payment Masih ada {}".format(self.unallocated_payment))
 		else:
@@ -205,7 +206,8 @@ class GoldPayment(StockController):
 
 		elif self.docstatus == 2 :
 			make_reverse_gl_entries(voucher_type=self.doctype, voucher_no=self.name)
-
+   
+	@frappe.whitelist()
 	def gl_dict(self,cost_center,account,debit,credit,fiscal_years):
 		return {
 										"posting_date":self.posting_date,
@@ -358,7 +360,7 @@ class GoldPayment(StockController):
 				dsk=nilai_selisih_kurs
 			else:
 				csk=nilai_selisih_kurs
-			gl[selisih_kurs]=gl_dict(cost_center,selisih_kurs,dsk,csk,fiscal_years)
+			gl[selisih_kurs]=self.gl_dict(cost_center,selisih_kurs,dsk,csk,fiscal_years)
 			
 		#	credit=credit+csk
 		#	debit=debit+dsk
@@ -366,18 +368,18 @@ class GoldPayment(StockController):
 		#BONUS,DISCOUNT,WRITEOFF
 		if self.bonus>0:
 			bonus_payment = frappe.db.get_single_value('Gold Selling Settings', 'bonus_payment')
-			gl[bonus_payment]=gl_dict(cost_center,bonus_payment,self.bonus*self.tutupan,0,fiscal_years)
+			gl[bonus_payment]=self.gl_dict(cost_center,bonus_payment,self.bonus*self.tutupan,0,fiscal_years)
 			
 		#	debit=debit+(self.bonus*self.tutupan)
 		#	frappe.msgprint("Bonus credit = {} , debit = {}".format(credit,debit))
 		if self.discount_amount>0:
 			discount_payment = frappe.db.get_single_value('Gold Selling Settings', 'discount_payment')
-			gl[discount_payment]= gl_dict(cost_center,discount_payment,self.discount_amount*self.tutupan,0,fiscal_years)
+			gl[discount_payment]= self.gl_dict(cost_center,discount_payment,self.discount_amount*self.tutupan,0,fiscal_years)
 			
 		if self.jadi_deposit>0:
 			deposit = frappe.db.get_single_value('Gold Selling Settings', 'payment_deposit_coa')
-			gl[deposit]= gl_dict(cost_center,deposit,0,self.jadi_deposit*self.tutupan,fiscal_years)
-			
+			gl[deposit]= self.gl_dict(cost_center,deposit,0,self.jadi_deposit*self.tutupan,fiscal_years)
+			# frappe.msgprint(deposit)
 			#create deposit
 			depo = frappe.new_doc("Customer Deposit")
 			depo.customer = self.customer
@@ -393,8 +395,7 @@ class GoldPayment(StockController):
 			depo.gold_payment=self.name
 			depo.total_gold_deposit=self.jadi_deposit
 			depo.gold_left=self.jadi_deposit
-			
-
+			# frappe.msgprint(depo)
 			depo.flags.ignore_permissions = True
 			depo.save()
 			depo.submit()
@@ -402,9 +403,9 @@ class GoldPayment(StockController):
 		#	frappe.msgprint("Discount credit = {} , debit = {}".format(credit,debit))
 		if self.write_off!=0:
 			if self.write_off>0:
-				gl[self.write_off_account]=gl_dict(cost_center,self.write_off_account,self.write_off*self.tutupan,0,fiscal_years)
+				gl[self.write_off_account]=self.gl_dict(cost_center,self.write_off_account,self.write_off*self.tutupan,0,fiscal_years)
 			else:
-				gl[self.write_off_account]=gl_dict(cost_center,self.write_off_account,0,self.write_off*self.tutupan*-1,fiscal_years)
+				gl[self.write_off_account]=self.gl_dict(cost_center,self.write_off_account,0,self.write_off*self.tutupan*-1,fiscal_years)
 		#	debit=debit+(self.write_off*self.tutupan)
 		#	frappe.msgprint("Writeoff credit = {} , debit = {}".format(credit,debit))
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -423,11 +424,11 @@ class GoldPayment(StockController):
 					warehouse_value=warehouse_value+row.amount
 			if warehouse_value>0:
 				warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
-				gl[warehouse_account]=gl_dict(cost_center,warehouse_account,self.total_gold_deposit*self.tutupan,0,fiscal_years)
+				gl[warehouse_account]=self.gl_dict(cost_center,warehouse_account,self.total_gold_deposit*self.tutupan,0,fiscal_years)
 			if len(supplier_list)>0:
 				uang_buat_beli_emas= frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
 				for sup in supplier_list:
-					gl[sup]=gl_dict_with_sup(cost_center,uang_buat_beli_emas,titip[sup],0,fiscal_years,sup)
+					gl[sup]=self.gl_dict_with_sup(cost_center,uang_buat_beli_emas,titip[sup],0,fiscal_years,sup)
 			# warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
 			# gl[warehouse_account]={
 			# 	"posting_date":self.posting_date,
@@ -461,7 +462,7 @@ class GoldPayment(StockController):
 					gl[account]['debit']=gl[account]['debit']+row.amount
 					gl[account]['debit_in_account_currency']=gl[account]['debit']
 				else:
-					gl[account]=gl_dict(cost_center,account,row.amount,0,fiscal_years)
+					gl[account]=self.gl_dict(cost_center,account,row.amount,0,fiscal_years)
 					
 #				debit=debit+row.amount
 #			frappe.msgprint("IDR Payment credit = {} , debit = {}".format(credit,debit))
@@ -474,10 +475,10 @@ class GoldPayment(StockController):
 		if roundoff!=0:
 			roundoff_coa=frappe.db.get_value('Company', self.company, 'round_off_account')
 			if roundoff>0:
-				gl[roundoff_coa]=gl_dict(cost_center,roundoff_coa,0,roundoff,fiscal_years)
+				gl[roundoff_coa]=self.gl_dict(cost_center,roundoff_coa,0,roundoff,fiscal_years)
 #				debit=debit+roundoff
 			else:
-				gl[roundoff_coa]=gl[roundoff_coa]=gl_dict(cost_center,roundoff_coa,roundoff*-1,0,fiscal_years)
+				gl[roundoff_coa]=gl[roundoff_coa]=self.gl_dict(cost_center,roundoff_coa,roundoff*-1,0,fiscal_years)
 				
 #				credit=credit+roundoff
 			gl_entries.append(frappe._dict(gl[roundoff_coa]))

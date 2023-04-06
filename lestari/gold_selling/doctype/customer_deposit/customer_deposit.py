@@ -184,7 +184,7 @@ class CustomerDeposit(StockController):
 											}
 				if self.deposit_payment==1:
 					depo_account = frappe.db.get_single_value('Gold Selling Settings', 'payment_deposit_coa')
-					gl[depo_account]=gl_dict(cost_center,depo_account,self.total_gold_deposit*self.tutupan,0,fiscal_years)
+					gl[depo_account]=self.gl_dict(cost_center,depo_account,self.total_gold_deposit*self.tutupan,0,fiscal_years)
 				else:
 					warehouse_value=0
 					titip={}
@@ -201,18 +201,18 @@ class CustomerDeposit(StockController):
 					if warehouse_value>0:
 						self.terima_barang=1
 						warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
-						gl[warehouse_account]=gl_dict(cost_center,warehouse_account,self.total_gold_deposit*self.tutupan,0,fiscal_years)
+						gl[warehouse_account]=self.gl_dict(cost_center,warehouse_account,self.total_gold_deposit*self.tutupan,0,fiscal_years)
 					if len(supplier_list)>0:
 						uang_buat_beli_emas= frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
 						for sup in supplier_list:
-							gl[sup]=gl_dict_with_sup(cost_center,uang_buat_beli_emas,titip[sup],0,fiscal_years,sup)
+							gl[sup]=self.gl_dict_with_sup(cost_center,uang_buat_beli_emas,titip[sup],0,fiscal_years,sup)
 				# elif self.terima_barang==1:
 				# else:
 				# 	uang_buat_beli_emas= frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
 				# 	gl[uang_buat_beli_emas]=gl_dict(cost_center,uang_buat_beli_emas,self.total_gold_deposit*self.tutupan,0,fiscal_years)
 
 			#untuk deposit IDR
-			if self.total_idr_deposit>0 and self.deposit_type=="IDR":
+			if self.total_idr_deposit and self.total_idr_deposit > 0 and self.deposit_type == "IDR":
 				piutang_idr = frappe.db.get_single_value('Gold Selling Settings', 'piutang_idr')
 				
 				gl[piutang_idr]={
@@ -242,7 +242,7 @@ class CustomerDeposit(StockController):
 						gl[account]['debit']=gl[account]['debit']+row.amount
 						gl[account]['debit_in_account_currency']=gl[account]['debit']
 					else:
-						gl[account]=gl_dict(cost_center,account,row.amount,0,fiscal_years)
+						gl[account]=self.gl_dict(cost_center,account,row.amount,0,fiscal_years)
 						
 		else:
 			if self.deposit_type!="Emas":

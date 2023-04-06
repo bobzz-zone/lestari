@@ -123,10 +123,11 @@ frappe.ui.form.on('Gold Payment', {
 		refresh_field("write_off");
 	},
 	jadikan_deposit:function(frm){
-		frm.doc.jadi_deposit=frm.doc.unallocated_payment+frm.doc.unallocated_write_off;
+		frm.doc.jadi_deposit=frm.doc.unallocated_payment+frm.doc.write_off;
 		frm.doc.unallocated_payment=0;
 		refresh_field("unallocated_payment");
 		refresh_field("jadi_deposit");
+		frm.dirty();
 	},
 	auto_distribute:function(frm){
 		if (frm.doc.invoice_table==[] && frm.doc.customer_return==[]){
