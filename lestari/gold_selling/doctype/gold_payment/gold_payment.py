@@ -33,6 +33,7 @@ class GoldPayment(StockController):
 		for row in self.customer_return:
 			if row.allocated:
 				unallocated=flt(unallocated,3)-flt(row.allocated,3)
+		unallocated=flt(unallocated,3)-flt(self.jadi_deposit,3)-flt(self.write_off)
 		self.unallocated_payment=flt(unallocated,3)
 		# if self.unallocated_payment and self.unallocated_payment>0.0001:
 			# frappe.msgprint(self.total_invoice)
