@@ -39,7 +39,7 @@ class GoldPayment(StockController):
 # 					unallocated=flt(unallocated,3)-flt(row.allocated,3)
 # 			self.unallocated_payment=flt(unallocated,3)
 # =======
-		unallocated=self.total_payment
+		unallocated=self.total_payment+flt(self.total_advance)-flt(self.jadi_deposit)-flt(self.write_off)
 		for row in self.invoice_table:
 			if row.allocated:
 				# frappe.msgprint(row.allocated)
@@ -47,7 +47,7 @@ class GoldPayment(StockController):
 		for row in self.customer_return:
 			if row.allocated:
 				unallocated=flt(unallocated,3)-flt(row.allocated,3)
-		unallocated=flt(unallocated,3)-flt(self.jadi_deposit,3)-flt(self.write_off)
+		unallocated=flt(unallocated,3)
 		self.unallocated_payment=flt(unallocated,3)
 # >>>>>>> 4ff73b59f620a2c5a1982c33c1414d63f5363615
 		# if self.unallocated_payment and self.unallocated_payment>0.0001:
@@ -92,6 +92,63 @@ class GoldPayment(StockController):
 		self.make_gl_entries_on_cancel()
 		self.update_stock_ledger()
 		self.repost_future_sle_and_gle()
+		#revert advance
+		frappe.db.sql("""update `tabGL Entry` set  against_voucher_type=NULL,against_voucher=NULL where against_voucher_type="Gold Payment" and against_voucher="{}" """.format(self.name))
+		#merge if needed
+		gl_need_deleted=""
+		patch={}
+		for row in self.invoice_advance:
+			if row.gold_allocated>0:
+				gl_list=frappe.db.sql("""select name ,debit,credit,debit_in_account_currency,credit_in_account_currency from `tabGL Entry` where voucher_no="{}" and account="{}" and against_voucher_type=NULL and against_voucher=NULL and is_cancelled=0 """.format(row.customer_deposit,piutang_idr),as_list=1)
+				for det in gl_list:
+					if row.customer_deposit in patch:
+						if gl_need_deleted!="":
+							gl_need_deleted="""{},"{}" """.format(gl_need_deleted,det[0])
+						else:
+							gl_need_deleted=""" "{}" """.format(det[0])
+						patch[row.customer_deposit]['need_patch']=1
+						patch[row.customer_deposit]['debit']=flt(det[1])+patch[row.customer_deposit]['debit']
+						patch[row.customer_deposit]['credit']=flt(det[2])+patch[row.customer_deposit]['credit']
+						patch[row.customer_deposit]['debit_in_account_currency']=flt(det[3])+patch[row.customer_deposit]['debit_in_account_currency']
+						patch[row.customer_deposit]['credit_in_account_currency']=flt(det[4])+patch[row.customer_deposit]['credit_in_account_currency']
+					else:
+						patch[row.customer_deposit]={}
+						patch[row.customer_deposit]['need_patch']=0
+						patch[row.customer_deposit]['debit']=flt(det[1])
+						patch[row.customer_deposit]['name']=det[0]
+						patch[row.customer_deposit]['credit']=flt(det[2])
+						patch[row.customer_deposit]['debit_in_account_currency']=flt(det[3])
+						patch[row.customer_deposit]['credit_in_account_currency']=flt(det[4])
+		for row in self.gold_invoice_advance:
+			if row.gold_allocated>0:
+				gl_list=frappe.db.sql("""select name ,debit,credit,debit_in_account_currency,credit_in_account_currency from `tabGL Entry` where voucher_no="{}" and account="{}" and against_voucher_type=NULL and against_voucher=NULL and is_cancelled=0 """.format(row.customer_deposit,piutang_gold),as_list=1)
+				for det in gl_list:
+					if row.customer_deposit in patch:
+						if gl_need_deleted!="":
+							gl_need_deleted="""{},"{}" """.format(gl_need_deleted,det[0])
+						else:
+							gl_need_deleted=""" "{}" """.format(det[0])
+						patch[row.customer_deposit]['need_patch']=1
+						patch[row.customer_deposit]['debit']=flt(det[1])+patch[row.customer_deposit]['debit']
+						patch[row.customer_deposit]['credit']=flt(det[2])+patch[row.customer_deposit]['credit']
+						patch[row.customer_deposit]['debit_in_account_currency']=flt(det[3])+patch[row.customer_deposit]['debit_in_account_currency']
+						patch[row.customer_deposit]['credit_in_account_currency']=flt(det[4])+patch[row.customer_deposit]['credit_in_account_currency']
+					else:
+						patch[row.customer_deposit]={}
+						patch[row.customer_deposit]['need_patch']=0
+						patch[row.customer_deposit]['debit']=flt(det[1])
+						patch[row.customer_deposit]['name']=det[0]
+						patch[row.customer_deposit]['credit']=flt(det[2])
+						patch[row.customer_deposit]['debit_in_account_currency']=flt(det[3])
+						patch[row.customer_deposit]['credit_in_account_currency']=flt(det[4])
+		#delete merged GL
+		if gl_need_deleted!="":
+			frappe.db.sql("delete from `tabGL Entry` where name in ({})".format(gl_need_deleted),as_list=1)
+			#update value gl merged
+			for row in patch:
+				if patch[row]['need_patch']==1:
+					frappe.db.sql("""update `tabGL Entry` set debit={},credit={},debit_in_account_currency={},credit_in_account_currency={} where name="{}" """.format(patch[row]['debit'],patch[row]['credit'],patch[row]['debit_in_account_currency'],patch[row]['credit_in_account_currency'],patch[row]['name']),as_list=1)
+
 		#update invoice
 		for row in self.invoice_table:
 			frappe.db.sql("""update `tabGold Invoice` set outstanding=outstanding+{} , invoice_status="Unpaid" where name = "{}" """.format(row.allocated,row.gold_invoice))
@@ -288,6 +345,9 @@ class GoldPayment(StockController):
 			inv_payment_map[row.invoice] = row.allocated
 
 		nilai_selisih_kurs = 0
+		#hitung selisih kurs untuk DP
+		for row in self.gold_invoice_advance:
+			nilai_selisih_kurs=nilai_selisih_kurs+(row.gold_allocated*(self.tutupan-row.tutupan))
 		# distribute total gold perlu bagi per invoice
 		sisa= self.total_payment
 		credit=0
@@ -370,11 +430,87 @@ class GoldPayment(StockController):
 		csk=0
 		if nilai_selisih_kurs!=0:
 			if nilai_selisih_kurs<0:
-				dsk=nilai_selisih_kurs
+				dsk=nilai_selisih_kurs*-1
 			else:
 				csk=nilai_selisih_kurs
 			gl[selisih_kurs]=self.gl_dict(cost_center,selisih_kurs,dsk,csk,fiscal_years)
-			
+		#adnvace GL
+		adv=[]
+		for row in self.invoice_advance:
+			advance_split=[]
+			deposit=frappe.get_doc("Customer Deposit",row.customer_deposit)
+			if deposit.idr_left >=row.idr_allocated:
+				frappe.db.sql("""update `tabCustomer Deposit` set idr_left={} where name="{}" """.format(deposit.idr_left -row.idr_allocated,row.customer_deposit),as_list=1)
+				#update GL for payment
+				#if pembayaran di gunakan full
+				if deposit.idr_left ==row.idr_allocated:
+					frappe.db.sql("""update `tabGL Entry` set against_voucher_type="Gold Payment",against_voucher="{}" where voucher_no="{}" 
+					and voucher_type="Customer Deposit" and against_voucher_type is NULL and against_voucher is NULL and account="{}" and is_cancelled=0""".format(self.name,row.customer_deposit,piutang_idr),as_list=1)
+				else:
+				#if split needed
+					frappe.db.sql("""update `tabGL Entry` set debit={0},debit_in_account_currency={0} where voucher_no="{1}" 
+					and voucher_type="Customer Deposit" and against_voucher_type is NULL and against_voucher is NULL and account="{2}" and is_cancelled=0""".format(deposit.idr_left -row.idr_allocated,row.customer_deposit,piutang_idr),as_list=1)
+					adv.append({
+									"posting_date":self.posting_date,
+									"account":piutang_idr,
+									"party_type":"Customer",
+									"party":row.customer,
+									"cost_center":cost_center,
+									"credit":0,
+									"debit":row.idr_allocated,
+									"account_currency":"IDR",
+									"credit_in_account_currency":0,
+									"debit_in_account_currency":row.idr_allocated,
+									#"against":"4110.000 - Penjualan - L",
+									"voucher_type":"Customer Deposit",
+									"against_voucher_type":"Gold Payment",
+									"voucher_no":row.customer_deposit,
+									"against_voucher":self.name,
+									#"remarks":"",
+									"is_opening":"No",
+									"is_advance":"No",
+									"fiscal_year":fiscal_years,
+									"company":self.company,
+									"is_cancelled":0
+									})
+		for row in self.gold_invoice_advance:
+			deposit=frappe.get_doc("Customer Deposit",row.customer_deposit)
+			if deposit.gold_left >=row.gold_allocated:
+				frappe.db.sql("""update `tabCustomer Deposit` set  gold_left={} where name="{}" """.format(deposit.gold_left -row.gold_allocated,row.customer_deposit),as_list=1)
+				#update GL for payment
+				#if pembayaran di gunakan full
+				if deposit.gold_left ==row.gold_allocated:
+					frappe.db.sql("""update `tabGL Entry` set against_voucher_type="Gold Payment",against_voucher="{}" where voucher_no="{}" 
+					and voucher_type="Customer Deposit" and against_voucher_type is NULL and against_voucher is NULL and account="{}" and is_cancelled=0""".format(self.name,row.customer_deposit,piutang_gold),as_list=1)
+				else:
+				#if split needed
+					frappe.db.sql("""update `tabGL Entry` set debit={},debit_in_account_currency={} where voucher_no="{}" 
+					and voucher_type="Customer Deposit" and against_voucher_type is NULL and against_voucher is NULL and account="{}" and is_cancelled=0""".format((deposit.gold_left -row.gold_allocated)*deposit.tutupan,deposit.gold_left -row.gold_allocated,row.customer_deposit,piutang_gold),as_list=1)
+					adv.append({
+									"posting_date":deposit.posting_date,
+									"account":piutang_gold,
+									"party_type":"Customer",
+									"party":row.customer,
+									"cost_center":cost_center,
+									"credit":0,
+									"debit":row.gold_allocated*deposit.tutupan,
+									"account_currency":"IDR",
+									"credit_in_account_currency":0,
+									"debit_in_account_currency":row.gold_allocated,
+									#"against":"4110.000 - Penjualan - L",
+									"voucher_type":"Customer Deposit",
+									"against_voucher_type":"Gold Payment",
+									"voucher_no":row.customer_deposit,
+									"against_voucher":self.name,
+									#"remarks":"",
+									"is_opening":"No",
+									"is_advance":"No",
+									"fiscal_year":fiscal_years,
+									"company":self.company,
+									"is_cancelled":0
+									})
+		for row in adv:
+			gl_entries.append(frappe._dict(row))
 		#	credit=credit+csk
 		#	debit=debit+dsk
 		#frappe.msgprint("Selisih Kurs credit = {} , debit = {}".format(credit,debit))

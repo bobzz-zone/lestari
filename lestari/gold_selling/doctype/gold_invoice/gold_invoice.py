@@ -62,8 +62,8 @@ class GoldInvoice(Document):
 		dsk=0
 		csk=0
 		if nilai_selisih_kurs!=0:
-			if nilai_selisih_kurs>0:
-				dsk=nilai_selisih_kurs
+			if nilai_selisih_kurs<0:
+				dsk=nilai_selisih_kurs*-1
 			else:
 				csk=nilai_selisih_kurs
 			gl[selisih_kurs]={

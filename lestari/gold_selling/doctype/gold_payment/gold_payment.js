@@ -33,12 +33,13 @@ function reset_allocated(frm){
 	});
 	frm.doc.allocated_payment=0;
 	refresh_field("allocated_payment");
-	frm.doc.unallocated_payment=frm.doc.total_payment;
+	frm.doc.unallocated_payment=frm.doc.total_payment + frm.doc.total_advance;
 	refresh_field("unallocated_payment");
 	frm.doc.unallocated_write_off=0;
 	refresh_field("unallocated_write_off");
 	frm.doc.jadi_deposit=0;
 	refresh_field("jadi_deposit");
+	frappe.msgprint("Data Alokasi Ter Reset , silahkan distribusi ulang");
 }
 function calculate_table_idr(frm,cdt,cdn){
 	var total=0;
@@ -76,6 +77,51 @@ function calculate_table_stock(frm,cdt,cdn){
 		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment;
 		refresh_field("unallocated_payment");
 }
+
+frappe.ui.form.on("Gold Invoice Advance IDR", {
+	idr_allocated: function (frm, cdt, cdn) {
+	  var d = locals[cdt][cdn];
+	  if (d.idr_allocated > d.idr_deposit) {
+		frappe.model.set_value(cdt, cdn, "idr_allocated", 0);
+		frappe.throw("Allocated cant be higher than deposit value");
+	  }
+	  var idr = 0;
+	  $.each(frm.doc.invoice_advance, function (i, g) {
+		if (g.idr_allocated) {
+		  idr = idr + g.idr_allocated;
+		}
+	  });
+	  frm.doc.total_idr_in_gold = idr / frm.doc.tutupan;
+	  frm.doc.total_advance = frm.doc.total_gold + frm.doc.total_idr_in_gold;
+	  refresh_field("total_idr_in_gold");
+	  refresh_field("total_advance");
+	  if(frm.doc.allocated_payment>0){
+	  	reset_allocated(frm);
+	  }
+	},
+  });
+  frappe.ui.form.on("Gold Invoice Advance Gold", {
+	 gold_allocated: function (frm, cdt, cdn) {
+	  var d = locals[cdt][cdn];
+	  if (d.gold_allocated > d.gold_deposit) {
+		frappe.model.set_value(cdt, cdn, "gold_allocated", 0);
+		frappe.throw("Allocated cant be higher than deposit value");
+	  }
+	  var gold = 0;
+	  $.each(frm.doc.gold_invoice_advance, function (i, g) {
+		if (g.gold_allocated) {
+		  gold = g.gold_allocated;
+		}
+	  });
+	  frm.doc.total_gold = gold;
+	  frm.doc.total_advance = frm.doc.total_gold + frm.doc.total_idr_in_gold;
+	  refresh_field("total_advance");
+	  refresh_field("total_gold");
+	  if(frm.doc.allocated_payment>0){
+	  	reset_allocated(frm);
+	  }
+	 },
+  });
 
 frappe.ui.form.on('Gold Payment', {
 	discount:function(frm){
@@ -216,6 +262,18 @@ frappe.ui.form.on('Gold Payment', {
 				]
 			}
 		});
+		frm.set_query("customer_deposit", "invoice_advance", function (doc, cdt, cdn) {
+		return {
+		  query: "lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_idr_advance",
+		  filters: { customer: doc.customer ,subcustomer:doc.subcustomer},
+		};
+	  });
+	  frm.set_query("customer_deposit", "gold_invoice_advance", function (doc, cdt, cdn) {
+		return {
+		  query: "lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_gold_advance",
+		  filters: { customer: doc.customer , subcustomer:doc.subcustomer },
+		};
+	  });
 		if(!frm.doc.tutupan){
 		    frappe.call({
                 method: "lestari.gold_selling.doctype.gold_rates.gold_rates.get_latest_rates",
