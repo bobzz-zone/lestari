@@ -41,10 +41,18 @@
   "write_off_account",
   "write_off",
   "total_payment",
+  "deposit_sb",
+  "ag_cb",
+  "gold_invoice_advance",
+  "total_gold",
+  "cb_idr",
+  "invoice_advance",
+  "total_idr_in_gold",
   "additional_price_section",
   "total_invoice",
   "total_sisa_invoice",
   "column_break_36",
+  "total_advance",
   "allocated_payment",
   "unallocated_payment",
   "jadi_deposit",
@@ -351,12 +359,57 @@
    "fieldtype": "Button",
    "label": "Jadikan Sisa Deposit",
    "options": "jadikan_deposit"
+  },
+  {
+   "fieldname": "invoice_advance",
+   "fieldtype": "Table",
+   "label": "Advance IDR",
+   "options": "Gold Invoice Advance IDR"
+  },
+  {
+   "fieldname": "total_idr_in_gold",
+   "fieldtype": "Float",
+   "label": "Total IDR Payment In Gold",
+   "read_only": 1
+  },
+  {
+   "fieldname": "deposit_sb",
+   "fieldtype": "Section Break",
+   "label": "Deposit"
+  },
+  {
+   "fieldname": "ag_cb",
+   "fieldtype": "Column Break",
+   "label": "Advance Gold"
+  },
+  {
+   "fieldname": "gold_invoice_advance",
+   "fieldtype": "Table",
+   "label": "Advance Gold",
+   "options": "Gold Invoice Advance Gold"
+  },
+  {
+   "fieldname": "total_gold",
+   "fieldtype": "Float",
+   "label": "Total Gold Payment",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_idr",
+   "fieldtype": "Column Break",
+   "label": "IDR Deposit"
+  },
+  {
+   "fieldname": "total_advance",
+   "fieldtype": "Float",
+   "label": "Total Advance",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-06 14:07:53.419414",
+ "modified": "2023-04-07 14:36:34.688343",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",
