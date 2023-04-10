@@ -608,11 +608,17 @@ class GoldPayment(StockController):
 			for row in self.idr_payment:
 				account=get_bank_cash_account(row.mode_of_payment,self.company)["account"]
 				if account in gl:
-					gl[account]['debit']=gl[account]['debit']+row.amount
-					gl[account]['debit_in_account_currency']=gl[account]['debit']
+					if  row.amount >0:
+						gl[account]['debit']=gl[account]['debit']+row.amount
+						gl[account]['debit_in_account_currency']=gl[account]['debit']
+					else:
+						gl[account]['credit']=gl[account]['credit']-row.amount
+						gl[account]['credit_in_account_currency']=gl[account]['credit']
 				else:
-					gl[account]=self.gl_dict(cost_center,account,row.amount,0,fiscal_years)
-					
+					if row.amount >0:
+						gl[account]=self.gl_dict(cost_center,account,row.amount,0,fiscal_years)
+					else:
+						gl[account]=self.gl_dict(cost_center,account,0,-1*row.amount,fiscal_years)
 #				debit=debit+row.amount
 #			frappe.msgprint("IDR Payment credit = {} , debit = {}".format(credit,debit))
 		#roundoff=0
