@@ -33,6 +33,7 @@ frappe.ui.form.on('Close Bundle Stock', {
 				// on success
 				console.log(r.message)
 				r.message.forEach(element => {
+					console.log(element)
 					cur_frm.add_child('items',{
 						sub_kategori: element.sub_kategori,
 						kategori: element.kategori,

@@ -20,8 +20,10 @@
   "return_detail_sb",
   "gold_payment",
   "sales_bundle",
-  "warehouse",
   "get_from_bundle",
+  "column_break_15",
+  "warehouse",
+  "section_break_17",
   "items",
   "summary_sb",
   "total",
@@ -91,14 +93,16 @@
    "fieldname": "customer_group",
    "fieldtype": "Link",
    "label": "Customer Group",
-   "options": "Customer Group"
+   "options": "Customer Group",
+   "read_only": 1
   },
   {
    "fetch_from": "customer.territory",
    "fieldname": "territory",
    "fieldtype": "Link",
    "label": "Territory",
-   "options": "Territory"
+   "options": "Territory",
+   "read_only": 1
   },
   {
    "fieldname": "return_detail_sb",
@@ -110,7 +114,8 @@
    "fieldname": "warehouse",
    "fieldtype": "Link",
    "label": "Source Warehouse",
-   "options": "Warehouse"
+   "options": "Warehouse",
+   "read_only": 1
   },
   {
    "fieldname": "items",
@@ -175,12 +180,20 @@
    "fieldtype": "Link",
    "label": "Sales Bundle",
    "options": "Sales Stock Bundle"
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-01-30 10:15:28.445008",
+ "modified": "2023-04-10 15:50:45.533422",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Payment Return",

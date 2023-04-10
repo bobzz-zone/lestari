@@ -7,6 +7,8 @@
  "engine": "InnoDB",
  "field_order": [
   "item",
+  "terima_qty",
+  "tolak_qty",
   "qty",
   "rate",
   "amount",
@@ -81,12 +83,23 @@
    "fieldtype": "Dynamic Link",
    "label": "Voucher No",
    "options": "voucher_type"
+  },
+  {
+   "fieldname": "terima_qty",
+   "fieldtype": "Float",
+   "label": "Terima Qty"
+  },
+  {
+   "fieldname": "tolak_qty",
+   "fieldtype": "Float",
+   "label": "Tolak Qty",
+   "precision": "3"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-04-10 11:50:03.261839",
+ "modified": "2023-04-10 15:49:18.398908",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Stock Payment Return Item",

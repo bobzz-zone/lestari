@@ -39,7 +39,7 @@ class GoldPayment(StockController):
 # 					unallocated=flt(unallocated,3)-flt(row.allocated,3)
 # 			self.unallocated_payment=flt(unallocated,3)
 # =======
-		unallocated=self.total_payment+flt(self.total_advance)-flt(self.jadi_deposit)-flt(self.write_off)
+		unallocated=flt(self.total_payment)+flt(self.total_advance)-flt(self.jadi_deposit)-flt(self.write_off)
 		for row in self.invoice_table:
 			if row.allocated:
 				# frappe.msgprint(row.allocated)
@@ -573,7 +573,7 @@ class GoldPayment(StockController):
 					warehouse_value=warehouse_value+row.amount
 			if warehouse_value>0:
 				warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
-				gl[warehouse_account]=self.gl_dict(cost_center,warehouse_account,self.total_gold_deposit*self.tutupan,0,fiscal_years)
+				gl[warehouse_account]=self.gl_dict(cost_center,warehouse_account,self.jadi_deposit*self.tutupan,0,fiscal_years)
 			if len(supplier_list)>0:
 				uang_buat_beli_emas= frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
 				for sup in supplier_list:

@@ -1,6 +1,18 @@
 // Copyright (c) 2022, DAS and contributors
 // For license information, please see license.txt
 
+function calculate(frm,cdt,cdn){
+	frappe.model.set_value(cdt, cdn,"amount",d.rate*d.qty/100);
+	    var total=0;
+		$.each(frm.doc.stock_deposit,  function(i,  g) {
+		   	total=total+g.amount;
+		});
+		frm.doc.total_gold_deposit=total;
+		frm.doc.gold_left=total;
+		refresh_field("total_gold_deposit");
+		refresh_field("gold_left");
+}
+
 frappe.ui.form.on('Customer Deposit', {
 	refresh: function(frm) {
 		frm.set_query("item","stock_deposit", function(doc, cdt, cdn) {
@@ -89,15 +101,11 @@ frappe.ui.form.on('Stock Payment', {
 	},
 	qty:function(frm,cdt,cdn) {
 	    var d=locals[cdt][cdn];
-	    frappe.model.set_value(cdt, cdn,"amount",d.rate*d.qty/100);
-	    var total=0;
-		$.each(frm.doc.stock_deposit,  function(i,  g) {
-		   	total=total+g.amount;
-		});
-		frm.doc.total_gold_deposit=total;
-		frm.doc.gold_left=total;
-		refresh_field("total_gold_deposit");
-		refresh_field("gold_left");
-	}
+		calculate(frm,cdt,cdn)
+	},
+	rate:function(frm,cdt,cdn) {
+	    var d=locals[cdt][cdn];
+		calculate(frm,cdt,cdn)
+	},
 	
 });
