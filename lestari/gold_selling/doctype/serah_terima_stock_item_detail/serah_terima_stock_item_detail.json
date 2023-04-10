@@ -11,6 +11,7 @@
   "voucher_no",
   "child_table",
   "child_id",
+  "tutupan",
   "column_break_7",
   "customer",
   "customer_name",
@@ -111,12 +112,18 @@
    "fieldname": "sudah_cek",
    "fieldtype": "Check",
    "label": "Sudah Cek"
+  },
+  {
+   "fetch_from": "voucher_no.tutupan",
+   "fieldname": "tutupan",
+   "fieldtype": "Float",
+   "label": "Tutupan"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-04-04 23:49:05.720273",
+ "modified": "2023-04-10 11:52:03.605472",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Serah Terima Stock Item Detail",
