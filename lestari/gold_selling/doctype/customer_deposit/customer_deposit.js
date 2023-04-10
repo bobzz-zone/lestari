@@ -2,6 +2,7 @@
 // For license information, please see license.txt
 
 function calculate(frm,cdt,cdn){
+	var d=locals[cdt][cdn];
 	frappe.model.set_value(cdt, cdn,"amount",d.rate*d.qty/100);
 	    var total=0;
 		$.each(frm.doc.stock_deposit,  function(i,  g) {
