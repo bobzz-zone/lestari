@@ -1,0 +1,101 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-04-11 15:24:41.646981",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "posting_date",
+  "serah_terima",
+  "column_break_3",
+  "sales_bundle",
+  "warehouse",
+  "section_break_6",
+  "detail_perhiasan",
+  "detail_rongsok",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "serah_terima",
+   "fieldtype": "Link",
+   "label": "No Serah Terima Stock",
+   "options": "Serah Terima Payment Stock"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Stockist - LMS",
+   "fieldname": "sales_bundle",
+   "fieldtype": "Link",
+   "label": "Sales Bundle",
+   "options": "Sales Stock Bundle"
+  },
+  {
+   "fetch_from": "sales_bundle.warehouse",
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Warehouse",
+   "options": "Warehouse",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "detail_perhiasan",
+   "fieldtype": "Table",
+   "label": "Detail Perhiasan",
+   "options": "Konfirmasi Payment Return Perhiasan"
+  },
+  {
+   "fieldname": "detail_rongsok",
+   "fieldtype": "Table",
+   "label": "Detail Rongsok",
+   "options": "Konfirmasi Payment Return Rongsok"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Konfirmasi Payment Return",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-04-11 15:24:41.646981",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Konfirmasi Payment Return",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

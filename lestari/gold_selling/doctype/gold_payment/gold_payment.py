@@ -21,6 +21,8 @@ from erpnext.accounts.utils import get_account_currency, get_fiscal_years, valid
 from erpnext.accounts.doctype.sales_invoice.sales_invoice import get_bank_cash_account
 from erpnext.controllers.stock_controller import StockController
 
+form_grid_templates = {"invoice_table": "templates/item_grid.html"}
+
 class GoldPayment(StockController):
 	def validate(self):
 		#seharusnya validasi agaryang belum due, di pastikan tutupan sama..atau hanya 1 invoice agar di gold payment tutupan di samakan
@@ -162,7 +164,7 @@ class GoldPayment(StockController):
 					frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar-{0} , sisa_janji=sisa_janji+{0} where name = "{1}" """.format(self.total_idr_payment,self.janji_bayar))
 	@frappe.whitelist()
 	def get_gold_invoice(self):
-		doc = frappe.db.get_list("Gold Invoice", filters={"customer": self.customer, "invoice_status":"Unpaid", 'docstatus':1}, fields=['name','posting_date','customer','outstanding','due_date','tutupan','total_bruto','grand_total'])
+		doc = frappe.db.get_list("Gold Invoice", filters={"customer": self.customer, "invoice_status":"Unpaid", 'docstatus':1}, fields=['name','posting_date','customer','subcustomer','enduser','outstanding','due_date','tutupan','total_bruto','grand_total'])
 		for row in doc:
 # <<<<<<< HEAD
 			# frappe.msgprint(str(row))
@@ -191,6 +193,8 @@ class GoldPayment(StockController):
 					'gold_invoice':row.name,
 					'tanggal':row.posting_date,
 					'customer':row.customer,
+					'sub_customer':row.subcustomer,
+					'end_user':row.enduser,
 					'outstanding':row.outstanding,
 					'total':row.grand_total,
 					'due_date':row.due_date,

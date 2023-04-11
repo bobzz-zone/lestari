@@ -246,7 +246,18 @@ frappe.ui.form.on('Gold Payment', {
 		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment;
 		refresh_field("unallocated_payment");
 	},
+	get_gold_invoice:function(frm){
+		frappe.call({
+			method: "get_gold_invoice",
+			doc: frm.doc,
+			callback: function (r){
+				frm.refresh();	
+				}
+			})
+		
+	},
 	refresh: function(frm) {
+		
 		frm.set_query("item","stock_payment", function(doc, cdt, cdn) {
     			return {
     				"filters": {

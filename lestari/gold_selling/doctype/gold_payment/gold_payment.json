@@ -20,7 +20,6 @@
   "posting_time",
   "company",
   "due_date",
-  "tutupan",
   "warehouse",
   "invoice_section",
   "get_gold_invoice",
@@ -45,6 +44,7 @@
   "idr_payment",
   "total_idr_payment",
   "total_idr_gold",
+  "tutupan",
   "write_off_account",
   "write_off",
   "total_payment",
@@ -171,16 +171,17 @@
   {
    "fieldname": "payment_detail_sec",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Payment Details"
   },
   {
    "fieldname": "gold_payment_col",
-   "fieldtype": "Column Break",
+   "fieldtype": "Section Break",
    "label": "Gold Payment"
   },
   {
    "fieldname": "idr_payment_col",
-   "fieldtype": "Column Break",
+   "fieldtype": "Section Break",
    "label": "IDR Payment"
   },
   {
@@ -409,7 +410,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-08 12:52:22.814463",
+ "modified": "2023-04-11 14:36:03.279432",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",
