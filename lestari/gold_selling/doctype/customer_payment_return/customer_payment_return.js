@@ -34,7 +34,7 @@ frappe.ui.form.on('Customer Payment Return', {
 				frappe.set_route("query-report", "Stock Ledger");
 			}, __("View"));
 		}
-	}
+	},
 });
 frappe.ui.form.on('Stock Payment Return Item', {
 	item:function(frm,cdt,cdn) {
@@ -59,17 +59,20 @@ frappe.ui.form.on('Stock Payment Return Item', {
                 });
 		
 	},
-	qty:function(frm,cdt,cdn) {
+	terima_qty:function(frm,cdt,cdn) {
 	    var d=locals[cdt][cdn];
-	    frappe.model.set_value(cdt, cdn,"amount",d.rate*d.qty/100);
+	    frappe.model.set_value(cdt, cdn,"amount",d.rate*d.terima_qty/100);
+	    frappe.model.set_value(cdt, cdn,"tolak_qty",d.qty-d.terima_qty);
+		console.log(d.tolak_qty)
 	    var total=0;
 		$.each(frm.doc.items,  function(i,  g) {
 		   	total=total+g.amount;
 		});
-		frm.doc.total=total;
-		refresh_field("total");
+		frm.doc.total_terima=total;
+		refresh_field("total_terima");
 		frm.doc.outstanding=total;
 		refresh_field("outstanding");
-	}
+	},
+
 	
 });

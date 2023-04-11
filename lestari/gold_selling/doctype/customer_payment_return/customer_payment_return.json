@@ -27,6 +27,9 @@
   "items",
   "summary_sb",
   "total",
+  "total_terima",
+  "total_tolak",
+  "column_break_21",
   "outstanding",
   "tutupan",
   "invoice_status",
@@ -58,8 +61,8 @@
   {
    "fieldname": "due_date",
    "fieldtype": "Date",
-   "label": "Due Date",
-   "reqd": 1
+   "hidden": 1,
+   "label": "Due Date"
   },
   {
    "fieldname": "amended_from",
@@ -126,7 +129,7 @@
   {
    "fieldname": "total",
    "fieldtype": "Float",
-   "label": "Total",
+   "label": "Total 24K",
    "read_only": 1
   },
   {
@@ -188,12 +191,30 @@
   {
    "fieldname": "section_break_17",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_21",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_terima",
+   "fieldtype": "Float",
+   "label": "Total Terima",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_tolak",
+   "fieldtype": "Float",
+   "label": "Total Tolak",
+   "precision": "3",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-10 15:50:45.533422",
+ "modified": "2023-04-11 04:22:34.580112",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Payment Return",

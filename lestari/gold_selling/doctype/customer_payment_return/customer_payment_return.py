@@ -58,22 +58,29 @@ class CustomerPaymentReturn(StockController):
 		self.repost_future_sle_and_gle()
 	@frappe.whitelist()
 	def get_sales_bundle(self):
-		sales_bundle = frappe.db.get_list("Pencatatan Pengembalian Emas", filters={
+		from lestari.gold_selling.doctype.gold_invoice.gold_invoice import get_gold_purchase_rate
+		sales_bundle = frappe.db.get_list("Serah Terima Payment Stock", filters={
 			'sales_bundle': self.sales_bundle,
-			'customer': self.customer,
-        	'status_pengembalian': 'Belum Diambil',
+			# 'customer': self.customer,
+        	# 'status_pengembalian': 'Belum Diambil',
 			'docstatus':1
     	})
 		for row in sales_bundle:
 			frappe.msgprint(str(row.name))
-			items = frappe.get_doc("Pencatatan Pengembalian Emas", row.name)
-			for col in items.item:
-				baris_baru = {
-					'category': col.category,
-					'qty': col.qty,
-					'no_document': row.name,
-				}
-				self.append('items',baris_baru)
+			items = frappe.get_doc("Serah Terima Payment Stock", row.name)
+			for col in items.details:
+				if col.customer == self.customer:
+					purchase_rate = get_gold_purchase_rate(col.item,self.customer,self.customer_group)
+					frappe.msgprint(str(purchase_rate))
+					baris_baru = {
+						'item': col.item,
+						'qty': col.qty,
+						'rate': purchase_rate['nilai'],
+						'serah_teirma': row.name,
+						'voucher_type': row.voucher_type,
+						'voucher_no': row.voucher_no,
+					}
+					self.append('items',baris_baru)
 	def update_stock_ledger(self):
 		sl_entries = []
 		sl=[]
