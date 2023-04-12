@@ -49,6 +49,8 @@
   "write_off",
   "total_payment",
   "additional_price_section",
+  "other_charges",
+  "total_biaya_tambahan",
   "total_invoice",
   "total_sisa_invoice",
   "column_break_36",
@@ -405,12 +407,24 @@
    "fieldtype": "Float",
    "label": "Total Advance",
    "read_only": 1
+  },
+  {
+   "fieldname": "other_charges",
+   "fieldtype": "Table",
+   "label": "Other Charges",
+   "options": "Gold Payment Charges"
+  },
+  {
+   "fieldname": "total_biaya_tambahan",
+   "fieldtype": "Currency",
+   "label": "Total Tambahan Biaya",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-11 14:36:03.279432",
+ "modified": "2023-04-12 22:27:35.628007",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

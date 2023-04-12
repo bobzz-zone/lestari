@@ -1,0 +1,66 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-04-12 22:19:06.828145",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "category",
+  "account",
+  "type",
+  "gold_amount",
+  "amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Charges Category",
+   "options": "Charges Category",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "category.account",
+   "fieldname": "account",
+   "fieldtype": "Link",
+   "label": "Account",
+   "options": "Account",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount",
+   "mandatory_depends_on": "type==\"IDR\"",
+   "read_only_depends_on": "type==\"Emas\""
+  },
+  {
+   "fetch_from": "category.type",
+   "fieldname": "type",
+   "fieldtype": "Data",
+   "label": "Type"
+  },
+  {
+   "depends_on": "type==\"Emas\"",
+   "fieldname": "gold_amount",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "24K",
+   "mandatory_depends_on": "type==\"Emas\""
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-04-12 22:28:15.598405",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Gold Payment Charges",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
