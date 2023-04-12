@@ -518,6 +518,11 @@ class GoldPayment(StockController):
 		#	credit=credit+csk
 		#	debit=debit+dsk
 		#frappe.msgprint("Selisih Kurs credit = {} , debit = {}".format(credit,debit))
+		for row in self.other_charges:
+			if row.gold_amount>0:
+				gl[row.category]=self.gl_dict(cost_center,row.account,row.gold_amount*self.tutupan,0,fiscal_years)
+			else:
+				gl[row.category]=self.gl_dict(cost_center,row.account,0,row.gold_amount*self.tutupan,fiscal_years)
 		#BONUS,DISCOUNT,WRITEOFF
 		if self.bonus>0:
 			bonus_payment = frappe.db.get_single_value('Gold Selling Settings', 'bonus_payment')
