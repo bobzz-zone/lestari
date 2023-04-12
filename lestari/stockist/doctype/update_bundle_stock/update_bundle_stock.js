@@ -160,17 +160,8 @@ frappe.ui.form.on('Update Bundle Stock', {
 		}).then(records => {
 			for(var i = 0; i<= records.length; i++){
 				list_kat.push(records[i].name)
-				// console.log(records[i].name);
-				// console.log(list_kat)
 			}
 		})
-		// frm.set_query("sub_kategori", "items", function () {
-		// 	return {
-		// 		"filters": [
-		// 			["Item Group", "is_group", "=", 0],
-		// 		]
-		// 	};
-		//   });
 		frm.set_query("sub_kategori", "items", function () {
 			return {
 				"filters": [

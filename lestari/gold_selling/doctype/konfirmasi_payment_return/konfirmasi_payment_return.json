@@ -7,10 +7,11 @@
  "engine": "InnoDB",
  "field_order": [
   "posting_date",
-  "serah_terima",
-  "column_break_3",
   "sales_bundle",
-  "warehouse",
+  "s_warehouse",
+  "column_break_3",
+  "serah_terima",
+  "t_warehouse",
   "section_break_6",
   "detail_perhiasan",
   "detail_rongsok",
@@ -34,19 +35,11 @@
    "fieldtype": "Column Break"
   },
   {
-   "default": "Stockist - LMS",
+   "fetch_from": "serah_terima.sales_bundle",
    "fieldname": "sales_bundle",
    "fieldtype": "Link",
    "label": "Sales Bundle",
    "options": "Sales Stock Bundle"
-  },
-  {
-   "fetch_from": "sales_bundle.warehouse",
-   "fieldname": "warehouse",
-   "fieldtype": "Link",
-   "label": "Warehouse",
-   "options": "Warehouse",
-   "read_only": 1
   },
   {
    "fieldname": "section_break_6",
@@ -72,12 +65,27 @@
    "options": "Konfirmasi Payment Return",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fetch_from": "sales_bundle.warehouse",
+   "fieldname": "s_warehouse",
+   "fieldtype": "Link",
+   "label": "Source Warehouse",
+   "options": "Warehouse",
+   "read_only": 1
+  },
+  {
+   "default": "Stockist - LMS",
+   "fieldname": "t_warehouse",
+   "fieldtype": "Link",
+   "label": "Target Warehouse",
+   "options": "Warehouse"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-11 15:24:41.646981",
+ "modified": "2023-04-12 02:49:00.746312",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Konfirmasi Payment Return",
