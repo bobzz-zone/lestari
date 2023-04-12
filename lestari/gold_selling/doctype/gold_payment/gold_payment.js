@@ -130,6 +130,23 @@ frappe.ui.form.on("Gold Invoice Advance Gold", {
 });
 
 frappe.ui.form.on('Gold Payment', {
+	validate:function(frm){
+		//validate allocated amount
+
+		$.each(frm.doc.invoice_table,  function(i,  g) {
+			if (g.allocated>g.outstanding){
+				frappe.msgprint("Nota "+g.gold_invoice+" nilai alokasi salah");
+				return false;
+			}
+		});
+		$.each(frm.doc.customer_return,  function(i,  g) {
+			if (g.allocated>g.outstanding){
+				frappe.msgprint("Customer Return "+g.invoice+" nilai alokasi salah");
+				return false;
+			}
+		});
+		
+	}.
 	discount:function(frm){
 		if (frm.doc.discount<=0){
 			return
@@ -185,7 +202,7 @@ frappe.ui.form.on('Gold Payment', {
 		}else{
 			var need_to=frm.doc.unallocated_payment;
 			// console.log(need_to)
-			var sisa_invoice = parseFloat(cur_frm.doc.total_invoice) - parseFloat(need_to)
+			var sisa_invoice = parseFloat(cur_frm.doc.total_invoice) - parseFloat(need_to) + frm.doc.total_biaya_tambahan;
 			if (sisa_invoice <0){
 				sisa_invoice=0
 			}

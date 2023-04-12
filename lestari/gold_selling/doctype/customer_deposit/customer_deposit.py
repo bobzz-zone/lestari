@@ -247,7 +247,7 @@ class CustomerDeposit(StockController):
 		else:
 			if self.deposit_type!="Emas":
 				frappe.throw("Conversion hanya bisa untuk Deposit Rupiah menjadi emas")
-			if self.customer_deposit_source and self.used_deposit>0:
+			if self.total_value_converted>0:
 				piutang_idr = frappe.db.get_single_value('Gold Selling Settings', 'piutang_idr')
 				piutang_gold = frappe.db.get_single_value('Gold Selling Settings', 'piutang_gold')
 				uang_buat_beli_emas = frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
@@ -258,10 +258,10 @@ class CustomerDeposit(StockController):
 								"party":self.customer,
 								"cost_center":cost_center,
 								"credit":0,
-								"debit":self.used_deposit,
+								"debit":self.total_value_converted,
 								"account_currency":"IDR",
 								"credit_in_account_currency":0,
-								"debit_in_account_currency":self.used_deposit,
+								"debit_in_account_currency":self.total_value_converted,
 								#"against":"4110.000 - Penjualan - L",
 								"voucher_type":"Customer Deposit",
 								"against_voucher_type":"Customer Deposit",
@@ -281,10 +281,10 @@ class CustomerDeposit(StockController):
 								"party":self.customer,
 								"cost_center":cost_center,
 								"debit":0,
-								"credit":self.used_deposit,
+								"credit":self.total_value_converted,
 								"account_currency":"GOLD",
 								"debit_in_account_currency":0,
-								"credit_in_account_currency":self.used_deposit/self.tutupan,
+								"credit_in_account_currency":self.total_value_converted/self.tutupan,
 								#"against":"4110.000 - Penjualan - L",
 								"voucher_type":"Customer Deposit",
 								"voucher_no":self.name,
