@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "format:KPR{YY}{MM}{#######}",
  "creation": "2023-04-11 15:24:41.646981",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -85,7 +86,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-12 02:49:00.746312",
+ "modified": "2023-04-13 12:16:27.915243",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Konfirmasi Payment Return",

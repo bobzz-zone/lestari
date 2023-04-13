@@ -25,12 +25,9 @@
   "posting_date",
   "posting_time",
   "column_break_4",
-  "customer_deposit_source",
+  "source",
+  "total_value_converted",
   "idr_deposit_section",
-  "sisa_idr_deposit",
-  "used_deposit",
-  "actual_buy",
-  "cash_from",
   "idr_deposit",
   "total_idr_deposit",
   "idr_left",
@@ -170,23 +167,6 @@
    "mandatory_depends_on": "eval:doc.deposit_type==\"Emas\""
   },
   {
-   "depends_on": "customer_deposit_source",
-   "fetch_from": "customer_deposit_source.idr_left",
-   "fieldname": "sisa_idr_deposit",
-   "fieldtype": "Currency",
-   "label": "Current Sisa Deposit IDR",
-   "mandatory_depends_on": "customer_deposit_source",
-   "read_only": 1
-  },
-  {
-   "depends_on": "is_convert",
-   "fieldname": "customer_deposit_source",
-   "fieldtype": "Link",
-   "label": "Customer Deposit Source",
-   "mandatory_depends_on": "is_convert",
-   "options": "Customer Deposit"
-  },
-  {
    "fieldname": "company",
    "fieldtype": "Link",
    "label": "Company",
@@ -217,36 +197,12 @@
    "reqd": 1
   },
   {
-   "description": "di hide karena di rasa g perlu karena ga di catat berapa yang dibelikan emas",
-   "fieldname": "cash_from",
-   "fieldtype": "Link",
-   "hidden": 1,
-   "label": "Sumber Uang",
-   "options": "Account"
-  },
-  {
-   "depends_on": "customer_deposit_source",
-   "fetch_from": "customer_deposit_source.idr_left",
-   "fetch_if_empty": 1,
-   "fieldname": "used_deposit",
-   "fieldtype": "Currency",
-   "label": "Used Deposit",
-   "mandatory_depends_on": "customer_deposit_source"
-  },
-  {
-   "description": "di hide karena di rasa g perlu karena ga di catat berapa yang dibelikan emas",
-   "fetch_from": "customer_deposit_source.idr_left",
-   "fieldname": "actual_buy",
-   "fieldtype": "Currency",
-   "hidden": 1,
-   "label": "Uang Actual Di belikan Emas"
-  },
-  {
    "default": "0",
    "depends_on": "eval:doc.deposit_type==\"Emas\" && doc.is_convert==0",
    "fieldname": "terima_barang",
    "fieldtype": "Check",
-   "label": "Terima Barang"
+   "label": "Terima Barang",
+   "read_only": 1
   },
   {
    "fieldname": "sales_bundle",
@@ -273,11 +229,25 @@
    "fieldtype": "Link",
    "label": "Subcustomer",
    "options": "Customer"
+  },
+  {
+   "depends_on": "is_convert",
+   "fieldname": "source",
+   "fieldtype": "Table",
+   "label": "Customer Deposit Source",
+   "mandatory_depends_on": "is_convert",
+   "options": "Customer Deposit Convert"
+  },
+  {
+   "fieldname": "total_value_converted",
+   "fieldtype": "Currency",
+   "label": "Total Value Converted",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-05 21:23:53.663276",
+ "modified": "2023-04-13 01:01:17.461051",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Deposit",

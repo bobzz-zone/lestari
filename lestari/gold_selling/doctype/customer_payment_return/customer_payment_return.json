@@ -51,8 +51,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Customer",
-   "options": "Customer",
-   "reqd": 1
+   "options": "Customer"
   },
   {
    "fieldname": "column_break",
@@ -214,7 +213,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-11 04:22:34.580112",
+ "modified": "2023-04-13 14:26:58.139705",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Payment Return",

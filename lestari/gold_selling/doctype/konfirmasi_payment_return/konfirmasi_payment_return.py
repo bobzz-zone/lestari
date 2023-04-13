@@ -6,8 +6,9 @@ from frappe.model.document import Document
 
 class KonfirmasiPaymentReturn(Document):
     def on_submit(self):
-        ste = frappe.new_doc("Stock Entry")
-        ste.
+        pass
+        # ste = frappe.new_doc("Stock Entry")
+        # ste.
     @frappe.whitelist()
     def get_serah_terima(self):
         doc = frappe.get_doc("Serah Terima Payment Stock", self.serah_terima)

@@ -48,10 +48,12 @@
   "write_off_account",
   "write_off",
   "total_payment",
-  "additional_price_section",
+  "charges_sb",
   "other_charges",
   "total_biaya_tambahan",
+  "additional_price_section",
   "total_invoice",
+  "total_extra_charges",
   "total_sisa_invoice",
   "column_break_36",
   "total_advance",
@@ -330,7 +332,7 @@
   {
    "fieldname": "total_sisa_invoice",
    "fieldtype": "Float",
-   "label": "Total Sisa Invoice",
+   "label": "Total Perlu Dibayar",
    "precision": "3",
    "read_only": 1
   },
@@ -416,15 +418,27 @@
   },
   {
    "fieldname": "total_biaya_tambahan",
-   "fieldtype": "Currency",
+   "fieldtype": "Float",
    "label": "Total Tambahan Biaya",
+   "read_only": 1
+  },
+  {
+   "fieldname": "charges_sb",
+   "fieldtype": "Section Break",
+   "label": "Other Charges"
+  },
+  {
+   "description": "Total Biaya Tambahan - Bonus + Writeoff - Discount",
+   "fieldname": "total_extra_charges",
+   "fieldtype": "Float",
+   "label": "Total Extra Charges",
    "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-12 22:27:35.628007",
+ "modified": "2023-04-12 23:27:47.354940",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

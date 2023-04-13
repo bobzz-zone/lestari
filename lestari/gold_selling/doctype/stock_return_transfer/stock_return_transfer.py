@@ -28,3 +28,8 @@ class StockReturnTransfer(Document):
 				'child_name':row.name,
 			}
 			self.append("transfer_details",rongsok)
+	def on_submit(self):
+		for row in self.transfer_details:
+			if row.type == "Keluar":
+				frappe.db.set_value(str(row.child_type),row.child_name,'is_out',1)
+				

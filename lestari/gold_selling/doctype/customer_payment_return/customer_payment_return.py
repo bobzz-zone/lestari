@@ -59,7 +59,7 @@ class CustomerPaymentReturn(StockController):
 	@frappe.whitelist()
 	def get_sales_bundle(self):
 		from lestari.gold_selling.doctype.gold_invoice.gold_invoice import get_gold_purchase_rate
-		sales_bundle = frappe.db.get_list("Serah Terima Payment Stock", filters={
+		sales_bundle = frappe.db.get_list("Stock Return Transfer", filters={
 			'sales_bundle': self.sales_bundle,
 			# 'customer': self.customer,
         	# 'status_pengembalian': 'Belum Diambil',
@@ -67,14 +67,15 @@ class CustomerPaymentReturn(StockController):
     	})
 		for row in sales_bundle:
 			frappe.msgprint(str(row.name))
-			items = frappe.get_doc("Serah Terima Payment Stock", row.name)
-			for col in items.details:
-				if col.customer == self.customer:
+			items = frappe.get_doc("Stock Return Transfer", row.name)
+			for col in items.transfer_details:
+				customer = frappe.db.get_value(str(col.voucher_type),col.voucher_no,"customer")
+				if self.customer and self.customer == customer:
 					purchase_rate = get_gold_purchase_rate(col.item,self.customer,self.customer_group)
 					frappe.msgprint(str(purchase_rate))
 					baris_baru = {
 						'item': col.item,
-						'qty': col.qty,
+						'qty': col.berat,
 						'rate': purchase_rate['nilai'],
 						'serah_teirma': row.name,
 						'voucher_type': row.voucher_type,
