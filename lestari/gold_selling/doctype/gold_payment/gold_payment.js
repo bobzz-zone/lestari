@@ -146,7 +146,7 @@ frappe.ui.form.on('Gold Payment', {
 			}
 		});
 		
-	}.
+	},
 	discount:function(frm){
 		if (frm.doc.discount<=0){
 			return

@@ -1,8 +1,34 @@
 // Copyright (c) 2022, DAS and contributors
 // For license information, please see license.txt
 
+function calculate_table_stock(frm,cdt,cdn){
+	var d=locals[cdt][cdn];
+    frappe.model.set_value(cdt, cdn,"amount",d.rate*d.qty/100);
+    var total=0;
+    $.each(frm.doc.items,  function(i,  g) {
+    	total=total+g.amount;
+    });
+    frm.doc.total=total;
+    refresh_field("total");
+	//calculate total payment
+	frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.total_advance;
+	frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment-frm.doc.total_biaya_tambahan;
+	refresh_field("total_payment");
+	refresh_field("unallocated_payment");
+}
+
 frappe.ui.form.on('Customer Payment Return', {
 	refresh: function(frm) {
+		if(!frm.doc.tutupan){
+			frappe.call({
+				method: "lestari.gold_selling.doctype.gold_rates.gold_rates.get_latest_rates",
+				callback: function (r){
+					frm.doc.tutupan=r.message.nilai;
+					refresh_field("tutupan")
+
+				}
+			})
+		}
 		frm.set_query("item","items", function(doc, cdt, cdn) {
     			return {
     				"filters": {
@@ -72,6 +98,9 @@ frappe.ui.form.on('Stock Payment Return Item', {
 		refresh_field("total_terima");
 		frm.doc.outstanding=total;
 		refresh_field("outstanding");
+	},
+	rate:function(frm,cdt,cdn) {
+		calculate_table_stock(frm,cdt,cdn)
 	},
 
 	

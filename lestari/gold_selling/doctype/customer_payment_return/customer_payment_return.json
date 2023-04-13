@@ -153,7 +153,6 @@
   {
    "fieldname": "tutupan",
    "fieldtype": "Currency",
-   "hidden": 1,
    "label": "Tutupan"
   },
   {
@@ -198,22 +197,30 @@
   {
    "fieldname": "total_terima",
    "fieldtype": "Float",
+   "hidden": 1,
    "label": "Total Terima",
+   "no_copy": 1,
    "precision": "3",
-   "read_only": 1
+   "print_hide": 1,
+   "read_only": 1,
+   "report_hide": 1
   },
   {
    "fieldname": "total_tolak",
    "fieldtype": "Float",
+   "hidden": 1,
    "label": "Total Tolak",
+   "no_copy": 1,
    "precision": "3",
-   "read_only": 1
+   "print_hide": 1,
+   "read_only": 1,
+   "report_hide": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-13 14:26:58.139705",
+ "modified": "2023-04-14 01:11:52.220379",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Payment Return",

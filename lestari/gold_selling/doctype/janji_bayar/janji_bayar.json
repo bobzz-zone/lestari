@@ -15,6 +15,7 @@
   "catatan",
   "column_break_7",
   "tanggal_janji",
+  "jenis_janji",
   "gold_invoice",
   "total_invoice",
   "status_invoice",
@@ -77,11 +78,12 @@
    "read_only": 1
   },
   {
+   "depends_on": "jenis_janji==\"Pembayaran\"",
    "fieldname": "gold_invoice",
    "fieldtype": "Link",
    "label": "Gold Invoice",
-   "options": "Gold Invoice",
-   "reqd": 1
+   "mandatory_depends_on": "jenis_janji==\"Pembayaran\"",
+   "options": "Gold Invoice"
   },
   {
    "depends_on": "eval: doc.gold_invoice",
@@ -121,6 +123,7 @@
    "precision": "2"
   },
   {
+   "depends_on": "jenis_janji==\"Pembayaran\"",
    "fetch_from": "gold_invoice.outstanding",
    "fieldname": "total_invoice",
    "fieldtype": "Float",
@@ -177,11 +180,17 @@
    "fieldtype": "Currency",
    "label": "Sisa Janji",
    "read_only": 1
+  },
+  {
+   "fieldname": "jenis_janji",
+   "fieldtype": "Select",
+   "label": "Jenis Janji",
+   "options": "Pembayaran\nDeposit"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-03-23 10:19:32.242299",
+ "modified": "2023-04-14 01:13:01.482918",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Janji Bayar",

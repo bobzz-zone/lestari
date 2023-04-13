@@ -72,16 +72,17 @@ class CustomerPaymentReturn(StockController):
 				customer = frappe.db.get_value(str(col.voucher_type),col.voucher_no,"customer")
 				if self.customer and self.customer == customer:
 					purchase_rate = get_gold_purchase_rate(col.item,self.customer,self.customer_group)
-					frappe.msgprint(str(purchase_rate))
-					baris_baru = {
-						'item': col.item,
-						'qty': col.berat,
-						'rate': purchase_rate['nilai'],
-						'serah_teirma': row.name,
-						'voucher_type': row.voucher_type,
-						'voucher_no': row.voucher_no,
-					}
-					self.append('items',baris_baru)
+					if col.type == "Keluar":
+						frappe.msgprint(str(purchase_rate))
+						baris_baru = {
+							'item': col.item,
+							'qty': col.berat,
+							'rate': purchase_rate['nilai'],
+							'serah_terima': row.name,
+							'voucher_type': col.voucher_type,
+							'voucher_no': col.voucher_no,
+						}
+						self.append('items',baris_baru)
 	def update_stock_ledger(self):
 		sl_entries = []
 		sl=[]
