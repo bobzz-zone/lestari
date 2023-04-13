@@ -31,3 +31,14 @@ class JanjiBayar(Document):
 		doc.flags.ignore_permissions = True
 		doc.save()
 		return doc
+	@frappe.whitelist(allow_guest=True)
+	def get_deposit(self):
+		doc = frappe.new_doc("Customer Deposit")
+		doc.customer = self.customer
+		doc.posting_date = now()
+		doc.janji_bayar = self.name
+		doc.deposit_type = "IDR"
+		
+		doc.flags.ignore_permissions = True
+		doc.save()
+		return doc

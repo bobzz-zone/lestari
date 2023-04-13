@@ -27,8 +27,10 @@ frappe.ui.form.on('Janji Bayar', {
 		cur_frm.refresh_field("total_idr_payment")
 	},
 	make_custom_buttons: function (frm) {
-	if (frm.doc.docstatus === 1 && frm.doc.status==="Pending") {
+	if (frm.doc.docstatus === 1 && frm.doc.status==="Pending" && frm.doc.jenis_janji==="Pembayaran") {
 	  frm.add_custom_button(__("Quick Payment"), () => frm.events.get_gold_payment(frm));
+	}else if (frm.doc.docstatus === 1 && frm.doc.status==="Pending" && frm.doc.jenis_janji==="Pembayaran"){
+		frm.add_custom_button(__("Quick Deposit"), () => frm.events.get_deposit(frm));
 	}
   },
   get_gold_payment: function (frm) {

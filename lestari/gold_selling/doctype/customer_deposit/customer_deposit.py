@@ -34,7 +34,13 @@ class CustomerDeposit(StockController):
 			self.repost_future_sle_and_gle()
 		if self.is_convert==1:
 			frappe.db.sql("""update `tabCustomer Deposit` set idr_left=idr_left-{} where name="{}" """.format(self.used_deposit,self.customer_deposit_source),as_list=1)
-	
+		if self.janji_bayar and self.total_idr_payment>0:
+				janji=frappe.get_doc("Janji Bayar",self.janji_bayar)
+				if janji.status=="Pending":
+					if janji.sisa_janji<=self.total_idr_payment : 
+						frappe.db.sql("""update `tabJanji Bayar` set status="Lunas",total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_deposit,self.janji_bayar))
+					else:
+						frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_deposit,self.janji_bayar))
 	def on_cancel(self):
 		self.flags.ignore_links=True
 		self.make_gl_entries_on_cancel()
@@ -43,7 +49,12 @@ class CustomerDeposit(StockController):
 			self.repost_future_sle_and_gle()
 		if self.is_convert==1:
 			frappe.db.sql("""update `tabCustomer Deposit` set idr_left=idr_left+{} where name="{}" """.format(self.used_deposit,self.customer_deposit_source),as_list=1)
-
+		if self.janji_bayar and self.total_idr_payment>0:
+				janji=frappe.get_doc("Janji Bayar",self.janji_bayar)
+				if janji.status == "Lunas":
+					frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar-{0} ,status="Pending", sisa_janji=sisa_janji+{0} where name = "{1}" """.format(self.total_idr_deposit,self.janji_bayar))
+				else:
+					frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar-{0} , sisa_janji=sisa_janji+{0} where name = "{1}" """.format(self.total_idr_deposit,self.janji_bayar))
 	def update_stock_ledger(self):
 		sl_entries = []
 		sl=[]
