@@ -24,7 +24,7 @@ frappe.ui.form.on('Customer Deposit', {
     			};
 
     		});
-		frm.set_query("customer_deposit_source", function (doc) {
+		frm.set_query("customer_deposit", function (doc) {
 	      return {
 	        query: "lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_idr_advance",
 	        filters: { customer: doc.customer },
@@ -64,6 +64,30 @@ frappe.ui.form.on('Customer Deposit', {
 			}, __("View"));
 		}
 	}
+});
+frappe.ui.form.on('Customer Deposit Convert', {
+	customer_deposit:function(frm,cdt,cdn) {
+		var d=locals[cdt][cdn];
+		if (d.covert!=d.nilai){
+			frappe.model.set_value(cdt, cdn, "convert", d.convert);
+		}
+		frm.doc.total_value_converted=frm.doc.total_value_converted+d.convert;
+		refresh_field("total_value_converted");
+	},
+	convert:function(frm,cdt,cdn) {
+		var d=locals[cdt][cdn];
+		if(d.convert>d.nilai){
+			frappe.model.set_value(cdt, cdn, "convert", d.nilai);
+			frappe.msgprint("Nilai di gunakan terlalu besar")
+		}
+		var total=0;
+
+		$.each(frm.doc.source,  function(i,  g) {
+		   	total=total+g.convert;
+		});
+		frm.doc.total_value_converted=total;
+		refresh_field("total_value_converted");
+	},
 });
 frappe.ui.form.on('IDR Payment', {
 	amount:function(frm,cdt,cdn) {
