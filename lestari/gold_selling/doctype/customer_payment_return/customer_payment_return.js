@@ -10,11 +10,6 @@ function calculate_table_stock(frm,cdt,cdn){
     });
     frm.doc.total=total;
     refresh_field("total");
-	//calculate total payment
-	frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.total_advance;
-	frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment-frm.doc.total_biaya_tambahan;
-	refresh_field("total_payment");
-	refresh_field("unallocated_payment");
 }
 
 frappe.ui.form.on('Customer Payment Return', {
