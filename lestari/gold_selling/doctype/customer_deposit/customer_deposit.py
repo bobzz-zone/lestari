@@ -272,7 +272,7 @@ class CustomerDeposit(StockController):
 									"party":self.customer,
 									"cost_center":cost_center,
 									"credit":0,
-									"debit":self.total_value_converted,
+									"debit":row.convert,
 									"account_currency":"IDR",
 									"credit_in_account_currency":0,
 									"debit_in_account_currency":row.convert,
