@@ -240,10 +240,12 @@ frappe.ui.form.on('Gold Payment', {
 				});
 			}
 			if (need_to<0){
+				frappe.msgprint(" Test "+need_to);
 				cur_frm.set_value("total_sisa_invoice",need_to*-1);
 				need_to=0;
 			}else{
 				var sisa_invoice = parseFloat(cur_frm.doc.total_invoice) - parseFloat(need_to) + frm.doc.total_extra_charges;
+				frappe.msgprint(" Test 2 "+sisa_invoice);
 				if (sisa_invoice <0){
 					sisa_invoice=0
 				}
