@@ -175,7 +175,7 @@ frappe.ui.form.on('Gold Payment', {
 	bonus:function(frm){
 		refresh_total_and_charges(frm);
 	},
-	reset_allocated:function(frm){
+	reset_alokasi:function(frm){
 		reset_allocated(frm);
 	},
 	writeoff_sisa:function(frm){
