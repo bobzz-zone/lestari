@@ -60,5 +60,12 @@ frappe.ui.form.on('Janji Bayar', {
 		frappe.set_route("Form", r.message.doctype, r.message.name);
 	  }
 	});
-  }
+  },
+  get_deposit: function (frm) {
+	frm.call("get_deposit", { throw_if_missing: true }).then((r) => {
+	  if (r.message) {
+		console.log(r.message);
+		frappe.set_route("Form", r.message.doctype, r.message.name);
+	  }
+	});
 });
