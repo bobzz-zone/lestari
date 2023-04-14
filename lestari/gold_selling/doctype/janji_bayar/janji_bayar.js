@@ -5,6 +5,16 @@ frappe.ui.form.on('Janji Bayar', {
 	
 	refresh: function(frm) {
 		frm.events.make_custom_buttons(frm);
+		if(!frm.doc.tutupan){
+			frappe.call({
+				method: "lestari.gold_selling.doctype.gold_rates.gold_rates.get_latest_rates",
+				callback: function (r){
+					frm.doc.tutupan=r.message.nilai;
+					refresh_field("tutupan")
+
+				}
+			})
+		}
 		frm.set_query("gold_invoice", function(){
 			return {
 				"filters": [
