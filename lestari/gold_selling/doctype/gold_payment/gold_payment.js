@@ -244,7 +244,7 @@ frappe.ui.form.on('Gold Payment', {
 					frappe.model.set_value(g.doctype, g.name, "allocated", g.allocated+alo);
 				});
 			}
-			if (need_to<0){}
+			if (need_to<0){
 				cur_frm.set_value("total_sisa_invoice",need_to*-1);
 				need_to=0;
 			}else{
