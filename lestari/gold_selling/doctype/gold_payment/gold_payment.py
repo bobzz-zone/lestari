@@ -41,7 +41,7 @@ class GoldPayment(StockController):
 # 					unallocated=flt(unallocated,3)-flt(row.allocated,3)
 # 			self.unallocated_payment=flt(unallocated,3)
 # =======
-		unallocated=flt(self.total_payment)+flt(self.total_advance)-flt(self.jadi_deposit)-flt(self.write_off)
+		unallocated=flt(self.total_payment)+flt(self.total_advance)-flt(self.jadi_deposit)-flt(self.total_extra_charges)
 		for row in self.invoice_table:
 			if row.allocated:
 				# frappe.msgprint(row.allocated)
