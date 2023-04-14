@@ -86,6 +86,15 @@ frappe.ui.form.on('Customer Deposit Convert', {
 		frm.doc.total_value_converted=total;
 		refresh_field("total_value_converted");
 	},
+	source_remove: function(frm,cdt,cdn){
+		var total=0;
+
+		$.each(frm.doc.source,  function(i,  g) {
+		   	total=total+g.convert;
+		});
+		frm.doc.total_value_converted=total;
+		refresh_field("total_value_converted");
+	}
 });
 frappe.ui.form.on('IDR Payment', {
 	amount:function(frm,cdt,cdn) {
