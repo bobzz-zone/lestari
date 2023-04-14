@@ -264,28 +264,29 @@ class CustomerDeposit(StockController):
 				piutang_idr = frappe.db.get_single_value('Gold Selling Settings', 'piutang_idr')
 				piutang_gold = frappe.db.get_single_value('Gold Selling Settings', 'piutang_gold')
 				uang_buat_beli_emas = frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
-				gl[piutang_idr]={
-								"posting_date":self.posting_date,
-								"account":piutang_idr,
-								"party_type":"Customer",
-								"party":self.customer,
-								"cost_center":cost_center,
-								"credit":0,
-								"debit":self.total_value_converted,
-								"account_currency":"IDR",
-								"credit_in_account_currency":0,
-								"debit_in_account_currency":self.total_value_converted,
-								#"against":"4110.000 - Penjualan - L",
-								"voucher_type":"Customer Deposit",
-								"against_voucher_type":"Customer Deposit",
-								"voucher_no":self.name,
-								"against_voucher":self.customer_deposit_source,
-								#"remarks":"",
-								"is_opening":"No",
-								"is_advance":"No",
-								"fiscal_year":fiscal_years,
-								"company":self.company,
-								"is_cancelled":0
+				for row in self.source:
+					gl[row.customer_deposit]={
+									"posting_date":self.posting_date,
+									"account":piutang_idr,
+									"party_type":"Customer",
+									"party":self.customer,
+									"cost_center":cost_center,
+									"credit":0,
+									"debit":self.total_value_converted,
+									"account_currency":"IDR",
+									"credit_in_account_currency":0,
+									"debit_in_account_currency":row.convert,
+									#"against":"4110.000 - Penjualan - L",
+									"voucher_type":"Customer Deposit",
+									"against_voucher_type":"Customer Deposit",
+									"voucher_no":self.name,
+									"against_voucher":row.customer_deposit,
+									#"remarks":"",
+									"is_opening":"No",
+									"is_advance":"No",
+									"fiscal_year":fiscal_years,
+									"company":self.company,
+									"is_cancelled":0
 								}
 				gl[piutang_gold]={
 								"posting_date":self.posting_date,
