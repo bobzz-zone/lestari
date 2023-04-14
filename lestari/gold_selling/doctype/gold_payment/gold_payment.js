@@ -25,7 +25,7 @@ function calculate_table_invoice(frm,cdt,cdn){
 function refresh_total_and_charges(frm){
 	frm.doc.total_extra_charges=frm.doc.write_off+ frm.doc.total_biaya_tambahan - frm.doc.bonus - frm.doc.discount_amount;
 	refresh_field("total_extra_charges");
-	frm.doc.total_sisa_invoice=frm.doc.total_invoice + frm.doc.total_extra_charges - frm.doc.allocated;
+	frm.doc.total_sisa_invoice=frm.doc.total_invoice + frm.doc.total_extra_charges - frm.doc.allocated_payment;
 	refresh_field("total_sisa_invoice");
 }
 function reset_allocated(frm){
@@ -240,8 +240,8 @@ frappe.ui.form.on('Gold Payment', {
 			cur_frm.set_value("unallocated_payment",need_to.toFixed(3))
 			// console.log(cur_frm.doc.unallocated_payment)
 			refresh_field("unallocated_payment");
-			frappe.msgprint("Pembayaran Telah di Alokasikan");
 			refresh_total_and_charges(frm);
+			frappe.msgprint("Pembayaran Telah di Alokasikan");
 		}
 
 	},
