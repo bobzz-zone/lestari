@@ -241,7 +241,7 @@ frappe.ui.form.on('Gold Payment', {
 			// console.log(cur_frm.doc.unallocated_payment)
 			refresh_field("unallocated_payment");
 			frappe.msgprint("Pembayaran Telah di Alokasikan");
-
+			refresh_total_and_charges(frm);
 		}
 
 	},
