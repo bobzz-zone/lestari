@@ -24,6 +24,9 @@ frappe.ui.form.on('Janji Bayar', {
 			}
 		});
 	},
+	validate:function(frm){
+		cur_frm.set_value("total_emas", cur_frm.doc.total_bayar / cur_frm.doc.tutupan);
+	},
 	gold_invoice: function(frm){
 		var total_idr = 0;
 		total_idr = cur_frm.doc.total_invoice * cur_frm.doc.tutupan

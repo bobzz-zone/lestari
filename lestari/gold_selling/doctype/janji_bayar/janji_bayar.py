@@ -37,6 +37,7 @@ class JanjiBayar(Document):
 		doc.customer = self.customer
 		doc.posting_date = now()
 		doc.janji_bayar = self.name
+		doc.sisa_janji=self.sisa_janji
 		doc.deposit_type = "IDR"
 		
 		doc.flags.ignore_permissions = True
