@@ -41,12 +41,11 @@ function reset_allocated(frm){
 	frm.doc.unallocated_payment=frm.doc.total_payment + frm.doc.total_advance-frm.doc.total_extra_charges;
 	frm.doc.unallocated_write_off=0;
 	frm.doc.jadi_deposit=0;
-	refresh_total_and_charges(frm);
 	refresh_field("allocated_payment");
 	refresh_field("unallocated_payment");
 	refresh_field("unallocated_write_off");
 	refresh_field("jadi_deposit");
-	frappe.msgprint("Data Alokasi Ter Reset , silahkan distribusi ulang");
+	refresh_total_and_charges(frm);
 }
 function calculate_table_idr(frm,cdt,cdn){
 	var total=0;
@@ -61,10 +60,9 @@ function calculate_table_idr(frm,cdt,cdn){
 	frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.total_advance;
 	frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment-frm.doc.total_extra_charges;
 	refresh_field("total_payment");
+	refresh_field("unallocated_payment");
 	if(frm.doc.unallocated_payment<0){
 		reset_allocated(frm);
-	}else{
-		refresh_field("unallocated_payment");
 	}
 }
 
