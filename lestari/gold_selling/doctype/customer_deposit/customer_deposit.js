@@ -71,6 +71,13 @@ frappe.ui.form.on('Customer Deposit Convert', {
 		if (d.covert!=d.nilai){
 			frappe.model.set_value(cdt, cdn, "convert", d.convert);
 		}
+		var total=0;
+
+		$.each(frm.doc.source,  function(i,  g) {
+		   	total=total+g.convert;
+		});
+		frm.doc.total_value_converted=total;
+		refresh_field("total_value_converted");
 	},
 	convert:function(frm,cdt,cdn) {
 		var d=locals[cdt][cdn];
