@@ -18,9 +18,9 @@ class CustomerDeposit(StockController):
 		if self.is_convert==1:
 			self.stock_deposit=[]
 			self.terima_barang=0
-			if self.source and self.used_deposit>0:
+			if self.source and self.total_value_converted>0:
 				item_ct = frappe.db.get_single_value('Gold Selling Settings', 'item_ct')
-				qty = self.used_deposit/self.tutupan
+				qty = self.total_value_converted/self.tutupan
 				self.append("stock_deposit",{"item":item_ct,"rate":100,"qty":qty,"amount":qty})
 				self.total_gold_deposit=qty
 				self.gold_left=qty
@@ -33,7 +33,8 @@ class CustomerDeposit(StockController):
 			self.update_stock_ledger()
 			self.repost_future_sle_and_gle()
 		if self.is_convert==1:
-			frappe.db.sql("""update `tabCustomer Deposit` set idr_left=idr_left-{} where name="{}" """.format(self.used_deposit,self.customer_deposit_source),as_list=1)
+			for row in  self.source:
+				frappe.db.sql("""update `tabCustomer Deposit` set idr_left=idr_left-{} where name="{}" """.format(row.convert,row.customer_deposit),as_list=1)
 		if self.janji_bayar and self.total_idr_deposit>0:
 				janji=frappe.get_doc("Janji Bayar",self.janji_bayar)
 				if janji.status=="Pending":
@@ -48,7 +49,8 @@ class CustomerDeposit(StockController):
 			self.update_stock_ledger()
 			self.repost_future_sle_and_gle()
 		if self.is_convert==1:
-			frappe.db.sql("""update `tabCustomer Deposit` set idr_left=idr_left+{} where name="{}" """.format(self.used_deposit,self.customer_deposit_source),as_list=1)
+			for row in  self.source:
+				frappe.db.sql("""update `tabCustomer Deposit` set idr_left=idr_left+{} where name="{}" """.format(row.convert,row.customer_deposit),as_list=1)
 		if self.janji_bayar and self.total_idr_deposit>0:
 				janji=frappe.get_doc("Janji Bayar",self.janji_bayar)
 				if janji.status == "Lunas":
