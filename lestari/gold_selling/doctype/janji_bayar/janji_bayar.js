@@ -21,7 +21,7 @@ frappe.ui.form.on('Janji Bayar', {
 		cur_frm.refresh_field("total_idr_payment")
 	},
 	total_idr_payment:function(frm){
-		cur_frm.set_value("total_emas", total_idr_payment / cur_frm.doc.tutupan);
+		cur_frm.set_value("total_emas", cur_frm.doc.total_idr_payment / cur_frm.doc.tutupan);
 		cur_frm.refresh_field("total_emas");
 	},
 	tutupan: function(frm){
@@ -31,7 +31,7 @@ frappe.ui.form.on('Janji Bayar', {
 			cur_frm.set_value("total_idr_payment", total_idr);
 			cur_frm.refresh_field("total_idr_payment");
 		}
-		cur_frm.set_value("total_emas", total_idr_payment / cur_frm.doc.tutupan);
+		cur_frm.set_value("total_emas", cur_frm.doc.total_idr_payment / cur_frm.doc.tutupan);
 		cur_frm.refresh_field("total_emas");
 		
 
