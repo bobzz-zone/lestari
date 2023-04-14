@@ -18,7 +18,7 @@ class CustomerDeposit(StockController):
 		if self.is_convert==1:
 			self.stock_deposit=[]
 			self.terima_barang=0
-			if self.customer_deposit_source and self.used_deposit>0:
+			if self.source and self.used_deposit>0:
 				item_ct = frappe.db.get_single_value('Gold Selling Settings', 'item_ct')
 				qty = self.used_deposit/self.tutupan
 				self.append("stock_deposit",{"item":item_ct,"rate":100,"qty":qty,"amount":qty})
