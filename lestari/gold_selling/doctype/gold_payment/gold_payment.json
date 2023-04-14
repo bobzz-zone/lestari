@@ -7,7 +7,6 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "naming_series",
   "customer",
   "subcustomer",
   "customer_group",
@@ -16,6 +15,7 @@
   "janji_bayar",
   "sales_warehouse",
   "column_break_2",
+  "naming_series",
   "posting_date",
   "posting_time",
   "company",
@@ -137,6 +137,7 @@
    "default": "0",
    "fieldname": "bonus",
    "fieldtype": "Float",
+   "hidden": 1,
    "label": "Bonus in 24K",
    "precision": "3"
   },
@@ -445,7 +446,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-14 13:36:52.889138",
+ "modified": "2023-04-14 14:44:01.813916",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

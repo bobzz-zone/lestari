@@ -8,12 +8,10 @@
  "field_order": [
   "sub_kategori",
   "kadar",
-  "item",
   "qty_penambahan",
   "timbang",
-  "berat_transfer",
-  "timbang1",
   "column_break_4",
+  "item",
   "kategori",
   "gold_selling_item"
  ],
@@ -76,22 +74,7 @@
   },
   {
    "columns": 1,
-   "fieldname": "berat_transfer",
-   "fieldtype": "Float",
-   "in_list_view": 1,
-   "label": "Berat Transfer",
-   "precision": "2"
-  },
-  {
-   "columns": 1,
    "fieldname": "timbang",
-   "fieldtype": "Button",
-   "in_list_view": 1,
-   "label": "Timbang"
-  },
-  {
-   "columns": 1,
-   "fieldname": "timbang1",
    "fieldtype": "Button",
    "in_list_view": 1,
    "label": "Timbang"
@@ -100,7 +83,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-03-21 15:02:00.730044",
+ "modified": "2023-04-14 14:58:29.743163",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Detail Penambahan Stock",
