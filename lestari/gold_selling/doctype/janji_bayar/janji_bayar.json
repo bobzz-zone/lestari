@@ -170,7 +170,7 @@
   {
    "fieldname": "total_terbayar",
    "fieldtype": "Currency",
-   "label": "Janji Terbayar",
+   "label": "IDR Janji Terbayar",
    "read_only": 1
   },
   {
@@ -194,7 +194,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-14 14:13:07.231938",
+ "modified": "2023-04-14 14:22:11.744011",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Janji Bayar",

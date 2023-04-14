@@ -19,10 +19,9 @@ class CustomerPaymentReturn(StockController):
 							SELECT parent.name
 							FROM `tabCustomer Payment Return` parent 
 							JOIN `tabStock Payment Return Item` items ON items.parent = parent.name
-							WHERE items.voucher_type = "Gold Payment" OR items.voucher_type = "Customer Deposit"
-							AND items.voucher_no = "{}"
-							AND parent.name != "{}" 
+							WHERE items.voucher_no = "{}"
 							AND parent.docstatus = 1
+							AND items.voucher_type = "Gold Payment" OR items.voucher_type = "Customer Deposit"
 							""".format(row.voucher_no,self.name),as_list=1)
 				if len(gp_used)>0:
 					frappe.throw("""Gold Payment telah di return pada Transaksi no {} """.format(gp_used[0][0]))
