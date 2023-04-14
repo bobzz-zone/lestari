@@ -60,7 +60,7 @@ class GoldPayment(StockController):
 			self.warehouse = frappe.db.get_single_value('Gold Selling Settings', 'default_warehouse')
 
 	def on_submit(self):
-		if self.unallocated_payment>0:
+		if self.unallocated_payment>0.001:
 			# frappe.msgprint(self.total_invoice)
 			frappe.throw("Error,unallocated Payment Masih ada {}".format(self.unallocated_payment))
 		else:
