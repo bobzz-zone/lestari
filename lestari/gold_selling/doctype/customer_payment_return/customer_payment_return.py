@@ -21,7 +21,7 @@ class CustomerPaymentReturn(StockController):
 							JOIN `tabCustomer Payment Return` parent ON parent.name = items.parent
 							WHERE items.voucher_type = "Gold Payment" OR items.voucher_type = "Customer Deposit"
 							AND items.voucher_no = "{}"
-							AND parent.name != "{}" 
+							# AND parent.name != "{}" 
 							AND parent.docstatus = 1
 							""".format(row.voucher_no,self.name),as_list=1)
 				if len(gp_used)>0:
