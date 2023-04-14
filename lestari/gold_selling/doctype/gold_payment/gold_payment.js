@@ -113,7 +113,7 @@ frappe.ui.form.on("Gold Invoice Advance Gold", {
 		var gold = 0;
 		$.each(frm.doc.gold_invoice_advance, function (i, g) {
 			if (g.gold_allocated) {
-				gold = g.gold_allocated;
+				gold =gold+ g.gold_allocated;
 			}
 		});
 		frm.doc.total_gold = gold;
