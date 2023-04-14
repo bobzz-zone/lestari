@@ -460,7 +460,7 @@ function calculate_table_charges(frm,cdt,cdn){
 	});
 	frm.doc.total_biaya_tambahan=total;
 	refresh_field("total_biaya_tambahan");
-	if(frm.doc.allocated>0){
+	if(frm.doc.allocated_payment>0){
 		reset_allocated(frm);
 	}else{
 		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment-frm.doc.total_extra_charges;
