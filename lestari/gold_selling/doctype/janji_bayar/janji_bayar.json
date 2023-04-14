@@ -78,15 +78,14 @@
    "read_only": 1
   },
   {
-   "depends_on": "jenis_janji==\"Pembayaran\"",
+   "depends_on": "eval:doc.jenis_janji===\"Pembayaran\"",
    "fieldname": "gold_invoice",
    "fieldtype": "Link",
    "label": "Gold Invoice",
-   "mandatory_depends_on": "jenis_janji==\"Pembayaran\"",
+   "mandatory_depends_on": "eval:doc.jenis_janji===\"Pembayaran\"",
    "options": "Gold Invoice"
   },
   {
-   "depends_on": "eval: doc.gold_invoice",
    "fieldname": "total_bayar",
    "fieldtype": "Currency",
    "label": "Total Janji Bayar",
@@ -166,8 +165,7 @@
    "in_list_view": 1,
    "label": "Status",
    "no_copy": 1,
-   "options": "Pending\nLunas\nCancelled\nStopped",
-   "read_only": 1
+   "options": "Pending\nLunas\nCancelled\nStopped"
   },
   {
    "fieldname": "total_terbayar",
@@ -185,12 +183,12 @@
    "fieldname": "jenis_janji",
    "fieldtype": "Select",
    "label": "Jenis Janji",
-   "options": "Pembayaran\nDeposit"
+   "options": "\nPembayaran\nDeposit"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-14 01:13:01.482918",
+ "modified": "2023-04-14 12:52:40.280774",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Janji Bayar",
