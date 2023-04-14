@@ -23,7 +23,7 @@ function calculate_table_invoice(frm,cdt,cdn){
 
 }
 function refresh_total_and_charges(frm){
-	frm.doc.total_extra_charges=frm.doc.write_off+ frm.doc.total_biaya_tambahan - frm.doc.bonus - frm.discount_amount;
+	frm.doc.total_extra_charges=frm.doc.write_off+ frm.doc.total_biaya_tambahan - frm.doc.bonus - frm.doc.discount_amount;
 	refresh_field("total_extra_charges");
 	frm.doc.total_sisa_invoice=frm.doc.total_invoice + frm.doc.total_extra_charges - frm.doc.allocated;
 	refresh_field("total_sisa_invoice");
@@ -217,7 +217,7 @@ frappe.ui.form.on('Gold Payment', {
 				var alo=0;
 				if (need_to>(g.outstanding-g.allocated)){
 					alo=g.outstanding-g.allocated;
-					cur_frm.doc.total_sisa_invoice = alo
+					//cur_frm.doc.total_sisa_invoice = alo
 				}else{
 					alo=need_to;
 				}
