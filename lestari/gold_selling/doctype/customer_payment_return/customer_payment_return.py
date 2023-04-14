@@ -14,7 +14,6 @@ class CustomerPaymentReturn(StockController):
 		payment_map={}
 		if self.name:
 			for row in self.items:
-				frappe.msgprint(str(row.item))
 				# gp_used=frappe.db.sql("""select name from `tabCustomer Payment Return` where gold_payment="{}" and name !="{}" and docstatus!=2""".format(self.gold_payment,self.name),as_list=1)
 				gp_used=frappe.db.sql("""
 							SELECT parent.name
@@ -23,16 +22,17 @@ class CustomerPaymentReturn(StockController):
 							WHERE items.voucher_type = "Gold Payment" OR items.voucher_type = "Customer Deposit"
 							AND items.voucher_no = "{}"
 							AND parent.name != "{}" 
-							AND parent.docstatus != 2
+							AND parent.docstatus = 1
 							""".format(row.voucher_no,self.name),as_list=1)
 				if len(gp_used)>0:
 					frappe.throw("""Gold Payment telah di return pada Transaksi no {} """.format(gp_used[0][0]))
 				#validate payment return
 				payment_detail=frappe.db.sql("""select item,qty from `tabStock Payment` where parent="{}" """.format(row.voucher_no),as_list=1)
-				for row in payment_detail:
-					payment_map[row[0]]=row[1]
+				for col in payment_detail:
+					payment_map[col[0]]=col[1]
 				#validate returned stock
 				# for row in self.items:
+				# frappe.msgprint(str(payment_map))
 				if row.item not in payment_map:
 					frappe.throw("""{} Tidak ada pada Record Payment {}""".format(row.item,row.voucher_no))
 				if payment_map[row.item]<row.qty:
