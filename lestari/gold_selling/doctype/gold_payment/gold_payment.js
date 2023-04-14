@@ -20,7 +20,6 @@ function calculate_table_invoice(frm,cdt,cdn){
 	frm.doc.unallocated_payment=frm.doc.total_payment + frm.doc.total_advance -frm.doc.allocated_payment-frm.doc.total_extra_charges;
 	refresh_field("allocated_payment");
 	refresh_field("unallocated_payment");
-
 }
 function refresh_total_and_charges(frm){
 	frm.doc.total_extra_charges=frm.doc.write_off+ frm.doc.total_biaya_tambahan - frm.doc.bonus - frm.doc.discount_amount;
@@ -175,6 +174,9 @@ frappe.ui.form.on('Gold Payment', {
 	},
 	bonus:function(frm){
 		refresh_total_and_charges(frm);
+	},
+	reset_allocated:function(frm){
+		reset_allocated(frm);
 	},
 	writeoff_sisa:function(frm){
 		if(frm.doc.unallocated_payment>0){
