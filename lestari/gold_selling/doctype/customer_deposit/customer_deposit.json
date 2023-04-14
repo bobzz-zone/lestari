@@ -15,6 +15,8 @@
   "territory",
   "deposit_type",
   "janji_bayar",
+  "sisa_janji",
+  "total_janji",
   "tutupan",
   "terima_barang",
   "sales_bundle",
@@ -251,11 +253,26 @@
    "label": "Janji Bayar",
    "options": "Janji Bayar",
    "read_only": 1
+  },
+  {
+   "fetch_from": "janji_bayar.sisa_janji",
+   "fieldname": "sisa_janji",
+   "fieldtype": "Currency",
+   "label": "Sisa Janji",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fetch_from": "janji_bayar.total_bayar",
+   "fieldname": "total_janji",
+   "fieldtype": "Currency",
+   "label": "Total Janji",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-14 01:17:22.373038",
+ "modified": "2023-04-14 16:35:28.338929",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Deposit",
