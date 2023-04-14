@@ -204,7 +204,7 @@ frappe.ui.form.on('Gold Payment', {
 			reset_allocated(frm);
 			var need_to=frm.doc.unallocated_payment-frm.doc.total_extra_charges;
 			// console.log(need_to)
-			var sisa_invoice = parseFloat(cur_frm.doc.total_invoice) - parseFloat(frm.doc.unallocated_payment) ;
+			var sisa_invoice = parseFloat(cur_frm.doc.total_invoice) - parseFloat(need_to) ;
 			frappe.msgprint("SIsa  Invoice "+sisa_invoice);
 			if (sisa_invoice <0){
 				sisa_invoice=0
