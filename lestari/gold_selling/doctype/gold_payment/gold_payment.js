@@ -218,6 +218,7 @@ frappe.ui.form.on('Gold Payment', {
 				frappe.msgprint("Tidak ada pembayaran yang dapat di alokasikan");
 				return;
 			}
+			frappe.msgprint("Need to "+need_to);
 			$.each(frm.doc.customer_return,  function(i,  g) {
 				var alo=0;
 				if (need_to>(g.outstanding-g.allocated)){
@@ -234,8 +235,10 @@ frappe.ui.form.on('Gold Payment', {
 				$.each(frm.doc.invoice_table,  function(i,  g) {
 					var alo=0;
 					if (need_to>(g.outstanding-g.allocated)){
+						frappe.msgprint("Allocated2 "+alo);
 						alo=g.outstanding-g.allocated;
 					}else{
+						frappe.msgprint("Allocated "+need_to);
 						alo=need_to;
 					}
 					need_to=need_to-alo;
