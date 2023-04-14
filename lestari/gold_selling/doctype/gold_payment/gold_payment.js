@@ -20,12 +20,14 @@ function calculate_table_invoice(frm,cdt,cdn){
 	frm.doc.unallocated_payment=frm.doc.total_payment + frm.doc.total_advance -frm.doc.allocated_payment-frm.doc.total_extra_charges;
 	refresh_field("allocated_payment");
 	refresh_field("unallocated_payment");
-
 }
 function refresh_total_and_charges(frm){
-	frm.doc.total_extra_charges=frm.doc.write_off+ frm.doc.total_biaya_tambahan - frm.doc.bonus - frm.discount_amount;
+	frm.doc.total_extra_charges=frm.doc.write_off+ frm.doc.total_biaya_tambahan - frm.doc.bonus - frm.doc.discount_amount;
 	refresh_field("total_extra_charges");
-	frm.doc.total_sisa_invoice=frm.doc.total_invoice + frm.doc.total_extra_charges - frm.doc.allocated;
+	frm.doc.total_sisa_invoice=frm.doc.total_invoice + frm.doc.total_extra_charges - frm.doc.allocated_payment;
+	if (frm.doc.write_off<0){
+		frm.doc.total_sisa_invoice=frm.doc.total_sisa_invoice-frm.doc.write_off;
+	}
 	refresh_field("total_sisa_invoice");
 }
 function reset_allocated(frm){
@@ -41,12 +43,11 @@ function reset_allocated(frm){
 	frm.doc.unallocated_payment=frm.doc.total_payment + frm.doc.total_advance-frm.doc.total_extra_charges;
 	frm.doc.unallocated_write_off=0;
 	frm.doc.jadi_deposit=0;
-	refresh_total_and_charges(frm);
 	refresh_field("allocated_payment");
 	refresh_field("unallocated_payment");
 	refresh_field("unallocated_write_off");
 	refresh_field("jadi_deposit");
-	frappe.msgprint("Data Alokasi Ter Reset , silahkan distribusi ulang");
+	refresh_total_and_charges(frm);
 }
 function calculate_table_idr(frm,cdt,cdn){
 	var total=0;
@@ -61,10 +62,9 @@ function calculate_table_idr(frm,cdt,cdn){
 	frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.total_advance;
 	frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment-frm.doc.total_extra_charges;
 	refresh_field("total_payment");
+	refresh_field("unallocated_payment");
 	if(frm.doc.unallocated_payment<0){
 		reset_allocated(frm);
-	}else{
-		refresh_field("unallocated_payment");
 	}
 }
 
@@ -175,17 +175,21 @@ frappe.ui.form.on('Gold Payment', {
 	bonus:function(frm){
 		refresh_total_and_charges(frm);
 	},
+	reset_allocated:function(frm){
+		reset_allocated(frm);
+	},
 	writeoff_sisa:function(frm){
-		frm.doc.write_off=frm.doc.write_off-frm.doc.unallocated_payment;
-		frm.doc.unallocated_payment=0;
-		if (frm.doc.total_sisa_invoice>0.1){
+		if(frm.doc.unallocated_payment>0){
+			frm.doc.write_off=frm.doc.write_off-frm.doc.unallocated_payment;
+			frm.doc.unallocated_payment=0;
+			refresh_field("unallocated_payment");
+		}else if (frm.doc.total_sisa_invoice>0.1){
 			if(frm.doc.total_sisa_invoice>0.1){
-				frappe.msgprint("Penghapusan Sisa Invoice Melebihi 0.01 Gram Emas di lakukan apabila document ini di submit")
+				frappe.msgprint("Penghapusan Sisa Invoice Melebihi 0.1 Gram Emas di lakukan apabila document ini di submit")
 			}
 			frm.doc.write_off=frm.doc.write_off+frm.doc.total_sisa_invoice;
 			refresh_field("total_sisa_invoice");
 		}
-		refresh_field("unallocated_payment");
 		refresh_field("write_off");
 		refresh_total_and_charges(frm);
 	},
@@ -211,13 +215,15 @@ frappe.ui.form.on('Gold Payment', {
 			need_to = need_to.toFixed(3);
 			// console.log(need_to)
 			if(need_to<=0){
-				frappe.throw("Tidak ada pembayaran yang dapat di alokasikan");
+				refresh_total_and_charges(frm);
+				frappe.msgprint("Tidak ada pembayaran yang dapat di alokasikan");
+				return;
 			}
 			$.each(frm.doc.customer_return,  function(i,  g) {
 				var alo=0;
 				if (need_to>(g.outstanding-g.allocated)){
 					alo=g.outstanding-g.allocated;
-					cur_frm.doc.total_sisa_invoice = alo
+					//cur_frm.doc.total_sisa_invoice = alo
 				}else{
 					alo=need_to;
 				}
@@ -240,8 +246,8 @@ frappe.ui.form.on('Gold Payment', {
 			cur_frm.set_value("unallocated_payment",need_to.toFixed(3))
 			// console.log(cur_frm.doc.unallocated_payment)
 			refresh_field("unallocated_payment");
+			refresh_total_and_charges(frm);
 			frappe.msgprint("Pembayaran Telah di Alokasikan");
-
 		}
 
 	},
@@ -460,7 +466,7 @@ function calculate_table_charges(frm,cdt,cdn){
 	});
 	frm.doc.total_biaya_tambahan=total;
 	refresh_field("total_biaya_tambahan");
-	if(frm.doc.allocated>0){
+	if(frm.doc.allocated_payment>0){
 		reset_allocated(frm);
 	}else{
 		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment-frm.doc.total_extra_charges;
