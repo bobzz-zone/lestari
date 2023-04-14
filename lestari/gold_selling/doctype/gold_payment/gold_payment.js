@@ -17,7 +17,7 @@ function calculate_table_invoice(frm,cdt,cdn){
 	refresh_field("allocated");
 	refresh_field("total_invoice");
 	frm.doc.allocated_payment=allocated ;
-	frm.doc.unallocated_payment=frm.doc.total_payment + frm.doc.total_advance -frm.doc.allocated_payment-frm.doc.total_biaya_tambahan;
+	frm.doc.unallocated_payment=frm.doc.total_payment + frm.doc.total_advance -frm.doc.allocated_payment-frm.doc.total_extra_charges;
 	refresh_field("allocated_payment");
 	refresh_field("unallocated_payment");
 
@@ -25,7 +25,7 @@ function calculate_table_invoice(frm,cdt,cdn){
 function refresh_total_and_charges(frm){
 	frm.doc.total_extra_charges=frm.doc.write_off+ frm.doc.total_biaya_tambahan - frm.doc.bonus - frm.discount_amount;
 	refresh_field("total_extra_charges");
-	frm.doc.total_sisa_invoice=frm.doc.total_invoice + frm.doc.total_biaya_tambahan - frm.doc.allocated;
+	frm.doc.total_sisa_invoice=frm.doc.total_invoice + frm.doc.total_extra_charges - frm.doc.allocated;
 	refresh_field("total_sisa_invoice");
 }
 function reset_allocated(frm){
@@ -38,7 +38,7 @@ function reset_allocated(frm){
 		frappe.model.set_value(g.doctype, g.name, "allocated", 0);
 	});
 	frm.doc.allocated_payment=0;
-	frm.doc.unallocated_payment=frm.doc.total_payment + frm.doc.total_advance-frm.doc.total_biaya_tambahan;
+	frm.doc.unallocated_payment=frm.doc.total_payment + frm.doc.total_advance-frm.doc.total_extra_charges;
 	frm.doc.unallocated_write_off=0;
 	frm.doc.jadi_deposit=0;
 	refresh_total_and_charges(frm);
@@ -59,7 +59,7 @@ function calculate_table_idr(frm,cdt,cdn){
 	refresh_field("total_idr_gold");
 	//calculate total payment
 	frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.total_advance;
-	frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment-frm.doc.total_biaya_tambahan;
+	frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment-frm.doc.total_extra_charges;
 	refresh_field("total_payment");
 	if(frm.doc.unallocated_payment<0){
 		reset_allocated(frm);
@@ -79,7 +79,7 @@ function calculate_table_stock(frm,cdt,cdn){
     refresh_field("total_gold_payment");
 	//calculate total payment
 	frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.total_advance;
-	frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment-frm.doc.total_biaya_tambahan;
+	frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment-frm.doc.total_extra_charges;
 	refresh_field("total_payment");
 	refresh_field("unallocated_payment");
 }
@@ -202,7 +202,7 @@ frappe.ui.form.on('Gold Payment', {
 		}else{
 			var need_to=frm.doc.unallocated_payment;
 			// console.log(need_to)
-			var sisa_invoice = parseFloat(cur_frm.doc.total_invoice) - parseFloat(need_to) + frm.doc.total_biaya_tambahan;
+			var sisa_invoice = parseFloat(cur_frm.doc.total_invoice) - parseFloat(need_to) + frm.doc.total_extra_charges;
 			if (sisa_invoice <0){
 				sisa_invoice=0
 			}
@@ -372,7 +372,7 @@ frappe.ui.form.on('Gold Payment Invoice', {
 		frm.doc.allocated_payment=allocated;
 		refresh_field("discount_amount");
 		refresh_field("allocated_payment");
-		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment-frm.doc.total_biaya_tambahan;
+		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment-frm.doc.total_extra_charges;
 		refresh_field("unallocated_payment");
 		refresh_field("discount_amount");
 	},
@@ -398,7 +398,7 @@ frappe.ui.form.on('Gold Payment Return', {
 		refresh_field("total_invoice");
 		frm.doc.allocated_payment=allocated;
 		refresh_field("allocated_payment");
-		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment-frm.doc.total_biaya_tambahan;
+		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment-frm.doc.total_extra_charges;
 		refresh_field("unallocated_payment");
 
 	},
@@ -421,7 +421,7 @@ frappe.ui.form.on('Gold Payment Return', {
 		frm.doc.allocated_payment=allocated;
 		refresh_field("discount_amount");
 		refresh_field("allocated_payment");
-		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment-frm.doc.total_biaya_tambahan;
+		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment-frm.doc.total_extra_charges;
 		refresh_field("unallocated_payment");
 	}
 });
@@ -463,7 +463,7 @@ function calculate_table_charges(frm,cdt,cdn){
 	if(frm.doc.allocated>0){
 		reset_allocated(frm);
 	}else{
-		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment-frm.doc.total_biaya_tambahan;
+		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment-frm.doc.total_extra_charges;
 	}
 	
 }
@@ -487,7 +487,7 @@ frappe.ui.form.on('Stock Payment', {
 				//calculate total payment
 				frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold+frm.doc.total_advance;
 				refresh_field("total_payment");
-				frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment-frm.doc.total_biaya_tambahan;
+				frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment-frm.doc.total_extra_charges;
 				refresh_field("unallocated_payment");
 			}
 		});
