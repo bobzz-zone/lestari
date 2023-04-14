@@ -205,7 +205,13 @@ frappe.ui.form.on('Gold Payment', {
 			reset_allocated(frm);
 			var need_to=frm.doc.unallocated_payment-frm.doc.total_extra_charges;
 			// console.log(need_to)
-			
+			var sisa_invoice = parseFloat(cur_frm.doc.total_invoice) - parseFloat(need_to) + frm.doc.total_extra_charges;
+			frappe.msgprint(" Test 2 "+sisa_invoice);
+			if (sisa_invoice <0){
+				sisa_invoice=0
+			}
+			cur_frm.set_value("total_sisa_invoice",sisa_invoice);
+			cur_frm.refresh_field("total_sisa_invoice");
 			need_to = need_to.toFixed(3);
 			var total_alo=0;
 			// console.log(need_to)
@@ -239,28 +245,22 @@ frappe.ui.form.on('Gold Payment', {
 					frappe.model.set_value(g.doctype, g.name, "allocated", g.allocated+alo);
 				});
 			}
-			frappe.msgprint("Need To "+need_to);
+			//frappe.msgprint("Need To "+need_to);
 			/*if (need_to<0){
 				frappe.msgprint(" Test "+need_to);
 				cur_frm.set_value("total_sisa_invoice",need_to*-1);
 				need_to=0;*/
 			//}else{
-				var sisa_invoice = parseFloat(cur_frm.doc.total_invoice) - parseFloat(need_to) + frm.doc.total_extra_charges;
-				frappe.msgprint(" Test 2 "+sisa_invoice);
-				/*if (sisa_invoice <0){
-					sisa_invoice=0
-				}*/
-				cur_frm.set_value("total_sisa_invoice",sisa_invoice);
-				cur_frm.refresh_field("total_sisa_invoice");
+				
 			//}	
 			refresh_field("total_sisa_invoice");
 			//frm.doc.allocated_payment=need_to;
 
-			/*cur_frm.set_value("unallocated_payment",need_to.toFixed(3));
+			cur_frm.set_value("unallocated_payment",need_to.toFixed(3));
 			cur_frm.set_value("allocated_payment",total_alo.toFixed(3));
 			refresh_field("unallocated_payment");
 			refresh_field("allocated_payment");
-			*/
+			
 			refresh_total_and_charges(frm);
 			frappe.msgprint("Pembayaran Telah di Alokasikan");
 		}
