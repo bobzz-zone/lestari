@@ -20,11 +20,21 @@ frappe.ui.form.on('Janji Bayar', {
 		cur_frm.set_value("total_idr_payment", total_idr)
 		cur_frm.refresh_field("total_idr_payment")
 	},
+	total_idr_payment:function(frm){
+		cur_frm.set_value("total_emas", total_idr_payment / cur_frm.doc.tutupan);
+		cur_frm.refresh_field("total_emas");
+	},
 	tutupan: function(frm){
-		var total_idr = 0;
-		total_idr = cur_frm.doc.total_invoice * cur_frm.doc.tutupan
-		cur_frm.set_value("total_idr_payment", total_idr)
-		cur_frm.refresh_field("total_idr_payment")
+		if(frm.doc.jenis_janji=="Pembayaran"){
+			var total_idr = 0;
+			total_idr = cur_frm.doc.total_invoice * cur_frm.doc.tutupan;
+			cur_frm.set_value("total_idr_payment", total_idr);
+			cur_frm.refresh_field("total_idr_payment");
+		}
+		cur_frm.set_value("total_emas", total_idr_payment / cur_frm.doc.tutupan);
+		cur_frm.refresh_field("total_emas");
+		
+
 	},
 	make_custom_buttons: function (frm) {
 	if (frm.doc.docstatus === 1 && frm.doc.status==="Pending" && frm.doc.jenis_janji==="Pembayaran") {
