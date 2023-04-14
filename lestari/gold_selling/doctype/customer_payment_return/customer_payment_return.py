@@ -17,11 +17,11 @@ class CustomerPaymentReturn(StockController):
 				# gp_used=frappe.db.sql("""select name from `tabCustomer Payment Return` where gold_payment="{}" and name !="{}" and docstatus!=2""".format(self.gold_payment,self.name),as_list=1)
 				gp_used=frappe.db.sql("""
 							SELECT parent.name
-							FROM `tabStock Payment Return Item` items
-							JOIN `tabCustomer Payment Return` parent ON parent.name = items.parent
+							FROM `tabCustomer Payment Return` parent 
+							JOIN `tabStock Payment Return Item` items ON items.parent = parent.name
 							WHERE items.voucher_type = "Gold Payment" OR items.voucher_type = "Customer Deposit"
 							AND items.voucher_no = "{}"
-							# AND parent.name != "{}" 
+							AND parent.name != "{}" 
 							AND parent.docstatus = 1
 							""".format(row.voucher_no,self.name),as_list=1)
 				if len(gp_used)>0:
