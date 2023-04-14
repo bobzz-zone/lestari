@@ -205,8 +205,8 @@ frappe.ui.form.on('Gold Payment', {
 			reset_allocated(frm);
 			var need_to=frm.doc.unallocated_payment-frm.doc.total_extra_charges;
 			// console.log(need_to)
-			var sisa_invoice = parseFloat(cur_frm.doc.total_invoice) - parseFloat(need_to) + frm.doc.total_extra_charges;
-			frappe.msgprint(" Test 2 "+sisa_invoice);
+			var sisa_invoice = parseFloat(cur_frm.doc.total_invoice) - parseFloat(frm.doc.unallocated_payment) ;
+			frappe.msgprint("SIsa  Invoice "+sisa_invoice);
 			if (sisa_invoice <0){
 				sisa_invoice=0
 			}
@@ -245,7 +245,7 @@ frappe.ui.form.on('Gold Payment', {
 					frappe.model.set_value(g.doctype, g.name, "allocated", g.allocated+alo);
 				});
 			}
-			//frappe.msgprint("Need To "+need_to);
+			frappe.msgprint("Need To "+need_to);
 			/*if (need_to<0){
 				frappe.msgprint(" Test "+need_to);
 				cur_frm.set_value("total_sisa_invoice",need_to*-1);
