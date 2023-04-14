@@ -23,6 +23,7 @@
   "tutupan",
   "total_idr_payment",
   "total_bayar",
+  "total_emas",
   "sb_summary",
   "status",
   "total_terbayar",
@@ -114,7 +115,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "depends_on": "eval:doc.gold_invoice",
    "fetch_from": "gold_invoice.tutupan",
    "fieldname": "tutupan",
    "fieldtype": "Currency",
@@ -184,11 +184,17 @@
    "fieldtype": "Select",
    "label": "Jenis Janji",
    "options": "\nPembayaran\nDeposit"
+  },
+  {
+   "fieldname": "total_emas",
+   "fieldtype": "Float",
+   "label": "Nilai 24k Emas Janji",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-14 12:52:40.280774",
+ "modified": "2023-04-14 14:13:07.231938",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Janji Bayar",
