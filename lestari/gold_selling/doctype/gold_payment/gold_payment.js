@@ -24,7 +24,7 @@ function calculate_table_invoice(frm,cdt,cdn){
 function refresh_total_and_charges(frm){
 	frm.doc.total_extra_charges=frm.doc.write_off+ frm.doc.total_biaya_tambahan - frm.doc.bonus - frm.doc.discount_amount;
 	refresh_field("total_extra_charges");
-	//frappe.msgprint("""{}  +  {}  - {} """.format(frm.doc.total_invoice , frm.doc.total_extra_charges , frm.doc.allocated_payment));
+	frappe.msgprint(frm.doc.total_invoice  +"  +  "+ frm.doc.total_extra_charges +" - "+  frm.doc.allocated_payment);
 	frm.doc.total_sisa_invoice=frm.doc.total_invoice + frm.doc.total_extra_charges - frm.doc.allocated_payment;
 	if (frm.doc.write_off<0){
 		frm.doc.total_sisa_invoice=frm.doc.total_sisa_invoice-frm.doc.write_off;
