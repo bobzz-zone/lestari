@@ -211,7 +211,9 @@ frappe.ui.form.on('Gold Payment', {
 			need_to = need_to.toFixed(3);
 			// console.log(need_to)
 			if(need_to<=0){
-				frappe.throw("Tidak ada pembayaran yang dapat di alokasikan");
+				refresh_total_and_charges(frm);
+				frappe.msgprint("Tidak ada pembayaran yang dapat di alokasikan");
+				return;
 			}
 			$.each(frm.doc.customer_return,  function(i,  g) {
 				var alo=0;
