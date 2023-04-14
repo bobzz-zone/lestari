@@ -29,6 +29,7 @@ function refresh_total_and_charges(frm){
 		frm.doc.unallocated_payment=frm.doc.total_sisa_invoice*-1;
 		refresh_field("unallocated_payment");
 		frm.doc.total_sisa_invoice=0;
+		frappe.msgprint("Here");
 	}
 	refresh_field("total_sisa_invoice");
 }
@@ -206,7 +207,8 @@ frappe.ui.form.on('Gold Payment', {
 		if (frm.doc.invoice_table==[] && frm.doc.customer_return==[]){
 			frappe.throw("Tidak ada Invoice yang terpilih");
 		}else{
-			var need_to=frm.doc.unallocated_payment;
+			reset_allocated(frm);
+			var need_to=frm.doc.unallocated_payment-frm.doc.total_extra_charges;
 			// console.log(need_to)
 			var sisa_invoice = parseFloat(cur_frm.doc.total_invoice) - parseFloat(need_to) + frm.doc.total_extra_charges;
 			if (sisa_invoice <0){
