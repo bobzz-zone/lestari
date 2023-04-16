@@ -43,7 +43,7 @@ class SerahTerimaPaymentStock(Document):
 		for row in self.items:
 			baris_baru = {
 				's_warehouse' : self.warehouse,
-				't_warehouse' : 'Stockist - LMS',
+				't_warehouse' : 'Retur Marketing - LMS',
 				'item_code' : row.item,
 				'qty' : row.qty,
 				'allow_zero_valuation_rate' : 1

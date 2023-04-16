@@ -6,9 +6,20 @@ from frappe.model.document import Document
 
 class KonfirmasiPaymentReturn(Document):
     def on_submit(self):
-        pass
-        # ste = frappe.new_doc("Stock Entry")
-        # ste.
+        ste = frappe.new_doc('Stock Entry')
+        ste.stock_entry_type = "Material Transfer"
+        for row in self.items:
+            baris_baru = {
+                's_warehouse' : 'Retur Marketing - LMS',
+                't_warehouse' : 'Retur Kembali - LMS',
+                'item_code' : row.item,
+                'qty' : row.tolak_qty,
+                'allow_zero_valuation_rate' : 1
+            }
+            ste.append('items', baris_baru)
+        ste.flags.ignore_permissions = True
+        ste.save()
+	
     @frappe.whitelist()
     def get_serah_terima(self):
         doc = frappe.get_doc("Serah Terima Payment Stock", self.serah_terima)

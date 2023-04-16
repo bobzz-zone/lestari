@@ -70,7 +70,6 @@
   {
    "fieldname": "tutupan",
    "fieldtype": "Float",
-   "hidden": 1,
    "label": "Tutupan",
    "read_only": 1
   },
@@ -107,7 +106,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-04-14 01:27:54.929004",
+ "modified": "2023-04-17 00:19:53.836129",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Stock Payment Return Item",
