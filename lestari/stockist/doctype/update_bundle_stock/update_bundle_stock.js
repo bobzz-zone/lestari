@@ -94,8 +94,8 @@ async function appendToTerminal(newStuff) {
 	// const angka = matches[0].match(/[0-9]+\.[0-9]+/)[0];
 	// console.log(parseFloat(angka)); // Output: 17.66
 	// console.log(newStuff)
-	// cur_frm.set_value("berat", angka);
-	// cur_frm.refresh_field("berat");
+	cur_frm.set_value("berat", newStuff);
+	cur_frm.refresh_field("berat");
 	// }
   // newStuff = newStuff.replace(/[^\d.]/g, "").trim(); //timbangan AND
 }
