@@ -332,9 +332,9 @@ frappe.ui.form.on('Detail Penambahan Stock', {
 	},
 	timbang: function(frm,cdt,cdn){
 		var d = locals[cdt][cdn];
-		sendSerialLine().then(function(){
+		// sendSerialLine().then(function(){
 			frappe.model.set_value(cdt, cdn, 'qty_penambahan', cur_frm.doc.berat);
-		})
+		// })
 	},
 	timbang1: function(frm,cdt,cdn){
 		var d = locals[cdt][cdn];
