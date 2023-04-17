@@ -23,7 +23,7 @@
    "type": "Link"
   }
  ],
- "modified": "2023-04-06 15:19:00.522028",
+ "modified": "2023-04-14 15:25:08.601548",
  "modified_by": "arikba@lms.com",
  "module": "Stockist",
  "name": "Stockist",
@@ -33,8 +33,14 @@
  "shortcuts": [
   {
    "doc_view": "List",
-   "label": "Update Bundle Stock",
+   "label": "Transfer Salesman",
    "link_to": "Update Bundle Stock",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Tutup Transfer Salesman",
+   "link_to": "Close Bundle Stock",
    "type": "DocType"
   },
   {

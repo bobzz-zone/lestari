@@ -13,12 +13,14 @@
   {
    "fieldname": "kadar",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Kadar",
    "options": "Data Logam"
   },
   {
    "fieldname": "bruto",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "Total Berat",
    "precision": "2"
   }
@@ -26,7 +28,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-03-23 21:56:04.863790",
+ "modified": "2023-04-17 10:39:23.943080",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Update Bundle Stock Kadar",
