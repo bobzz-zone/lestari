@@ -22,12 +22,14 @@ class SerahTerimaPaymentStock(Document):
 				}
 				self.append('items',item_baru)
 				customer = frappe.db.get_value(row.parenttype,row.parent,'customer')
+				subcustomer = frappe.db.get_value(row.parenttype,row.parent,'subcustomer')
 				baris_baru = {
 					'item':row.item,
 					'qty':row.qty,
 					'voucher_type':row.parenttype,
 					'voucher_no':row.parent,
 					'customer': customer,
+					'sub_customer': subcustomer,
 					'customer_name':frappe.db.get_value("Customer",customer,'customer_name'),
 					'customer_group':frappe.db.get_value(row.parenttype,row.parent,'customer_group'),
 					'territory':frappe.db.get_value(row.parenttype,row.parent,'territory'),
