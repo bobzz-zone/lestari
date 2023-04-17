@@ -75,7 +75,6 @@ async function sendSerialLine() {
 }
 
 async function appendToTerminal(newStuff) {
-	sendSerialLine()
   // newStuff = newStuff.match(/[0-9]*[.]*[0-9]+\w/g);
   // newStuff = newStuff.match(/([0-9]*[.])\w+/s);
   // cur_frm.set_value("berat", flt(newStuff));
@@ -89,13 +88,13 @@ async function appendToTerminal(newStuff) {
 	const pattern = /ST,\+0*([0-9]+\.[0-9]+)[A-Za-z]*/g;
 	const matches = text.match(pattern);
 
-	if (matches) {
+	// if (matches) {
 	const angka = matches[0].match(/[0-9]+\.[0-9]+/)[0];
 	console.log(parseFloat(angka)); // Output: 17.66
 	console.log(newStuff)
 	cur_frm.set_value("berat", angka);
 	cur_frm.refresh_field("berat");
-	}
+	// }
   // newStuff = newStuff.replace(/[^\d.]/g, "").trim(); //timbangan AND
 }
 
@@ -331,8 +330,9 @@ frappe.ui.form.on('Detail Penambahan Stock', {
 	},
 	timbang: function(frm,cdt,cdn){
 		var d = locals[cdt][cdn];
-		// sendSerialLine();
-		frappe.model.set_value(cdt, cdn, 'qty_penambahan', cur_frm.doc.berat);
+		sendSerialLine().then(function(){
+			frappe.model.set_value(cdt, cdn, 'qty_penambahan', cur_frm.doc.berat);
+		})
 	},
 	timbang1: function(frm,cdt,cdn){
 		var d = locals[cdt][cdn];
