@@ -114,6 +114,7 @@
   {
    "fieldname": "total_berat",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "Total Berat",
    "precision": "3"
   }
@@ -121,7 +122,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-04-17 12:53:26.846038",
+ "modified": "2023-04-17 13:44:29.005367",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Konfirmasi Payment Return Perhiasan",
