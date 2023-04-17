@@ -7,14 +7,15 @@
  "engine": "InnoDB",
  "field_order": [
   "item",
-  "sub_kategori",
+  "qty",
   "terima_qty",
   "tolak_qty",
-  "qty",
+  "total_berat",
   "rate",
   "amount",
   "is_out",
   "is_confirm",
+  "sub_kategori",
   "voucher_type",
   "voucher_no"
  ],
@@ -33,7 +34,7 @@
    "fieldname": "terima_qty",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Terima Qty",
+   "label": "Terima Berat",
    "reqd": 1
   },
   {
@@ -41,7 +42,7 @@
    "fieldname": "tolak_qty",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Tolak Qty",
+   "label": "Tolak Berat",
    "precision": "3",
    "reqd": 1
   },
@@ -50,7 +51,7 @@
    "fieldname": "qty",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Bruto",
+   "label": "Berat",
    "precision": "2",
    "read_only": 1,
    "reqd": 1
@@ -59,15 +60,16 @@
    "columns": 1,
    "fieldname": "rate",
    "fieldtype": "Percent",
+   "hidden": 1,
    "in_list_view": 1,
    "label": "Rate",
    "precision": "2",
-   "read_only": 1,
-   "reqd": 1
+   "read_only": 1
   },
   {
    "fieldname": "amount",
    "fieldtype": "Float",
+   "hidden": 1,
    "label": "24k",
    "precision": "3",
    "read_only": 1
@@ -104,16 +106,22 @@
    "columns": 2,
    "fieldname": "sub_kategori",
    "fieldtype": "Link",
+   "hidden": 1,
    "in_list_view": 1,
    "label": "Sub Kategori",
-   "options": "Item Group",
-   "reqd": 1
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "total_berat",
+   "fieldtype": "Float",
+   "label": "Total Berat",
+   "precision": "3"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-04-12 02:43:49.722708",
+ "modified": "2023-04-17 12:53:26.846038",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Konfirmasi Payment Return Perhiasan",
