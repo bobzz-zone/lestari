@@ -14,6 +14,7 @@
   "sales",
   "warehouse",
   "section_break_7",
+  "get_details",
   "transfer_details",
   "amended_from"
  ],
@@ -51,7 +52,7 @@
    "options": "Sales Partner"
   },
   {
-   "fetch_from": "sales_bundle.warehouse",
+   "fetch_from": "sales.warehouse",
    "fieldname": "warehouse",
    "fieldtype": "Link",
    "label": "Warehouse",
@@ -81,12 +82,17 @@
    "fieldtype": "Select",
    "label": "Type",
    "options": "\nMasuk\nKeluar"
+  },
+  {
+   "fieldname": "get_details",
+   "fieldtype": "Button",
+   "label": "Get Details"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-17 13:29:14.722572",
+ "modified": "2023-04-17 14:23:34.414387",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Stock Return Transfer",

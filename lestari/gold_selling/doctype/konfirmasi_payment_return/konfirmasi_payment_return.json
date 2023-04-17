@@ -9,6 +9,7 @@
  "field_order": [
   "posting_date",
   "sales_bundle",
+  "sales",
   "s_warehouse",
   "column_break_3",
   "serah_terima",
@@ -81,12 +82,20 @@
    "fieldtype": "Link",
    "label": "Target Warehouse",
    "options": "Warehouse"
+  },
+  {
+   "fetch_from": "sales_bundle.sales",
+   "fieldname": "sales",
+   "fieldtype": "Link",
+   "label": "Sales",
+   "options": "Sales Partner",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-13 12:16:27.915243",
+ "modified": "2023-04-17 14:26:55.121508",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Konfirmasi Payment Return",

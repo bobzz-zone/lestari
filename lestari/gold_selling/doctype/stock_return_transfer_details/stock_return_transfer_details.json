@@ -116,6 +116,7 @@
    "fetch_from": "item.kadar",
    "fieldname": "kadar",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Kadar",
    "options": "Data Logam",
    "read_only": 1
@@ -137,7 +138,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-04-17 13:26:50.217830",
+ "modified": "2023-04-17 14:09:16.125371",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Stock Return Transfer Details",

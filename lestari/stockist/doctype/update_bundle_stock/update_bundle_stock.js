@@ -80,14 +80,22 @@ async function appendToTerminal(newStuff) {
   // cur_frm.set_value("berat", flt(newStuff));
   // const valueString = new TextDecoder().decode(value);
   // const filteredValue = newStuff.match(/[-+]?0*(\.\d+)/g).map(x => x.replace(/^[-+]?0*([^0]+)/g, "$1")).join('');
-  newStuff = newStuff.replace(/[A-Z]|[a-z]/g, "").trim(); //timbangan suncho dan metler
-  newStuff = parseFloat(newStuff)
+//   newStuff = newStuff.replace(/[A-Z]|[a-z]/g, "").trim(); //timbangan suncho dan metler
+//   newStuff = newStuff.replace(/ST,\+0*([0-9]+\.[0-9]+)[A-Za-z]*/g, "").trim(); //timbangan suncho dan metler
+//   newStuff = parseFloat(newStuff)
 //   let formattedValue = newStuff.replace(".", ",");
-  
+	const text = newStuff;
+	const pattern = /ST,\+0*([0-9]+\.[0-9]+)[A-Za-z]*/g;
+	const matches = text.match(pattern);
+
+	if (matches) {
+	const angka = matches[0].match(/[0-9]+\.[0-9]+/)[0];
+	console.log(parseFloat(angka)); // Output: 17.66
+	console.log(newStuff)
+	cur_frm.set_value("berat", angka);
+	cur_frm.refresh_field("berat");
+	}
   // newStuff = newStuff.replace(/[^\d.]/g, "").trim(); //timbangan AND
-  console.log(newStuff)
-  cur_frm.set_value("berat", newStuff);
-  cur_frm.refresh_field("berat");
 }
 
 function hitung(){

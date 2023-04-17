@@ -7,27 +7,35 @@ from frappe.model.document import Document
 class StockReturnTransfer(Document):
 	@frappe.whitelist()
 	def get_kpr(self):
-		doc = frappe.get_doc("Konfirmasi Payment Return",self.no_doc)
-		for row in doc.detail_perhiasan:
-			perhiasan = {
-				'item': row.item,
-				'berat': row.tolak_qty,
-				'voucher_type': row.voucher_type,
-				'voucher_no': row.voucher_no,
-				'child_type':row.doctype,
-				'child_name':row.name,
-			}
-			self.append("transfer_details",perhiasan)
-		for row in doc.detail_rongsok:
-			rongsok = {
-				'item': row.item,
-				'berat': row.tolak_qty,
-				'voucher_type': row.voucher_type,
-				'voucher_no': row.voucher_no,
-				'child_type':row.doctype,
-				'child_name':row.name,
-			}
-			self.append("transfer_details",rongsok)
+		list_kpr = frappe.db.get_list("Konfirmasi Payment Return",filters={'sales':self.sales})
+		for row in list_kpr:
+			frappe.msgprint(str(row))
+			doc = frappe.get_doc("Konfirmasi Payment Return", row)
+			for col in doc.detail_perhiasan:
+				customer = frappe.db.get_value(col.parenttype,col.parent,'customer')
+				subcustomer = frappe.db.get_value(col.parenttype,col.parent,'subcustomer')
+				perhiasan = {
+					'item': col.item,
+					'berat': col.tolak_qty,
+					'customer': customer,
+					'sub_costomer'
+     				'kadar',
+					'voucher_type': col.voucher_type,
+					'voucher_no': col.voucher_no,
+					'child_type':col.doctype,
+					'child_name':col.name,
+				}
+				self.append("transfer_details",perhiasan)
+			for col in doc.detail_rongsok:
+				rongsok = {
+					'item': col.item,
+					'berat': col.tolak_qty,
+					'voucher_type': col.voucher_type,
+					'voucher_no': col.voucher_no,
+					'child_type':col.doctype,
+					'child_name':col.name,
+				}
+				self.append("transfer_details",rongsok)
 	def on_submit(self):
 		for row in self.transfer_details:
 			if row.type == "Keluar":
