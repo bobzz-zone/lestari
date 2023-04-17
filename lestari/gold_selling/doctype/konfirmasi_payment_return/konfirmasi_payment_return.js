@@ -32,6 +32,18 @@ frappe.ui.form.on('Konfirmasi Payment Return', {
 	}
 });
 
+frappe.ui.form.on('Konfirmasi Payment Return Perhiasan', {
+	terima_qty: function(frm, cdt, cdn){
+		var d=locals[cdt][cdn];
+		frappe.model.set_value(cdt, cdn,"tolak_qty",d.qty-d.terima_qty);
+		frappe.model.set_value(cdt, cdn,"total_berat",d.terima_qty+d.tolak_qty);
+	},
+	tolak_qty: function(frm, cdt, cdn){
+		var d=locals[cdt][cdn];
+		frappe.model.set_value(cdt, cdn,"terima_qty",d.qty-d.terima_qty);
+		frappe.model.set_value(cdt, cdn,"total_berat",d.tolak_qty+d.terima_qty);
+	}
+});
 frappe.ui.form.on('Konfirmasi Payment Return Rongsok', {
 	terima_qty: function(frm, cdt, cdn){
 		var d=locals[cdt][cdn];
