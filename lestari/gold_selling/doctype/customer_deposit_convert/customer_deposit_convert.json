@@ -8,7 +8,8 @@
  "field_order": [
   "customer_deposit",
   "nilai",
-  "convert"
+  "convert",
+  "janji_bayar"
  ],
  "fields": [
   {
@@ -34,12 +35,19 @@
    "fieldtype": "Currency",
    "in_list_view": 1,
    "label": "Convert"
+  },
+  {
+   "fieldname": "janji_bayar",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Janji Bayar",
+   "options": "Janji Bayar"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-04-13 00:55:10.397378",
+ "modified": "2023-04-17 10:21:02.941834",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Deposit Convert",

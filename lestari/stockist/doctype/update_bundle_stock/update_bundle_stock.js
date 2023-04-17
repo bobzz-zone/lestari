@@ -41,7 +41,7 @@ async function listenToPort() {
     }
     // value is a string.
     //   document.getElementById("lineToSend").value = value;
-    // console.log("value:" + value);
+    console.log("value:" + value);
     // cur_frm.set_value("berat", value);
     // cur_frm.refresh_field("berat");
     appendToTerminal(value);
@@ -322,6 +322,7 @@ frappe.ui.form.on('Detail Penambahan Stock', {
 	},
 	timbang: function(frm,cdt,cdn){
 		var d = locals[cdt][cdn];
+		sendSerialLine();
 		frappe.model.set_value(cdt, cdn, 'qty_penambahan', cur_frm.doc.berat);
 	},
 	timbang1: function(frm,cdt,cdn){
