@@ -15,7 +15,13 @@ function calculate(frm,cdt,cdn){
 }
 
 frappe.ui.form.on('Customer Deposit', {
-	refresh: function(frm) {
+	validate:function(frm){
+		$.each(frm.doc.source,  function(i,  g) {
+		   	if(g.janji_bayar==""){
+		   		g.janji_bayar=cur_frm.doc.janji_bayar;
+		   	}
+		});
+	},refresh: function(frm) {
 		frm.set_query("item","stock_deposit", function(doc, cdt, cdn) {
     			return {
     				"filters": {
