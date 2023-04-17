@@ -8,6 +8,7 @@
  "field_order": [
   "posting_date",
   "no_doc",
+  "type",
   "column_break_3",
   "sales_bundle",
   "sales",
@@ -26,6 +27,7 @@
   {
    "fieldname": "no_doc",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "No Doc",
    "options": "Konfirmasi Payment Return"
   },
@@ -37,6 +39,7 @@
    "fetch_from": "no_doc.sales_bundle",
    "fieldname": "sales_bundle",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Sales Bundle",
    "options": "Sales Stock Bundle"
   },
@@ -72,12 +75,18 @@
    "options": "Stock Return Transfer",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "\nMasuk\nKeluar"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-12 16:15:33.078242",
+ "modified": "2023-04-17 13:29:14.722572",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Stock Return Transfer",

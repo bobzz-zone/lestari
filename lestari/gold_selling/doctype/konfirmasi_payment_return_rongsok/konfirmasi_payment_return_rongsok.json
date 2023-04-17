@@ -7,9 +7,10 @@
  "engine": "InnoDB",
  "field_order": [
   "item",
+  "qty",
   "terima_qty",
   "tolak_qty",
-  "qty",
+  "total_berat",
   "is_out",
   "is_confirm",
   "voucher_type",
@@ -78,12 +79,18 @@
    "fieldtype": "Dynamic Link",
    "label": "Voucher No",
    "options": "voucher_type"
+  },
+  {
+   "fieldname": "total_berat",
+   "fieldtype": "Float",
+   "label": "Total Berat",
+   "precision": "3"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-04-12 02:44:04.731388",
+ "modified": "2023-04-17 12:54:05.161996",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Konfirmasi Payment Return Rongsok",
