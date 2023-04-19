@@ -6,7 +6,8 @@ var port,
   writableStreamClosed,
   writer,
   dataToSend,
-  historyIndex = -1;
+  historyIndex = -1,
+  timbangan;
 const lineHistory = [];
 const baud = 9800;
 
@@ -22,6 +23,15 @@ async function connectSerial() {
     writableStreamClosed = textEncoder.readable.pipeTo(port.writable);
 
     writer = textEncoder.writable.getWriter();
+	// await writer.write("S"+"\r\n");
+	if(timbangan == null){
+		timbangan = 1;
+	}
+	if(cur_frm.doc.berat==null && timbangan == 1){
+	setInterval(function() {
+		sendSerialLine()
+	  }, 2500);
+	}
   } catch {
     alert("Serial Connection Failed");
   }
@@ -30,60 +40,115 @@ async function listenToPort() {
   const textDecoder = new TextDecoderStream();
   const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
   const reader = textDecoder.readable.getReader();
-
-  // Listen to data coming from the serial device.
   while (true) {
     const { value, done } = await reader.read();
     if (done) {
-      // Allow the serial port to be closed later.
-      //reader.releaseLock();
       break;
     }
-    // value is a string.
-    //   document.getElementById("lineToSend").value = value;
+
     console.log("value:" + value);
-    // cur_frm.set_value("berat", value);
-    // cur_frm.refresh_field("berat");
     appendToTerminal(value);
   }
 }
-async function disconnect() {
-	try {
-	  if (port) {
-		await reader.cancel();
-		console.log('Read operation has been canceled.');
-		await reader.closed;
-		console.log('Read stream has been closed.');
-		await port.close();
-		port = null;
-		console.log('Serial port disconnected.');
-	  } else {
-		console.log('No serial port is connected.');
-	  }
-	} catch (error) {
-	  console.error('Error:', error);
-	}
-  }
-
 async function sendSerialLine() {
   dataToSend = "S";
   lineHistory.unshift(dataToSend);
   historyIndex = -1; // No history entry selected
   dataToSend = dataToSend + "\r\n";
-  // appendToTerminal("> " + dataToSend);
   await writer.write(dataToSend);
 }
 
 async function appendToTerminal(newStuff) {
+  console.log("Timbangan"+timbangan)
+  console.log("newStuff"+newStuff)
+  if (newStuff == "E01" || newStuff == "E" || newStuff == "01"){
+	timbangan = 0;
+	console.log("haloo")
+  }
+  // mettler
+  newStuff = newStuff.replace("S S       ", "");
+  newStuff = newStuff.replace("S       ", "");
+  newStuff = newStuff.replace(" g", "");
+  newStuff = newStuff.replace(" ", "");
+
+  // // and 
+  newStuff = newStuff.replace("ST,+0000", "");
+  newStuff = newStuff.replace("ST,+000", "");
+  newStuff = newStuff.replace("ST,+00", "");
+  newStuff = newStuff.replace("ST,+0", "");
+  newStuff = newStuff.replace("T,+0000", "");
+  newStuff = newStuff.replace("T,+000", "");
+  newStuff = newStuff.replace("T,+00", "");
+  newStuff = newStuff.replace("T,+0", "");
+
+  // shinko
+  newStuff = newStuff.replace("+00000", "");
+  newStuff = newStuff.replace("+0000", "");
+  newStuff = newStuff.replace("+000", "");
+  newStuff = newStuff.replace("+00", "");
+  newStuff = newStuff.replace("+0", "");
+  newStuff = newStuff.replace("+", "");
+
+  // vibra
+  newStuff = newStuff.replace("0000", "");
+  newStuff = newStuff.replace("000", "");
+  newStuff = newStuff.replace("00", "");
+  if (newStuff.charAt(0) === '.') { // periksa apakah karakter pertama adalah titik
+	  newStuff = newStuff.replace(/^\./, '0.'); // ganti karakter pertama dari titik menjadi 0.
+  }
+  if (newStuff.endsWith('.')) { // periksa apakah karakter terakhir adalah titik
+	  newStuff += '00'; // tambahkan string "00" di belakangnya
+  }
+
+  let result = newStuff.includes("G S");
+  if (result) {
+	  newStuff = newStuff.replace("G S", "");
+	  cur_frm.set_value("berat", newStuff);
+	  cur_frm.refresh_field("berat");
+  }
+  cur_frm.set_value("berat", newStuff);
+  cur_frm.refresh_field("berat");
+
+}
+/////////////////////////////////////////////////////////
+// 	if (timbangan == 1){
+// 	const text = newStuff;
+// 	const pattern = /ST,\+0*([0-9]+\.[0-9]+)[A-Za-z]*/g;
+// 	const matches = text.match(pattern);
+// 	const angka = matches[0].match(/[0-9]+\.[0-9]+/)[0];
+// 	}else{
+// 		newStuff = newStuff.replace(/[A-Z]|[a-z]/g, "").trim(); //timbangan suncho dan metler yang bener
+//   		angka = parseFloat(newStuff)
+// 	}
+// 	console.log(parseFloat(angka)); // Output: 17.66
+// 	if (angka != null){
+// 		timbangan = 0
+// 	}
+// 	cur_frm.set_value("berat", angka);
+// 	cur_frm.refresh_field("berat");
+// }
+// async function appendToTerminal(newStuff, data) {
+//   var myVariable = newStuff
+//   if (/^ST,/.test(myVariable)) {
+// 	console.log("Variabel dimulai dengan 'ST,'");
+//   }
+//   if (/^S S.*g$/.test(myVariable)) {
+// 	console.log("Variabel dimulai dengan 'S S' dan diakhiri dengan 'g'");
+//   }
+//   if (/.*G S$/.test(myVariable)) {
+// 	console.log("Variabel diakhiri dengan 'G S'");
+//   }
+  
   // newStuff = newStuff.match(/[0-9]*[.]*[0-9]+\w/g);
   // newStuff = newStuff.match(/([0-9]*[.])\w+/s);
   // cur_frm.set_value("berat", flt(newStuff));
   // const valueString = new TextDecoder().decode(value);
   // const filteredValue = newStuff.match(/[-+]?0*(\.\d+)/g).map(x => x.replace(/^[-+]?0*([^0]+)/g, "$1")).join('');
   //   newStuff = newStuff.replace(/ST,\+0*([0-9]+\.[0-9]+)[A-Za-z]*/g, "").trim(); //timbangan suncho dan metler 
-  newStuff = newStuff.replace(/[A-Z]|[a-z]/g, "").trim(); //timbangan suncho dan metler yang bener
-  newStuff = parseFloat(newStuff)
-//   let formattedValue = newStuff.replace(".", ",");
+  //   let formattedValue = newStuff.replace(".", ",");
+
+//   newStuff = newStuff.replace(/[A-Z]|[a-z]/g, "").trim(); //timbangan suncho dan metler yang bener
+//   newStuff = parseFloat(newStuff)
 
 	//and
 	// const text = newStuff;
@@ -93,12 +158,15 @@ async function appendToTerminal(newStuff) {
 	// // if (matches) {
 	// const angka = matches[0].match(/[0-9]+\.[0-9]+/)[0];
 	// console.log(parseFloat(angka)); // Output: 17.66
-	// console.log(newStuff)
-	cur_frm.set_value("berat", newStuff);
-	cur_frm.refresh_field("berat");
+	// cur_frm.set_value("berat", angka);
+
+	// frappe.model.set_value(data.doctype, data.name, 'qty_penambahan', angka);
+
+	// cur_frm.refresh();
+
 	// }
   // newStuff = newStuff.replace(/[^\d.]/g, "").trim(); //timbangan AND
-}
+// }
 
 function hitung(){
 	var totalberat = 0,
@@ -224,7 +292,7 @@ frappe.ui.form.on('Update Bundle Stock', {
 			} else {
 			  frappe.msgprint("Your browser does not support serial device connection. Please switch to a supported browser to connect to your weigh device");
 			}
-		  };
+		  }
 		  window.checkPort(false);
 	},
 	id_employee: function(frm){
@@ -240,6 +308,7 @@ frappe.ui.form.on('Update Bundle Stock', {
 		// cur_frm.fields_dic['items'].grid.get_field("sub_kategori").set_focus()
 	}
 });
+
 frappe.ui.form.on('Detail Penambahan Stock', {
 	items_add: function (frm, cdt, cdn){
 		var d = locals[cdt][cdn];
@@ -330,11 +399,10 @@ frappe.ui.form.on('Detail Penambahan Stock', {
 	qty_penambahan: function(frm,cdt,cdn){
 		hitung()
 	},
-	timbang: function(frm,cdt,cdn){
-		var d = locals[cdt][cdn];
-		// sendSerialLine().then(function(){
-			frappe.model.set_value(cdt, cdn, 'qty_penambahan', cur_frm.doc.berat);
-		// })
+	timbang: async function(frm,cdt,cdn){
+		// sendSerialLine(setQtyPenambahan(frm,cdt,cdn))
+		// await sendSerialLine(locals[cdt][cdn])
+		frappe.model.set_value(cdt, cdn, 'qty_penambahan', cur_frm.doc.berat);
 	},
 	timbang1: function(frm,cdt,cdn){
 		var d = locals[cdt][cdn];

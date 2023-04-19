@@ -1,14 +1,15 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "format:SRT{YY}{MM}{######}",
  "creation": "2023-04-11 15:49:25.307900",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "posting_date",
-  "no_doc",
   "type",
+  "no_doc",
   "column_break_3",
   "sales_bundle",
   "sales",
@@ -26,11 +27,11 @@
    "label": "Posting Date"
   },
   {
+   "depends_on": "eval:doc.type == \"Masuk\"",
    "fieldname": "no_doc",
    "fieldtype": "Link",
-   "hidden": 1,
    "label": "No Doc",
-   "options": "Konfirmasi Payment Return"
+   "options": "Stock Return Transfer"
   },
   {
    "fieldname": "column_break_3",
@@ -92,7 +93,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-17 14:23:34.414387",
+ "modified": "2023-04-18 02:40:45.970583",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Stock Return Transfer",

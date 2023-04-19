@@ -259,8 +259,7 @@
    "fieldname": "sisa_janji",
    "fieldtype": "Currency",
    "label": "Sisa Janji",
-   "read_only": 1,
-   "reqd": 1
+   "read_only": 1
   },
   {
    "fetch_from": "janji_bayar.total_bayar",
@@ -272,7 +271,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-14 16:35:28.338929",
+ "modified": "2023-04-19 10:23:14.303217",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Deposit",
