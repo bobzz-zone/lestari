@@ -29,6 +29,7 @@ class KonfirmasiPaymentReturn(Document):
                     rongsok = {
 						'item': row.item,
 						'qty': row.qty,
+						'kadar': frappe.db.get_value('Item', {'item_code': row.item}, ['kadar']),
 						'voucher_type': row.voucher_type,
 						'voucher_no': row.voucher_no
 					}
@@ -38,6 +39,7 @@ class KonfirmasiPaymentReturn(Document):
                     perhiasan = {
 						'item': row.item,
 						'qty': row.qty,
+                        'kadar': frappe.db.get_value('Item', {'item_code': row.item}, ['kadar']),
 						'voucher_type': row.voucher_type,
 						'voucher_no': row.voucher_no
 					}

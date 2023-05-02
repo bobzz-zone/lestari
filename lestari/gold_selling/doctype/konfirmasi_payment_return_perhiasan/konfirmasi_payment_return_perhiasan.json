@@ -8,6 +8,7 @@
  "field_order": [
   "item",
   "qty",
+  "kadar",
   "terima_qty",
   "tolak_qty",
   "total_berat",
@@ -117,12 +118,19 @@
    "in_list_view": 1,
    "label": "Total Berat",
    "precision": "3"
+  },
+  {
+   "fetch_from": "item.kadar",
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "label": "Kadar",
+   "options": "Data Logam"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-04-17 13:44:29.005367",
+ "modified": "2023-05-02 05:37:11.081261",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Konfirmasi Payment Return Perhiasan",
