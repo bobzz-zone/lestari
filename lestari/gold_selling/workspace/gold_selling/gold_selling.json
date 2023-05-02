@@ -173,13 +173,13 @@
    "type": "Link"
   }
  ],
- "modified": "2023-04-14 13:16:40.118652",
- "modified_by": "arikba@lms.com",
+ "modified": "2023-04-17 14:57:15.137376",
+ "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling",
  "owner": "Administrator",
  "pin_to_bottom": 0,
- "pin_to_top": 0,
+ "pin_to_top": 1,
  "shortcuts": [
   {
    "doc_view": "List",

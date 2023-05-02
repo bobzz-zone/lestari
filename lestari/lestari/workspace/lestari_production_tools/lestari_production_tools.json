@@ -511,13 +511,13 @@
    "type": "Link"
   }
  ],
- "modified": "2022-09-13 14:28:28.791752",
+ "modified": "2023-04-17 14:59:38.575322",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Lestari Production Tools",
  "owner": "Administrator",
  "pin_to_bottom": 0,
- "pin_to_top": 1,
+ "pin_to_top": 0,
  "shortcuts": [
   {
    "doc_view": "List",
