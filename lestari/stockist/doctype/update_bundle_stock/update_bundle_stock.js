@@ -7,7 +7,8 @@ var port,
   writer,
   dataToSend,
   historyIndex = -1,
-  timbangan;
+  timbangan,
+  type_timbangan = "AND";
 const lineHistory = [];
 const baud = 9800;
 
@@ -51,7 +52,11 @@ async function listenToPort() {
   }
 }
 async function sendSerialLine() {
+  if(type_timbangan == "AND"){
   dataToSend = "S";
+  }else{
+  dataToSend = "O9";
+  }
   lineHistory.unshift(dataToSend);
   historyIndex = -1; // No history entry selected
   dataToSend = dataToSend + "\r\n";
@@ -61,9 +66,9 @@ async function sendSerialLine() {
 async function appendToTerminal(newStuff) {
   console.log("Timbangan"+timbangan)
   console.log("newStuff"+newStuff)
-  if (newStuff == "E01" || newStuff == "E" || newStuff == "01"){
+  if (newStuff == "E01" || newStuff == "E" || newStuff == "01" && type_timbangan == "AND"){
 	timbangan = 0;
-	console.log("haloo")
+	type_timbangan = "SHINKO";
   }
   // mettler
   newStuff = newStuff.replace("S S       ", "");
