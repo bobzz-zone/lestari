@@ -408,9 +408,6 @@ frappe.ui.form.on('Detail Penambahan Stock', {
 		// sendSerialLine(setQtyPenambahan(frm,cdt,cdn))
 		// await sendSerialLine(locals[cdt][cdn])
 		frappe.model.set_value(cdt, cdn, 'qty_penambahan', cur_frm.doc.berat);
-	},
-	timbang1: function(frm,cdt,cdn){
-		var d = locals[cdt][cdn];
-		frappe.model.set_value(cdt, cdn, 'berat_transfer', cur_frm.doc.berat);
+		cur_frm.refresh_field("items")
 	}
 });
