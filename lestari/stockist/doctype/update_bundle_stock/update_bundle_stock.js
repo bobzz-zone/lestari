@@ -8,13 +8,15 @@ var port,
   dataToSend,
   historyIndex = -1,
   timbangan,
-  type_timbangan = "AND";
+  type_timbangan = "AND",
+  connected = 0;
 const lineHistory = [];
 const baud = 9800;
 
 async function connectSerial() {
   try {
 	console.log("Connected");
+	connected = 1;
 	cur_frm.set_value("status_timbangan","Connected")
 	cur_frm.refresh_field("status_timbangan");
     await port.open({ baudRate: 9600 });
@@ -34,7 +36,7 @@ async function connectSerial() {
 	  }, 2500);
 	}
   } catch {
-    alert("Serial Connection Failed");
+    // alert("Serial Connection Failed");
   }
 }
 async function listenToPort() {
@@ -104,16 +106,16 @@ async function appendToTerminal(newStuff) {
   if (newStuff.endsWith('.')) { // periksa apakah karakter terakhir adalah titik
 	  newStuff += '00'; // tambahkan string "00" di belakangnya
   }
-
-  let result = newStuff.includes("G S");
-  if (result) {
-	  newStuff = newStuff.replace("G S", "");
-	  cur_frm.set_value("berat", newStuff);
-	  cur_frm.refresh_field("berat");
+  if( connected == 1){
+	let result = newStuff.includes("G S");
+	if (result) {
+		newStuff = newStuff.replace("G S", "");
+		cur_frm.set_value("berat", newStuff);
+		cur_frm.refresh_field("berat");
+	}
+	cur_frm.set_value("berat", newStuff);
+	cur_frm.refresh_field("berat");
   }
-  cur_frm.set_value("berat", newStuff);
-  cur_frm.refresh_field("berat");
-
 }
 /////////////////////////////////////////////////////////
 // 	if (timbangan == 1){
@@ -209,10 +211,16 @@ function hitung(){
 }
 var list_kat = [];
 frappe.ui.form.on('Update Bundle Stock', {
+	validate: function(frm){
+		frm.events.get_disconnect(frm)
+	},
 	refresh: function(frm) {
 		cur_frm.get_field("bundle").set_focus()
+		// if( connected == 0){
 		frm.add_custom_button(__("Connect"), () => frm.events.get_connect(frm));
-		// frm.add_custom_button(__("Disconnect"), () => frm.events.get_disconnect(frm));
+		// }else{
+		frm.add_custom_button(__("Disconnect"), () => frm.events.get_disconnect(frm));
+		// }
 		frappe.db.get_value("Employee", { "user_id": frappe.session.user }, ["name","id_employee"]).then(function (responseJSON) {
 		  cur_frm.set_value("pic", responseJSON.message.name);
 		  cur_frm.set_value("id_employee", responseJSON.message.id_employee);
@@ -266,7 +274,8 @@ frappe.ui.form.on('Update Bundle Stock', {
 		hitung()
 	},
 	get_disconnect: function(frm){
-		disconnect()
+		connected = 0;
+		cur_frm.set_value("status_timbangan","Not Connect")
 	},
 	get_connect: function(frm){
 		// frappe.msgprint("Connect");
