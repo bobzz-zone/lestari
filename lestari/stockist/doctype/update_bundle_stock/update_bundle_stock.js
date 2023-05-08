@@ -402,7 +402,7 @@ frappe.ui.form.on('Detail Penambahan Stock', {
 		}
 	}, 
 	qty_penambahan: function(frm,cdt,cdn){
-		hitung()
+		hitung();
 	},
 	timbang: async function(frm,cdt,cdn){
 		// sendSerialLine(setQtyPenambahan(frm,cdt,cdn))
