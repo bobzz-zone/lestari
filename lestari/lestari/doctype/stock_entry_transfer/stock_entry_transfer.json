@@ -9,7 +9,8 @@
  "field_order": [
   "transfer_nama",
   "gudang_sumber",
-  "gudang_tujuan"
+  "gudang_tujuan",
+  "type"
  ],
  "fields": [
   {
@@ -35,11 +36,17 @@
    "label": "Gudang Tujuan",
    "options": "Warehouse",
    "reqd": 1
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "Material Issue\nMaterial Receipt\nMaterial Transfer\nMaterial Transfer for Manufacture\nMaterial Consumption for Manufacture\nManufacture\nRepack\nSend to Subcontractor"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-05-11 12:27:44.672398",
+ "modified": "2023-05-11 12:44:16.630519",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Stock Entry Transfer",
