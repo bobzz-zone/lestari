@@ -17,6 +17,9 @@
   "sales",
   "source_warehouse",
   "target_warehouse",
+  "customer",
+  "customer_group",
+  "territory",
   "section_break_12",
   "items",
   "amended_from"
@@ -114,12 +117,32 @@
    "options": "Konfirmasi Return Subkategori",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fetch_from": "customer.customer_group",
+   "fieldname": "customer_group",
+   "fieldtype": "Link",
+   "label": "Customer Group",
+   "options": "Customer Group"
+  },
+  {
+   "fetch_from": "customer.territory",
+   "fieldname": "territory",
+   "fieldtype": "Link",
+   "label": "Territory",
+   "options": "Territory"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-18 10:59:29.077277",
+ "modified": "2023-05-09 11:16:17.715119",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Konfirmasi Return Subkategori",
