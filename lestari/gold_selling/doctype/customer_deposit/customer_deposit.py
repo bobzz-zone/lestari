@@ -27,6 +27,8 @@ class CustomerDeposit(StockController):
 		if not self.warehouse:
 			self.warehouse = frappe.db.get_single_value('Gold Selling Settings', 'default_warehouse')
 	def on_submit(self):
+		if not self.account_piutang:
+			self.account_piutang = frappe.db.get_single_value('Gold Selling Settings', 'piutang_idr')
 		self.make_gl_entries()
 		#posting Stock Ledger Post
 		if self.terima_barang==1 and self.is_convert==0:
@@ -226,7 +228,7 @@ class CustomerDeposit(StockController):
 
 			#untuk deposit IDR
 			if self.total_idr_deposit and self.total_idr_deposit > 0 and self.deposit_type == "IDR":
-				piutang_idr = frappe.db.get_single_value('Gold Selling Settings', 'piutang_idr')
+				piutang_idr = self.account_piutang
 				
 				gl[piutang_idr]={
 										"posting_date":self.posting_date,

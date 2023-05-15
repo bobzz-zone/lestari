@@ -102,7 +102,7 @@ class GoldPayment(StockController):
 		patch={}
 		for row in self.invoice_advance:
 			if row.gold_allocated>0:
-				gl_list=frappe.db.sql("""select name ,debit,credit,debit_in_account_currency,credit_in_account_currency from `tabGL Entry` where voucher_no="{}" and account="{}" and against_voucher_type=NULL and against_voucher=NULL and is_cancelled=0 """.format(row.customer_deposit,piutang_idr),as_list=1)
+				gl_list=frappe.db.sql("""select name ,debit,credit,debit_in_account_currency,credit_in_account_currency from `tabGL Entry` where voucher_no="{}" and account="{}" and against_voucher_type=NULL and against_voucher=NULL and is_cancelled=0 """.format(row.customer_deposit,row.account_piutang),as_list=1)
 				for det in gl_list:
 					if row.customer_deposit in patch:
 						if gl_need_deleted!="":
@@ -442,7 +442,7 @@ class GoldPayment(StockController):
 		#adnvace GL
 		adv=[]
 		for row in self.invoice_advance:
-			advance_split=[]
+			#advance_split=[]
 			deposit=frappe.get_doc("Customer Deposit",row.customer_deposit)
 			if deposit.idr_left >=row.idr_allocated:
 				frappe.db.sql("""update `tabCustomer Deposit` set idr_left={} where name="{}" """.format(deposit.idr_left -row.idr_allocated,row.customer_deposit),as_list=1)
@@ -450,14 +450,14 @@ class GoldPayment(StockController):
 				#if pembayaran di gunakan full
 				if deposit.idr_left ==row.idr_allocated:
 					frappe.db.sql("""update `tabGL Entry` set against_voucher_type="Gold Payment",against_voucher="{}" where voucher_no="{}" 
-					and voucher_type="Customer Deposit" and against_voucher_type is NULL and against_voucher is NULL and account="{}" and is_cancelled=0""".format(self.name,row.customer_deposit,piutang_idr),as_list=1)
+					and voucher_type="Customer Deposit" and against_voucher_type is NULL and against_voucher is NULL and account="{}" and is_cancelled=0""".format(self.name,row.customer_deposit,row.account_piutang),as_list=1)
 				else:
 				#if split needed
 					frappe.db.sql("""update `tabGL Entry` set debit={0},debit_in_account_currency={0} where voucher_no="{1}" 
-					and voucher_type="Customer Deposit" and against_voucher_type is NULL and against_voucher is NULL and account="{2}" and is_cancelled=0""".format(deposit.idr_left -row.idr_allocated,row.customer_deposit,piutang_idr),as_list=1)
+					and voucher_type="Customer Deposit" and against_voucher_type is NULL and against_voucher is NULL and account="{2}" and is_cancelled=0""".format(deposit.idr_left -row.idr_allocated,row.customer_deposit,row.account_piutang),as_list=1)
 					adv.append({
 									"posting_date":self.posting_date,
-									"account":piutang_idr,
+									"account":row.account_piutang,
 									"party_type":"Customer",
 									"party":row.customer,
 									"cost_center":cost_center,
@@ -506,7 +506,7 @@ class GoldPayment(StockController):
 									"voucher_type":"Customer Deposit",
 									"against_voucher_type":"Gold Payment",
 									"voucher_no":row.customer_deposit,
-									"against_voucher":self.name,
+									#"against_voucher":self.name,
 									#"remarks":"",
 									"is_opening":"No",
 									"is_advance":"No",
