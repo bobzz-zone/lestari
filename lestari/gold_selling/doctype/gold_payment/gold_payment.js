@@ -392,7 +392,7 @@ frappe.ui.form.on('Gold Payment Invoice', {
 		frm.doc.allocated_payment=allocated;
 		refresh_field("discount_amount");
 		refresh_field("allocated_payment");
-		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment-frm.doc.total_extra_charges;
+		frm.doc.unallocated_payment=frm.doc.total_payment+frm.doc.total_advance-frm.doc.allocated_payment-frm.doc.total_extra_charges;
 		refresh_field("unallocated_payment");
 		refresh_field("discount_amount");
 	},
