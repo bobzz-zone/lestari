@@ -164,6 +164,21 @@ class GoldPayment(StockController):
 				else:
 					frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar-{0} , sisa_janji=sisa_janji+{0} where name = "{1}" """.format(self.total_idr_payment,self.janji_bayar))
 	@frappe.whitelist()
+	def get_janji_bayar(self):
+		doc = frappe.db.get_list("Janji Bayar", filters={"customer": self.customer, "status":"Pending", 'docstatus':1}, fields=['name','tanggal_janji','customer','gold_invoice','total_bayar','total_terbayar','sisa_janji','status'])
+		for row in doc:
+			baris_baru = {
+				'janji_bayar':row.name,
+				'gold_invoice':row.gold_invoice,
+				'tanggal_janji':row.tanggal_janji,
+				'total_bayar':row.total_bayar,
+				'total_terbayar':row.total_terbayar,
+				'sisa_janji':row.sisa_janji,
+				'status':row.status
+			}
+			self.append("list_janji_bayar",baris_baru)
+			
+	@frappe.whitelist()
 	def get_gold_invoice(self):
 		doc = frappe.db.get_list("Gold Invoice", filters={"customer": self.customer, "invoice_status":"Unpaid", 'docstatus':1}, fields=['name','posting_date','customer','subcustomer','enduser','outstanding','due_date','tutupan','total_bruto','grand_total'])
 		for row in doc:
