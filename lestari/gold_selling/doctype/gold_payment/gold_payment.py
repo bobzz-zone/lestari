@@ -169,12 +169,13 @@ class GoldPayment(StockController):
 		for row in doc:
 			baris_baru = {
 				'janji_bayar':row.name,
-				'gold_invoice':row.gold_invoice,
+				'no_invoice':row.gold_invoice,
+				'customer':row.customer,
 				'tanggal_janji':row.tanggal_janji,
-				'total_bayar':row.total_bayar,
-				'total_terbayar':row.total_terbayar,
+				'total_janji_bayar':row.total_bayar,
+				'idr_janji_terbayar':row.total_terbayar,
 				'sisa_janji':row.sisa_janji,
-				'status':row.status
+				'status_janji':row.status
 			}
 			self.append("list_janji_bayar",baris_baru)
 			
