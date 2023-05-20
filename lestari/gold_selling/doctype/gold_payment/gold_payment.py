@@ -692,4 +692,5 @@ class GoldPayment(StockController):
 			gl_entries.append(frappe._dict(gl[roundoff_coa]))
 #			frappe.msgprint("Round Off credit = {} , debit = {}".format(credit,debit))
 		gl_entries = merge_similar_entries(gl_entries)
+		print(gl_entries)
 		return gl_entries
