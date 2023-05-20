@@ -7,7 +7,15 @@ import json
 #     # response.final_product = "?"
 #     # response.type_mul =
 #     return response
-
+def test_patch():
+    list_gp = frappe.db.sql("select name from `tabGold Payment` where docstatus=1",as_list=1)
+    for row in list_gp:
+        no_doc=row[0]
+        frappe.db.sql("delete from `tabGL Entry` where voucher_no='{}' and voucher_type='Gold Payment'".format(no_doc))
+        doc = frappe.get_doc("Gold Payment", no_doc)
+        doc.make_gl_entries()
+        print(no_doc)
+        frappe.db.commit()
 @frappe.whitelist()
 @frappe.validate_and_sanitize_search_inputs
 def get_item_group(doctype, txt, searchfield, start, page_len, filters=None):
