@@ -396,6 +396,7 @@ class GoldPayment(StockController):
 		#hitung selisih kurs untuk DP
 		for row in self.gold_invoice_advance:
 			nilai_selisih_kurs=nilai_selisih_kurs+(row.gold_allocated*(self.tutupan-row.tutupan))
+		print(nilai_selisih_kurs)
 		# distribute total gold perlu bagi per invoice
 		sisa= self.total_payment
 		credit=0
@@ -433,6 +434,7 @@ class GoldPayment(StockController):
 		#		credit=credit+(payment*row.tutupan)
 				if row.tutupan!=self.tutupan:
 					nilai_selisih_kurs=nilai_selisih_kurs+((self.tutupan-row.tutupan)*payment)
+					print(nilai_selisih_kurs)
 		#frappe.msgprint("Invoice Payment credit = {} , debit = {}".format(credit,debit))
 		for row in self.customer_return:
 			if sisa>0 and row.allocated>0:
@@ -467,6 +469,7 @@ class GoldPayment(StockController):
 #				credit=credit+(payment*row.tutupan)
 				if row.tutupan!=self.tutupan:
 					nilai_selisih_kurs=nilai_selisih_kurs+((self.tutupan-row.tutupan)*payment)
+					print(nilai_selisih_kurs)
 		roundoff=0
 #		frappe.msgprint("Customer Return credit = {} , debit = {}".format(credit,debit))
 		for row in gl_piutang:
