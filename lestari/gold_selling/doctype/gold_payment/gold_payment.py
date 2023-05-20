@@ -215,7 +215,34 @@ class GoldPayment(StockController):
 				'tutupan':row.tutupan
 			}
 			self.append("customer_return",baris_baru)
+		#lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_idr_advance
+		#lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_gold_advance
 
+		list_deposit=frappe.db.sql("""select name , idr_left ,account_piutang,posting_date,customer from `tabCustomer Deposit` where deposit_type="IDR" and docstatus=1 and (customer="{}" or subcustomer="{}" ) """.format(self.customer,self.subcustomer),as_dict=1)
+		for row in list_deposit:
+			# frappe.msgprint(str(row))
+			baris_baru = {
+				'customer_deposit':row.name,
+				'idr_deposit':row.idr_left,
+				'idr_allocated':0,
+				'date':row.posting_date,
+				'customer':row.customer,
+				'account_piutang':row.account_piutang
+			}
+			self.append("invoice_advance",baris_baru)
+
+		list_deposit=frappe.db.sql("""select name , gold_left ,tutupan,posting_date,customer from `tabCustomer Deposit` where deposit_type="Emas" and docstatus=1 and (customer="{}" or subcustomer="{}" ) """.format(self.customer,self.subcustomer),as_dict=1)
+		for row in list_deposit:
+			# frappe.msgprint(str(row))
+			baris_baru = {
+				'customer_deposit':row.name,
+				'gold_deposit':row.gold_left,
+				'gold_allocated':0,
+				'date':row.posting_date,
+				'customer':row.customer,
+				'tutupan':row.tutupan
+			}
+			self.append("gold_invoice_advance",baris_baru)
 	def update_stock_ledger(self):
 		sl_entries = []
 		sl=[]
