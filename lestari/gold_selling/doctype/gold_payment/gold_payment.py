@@ -433,8 +433,8 @@ class GoldPayment(StockController):
 				})
 		#		credit=credit+(payment*row.tutupan)
 				if row.tutupan!=self.tutupan:
+					print("{} + (( {} - {}) * {})".format(nilai_selisih_kurs,self.tutupan,row.tutupan,payment))
 					nilai_selisih_kurs=nilai_selisih_kurs+((self.tutupan-row.tutupan)*payment)
-					print(nilai_selisih_kurs)
 		#frappe.msgprint("Invoice Payment credit = {} , debit = {}".format(credit,debit))
 		for row in self.customer_return:
 			if sisa>0 and row.allocated>0:
