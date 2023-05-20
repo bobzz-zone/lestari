@@ -23,7 +23,7 @@
    "type": "Link"
   }
  ],
- "modified": "2023-04-14 15:25:08.601548",
+ "modified": "2023-05-11 13:59:57.440921",
  "modified_by": "arikba@lms.com",
  "module": "Stockist",
  "name": "Stockist",
@@ -48,6 +48,13 @@
    "label": "Info Transfer Salesman",
    "link_to": "Sales Transfer",
    "type": "Report"
+  },
+  {
+   "doc_view": "New",
+   "label": "Transfer Stock ke QC",
+   "link_to": "Stock Entry",
+   "stats_filter": "{\r\n    \"transfer\": \"Transfer Stockist to QC\"\r\n}",
+   "type": "DocType"
   }
  ]
 }
