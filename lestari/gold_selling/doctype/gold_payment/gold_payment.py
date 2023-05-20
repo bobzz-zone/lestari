@@ -433,7 +433,6 @@ class GoldPayment(StockController):
 				})
 		#		credit=credit+(payment*row.tutupan)
 				if row.tutupan!=self.tutupan:
-					print("{} + (( {} - {}) * {})".format(nilai_selisih_kurs,self.tutupan,row.tutupan,payment))
 					nilai_selisih_kurs=nilai_selisih_kurs+((self.tutupan-row.tutupan)*payment)
 		#frappe.msgprint("Invoice Payment credit = {} , debit = {}".format(credit,debit))
 		for row in self.customer_return:
@@ -616,7 +615,6 @@ class GoldPayment(StockController):
 			warehouse_value=0
 			titip={}
 			supplier_list=[]
-			print("1")
 			for row in self.stock_payment:
 				if row.in_supplier==1:
 					if row.supplier in supplier_list:
@@ -625,11 +623,9 @@ class GoldPayment(StockController):
 					else:
 						titip[row.supplier]=titip[row.supplier]+row.amount
 				else :
-					print("2")
 					warehouse_value=warehouse_value+row.amount
 			if warehouse_value>0:
 				warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
-				print("WH {} = {}".format(warehouse_account,warehouse_value))
 				gl[warehouse_account]=self.gl_dict(cost_center,warehouse_account,warehouse_value*self.tutupan,0,fiscal_years)
 			if len(supplier_list)>0:
 				uang_buat_beli_emas= frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
