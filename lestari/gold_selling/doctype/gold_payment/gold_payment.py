@@ -481,6 +481,7 @@ class GoldPayment(StockController):
 				dsk=nilai_selisih_kurs*-1
 			else:
 				csk=nilai_selisih_kurs
+			print(selisih_kurs)
 			gl[selisih_kurs]=self.gl_dict(cost_center,selisih_kurs,dsk,csk,fiscal_years)
 		#adnvace GL
 		adv=[]
@@ -612,6 +613,7 @@ class GoldPayment(StockController):
 			warehouse_value=0
 			titip={}
 			supplier_list=[]
+			print("1")
 			for row in self.stock_payment:
 				if row.in_supplier==1:
 					if row.supplier in supplier_list:
@@ -620,6 +622,7 @@ class GoldPayment(StockController):
 					else:
 						titip[row.supplier]=titip[row.supplier]+row.amount
 				else :
+					print("2")
 					warehouse_value=warehouse_value+row.amount
 			if warehouse_value>0:
 				warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
