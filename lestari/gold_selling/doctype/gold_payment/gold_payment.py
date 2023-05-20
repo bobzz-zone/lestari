@@ -481,7 +481,7 @@ class GoldPayment(StockController):
 				dsk=nilai_selisih_kurs*-1
 			else:
 				csk=nilai_selisih_kurs
-			print(selisih_kurs)
+			print("{} = {} || {}".format(selisih_kurs,dsk,csk))
 			gl[selisih_kurs]=self.gl_dict(cost_center,selisih_kurs,dsk,csk,fiscal_years)
 		#adnvace GL
 		adv=[]
@@ -626,6 +626,7 @@ class GoldPayment(StockController):
 					warehouse_value=warehouse_value+row.amount
 			if warehouse_value>0:
 				warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
+				print("WH {} = {}".format(warehouse_account,warehouse_value))
 				gl[warehouse_account]=self.gl_dict(cost_center,warehouse_account,warehouse_value*self.tutupan,0,fiscal_years)
 			if len(supplier_list)>0:
 				uang_buat_beli_emas= frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
