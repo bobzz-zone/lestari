@@ -609,7 +609,6 @@ class GoldPayment(StockController):
 			else:
 				gl[self.write_off_account]=self.gl_dict(cost_center,self.write_off_account,0,self.write_off*self.tutupan*-1,fiscal_years)
 		if self.total_gold_payment>0:
-			print("0")
 			warehouse_value=0
 			titip={}
 			supplier_list=[]
@@ -617,19 +616,15 @@ class GoldPayment(StockController):
 				if row.in_supplier==1:
 					if row.supplier in supplier_list:
 						titip[row.supplier]=row.amount
-						print("a")
 						supplier_list.append(row.supplier)
 					else:
-						print("b")
 						titip[row.supplier]=titip[row.supplier]+row.amount
 				else :
 					warehouse_value=warehouse_value+row.amount
 			if warehouse_value>0:
-				print("1")
 				warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
-				gl[warehouse_account]=self.gl_dict(cost_center,warehouse_account,self.jadi_deposit*self.tutupan,0,fiscal_years)
+				gl[warehouse_account]=self.gl_dict(cost_center,warehouse_account,warehouse_value*self.tutupan,0,fiscal_years)
 			if len(supplier_list)>0:
-				print("2")
 				uang_buat_beli_emas= frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
 				for sup in supplier_list:
 					gl[sup]=self.gl_dict_with_sup(cost_center,uang_buat_beli_emas,titip[sup],0,fiscal_years,sup)
