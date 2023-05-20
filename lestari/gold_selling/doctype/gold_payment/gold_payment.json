@@ -41,6 +41,8 @@
   "discount_amount",
   "bonus",
   "idr_payment_col",
+  "get_janji_bayar",
+  "list_janji_bayar",
   "idr_payment",
   "total_idr_payment",
   "total_idr_gold",
@@ -441,12 +443,23 @@
    "fieldtype": "Button",
    "label": "Reset Alokasi Pembayaran",
    "options": "reset_alokasi"
+  },
+  {
+   "fieldname": "list_janji_bayar",
+   "fieldtype": "Table",
+   "label": "List Janji Bayar ",
+   "options": "Pembayaran Janji Bayar"
+  },
+  {
+   "fieldname": "get_janji_bayar",
+   "fieldtype": "Button",
+   "label": "Get Janji Bayar"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-14 14:44:01.813916",
+ "modified": "2023-05-19 14:14:19.920629",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

@@ -294,6 +294,16 @@ frappe.ui.form.on('Gold Payment', {
 		})
 		
 	},
+	get_janji_bayar:function(frm){
+		frappe.call({
+			method: "get_janji_bayar",
+			doc: frm.doc,
+			callback: function (r){
+				frm.refresh();	
+			}
+		})
+		
+	},
 	refresh: function(frm) {
 		frm.set_query("item","stock_payment", function(doc, cdt, cdn) {
 			return {
@@ -308,6 +318,16 @@ frappe.ui.form.on('Gold Payment', {
 				"filters": {
 					"docstatus":1,
 					"invoice_status":"Unpaid",
+					"customer":doc.customer
+				}
+			};
+
+		});
+		frm.set_query("janji_bayar","list_janji_bayar", function(doc, cdt, cdn) {
+			return {
+				"filters": {
+					"docstatus":1,
+					"status":"Pending",
 					"customer":doc.customer
 				}
 			};
