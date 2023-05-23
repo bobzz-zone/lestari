@@ -602,8 +602,8 @@ class GoldPayment(StockController):
 			depo.gold_left=self.jadi_deposit
 			# frappe.msgprint(depo)
 			depo.flags.ignore_permissions = True
-			depo.save()
 			depo.submit()
+			#depo.submit()
 			frappe.msgprint("Customer Deposit {} Telah Terbuat".format(depo.name))
 		#	debit=debit+(self.discount_amount*self.tutupan)
 		#	frappe.msgprint("Discount credit = {} , debit = {}".format(credit,debit))
