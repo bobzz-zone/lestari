@@ -96,7 +96,8 @@
   {
    "fieldname": "tutupan",
    "fieldtype": "Currency",
-   "label": "Tutupan"
+   "label": "Tutupan",
+   "reqd": 1
   },
   {
    "fieldname": "invoice_section",
@@ -459,7 +460,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-05-19 14:14:19.920629",
+ "modified": "2023-05-20 13:43:58.968256",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

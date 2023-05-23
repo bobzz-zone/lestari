@@ -356,7 +356,7 @@ frappe.ui.form.on('Gold Payment', {
 				filters: { customer: doc.customer , subcustomer:doc.subcustomer },
 			};
 		});
-		if(!frm.doc.tutupan){
+		if(!frm.doc.tutupan && frm.doc.docstatus!=1){
 			frappe.call({
 				method: "lestari.gold_selling.doctype.gold_rates.gold_rates.get_latest_rates",
 				callback: function (r){

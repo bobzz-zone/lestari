@@ -396,6 +396,7 @@ class GoldPayment(StockController):
 		#hitung selisih kurs untuk DP
 		for row in self.gold_invoice_advance:
 			nilai_selisih_kurs=nilai_selisih_kurs+(row.gold_allocated*(self.tutupan-row.tutupan))
+		print(nilai_selisih_kurs)
 		# distribute total gold perlu bagi per invoice
 		sisa= self.total_payment
 		credit=0
@@ -467,6 +468,7 @@ class GoldPayment(StockController):
 #				credit=credit+(payment*row.tutupan)
 				if row.tutupan!=self.tutupan:
 					nilai_selisih_kurs=nilai_selisih_kurs+((self.tutupan-row.tutupan)*payment)
+					print(nilai_selisih_kurs)
 		roundoff=0
 #		frappe.msgprint("Customer Return credit = {} , debit = {}".format(credit,debit))
 		for row in gl_piutang:
@@ -481,6 +483,7 @@ class GoldPayment(StockController):
 				dsk=nilai_selisih_kurs*-1
 			else:
 				csk=nilai_selisih_kurs
+			print("{} = {} || {}".format(selisih_kurs,dsk,csk))
 			gl[selisih_kurs]=self.gl_dict(cost_center,selisih_kurs,dsk,csk,fiscal_years)
 		#adnvace GL
 		adv=[]
@@ -599,8 +602,9 @@ class GoldPayment(StockController):
 			depo.gold_left=self.jadi_deposit
 			# frappe.msgprint(depo)
 			depo.flags.ignore_permissions = True
-			depo.save()
 			depo.submit()
+			#depo.submit()
+			frappe.msgprint("Customer Deposit {} Telah Terbuat".format(depo.name))
 		#	debit=debit+(self.discount_amount*self.tutupan)
 		#	frappe.msgprint("Discount credit = {} , debit = {}".format(credit,debit))
 		if self.write_off!=0:
@@ -608,9 +612,6 @@ class GoldPayment(StockController):
 				gl[self.write_off_account]=self.gl_dict(cost_center,self.write_off_account,self.write_off*self.tutupan,0,fiscal_years)
 			else:
 				gl[self.write_off_account]=self.gl_dict(cost_center,self.write_off_account,0,self.write_off*self.tutupan*-1,fiscal_years)
-		#	debit=debit+(self.write_off*self.tutupan)
-		#	frappe.msgprint("Writeoff credit = {} , debit = {}".format(credit,debit))
-#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		if self.total_gold_payment>0:
 			warehouse_value=0
 			titip={}
@@ -626,35 +627,11 @@ class GoldPayment(StockController):
 					warehouse_value=warehouse_value+row.amount
 			if warehouse_value>0:
 				warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
-				gl[warehouse_account]=self.gl_dict(cost_center,warehouse_account,self.jadi_deposit*self.tutupan,0,fiscal_years)
+				gl[warehouse_account]=self.gl_dict(cost_center,warehouse_account,warehouse_value*self.tutupan,0,fiscal_years)
 			if len(supplier_list)>0:
 				uang_buat_beli_emas= frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
 				for sup in supplier_list:
 					gl[sup]=self.gl_dict_with_sup(cost_center,uang_buat_beli_emas,titip[sup],0,fiscal_years,sup)
-			# warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
-			# gl[warehouse_account]={
-			# 	"posting_date":self.posting_date,
-			# 	"account":warehouse_account,
-			# 	"party_type":"",
-			# 	"party":"",
-			# 	"cost_center":cost_center,
-			# 	"debit":self.total_gold_payment*self.tutupan,
-			# 	"credit":0,
-			# 	"account_currency":"IDR",
-			# 	"debit_in_account_currency":self.total_gold_payment*self.tutupan,
-			# 	"credit_in_account_currency":0,
-			# 	#"against":"4110.000 - Penjualan - L",
-			# 	"voucher_type":"Gold Payment",
-			# 	"voucher_no":self.name,
-			# 	#"remarks":"",
-			# 	"is_opening":"No",
-			# 	"is_advance":"No",
-			# 	"fiscal_year":fiscal_years,
-			# 	"company":self.company,
-			# 	"is_cancelled":0
-			# }
-		#	debit=debit+(self.total_gold_payment*self.tutupan)
-		#	frappe.msgprint("Gold Payment credit = {} , debit = {}".format(credit,debit))
 		#untuk payment IDR
 		if self.total_idr_payment>0:
 			#journal IDR nya aja
@@ -672,11 +649,8 @@ class GoldPayment(StockController):
 						gl[account]=self.gl_dict(cost_center,account,row.amount,0,fiscal_years)
 					else:
 						gl[account]=self.gl_dict(cost_center,account,0,-1*row.amount,fiscal_years)
-#				debit=debit+row.amount
-#			frappe.msgprint("IDR Payment credit = {} , debit = {}".format(credit,debit))
 		#roundoff=0
 		for row in gl:
-		#	frappe.msgprint("RO {} Account {} has {} and {}".format(roundoff,gl[row]['account'],gl[row]['debit'],gl[row]['credit']))
 			roundoff=roundoff+gl[row]['debit']-gl[row]['credit']
 			gl_entries.append(frappe._dict(gl[row]))
 		#add roundoff
@@ -684,12 +658,8 @@ class GoldPayment(StockController):
 			roundoff_coa=frappe.db.get_value('Company', self.company, 'round_off_account')
 			if roundoff>0:
 				gl[roundoff_coa]=self.gl_dict(cost_center,roundoff_coa,0,roundoff,fiscal_years)
-#				debit=debit+roundoff
 			else:
 				gl[roundoff_coa]=gl[roundoff_coa]=self.gl_dict(cost_center,roundoff_coa,roundoff*-1,0,fiscal_years)
-				
-#				credit=credit+roundoff
 			gl_entries.append(frappe._dict(gl[roundoff_coa]))
-#			frappe.msgprint("Round Off credit = {} , debit = {}".format(credit,debit))
 		gl_entries = merge_similar_entries(gl_entries)
 		return gl_entries
