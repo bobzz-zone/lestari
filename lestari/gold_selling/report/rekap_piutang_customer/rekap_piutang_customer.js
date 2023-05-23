@@ -4,6 +4,12 @@
 
 frappe.query_reports["Rekap Piutang Customer"] = {
 	"filters": [
-
+		{
+			"fieldname":"customer",
+			"label": __("Customer"),
+			"fieldtype": "Link",
+			"options": "Customer",
+			"reqd": 1
+		}
 	]
 };
