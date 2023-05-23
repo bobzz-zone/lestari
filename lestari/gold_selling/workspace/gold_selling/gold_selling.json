@@ -173,8 +173,8 @@
    "type": "Link"
   }
  ],
- "modified": "2023-04-17 14:57:15.137376",
- "modified_by": "Administrator",
+ "modified": "2023-05-22 12:15:46.090352",
+ "modified_by": "arikba@lms.com",
  "module": "Gold Selling",
  "name": "Gold Selling",
  "owner": "Administrator",
@@ -245,6 +245,13 @@
    "doc_view": "List",
    "label": "Janji Bayar",
    "link_to": "Janji Bayar",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Barang Marekting",
+   "link_to": "Item",
+   "stats_filter": "{\n    \"item_group_parent\": [\"in\", [\"Anting\",\"Cat\",\"Cat 1/2\",\"Cincin\",\"Cor\",\"Gelang\",\"Gipsy\",\"Kalung\",\"Liontin\",\"Rantai A\",\"Rantai A Variasi\", \"Rantai Cat\", \"Setelan\", \"Variasi\"]]\n}",
    "type": "DocType"
   }
  ]
