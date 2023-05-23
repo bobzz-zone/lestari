@@ -582,6 +582,7 @@ class GoldPayment(StockController):
 			depo.gold_payment=self.name
 			depo.total_gold_deposit=self.jadi_deposit
 			depo.gold_left=self.jadi_deposit
+			depo.account_piutang=piutang_gold
 			# frappe.msgprint(depo)
 			depo.flags.ignore_permissions = True
 			depo.submit()
