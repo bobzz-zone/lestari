@@ -183,24 +183,6 @@ class GoldPayment(StockController):
 	def get_gold_invoice(self):
 		doc = frappe.db.get_list("Gold Invoice", filters={"customer": self.customer, "invoice_status":"Unpaid", 'docstatus':1}, fields=['name','posting_date','customer','subcustomer','enduser','outstanding','due_date','tutupan','total_bruto','grand_total'])
 		for row in doc:
-# <<<<<<< HEAD
-			# frappe.msgprint(str(row))
-#<<<<<<< HEAD
-			# self.total_invoice = self.total_invoice + row.outstanding
-#=======
-			# self.total_invoice = flt(self.total_invoice) + flt(row.outstanding)
-#>>>>>>> d96d2a3021f492f6640ef9afae4f1b2060304bfb
-			# baris_baru = {
-			# 	'gold_invoice':row.name,
-			# 	'outstanding':row.outstanding,
-			# 	'total':row.grand_total,
-			# 	'due_date':row.due_date,
-			# 	'total_bruto':row.total_bruto,
-			# 	'tutupan':row.tutupan
-			# }
-			# self.append("invoice_table",baris_baru)
-# =======
-# >>>>>>> 26667448793274c7c08aea84fc8d69f96f0cebbf
 			# frappe.msgprint(str(row))
 			if row.outstanding and flt(row.outstanding)>0:
 				if not self.total_invoice:
@@ -240,7 +222,7 @@ class GoldPayment(StockController):
 			baris_baru = {
 				'customer_deposit':row.name,
 				'idr_deposit':row.idr_left,
-				'idr_allocated':0,
+				'idr_allocated':row.idr_left,
 				'date':row.posting_date,
 				'customer':row.customer,
 				'account_piutang':row.account_piutang
@@ -253,7 +235,7 @@ class GoldPayment(StockController):
 			baris_baru = {
 				'customer_deposit':row.name,
 				'gold_deposit':row.gold_left,
-				'gold_allocated':0,
+				'gold_allocated':row.gold_left,
 				'date':row.posting_date,
 				'customer':row.customer,
 				'tutupan':row.tutupan
