@@ -9,10 +9,10 @@ def execute(filters=None):
 	
 	mutasi=frappe.db.sql("""select x.posting_date,x.type,x.voucher_no,x.customer,x.subcustomer, sb.sales,x.outstanding,x.titipan from 
 		(select gi.posting_date ,"Gold Invoice" as "type" ,gi.name as "voucher_no" ,x.customer,x.subcustomer, gi.bundle as "sales_bundle", outstanding , 0 as "titipan"
-		from `tabGold Invoice` gi where docstatus=1 and outstanding>0 and (customer="{0}" or subcustomer="{1}")
+		from `tabGold Invoice` gi where docstatus=1 and outstanding>0 and (customer="{0}" or subcustomer="{0}")
 		UNION 
 		select cd.posting_date,"Customer Deposit" as "type" , cd.name as "voucher_no" ,x.customer,x.subcustomer,cd.sales_bundle, (gold_left*-1) as outstanding , (idr_left*-1) as "titipan"
-		from `tabCustomer Deposit` cd where docstatus=1 and (idr_left >0  or gold_left >0) and (customer="{0}" or subcustomer="{1}")
+		from `tabCustomer Deposit` cd where docstatus=1 and (idr_left >0  or gold_left >0) and (customer="{0}" or subcustomer="{0}")
 		) x left join `tabSales Stock Bundle` sb on x.sales_bundle = sb.name
 		order by x.posting_date asc
 		""".format(filters.get("customer")), as_list=1)
