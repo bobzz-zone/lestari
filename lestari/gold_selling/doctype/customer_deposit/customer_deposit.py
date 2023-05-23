@@ -45,7 +45,7 @@ class CustomerDeposit(StockController):
 					else:
 						frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_deposit,self.janji_bayar))
 	def on_cancel(self):
-		self.flags.ignore_links=True
+		#self.flags.ignore_links=True
 		self.make_gl_entries_on_cancel()
 		if self.terima_barang==1 and self.is_convert==0:
 			self.update_stock_ledger()
@@ -311,49 +311,6 @@ class CustomerDeposit(StockController):
 								"company":self.company,
 								"is_cancelled":0
 								}
-				#di comment karena ngga tau dibeli kan atau ngga
-				# gl[self.cash_from]={
-				# 					"posting_date":self.posting_date,
-				# 					"account":self.cash_from,
-				# 					"party_type":"",
-				# 					"party":"",
-				# 					"cost_center":cost_center,
-				# 					"credit":self.actual_buy,
-				# 					"debit":0,
-				# 					"account_currency":"IDR",
-				# 					"credit_in_account_currency":self.actual_buy,
-				# 					"debit_in_account_currency":0,
-				# 					#"against":"4110.000 - Penjualan - L",
-				# 					"voucher_type":"Customer Deposit",
-				# 					"voucher_no":self.name,
-				# 					#"remarks":"",
-				# 					"is_opening":"No",
-				# 					"is_advance":"No",
-				# 					"fiscal_year":fiscal_years,
-				# 					"company":self.company,
-				# 					"is_cancelled":0
-				# 					}
-				# gl[uang_buat_beli_emas]={
-				# 					"posting_date":self.posting_date,
-				# 					"account":self.cash_from,
-				# 					"party_type":"",
-				# 					"party":"",
-				# 					"cost_center":cost_center,
-				# 					"debit":self.actual_buy,
-				# 					"credit":0,
-				# 					"account_currency":"IDR",
-				# 					"debit_in_account_currency":self.actual_buy,
-				# 					"credit_in_account_currency":0,
-				# 					#"against":"4110.000 - Penjualan - L",
-				# 					"voucher_type":"Customer Deposit",
-				# 					"voucher_no":self.name,
-				# 					#"remarks":"",
-				# 					"is_opening":"No",
-				# 					"is_advance":"No",
-				# 					"fiscal_year":fiscal_years,
-				# 					"company":self.company,
-				# 					"is_cancelled":0
-				# 					}
 		gl_entries=[]
 		for row in gl:
 			gl_entries.append(frappe._dict(gl[row]))
