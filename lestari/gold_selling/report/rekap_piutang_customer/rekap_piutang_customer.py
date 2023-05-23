@@ -19,5 +19,5 @@ def execute(filters=None):
 	balance=0
 	for row in mutasi:
 		balance=balance+flt(row[4])
-		data.append(row[0],row[1],row[2],row[3],row[4],balance,row[5])
+		data.append([row[0],row[1],row[2],row[3],row[4],balance,row[5]])
 	return columns, data
