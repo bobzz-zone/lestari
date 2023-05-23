@@ -305,6 +305,10 @@ frappe.ui.form.on('Gold Payment', {
 		
 	},
 	refresh: function(frm) {
+	// 	frm.set_df_property("auto_distribute", "read_only", frm.is_new() ? 0 : 1);
+	// 	frm.set_df_property("write_off_sisa", "read_only", frm.is_new() ? 0 : 1);
+	// 	frm.set_df_property("jadikan_deposit", "read_only", frm.is_new() ? 0 : 1);
+	// 	frm.set_df_property("reset_alokasi", "read_only", frm.is_new() ? 0 : 1);
 		frm.set_query("item","stock_payment", function(doc, cdt, cdn) {
 			return {
 				"filters": {

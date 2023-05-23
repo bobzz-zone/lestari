@@ -8,7 +8,6 @@
  "field_order": [
   "posting_date",
   "no_konfirmasi",
-  "item",
   "kadar",
   "kategori",
   "terima_berat",
@@ -36,12 +35,6 @@
    "fieldtype": "Link",
    "label": "No Konfirmasi",
    "options": "Konfirmasi Payment Return"
-  },
-  {
-   "fieldname": "item",
-   "fieldtype": "Link",
-   "label": "Item",
-   "options": "Item"
   },
   {
    "fetch_from": "item.kadar",
@@ -129,20 +122,22 @@
    "fieldname": "customer_group",
    "fieldtype": "Link",
    "label": "Customer Group",
-   "options": "Customer Group"
+   "options": "Customer Group",
+   "read_only": 1
   },
   {
    "fetch_from": "customer.territory",
    "fieldname": "territory",
    "fieldtype": "Link",
    "label": "Territory",
-   "options": "Territory"
+   "options": "Territory",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-05-09 11:16:17.715119",
+ "modified": "2023-05-22 14:43:22.661370",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Konfirmasi Return Subkategori",

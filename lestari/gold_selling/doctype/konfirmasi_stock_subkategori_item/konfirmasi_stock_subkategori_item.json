@@ -6,8 +6,11 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "idx_konfirmasi",
+  "item",
   "sub_kategori",
-  "berat"
+  "berat",
+  "name_konfirmasi"
  ],
  "fields": [
   {
@@ -25,12 +28,30 @@
    "label": "Berat",
    "precision": "3",
    "reqd": 1
+  },
+  {
+   "fieldname": "idx_konfirmasi",
+   "fieldtype": "Int",
+   "label": "ID",
+   "reqd": 1
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "name_konfirmasi",
+   "fieldtype": "Data",
+   "label": "name_konfirmasi"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-04-18 01:47:07.288768",
+ "modified": "2023-05-22 15:37:23.445958",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Konfirmasi Stock Subkategori Item",
