@@ -173,13 +173,13 @@
    "type": "Link"
   }
  ],
- "modified": "2023-05-22 11:51:24.374655",
- "modified_by": "Administrator",
+ "modified": "2023-05-24 11:32:53.293682",
+ "modified_by": "arikba@lms.com",
  "module": "Gold Selling",
  "name": "Gold Selling",
  "owner": "Administrator",
  "pin_to_bottom": 0,
- "pin_to_top": 0,
+ "pin_to_top": 1,
  "shortcuts": [
   {
    "doc_view": "List",
@@ -230,10 +230,21 @@
    "type": "DocType"
   },
   {
+   "doc_view": "Dashboard",
+   "label": "Report Sales",
+   "link_to": "Report Sales",
+   "type": "Report"
+  },
+  {
+   "doc_view": "Dashboard",
+   "label": "Report Pembayaran Penjualan",
+   "link_to": "Pembayaran Penjualan",
+   "type": "Report"
+  },
+  {
    "doc_view": "List",
-   "label": "Item Marketing",
-   "link_to": "Item",
-   "stats_filter": "{\n    \"item_group_parent\": [\"in\", [\"Anting\",\"Cincin\"]]\n}",
+   "label": "Janji Bayar",
+   "link_to": "Janji Bayar",
    "type": "DocType"
   },
   {
@@ -241,6 +252,18 @@
    "label": "Barang Marekting",
    "link_to": "Item",
    "stats_filter": "{\n    \"item_group_parent\": [\"in\", [\"Anting\",\"Cat\",\"Cat 1/2\",\"Cincin\",\"Cor\",\"Gelang\",\"Gipsy\",\"Kalung\",\"Liontin\",\"Rantai A\",\"Rantai A Variasi\", \"Rantai Cat\", \"Setelan\", \"Variasi\"]]\n}",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Konfirmasi Payment Return",
+   "link_to": "Konfirmasi Payment Return",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Konfirmasi Return Sub Kategori",
+   "link_to": "Konfirmasi Return Subkategori",
    "type": "DocType"
   }
  ]

@@ -113,7 +113,7 @@
    "type": "Link"
   }
  ],
- "modified": "2023-05-23 09:08:52.052670",
+ "modified": "2023-05-23 13:30:10.467197",
  "modified_by": "arikba@lms.com",
  "module": "Gold Selling",
  "name": "Lestari Selling",
@@ -136,7 +136,7 @@
   {
    "doc_view": "",
    "label": "Info Sales",
-   "link_to": "Report Info Sales",
+   "link_to": "Report Sales",
    "type": "Report"
   },
   {
