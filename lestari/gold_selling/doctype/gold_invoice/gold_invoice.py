@@ -332,7 +332,15 @@ class GoldInvoice(Document):
 			'total':self.grand_total
 		}
 		doc.append("invoice_table",baris_baru)
-
+		tutupan = frappe.db.sql("""
+                        SELECT nilai
+						FROM `tabGold Rates`
+						WHERE nilai > 0
+						AND DATE <= CURDATE() 
+						ORDER BY DATE DESC
+						LIMIT 1
+                           """, as_dict=1)
+		doc.tutupan = tutupan[0].nilai
 		doc.flags.ignore_permissions = True
 		doc.save()
 		return doc
