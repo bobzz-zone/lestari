@@ -23,7 +23,7 @@
    "type": "Link"
   }
  ],
- "modified": "2023-05-11 13:59:57.440921",
+ "modified": "2023-05-24 16:01:52.341159",
  "modified_by": "arikba@lms.com",
  "module": "Stockist",
  "name": "Stockist",
@@ -54,6 +54,41 @@
    "label": "Transfer Stock ke QC",
    "link_to": "Stock Entry",
    "stats_filter": "{\r\n    \"transfer\": \"Transfer Stockist to QC\"\r\n}",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "New",
+   "label": "Transfer Stockist ke PCB",
+   "link_to": "Stock Entry",
+   "stats_filter": "{\r\n    \"transfer\": \"Transfer Stockist ke PCB\"\r\n}",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "New",
+   "label": "Transfer Stockist dari PCB",
+   "link_to": "Stock Entry",
+   "stats_filter": "{\r\n    \"transfer\": \"Transfer Stockist dari PCB\"\r\n}",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "New",
+   "label": "Transfer Stockist ke Barang Lama",
+   "link_to": "Stock Entry",
+   "stats_filter": "{\r\n    \"transfer\": \"Transfer Stockist ke Barang Lama\"\r\n}",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "New",
+   "label": "Transfer Stockist dari Barang Lama",
+   "link_to": "Stock Entry",
+   "stats_filter": "{\r\n    \"transfer\": \"Transfer Stockist dari Barang Lama\"\r\n}",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "New",
+   "label": "Transfer Stockist ke Produksi",
+   "link_to": "Stock Entry",
+   "stats_filter": "{\r\n    \"transfer\": \"Transfer Stockist ke Produksi\"\r\n}",
    "type": "DocType"
   }
  ]
