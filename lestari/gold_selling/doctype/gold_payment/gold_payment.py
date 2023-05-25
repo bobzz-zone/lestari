@@ -166,6 +166,7 @@ class GoldPayment(StockController):
 	@frappe.whitelist()
 	def get_janji_bayar(self):
 		doc = frappe.db.get_list("Janji Bayar", filters={"customer": self.customer, "status":"Pending", 'docstatus':1}, fields=['name','tanggal_janji','customer','gold_invoice','total_bayar','total_terbayar','sisa_janji','status'])
+		total_idr_payment = 0
 		for row in doc:
 			baris_baru = {
 				'janji_bayar':row.name,
@@ -178,10 +179,34 @@ class GoldPayment(StockController):
 				'status_janji':row.status
 			}
 			self.append("list_janji_bayar",baris_baru)
+			baris_baru = {
+				'mode_of_payment': "Cash",
+				'amount': row.sisa_janji
+			}
+			total_idr_payment += row.sisa_janji
+			self.append("idr_payment",baris_baru)
+		self.total_idr_payment += flt(total_idr_payment) 
+		self.total_idr_gold += flt(total_idr_payment) / flt(self.tutupan)
+		self.total_payment += flt(total_idr_payment) / flt(self.tutupan)
+		self.unallocated_payment += flt(total_idr_payment) / flt(self.tutupan)
 			
 	@frappe.whitelist()
 	def get_gold_invoice(self):
 		doc = frappe.db.get_list("Gold Invoice", filters={"customer": self.customer, "invoice_status":"Unpaid", 'docstatus':1}, fields=['name','posting_date','customer','subcustomer','enduser','outstanding','due_date','tutupan','total_bruto','grand_total'])
+		if self.tutupan > 0:
+			tutupan = self.tutupan
+		else:
+			tutupan = frappe.db.sql("""
+                        SELECT nilai
+						FROM `tabGold Rates`
+						WHERE nilai > 0
+						AND DATE <= CURDATE() 
+						ORDER BY DATE DESC
+						LIMIT 1
+                           """, as_dict=1)
+			# frappe.msgprint(str())
+			tutupan = tutupan[0].nilai
+			self.tutupan = flt(tutupan)
 		for row in doc:
 			# frappe.msgprint(str(row))
 			if row.outstanding and flt(row.outstanding)>0:
@@ -217,8 +242,11 @@ class GoldPayment(StockController):
 		#lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_gold_advance
 
 		list_deposit=frappe.db.sql("""select name , idr_left ,account_piutang,posting_date,customer from `tabCustomer Deposit` where deposit_type="IDR" and docstatus=1 and (customer="{}" or subcustomer="{}" ) """.format(self.customer,self.subcustomer),as_dict=1)
+		total_advance = 0
+		total_idr_in_gold = 0
 		for row in list_deposit:
 			# frappe.msgprint(str(row))
+			total_idr_in_gold += flt(row.idr_left)
 			baris_baru = {
 				'customer_deposit':row.name,
 				'idr_deposit':row.idr_left,
@@ -227,11 +255,18 @@ class GoldPayment(StockController):
 				'customer':row.customer,
 				'account_piutang':row.account_piutang
 			}
+			# frappe.msgprint(str(total_idr_in_gold))
 			self.append("invoice_advance",baris_baru)
-
+		if total_idr_in_gold > 0:
+			# frappe.msgprint(str(tutupan[0]))
+			total_idr_in_gold = flt(total_idr_in_gold) / flt(tutupan)
+			self.total_idr_in_gold = total_idr_in_gold
+			total_advance += total_idr_in_gold
 		list_deposit=frappe.db.sql("""select name , gold_left ,tutupan,posting_date,customer from `tabCustomer Deposit` where deposit_type="Emas" and docstatus=1 and (customer="{}" or subcustomer="{}" ) """.format(self.customer,self.subcustomer),as_dict=1)
+		total_gold = 0
 		for row in list_deposit:
 			# frappe.msgprint(str(row))
+			total_gold += row.gold_left
 			baris_baru = {
 				'customer_deposit':row.name,
 				'gold_deposit':row.gold_left,
@@ -241,6 +276,9 @@ class GoldPayment(StockController):
 				'tutupan':row.tutupan
 			}
 			self.append("gold_invoice_advance",baris_baru)
+		self.total_gold = total_gold
+		total_advance += total_gold
+		self.total_advance = total_advance
 	def update_stock_ledger(self):
 		sl_entries = []
 		sl=[]

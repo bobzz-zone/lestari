@@ -20,6 +20,30 @@ function calculate_table_invoice(frm,cdt,cdn){
 	frm.doc.unallocated_payment=frm.doc.total_payment + frm.doc.total_advance -frm.doc.allocated_payment;
 	refresh_field("unallocated_payment");
 }
+function calculate_table_advance(frm,cdt,cdn){
+	var total_gold=0;
+	var total_idr=0;
+	var allocated=0;
+	$.each(frm.doc.invoice_advance,  function(i,  g) {
+		total_idr=total_idr+g.idr_allocated;
+		allocated=allocated+g.idr_allocated;
+	});
+	$.each(frm.doc.gold_invoice_advance,  function(i,  g) {
+		total_gold=total_gold+g.gold_allocated;
+		allocated=allocated+g.gold_allocated;
+	});
+	// frm.doc.total_invoice=total;
+	//frappe.model.set_value(cdt, cdn,"allocated",0);
+	// refresh_field("total_invoice");
+	frm.doc.total_gold=total_gold ;
+	frm.doc.total_idr_in_gold= parseFloat(total_idr) / parseFloat(frm.doc.tutupan) ;
+	frm.doc.total_advance=allocated ;
+	refresh_field("total_gold");
+	refresh_field("total_idr_in_gold");
+	refresh_field("total_advance");
+	// frm.doc.unallocated_payment=frm.doc.total_payment + frm.doc.total_advance -frm.doc.allocated_payment;
+	// refresh_field("unallocated_payment");
+}
 function refresh_total_and_charges(frm){
 	frm.doc.total_extra_charges=frm.doc.write_off+ frm.doc.total_biaya_tambahan - frm.doc.bonus - frm.doc.discount_amount;
 	refresh_field("total_extra_charges");
@@ -550,5 +574,17 @@ frappe.ui.form.on('Stock Payment', {
 		calculate_table_stock(frm,cdt,cdn)
 	}
 	
+});
+frappe.ui.form.on('Gold Invoice Advance IDR', {
+	invoice_advance_remove: function(frm,cdt,cdn){
+		// console.log("IDR Remove")
+		calculate_table_advance(frm,cdt,cdn)
+	}
+});
+frappe.ui.form.on('Gold Invoice Advance Gold', {
+	gold_invoice_advance_remove: function(frm,cdt,cdn){
+		// console.log("Gold Remove")
+		calculate_table_advance(frm,cdt,cdn)
+	}
 });
 
