@@ -59,6 +59,28 @@ class CustomerDeposit(StockController):
 					frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar-{0} ,status="Pending", sisa_janji=sisa_janji+{0} where name = "{1}" """.format(self.total_idr_deposit,self.janji_bayar))
 				else:
 					frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar-{0} , sisa_janji=sisa_janji+{0} where name = "{1}" """.format(self.total_idr_deposit,self.janji_bayar))
+	@frappe.whitelist()
+	def get_janji_bayar(self):
+		doc = frappe.db.get_list("Janji Bayar", filters={"customer": self.customer, "status":"Pending", 'docstatus':1, 'jenis_janji':"Deposit"}, fields=['name','tanggal_janji','customer','gold_invoice','total_bayar','total_terbayar','sisa_janji','status'])
+		total_idr_payment = 0
+		if len(doc) > 0:
+			for row in doc:
+				if len(doc) == 1:
+					self.janji_bayar = row.name
+					self.sisa_janji = row.sisa_janji
+					self.total_janji = row.total_bayar
+				baris_baru = {
+					'janji_bayar':row.name,
+					'no_invoice':row.gold_invoice,
+					'customer':row.customer,
+					'tanggal_janji':row.tanggal_janji,
+					'total_janji_bayar':row.total_bayar,
+					'idr_janji_terbayar':row.total_terbayar,
+					'sisa_janji':row.sisa_janji,
+					'status_janji':row.status
+				}
+				self.append("list_janji_bayar",baris_baru)
+    
 	def update_stock_ledger(self):
 		sl_entries = []
 		sl=[]

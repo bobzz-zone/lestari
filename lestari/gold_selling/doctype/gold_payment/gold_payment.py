@@ -25,6 +25,12 @@ form_grid_templates = {"invoice_table": "templates/item_grid.html"}
 
 class GoldPayment(StockController):
 	def validate(self):
+		if self.list_janji_bayar:
+			if len(self.list_janji_bayar) == 1:
+				for row in self.list_janji_bayar:
+					self.janji_bayar = row.janji_bayar
+			else:
+				frappe.throw("Janji Bayar Lebih dari 1")
 		#seharusnya validasi agaryang belum due, di pastikan tutupan sama..atau hanya 1 invoice agar di gold payment tutupan di samakan
 		#check unallocated harus 00
 # <<<<<<< HEAD
@@ -124,7 +130,7 @@ class GoldPayment(StockController):
 						patch[row.customer_deposit]['credit_in_account_currency']=flt(det[4])
 		for row in self.gold_invoice_advance:
 			if row.gold_allocated>0:
-				gl_list=frappe.db.sql("""select name ,debit,credit,debit_in_account_currency,credit_in_account_currency from `tabGL Entry` where voucher_no="{}" and account="{}" and against_voucher_type=NULL and against_voucher=NULL and is_cancelled=0 """.format(row.customer_deposit,piutang_gold),as_list=1)
+				gl_list=frappe.db.sql("""select name ,debit,credit,debit_in_account_currency,credit_in_account_currency from `tabGL Entry` where voucher_no="{}" and account="{}" and against_voucher_type=NULL and against_voucher=NULL and is_cancelled=0 """.format(row.customer_deposit,row.piutang_gold),as_list=1)
 				for det in gl_list:
 					if row.customer_deposit in patch:
 						if gl_need_deleted!="":
@@ -165,7 +171,7 @@ class GoldPayment(StockController):
 					frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar-{0} , sisa_janji=sisa_janji+{0} where name = "{1}" """.format(self.total_idr_payment,self.janji_bayar))
 	@frappe.whitelist()
 	def get_janji_bayar(self):
-		doc = frappe.db.get_list("Janji Bayar", filters={"customer": self.customer, "status":"Pending", 'docstatus':1}, fields=['name','tanggal_janji','customer','gold_invoice','total_bayar','total_terbayar','sisa_janji','status'])
+		doc = frappe.db.get_list("Janji Bayar", filters={"customer": self.customer, "status":"Pending", 'docstatus':1, 'jenis_janji':"Pembayaran"}, fields=['name','tanggal_janji','customer','gold_invoice','total_bayar','total_terbayar','sisa_janji','status'])
 		total_idr_payment = 0
 		for row in doc:
 			baris_baru = {

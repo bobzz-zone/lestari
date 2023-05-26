@@ -71,6 +71,7 @@ function reset_allocated(frm){
 	refresh_field("unallocated_write_off");
 	refresh_field("jadi_deposit");
 	refresh_total_and_charges(frm);
+	calculate_table_advance(frm);
 }
 function calculate_table_idr(frm,cdt,cdn){
 	var total=0;

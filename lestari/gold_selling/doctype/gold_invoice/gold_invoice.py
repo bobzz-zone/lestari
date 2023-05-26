@@ -18,7 +18,7 @@ class GoldInvoice(Document):
 			if not self.discount:
 				self.discount=0
 			self.grand_total=flt(self.total)-flt(self.discount)
-			self.outstanding = self.grand_total - flt(self.total_advance);
+			self.outstanding = self.grand_total - flt(self.total_advance)
 			if self.outstanding<0:
 				frappe.throw("Ouutstanding tidak boleh lebih kecil dari 0")
 	@frappe.whitelist(allow_guest=True)
@@ -43,7 +43,10 @@ class GoldInvoice(Document):
 			self.invoice_status="Unpaid"
 
 	def on_submit(self):
-		self.make_gl_entries()
+		if self.outstanding <= 0:
+			frappe.throw(str(self.outstanding))
+		else:
+			self.make_gl_entries()
 	def get_gl_entries(self, warehouse_account=None):
 		from erpnext.accounts.general_ledger import merge_similar_entries
 		#GL  Generate
