@@ -31,7 +31,9 @@ class KonfirmasiPaymentReturn(Document):
 						'qty': row.qty,
 						'kadar': frappe.db.get_value('Item', {'item_code': row.item}, ['kadar']),
 						'voucher_type': row.voucher_type,
-						'voucher_no': row.voucher_no
+						'voucher_no': row.voucher_no,
+                        'customer': frappe.db.get_value('Gold Payment', {'name': row.voucher_no}, ['customer']),
+                        'child_id': row.name
 					}
                     self.append("detail_rongsok",rongsok)
             if frappe.db.get_value('Item', {'item_code': row.item}, ['item_group']) == "Perhiasan":
@@ -41,6 +43,7 @@ class KonfirmasiPaymentReturn(Document):
 						'qty': row.qty,
                         'kadar': frappe.db.get_value('Item', {'item_code': row.item}, ['kadar']),
 						'voucher_type': row.voucher_type,
-						'voucher_no': row.voucher_no
+						'voucher_no': row.voucher_no,
+                        'child_id': row.name
 					}
                     self.append("detail_perhiasan",perhiasan)

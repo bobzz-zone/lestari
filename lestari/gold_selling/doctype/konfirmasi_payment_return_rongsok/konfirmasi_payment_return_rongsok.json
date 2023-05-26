@@ -15,7 +15,9 @@
   "is_out",
   "is_confirm",
   "voucher_type",
-  "voucher_no"
+  "voucher_no",
+  "child_id",
+  "customer"
  ],
  "fields": [
   {
@@ -59,7 +61,6 @@
    "default": "0",
    "fieldname": "is_out",
    "fieldtype": "Check",
-   "in_list_view": 1,
    "label": "Is Out"
   },
   {
@@ -67,7 +68,6 @@
    "default": "0",
    "fieldname": "is_confirm",
    "fieldtype": "Check",
-   "in_list_view": 1,
    "label": "Is Confirm"
   },
   {
@@ -95,12 +95,24 @@
    "fieldtype": "Link",
    "label": "Kadar",
    "options": "Data Logam"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "child_id",
+   "fieldtype": "Data",
+   "label": "Child ID"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-05-02 05:36:43.950722",
+ "modified": "2023-05-26 15:54:58.466689",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Konfirmasi Payment Return Rongsok",

@@ -69,7 +69,16 @@ frappe.ui.form.on('Customer Deposit', {
 				frappe.set_route("query-report", "Stock Ledger");
 			}, __("View"));
 		}
-	}
+	},get_janji_bayar:function(frm){
+		frappe.call({
+			method: "get_janji_bayar",
+			doc: frm.doc,
+			callback: function (r){
+				frm.refresh();	
+			}
+		})
+		
+	},
 });
 frappe.ui.form.on('Customer Deposit Convert', {
 	customer_deposit:function(frm,cdt,cdn) {
