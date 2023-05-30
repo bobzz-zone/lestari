@@ -44,8 +44,8 @@ class SerahTerimaPaymentStock(Document):
 		ste.stock_entry_type = "Material Transfer"
 		for row in self.items:
 			baris_baru = {
-				's_warehouse' : self.warehouse,
-				't_warehouse' : 'Retur Marketing - LMS',
+				's_warehouse' : self.s_warehouse,
+				't_warehouse' : self.t_warehouse,
 				'item_code' : row.item,
 				'qty' : row.qty,
 				'allow_zero_valuation_rate' : 1

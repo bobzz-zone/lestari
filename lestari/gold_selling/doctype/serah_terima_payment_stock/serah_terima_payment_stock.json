@@ -9,11 +9,13 @@
  "field_order": [
   "posting_date",
   "category",
+  "saldo_awal",
   "keterangan",
   "column_break_3",
   "sales",
   "sales_bundle",
-  "warehouse",
+  "s_warehouse",
+  "t_warehouse",
   "get_detail",
   "reset",
   "section_break_7",
@@ -82,13 +84,6 @@
    "read_only": 1
   },
   {
-   "fetch_from": "sales.warehouse",
-   "fieldname": "warehouse",
-   "fieldtype": "Link",
-   "label": "Warehouse",
-   "options": "Warehouse"
-  },
-  {
    "fieldname": "get_detail",
    "fieldtype": "Button",
    "label": "Get Detail",
@@ -112,12 +107,32 @@
    "fieldname": "reset",
    "fieldtype": "Button",
    "label": "Reset"
+  },
+  {
+   "default": "0",
+   "fieldname": "saldo_awal",
+   "fieldtype": "Check",
+   "label": "Include Saldo Awal"
+  },
+  {
+   "fetch_from": "sales.warehouse",
+   "fieldname": "s_warehouse",
+   "fieldtype": "Link",
+   "label": "Source Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "default": "Retur Marketing - LMS",
+   "fieldname": "t_warehouse",
+   "fieldtype": "Link",
+   "label": "Target Warehouse",
+   "options": "Warehouse"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-10 12:04:59.851301",
+ "modified": "2023-05-29 23:50:33.361566",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Serah Terima Payment Stock",
