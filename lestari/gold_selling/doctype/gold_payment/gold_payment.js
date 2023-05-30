@@ -132,7 +132,7 @@ frappe.ui.form.on("Gold Invoice Advance Gold", {
 frappe.ui.form.on('Gold Payment', {
 	onload: function(frm) {
         // Get the input field element
-        var inputField = frm.get_field('tutupan').$input;
+        var inputField = cur_frm.get_field('tutupan').$input;
 
         // Attach keydown event listener
         inputField.keydown(function(event) {
@@ -319,6 +319,18 @@ frappe.ui.form.on('Gold Payment', {
 		})
 	},
 	refresh: function(frm) {
+		// Get the input field element
+        var inputField = cur_frm.get_field('tutupan').$input;
+
+        // Attach keydown event listener
+        inputField.keydown(function(event) {
+            // Check if the Enter key is pressed
+            if (event.which === 13) {
+                // Prevent the default Enter key action
+                event.preventDefault();
+                return false;
+            }
+        });
 		frm.set_query("item","stock_payment", function(doc, cdt, cdn) {
 			return {
 				"filters": {
