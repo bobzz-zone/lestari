@@ -194,7 +194,6 @@ class GoldPayment(StockController):
 	@frappe.whitelist()
 	def get_janji_bayar(self):
 		if len(self.list_janji_bayar)>0:
-			frappe.msgprint("Janji Bayar Sudah Tertarik")
 			return
 		doc = frappe.db.get_list("Janji Bayar", filters={"customer": self.customer, "status":"Pending", 'docstatus':1, 'jenis_janji':"Pembayaran"}, fields=['name','tanggal_janji','customer','gold_invoice','total_bayar','total_terbayar','sisa_janji','status'])
 		total_idr_payment = 0
