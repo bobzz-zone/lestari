@@ -321,10 +321,9 @@ frappe.ui.form.on('Gold Payment', {
 		
 	},
 	get_janji_bayar:function(frm){
-		isButtonClicked = false;
 		var button = cur_frm.get_field('get_gold_invoice').$input;
 		button.prop('disabled', true);
-		isButtonClicked = true;
+		isButtonClicked = false;
 		frappe.call({
 			method: "get_janji_bayar",
 			doc: frm.doc,
@@ -332,7 +331,7 @@ frappe.ui.form.on('Gold Payment', {
 				frm.refresh();	
 				setTimeout(function() {
 					// Check if the button was clicked and disable it
-					if (isButtonClicked) {
+					if (!isButtonClicked) {
 						button.prop('disabled', true);
 					}
 				}, 0);
