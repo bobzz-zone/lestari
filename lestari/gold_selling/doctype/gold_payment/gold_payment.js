@@ -329,7 +329,7 @@ frappe.ui.form.on('Gold Payment', {
 			method: "get_janji_bayar",
 			doc: frm.doc,
 			callback: function (r){
-				cur_frm.refresh_field('get_janji_bayar');	
+				cur_frm.refresh_field('list_janji_bayar');	
 				// setTimeout(function() {
 				// 	// Check if the button was clicked and disable it
 				// 	if (isButtonClicked1) {
