@@ -8,15 +8,28 @@ class KonfirmasiPaymentReturn(Document):
     def on_submit(self):
         ste = frappe.new_doc('Stock Entry')
         ste.stock_entry_type = "Material Transfer"
-        for row in self.items:
-            baris_baru = {
-                's_warehouse' : 'Retur Marketing - LMS',
-                't_warehouse' : 'Retur Kembali - LMS',
-                'item_code' : row.item,
-                'qty' : row.tolak_qty,
-                'allow_zero_valuation_rate' : 1
-            }
-            ste.append('items', baris_baru)
+        if self.detail_perhiasan:
+            for row in self.detail_perhiasan:
+                if row.tolak_qty > 0:
+                    baris_baru = {
+                        's_warehouse' : self.s_warehouse,
+                        't_warehouse' : self.t_warehouse,
+                        'item_code' : row.item,
+                        'qty' : row.tolak_qty,
+                        'allow_zero_valuation_rate' : 1
+                    }
+                    ste.append('items', baris_baru)
+        if self.detail_rongsok:
+            for row in self.detail_rongsok:
+                if row.tolak_qty > 0:
+                    baris_baru = {
+                        's_warehouse' : self.s_warehouse,
+                        't_warehouse' : self.t_warehouse,
+                        'item_code' : row.item,
+                        'qty' : row.tolak_qty,
+                        'allow_zero_valuation_rate' : 1
+                    }
+                    ste.append('items', baris_baru)
         ste.flags.ignore_permissions = True
         ste.save()
 	
@@ -33,7 +46,7 @@ class KonfirmasiPaymentReturn(Document):
 						'voucher_type': row.voucher_type,
 						'voucher_no': row.voucher_no,
                         'customer': frappe.db.get_value('Gold Payment', {'name': row.voucher_no}, ['customer']),
-                        'child_id': row.name
+                        'child_id': row.child_id
 					}
                     self.append("detail_rongsok",rongsok)
             if frappe.db.get_value('Item', {'item_code': row.item}, ['item_group']) == "Perhiasan":
@@ -45,6 +58,6 @@ class KonfirmasiPaymentReturn(Document):
 						'voucher_type': row.voucher_type,
 						'voucher_no': row.voucher_no,
                         'customer': frappe.db.get_value('Gold Payment', {'name': row.voucher_no}, ['customer']),
-                        'child_id': row.name
+                        'child_id': row.child_id
 					}
                     self.append("detail_perhiasan",perhiasan)

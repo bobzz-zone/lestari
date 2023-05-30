@@ -10,9 +10,9 @@
   "posting_date",
   "sales_bundle",
   "sales",
-  "s_warehouse",
   "column_break_3",
   "serah_terima",
+  "s_warehouse",
   "t_warehouse",
   "section_break_6",
   "detail_perhiasan",
@@ -70,7 +70,7 @@
    "read_only": 1
   },
   {
-   "fetch_from": "sales_bundle.warehouse",
+   "default": "Retur Marketing - LMS",
    "fieldname": "s_warehouse",
    "fieldtype": "Link",
    "label": "Source Warehouse",
@@ -78,7 +78,7 @@
    "read_only": 1
   },
   {
-   "default": "Stockist - LMS",
+   "default": "Retur Kembali - LMS",
    "fieldname": "t_warehouse",
    "fieldtype": "Link",
    "label": "Target Warehouse",
@@ -102,7 +102,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-05-02 06:56:04.278933",
+ "modified": "2023-05-29 23:46:37.813425",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Konfirmasi Payment Return",
