@@ -130,20 +130,20 @@ frappe.ui.form.on("Gold Invoice Advance Gold", {
 });
 
 frappe.ui.form.on('Gold Payment', {
-	onload: function(frm) {
-        // Get the input field element
-        var inputField = cur_frm.get_field('tutupan').$input;
+	// onload: function(frm) {
+    //     // Get the input field element
+    //     var inputField = cur_frm.get_field('tutupan').$input;
 
-        // Attach keydown event listener
-        inputField.keydown(function(event) {
-            // Check if the Enter key is pressed
-            if (event.which === 13) {
-                // Prevent the default Enter key action
-                event.preventDefault();
-                return false;
-            }
-        });
-    },
+    //     // Attach keydown event listener
+    //     inputField.keydown(function(event) {
+    //         // Check if the Enter key is pressed
+    //         if (event.which === 13) {
+    //             // Prevent the default Enter key action
+    //             event.preventDefault();
+    //             return false;
+    //         }
+    //     });
+    // },
 	validate:function(frm){
 		//validate allocated amount
 
