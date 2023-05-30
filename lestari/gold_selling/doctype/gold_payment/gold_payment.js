@@ -1,6 +1,7 @@
 // Copyright (c) 2022, DAS and contributors
 // For license information, please see license.txt
 
+var isButtonClicked = false;
 function calculate_table_invoice(frm,cdt,cdn){
 	var total=0;
 	var allocated=0;
@@ -302,13 +303,19 @@ frappe.ui.form.on('Gold Payment', {
 	},
 	get_gold_invoice:function(frm){
 		var button = cur_frm.get_field('get_gold_invoice').$input;
+		button.prop('disabled', true);
+		isButtonClicked = true;
 		frappe.call({
 			method: "get_gold_invoice",
 			doc: frm.doc,
 			callback: function (r){
-				// Disable the button
-				button.prop('disabled', false);
 				cur_frm.refresh_field('invoice_table');	
+				setTimeout(function() {
+					// Check if the button was clicked and disable it
+					if (isButtonClicked) {
+						button.prop('disabled', true);
+					}
+				}, 0);
 			}
 		})
 		
