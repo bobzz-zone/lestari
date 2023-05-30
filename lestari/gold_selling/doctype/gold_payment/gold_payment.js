@@ -301,14 +301,14 @@ frappe.ui.form.on('Gold Payment', {
 		reset_allocated(frm);
 	},
 	get_gold_invoice:function(frm){
+		var button = cur_frm.get_field('get_gold_invoice').$input;
 		frappe.call({
 			method: "get_gold_invoice",
 			doc: frm.doc,
 			callback: function (r){
-				var button = cur_frm.get_field('get_gold_invoice').$input;
 				// Disable the button
-				button.prop('disabled', true);
-				frm.refresh();	
+				button.prop('disabled', false);
+				cur_frm.refresh_field('invoice_table');	
 			}
 		})
 		
