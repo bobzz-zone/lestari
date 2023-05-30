@@ -147,7 +147,7 @@ frappe.ui.form.on('Gold Payment', {
 		
 	},
 	discount:function(frm){
-		if (frm.doc.discount<=0){
+		if (frm.doc.discount<0){
 			return
 		}
 		frm.doc.discount_amount=frm.doc.bruto_discount*frm.doc.discount/100;
