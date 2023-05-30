@@ -79,27 +79,28 @@ class GoldPayment(StockController):
 			self.update_stock_ledger()
 			self.repost_future_sle_and_gle()
 				#update invoice
-			piutang_gold = frappe.db.get_single_value('Gold Selling Settings', 'piutang_gold')
-			depo = frappe.new_doc("Customer Deposit")
-			depo.customer = self.customer
-			depo.customer_group = self.customer_group
-			depo.territory = self.territory
-			depo.subcustomer = self.subcustomer
-			depo.warehouse = self.warehouse
-			depo.posting_date = self.posting_date
-			depo.deposit_type="Emas"
-			depo.tutupan=self.tutupan
-			depo.sales_bundle=self.sales_bundle
-			depo.deposit_payment=1
-			depo.gold_payment=self.name
-			depo.total_gold_deposit=self.jadi_deposit
-			depo.gold_left=self.jadi_deposit
-			depo.account_piutang=piutang_gold
-			# frappe.msgprint(depo)
-			depo.flags.ignore_permissions = True
-			depo.submit()
-			#depo.submit()
-			frappe.msgprint("Customer Deposit {} Telah Terbuat".format(depo.name))
+			if self.jadi_deposit>0:
+				piutang_gold = frappe.db.get_single_value('Gold Selling Settings', 'piutang_gold')
+				depo = frappe.new_doc("Customer Deposit")
+				depo.customer = self.customer
+				depo.customer_group = self.customer_group
+				depo.territory = self.territory
+				depo.subcustomer = self.subcustomer
+				depo.warehouse = self.warehouse
+				depo.posting_date = self.posting_date
+				depo.deposit_type="Emas"
+				depo.tutupan=self.tutupan
+				depo.sales_bundle=self.sales_bundle
+				depo.deposit_payment=1
+				depo.gold_payment=self.name
+				depo.total_gold_deposit=self.jadi_deposit
+				depo.gold_left=self.jadi_deposit
+				depo.account_piutang=piutang_gold
+				# frappe.msgprint(depo)
+				depo.flags.ignore_permissions = True
+				depo.submit()
+				#depo.submit()
+				frappe.msgprint("Customer Deposit {} Telah Terbuat".format(depo.name))
 			for row in self.invoice_table:
 				if row.allocated==row.outstanding:
 					frappe.db.sql("""update `tabGold Invoice` set outstanding=outstanding-{} , invoice_status="Paid", gold_payment="{}" where name = "{}" """.format(row.allocated,self.name,row.gold_invoice))
