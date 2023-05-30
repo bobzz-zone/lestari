@@ -281,6 +281,7 @@ frappe.ui.form.on('Gold Payment', {
 
 	},
 	tutupan:function(frm){
+		cur_frm.get_field("tutupan").set_focus()
 		frm.doc.total_idr_gold=frm.doc.total_idr_payment/frm.doc.tutupan;
 		var idr = 0;
 		$.each(frm.doc.invoice_advance, function (i, g) {
