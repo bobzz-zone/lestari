@@ -79,6 +79,7 @@ class GoldPayment(StockController):
 			self.update_stock_ledger()
 			self.repost_future_sle_and_gle()
 				#update invoice
+			piutang_gold = frappe.db.get_single_value('Gold Selling Settings', 'piutang_gold')
 			depo = frappe.new_doc("Customer Deposit")
 			depo.customer = self.customer
 			depo.customer_group = self.customer_group
