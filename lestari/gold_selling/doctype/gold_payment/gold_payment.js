@@ -309,6 +309,15 @@ frappe.ui.form.on('Gold Payment', {
 		})
 		
 	},
+	get_janji_bayar:function(frm){
+		frappe.call({
+			method: "get_janji_bayar",
+			doc: frm.doc,
+			callback: function (r){
+				frm.refresh();	
+			}
+		})
+	},
 	refresh: function(frm) {
 		frm.set_query("item","stock_payment", function(doc, cdt, cdn) {
 			return {
@@ -335,6 +344,7 @@ frappe.ui.form.on('Gold Payment', {
 				]
 			}
 		});
+
 		frm.set_query("customer_deposit", "invoice_advance", function (doc, cdt, cdn) {
 			return {
 				query: "lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_idr_advance",
