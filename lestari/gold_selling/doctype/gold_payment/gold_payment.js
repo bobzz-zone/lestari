@@ -2,6 +2,7 @@
 // For license information, please see license.txt
 
 var isButtonClicked = false;
+var isButtonClicked1 = false;
 function calculate_table_invoice(frm,cdt,cdn){
 	var total=0;
 	var allocated=0;
@@ -321,17 +322,17 @@ frappe.ui.form.on('Gold Payment', {
 		
 	},
 	get_janji_bayar:function(frm){
-		var button = cur_frm.get_field('get_gold_invoice').$input;
+		var button = cur_frm.get_field('get_janji_bayar').$input;
 		button.prop('disabled', true);
-		isButtonClicked = false;
+		isButtonClicked = true;
 		frappe.call({
 			method: "get_janji_bayar",
 			doc: frm.doc,
 			callback: function (r){
-				frm.refresh();	
+				cur_frm.refresh_field('get_janji_bayar');	
 				setTimeout(function() {
 					// Check if the button was clicked and disable it
-					if (!isButtonClicked) {
+					if (isButtonClicked1) {
 						button.prop('disabled', true);
 					}
 				}, 0);
