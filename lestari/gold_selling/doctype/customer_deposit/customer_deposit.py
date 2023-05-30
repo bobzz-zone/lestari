@@ -45,7 +45,7 @@ class CustomerDeposit(StockController):
 					else:
 						frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_deposit,self.janji_bayar))
 	def on_cancel(self):
-		#self.flags.ignore_links=True
+		self.flags.ignore_links=True
 		self.make_gl_entries_on_cancel()
 		if self.terima_barang==1 and self.is_convert==0:
 			self.update_stock_ledger()
