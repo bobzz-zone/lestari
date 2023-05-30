@@ -8,12 +8,13 @@
  "field_order": [
   "sub_kategori",
   "kadar",
-  "qty_penambahan",
+  "total_dibawa_sales",
+  "timbang",
+  "total_dikembalikan",
+  "timbang1",
+  "total_closing",
   "rencana_dibawa_kembali",
   "item",
-  "total_dibawa_sales",
-  "total_dikembalikan",
-  "total_clossing",
   "kategori",
   "gold_selling_item"
  ],
@@ -52,19 +53,9 @@
    "read_only": 1
   },
   {
-   "columns": 1,
-   "fieldname": "qty_penambahan",
-   "fieldtype": "Float",
-   "in_list_view": 1,
-   "label": "Berat",
-   "precision": "3",
-   "reqd": 1
-  },
-  {
    "columns": 2,
    "fieldname": "item",
    "fieldtype": "Link",
-   "in_list_view": 1,
    "label": "Item",
    "options": "Item",
    "read_only": 1
@@ -87,25 +78,40 @@
   },
   {
    "columns": 1,
-   "fieldname": "total_clossing",
-   "fieldtype": "Float",
-   "in_list_view": 1,
-   "label": "Total Clossing",
-   "precision": "3"
-  },
-  {
-   "columns": 1,
    "fieldname": "total_dibawa_sales",
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Total Dibawa Sales",
    "precision": "3"
+  },
+  {
+   "columns": 1,
+   "fieldname": "timbang",
+   "fieldtype": "Button",
+   "in_list_view": 1,
+   "label": "Timbang"
+  },
+  {
+   "columns": 1,
+   "fieldname": "timbang1",
+   "fieldtype": "Button",
+   "in_list_view": 1,
+   "label": "Timbang"
+  },
+  {
+   "columns": 1,
+   "fieldname": "total_closing",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Closing",
+   "precision": "3",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-04-04 04:38:40.804893",
+ "modified": "2023-05-30 13:26:31.662523",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Detail Close Stock",

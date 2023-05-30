@@ -27,12 +27,12 @@
   "add",
   "sb1",
   "items",
+  "total_bruto",
   "total_per_kadar_section",
   "per_kadar",
   "total_per_sub_category_section",
   "per_sub_category",
   "section_break_13",
-  "total_bruto",
   "amended_from"
  ],
  "fields": [
@@ -159,7 +159,7 @@
    "fieldname": "per_kadar",
    "fieldtype": "Table",
    "label": "Per Kadar",
-   "options": "Update Bundle Stock Kadar",
+   "options": "Close Bundle Stock Kadar",
    "read_only": 1
   },
   {
@@ -204,7 +204,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-04 02:32:36.449663",
+ "modified": "2023-05-30 13:02:26.223185",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Close Bundle Stock",
