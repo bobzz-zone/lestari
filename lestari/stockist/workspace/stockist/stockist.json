@@ -23,7 +23,7 @@
    "type": "Link"
   }
  ],
- "modified": "2023-05-24 16:01:52.341159",
+ "modified": "2023-05-30 13:52:42.724065",
  "modified_by": "arikba@lms.com",
  "module": "Stockist",
  "name": "Stockist",
@@ -90,6 +90,12 @@
    "link_to": "Stock Entry",
    "stats_filter": "{\r\n    \"transfer\": \"Transfer Stockist ke Produksi\"\r\n}",
    "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Dashboard Grafik",
+   "link_to": "dashboard-metabase",
+   "type": "Page"
   }
  ]
 }

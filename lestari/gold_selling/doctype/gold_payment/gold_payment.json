@@ -454,13 +454,14 @@
   {
    "fieldname": "get_janji_bayar",
    "fieldtype": "Button",
-   "label": "Get Janji Bayar"
+   "label": "Get Janji Bayar",
+   "options": "get_janji_bayar"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-05-20 13:43:58.968256",
+ "modified": "2023-05-30 15:06:24.346505",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",
