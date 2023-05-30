@@ -155,7 +155,7 @@ frappe.ui.form.on('Gold Payment', {
 		refresh_total_and_charges(frm);
 	},
 	bruto_discount:function(frm){
-		if (frm.doc.discount<=0){
+		if (frm.doc.discount<0){
 			return
 		}
 		/*var disc=0
