@@ -316,6 +316,13 @@ frappe.ui.form.on('Gold Payment', {
 			doc: frm.doc,
 			callback: function (r){
 				frm.refresh();	
+				var button = cur_frm.get_field('get_janji_bayar').$input;
+
+				// Attach click event listener
+				button.on('click', function() {
+					// Disable the button
+					button.prop('disabled', true);
+				});
 			}
 		})
 	},
