@@ -450,6 +450,7 @@ frappe.ui.form.on('Gold Payment Invoice', {
 		frm.doc.allocated_payment=allocated;
 		refresh_field("discount_amount");
 		refresh_field("allocated_payment");
+		//karena allocated itu termasuk di advance dan total payment belum advance jadi perlu di tambahkan advace di sini
 		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment-frm.doc.total_extra_charges+frm.doc.total_advance;
 		refresh_field("unallocated_payment");
 		refresh_field("discount_amount");
