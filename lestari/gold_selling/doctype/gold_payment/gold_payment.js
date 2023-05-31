@@ -360,6 +360,16 @@ frappe.ui.form.on('Gold Payment', {
 			};
 
 		});
+		frm.set_query("janji_bayar","list_janji_bayar", function(doc, cdt, cdn) {
+			return {
+				"filters": {
+					"customer":doc.customer,
+					"jenis_janji":"Pembayaran",
+					"status":"Pending"
+				}
+			};
+
+		});
 		frm.set_query("gold_invoice","invoice_table", function(doc, cdt, cdn) {
 			return {
 				"filters": {
