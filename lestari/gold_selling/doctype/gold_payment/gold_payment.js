@@ -272,7 +272,6 @@ frappe.ui.form.on('Gold Payment', {
 			//}	
 			//refresh_field("total_sisa_invoice");
 			frm.doc.unallocated_payment=need_to;
-			frappe.msgprint(" Sisa "+frm.doc.unallocated_payment);
 			cur_frm.set_value("unallocated_payment",need_to.toFixed(3));
 			cur_frm.set_value("allocated_payment",total_alo.toFixed(3));
 			refresh_field("unallocated_payment");
@@ -451,7 +450,7 @@ frappe.ui.form.on('Gold Payment Invoice', {
 		frm.doc.allocated_payment=allocated;
 		refresh_field("discount_amount");
 		refresh_field("allocated_payment");
-		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment-frm.doc.total_extra_charges;
+		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment-frm.doc.total_extra_charges+frm.doc.total_advance;
 		refresh_field("unallocated_payment");
 		refresh_field("discount_amount");
 	},
