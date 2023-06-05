@@ -188,6 +188,8 @@ class CustomerPaymentReturn(StockController):
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		if self.total>0:
 			#hpp perlu di update dulu
+			if not self.warehouse and self.saldo_awal == 1:
+				self.warehouse = "Stockist - LMS"
 			warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
 			total_value=0
 			for row in self.items:
