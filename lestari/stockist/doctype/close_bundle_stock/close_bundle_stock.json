@@ -25,6 +25,10 @@
   "column_break_15",
   "bruto",
   "add",
+  "detail_timbangan_section",
+  "berat",
+  "column_break_21",
+  "status_timbangan",
   "sb1",
   "items",
   "total_bruto",
@@ -199,12 +203,33 @@
    "fieldtype": "Data",
    "label": "Nama Stokist",
    "read_only": 1
+  },
+  {
+   "fieldname": "detail_timbangan_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Timbangan"
+  },
+  {
+   "fieldname": "berat",
+   "fieldtype": "Float",
+   "label": "Berat Timbangan"
+  },
+  {
+   "fieldname": "column_break_21",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Not Connect",
+   "fieldname": "status_timbangan",
+   "fieldtype": "Select",
+   "label": "Status Timbangan",
+   "options": "Not Connect\nConnected"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-05-30 13:02:26.223185",
+ "modified": "2023-06-05 11:11:16.155644",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Close Bundle Stock",

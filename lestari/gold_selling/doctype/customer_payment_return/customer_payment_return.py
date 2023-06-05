@@ -10,38 +10,39 @@ from erpnext.controllers.stock_controller import StockController
 from erpnext.stock.stock_ledger import NegativeStockError, get_previous_sle, get_valuation_rate
 class CustomerPaymentReturn(StockController):
 	def validate(self):
-		payment_detail = 0
-		payment_map={}
-		if self.name:
-			for row in self.items:
-				# gp_used=frappe.db.sql("""select name from `tabCustomer Payment Return` where gold_payment="{}" and name !="{}" and docstatus!=2""".format(self.gold_payment,self.name),as_list=1)
-				gp_used=frappe.db.sql("""
-							SELECT parent.name
-							FROM `tabCustomer Payment Return` parent 
-							JOIN `tabStock Payment Return Item` items ON items.parent = parent.name
-							WHERE items.voucher_no = "{}"
-							AND parent.docstatus = 1
-							AND items.voucher_type = "Gold Payment" OR items.voucher_type = "Customer Deposit"
-							""".format(row.voucher_no,self.name),as_list=1)
-				if len(gp_used)>0:
-					frappe.throw("""Gold Payment telah di return pada Transaksi no {} """.format(gp_used[0][0]))
-				#validate payment return
-				payment_detail=frappe.db.sql("""select item,qty from `tabStock Payment` where parent="{}" """.format(row.voucher_no),as_list=1)
-				for col in payment_detail:
-					payment_map[col[0]]=col[1]
-				#validate returned stock
-				# for row in self.items:
-				# frappe.msgprint(str(payment_map))
-				if row.item not in payment_map:
-					frappe.throw("""{} Tidak ada pada Record Payment {}""".format(row.item,row.voucher_no))
-				if payment_map[row.item]<row.qty:
-					frappe.throw("""Jumlah {} Tidak boleh melebihi nilai pada Record Payment {} yaitu {}""".format(row.item,row.voucher_no,payment_map[row.item]))
-				#seharusnya validasi agaryang belum due, di pastikan tutupan sama..atau hanya 1 invoice agar di gold payment tutupan di samakan
-		#check unallocated harus 0
-		if not self.warehouse:
-			self.warehouse = frappe.db.get_single_value('Gold Selling Settings', 'default_warehouse')
-		if self.total<=1:
-			frappe.throw("Error Tidak ada nilai yang dikembalikan")
+		if self.saldo_awal == 0:
+			payment_detail = 0
+			payment_map={}
+			if self.name:
+				for row in self.items:
+					# gp_used=frappe.db.sql("""select name from `tabCustomer Payment Return` where gold_payment="{}" and name !="{}" and docstatus!=2""".format(self.gold_payment,self.name),as_list=1)
+					gp_used=frappe.db.sql("""
+								SELECT parent.name
+								FROM `tabCustomer Payment Return` parent 
+								JOIN `tabStock Payment Return Item` items ON items.parent = parent.name
+								WHERE items.voucher_no = "{}"
+								AND parent.docstatus = 1
+								AND items.voucher_type = "Gold Payment" OR items.voucher_type = "Customer Deposit"
+								""".format(row.voucher_no,self.name),as_list=1)
+					if len(gp_used)>0:
+						frappe.throw("""Gold Payment telah di return pada Transaksi no {} """.format(gp_used[0][0]))
+					#validate payment return
+					payment_detail=frappe.db.sql("""select item,qty from `tabStock Payment` where parent="{}" """.format(row.voucher_no),as_list=1)
+					for col in payment_detail:
+						payment_map[col[0]]=col[1]
+					#validate returned stock
+					# for row in self.items:
+					# frappe.msgprint(str(payment_map))
+					if row.item not in payment_map:
+						frappe.throw("""{} Tidak ada pada Record Payment {}""".format(row.item,row.voucher_no))
+					if payment_map[row.item]<row.qty:
+						frappe.throw("""Jumlah {} Tidak boleh melebihi nilai pada Record Payment {} yaitu {}""".format(row.item,row.voucher_no,payment_map[row.item]))
+					#seharusnya validasi agaryang belum due, di pastikan tutupan sama..atau hanya 1 invoice agar di gold payment tutupan di samakan
+			#check unallocated harus 0
+			if not self.warehouse:
+				self.warehouse = frappe.db.get_single_value('Gold Selling Settings', 'default_warehouse')
+			if self.total<=1:
+				frappe.throw("Error Tidak ada nilai yang dikembalikan")
 	def on_submit(self):
 		for row in self.items:
 			row.valuation_rate = get_valuation_rate(
