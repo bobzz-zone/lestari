@@ -303,20 +303,20 @@ frappe.ui.form.on('Gold Payment', {
 		reset_allocated(frm);
 	},
 	get_gold_invoice:function(frm){
-		var button = cur_frm.get_field('get_gold_invoice').$input;
-		button.prop('disabled', true);
-		isButtonClicked = true;
+		// var button = cur_frm.get_field('get_gold_invoice').$input;
+		// button.prop('disabled', true);
+		// isButtonClicked = true;
 		frappe.call({
 			method: "get_gold_invoice",
 			doc: frm.doc,
 			callback: function (r){
 				frm.refresh();	
-				setTimeout(function() {
-					// Check if the button was clicked and disable it
-					if (isButtonClicked) {
-						button.prop('disabled', true);
-					}
-				}, 0);
+				// setTimeout(function() {
+				// 	// Check if the button was clicked and disable it
+				// 	if (isButtonClicked) {
+				// 		button.prop('disabled', true);
+				// 	}
+				// }, 0);
 			}
 		})
 		

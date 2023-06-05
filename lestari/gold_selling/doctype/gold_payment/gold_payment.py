@@ -222,7 +222,27 @@ class GoldPayment(StockController):
 			
 	@frappe.whitelist()
 	def get_gold_invoice(self):
-		doc = frappe.db.get_list("Gold Invoice", filters={"customer": self.customer, "invoice_status":"Unpaid", 'docstatus':1}, fields=['name','posting_date','customer','subcustomer','enduser','outstanding','due_date','tutupan','total_bruto','grand_total'])
+			# doc = frappe.db.get_list("Gold Invoice", filters={"customer": self.customer, "invoice_status":"Unpaid", 'docstatus':1}, fields=['name','posting_date','customer','subcustomer','enduser','outstanding','due_date','tutupan','total_bruto','grand_total'])
+		doc = frappe.db.sql("""
+                      SELECT
+                      name,
+                      posting_date,
+                      customer,
+                      subcustomer,
+                      enduser,
+                      outstanding,
+                      due_date,
+                      tutupan,
+                      total_bruto,
+                      grand_total
+                      FROM `tabGold Invoice`
+                      WHERE invoice_status = "Unpaid"
+                      and docstatus = 1
+                      and (
+                      customer = "{}"
+                      or subcustomer = "{}" )
+                      """.format(self.customer, self.subcustomer),as_dict=1)
+		frappe.msgprint(str(doc))
 		if self.tutupan > 0:
 			tutupan = self.tutupan
 		else:
