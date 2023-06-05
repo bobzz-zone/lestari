@@ -47,22 +47,20 @@ class CustomerPaymentReturn(StockController):
 			pass
 	def on_submit(self):
 		for row in self.items:
+			row.valuation_rate = get_valuation_rate(
+					row.item,
+					self.warehouse,
+					self.doctype,
+					self.name,
+					0,
+					currency=erpnext.get_company_currency(self.company),
+					company=self.company,
+					raise_error_if_no_rate=True
+				)
 			if not row.valuation_rate or row.valuation_rate==0:
 				# frappe.throw("Error Barang Tidak ada Nilai")
 				row.valuation_rate = 1
-				row.total_amount=row.qty*row.valuation_rate
-			else:
-				row.valuation_rate = get_valuation_rate(
-						row.item,
-						self.warehouse,
-						self.doctype,
-						self.name,
-						0,
-						currency=erpnext.get_company_currency(self.company),
-						company=self.company,
-						raise_error_if_no_rate=True
-					)
-				row.total_amount=row.qty*row.valuation_rate
+			row.total_amount=row.qty*row.valuation_rate
 		self.make_gl_entries()
 		#posting Stock Ledger Post
 		self.update_stock_ledger()
