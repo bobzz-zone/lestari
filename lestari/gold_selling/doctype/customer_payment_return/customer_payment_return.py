@@ -57,6 +57,7 @@ class CustomerPaymentReturn(StockController):
 					company=self.company,
 					raise_error_if_no_rate=True
 				)
+			frappe.msgprint(str(row))
 			if not row.valuation_rate or row.valuation_rate==0:
 				# frappe.throw("Error Barang Tidak ada Nilai")
 				row.valuation_rate = 1
