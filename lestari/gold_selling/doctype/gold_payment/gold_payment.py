@@ -239,8 +239,8 @@ class GoldPayment(StockController):
                       WHERE invoice_status = "Unpaid"
                       and docstatus = 1
                       and (
-                      customer = "{}"
-                      or subcustomer = "{}" )
+                      customer = "{0}"
+                      or customer = "{1}" )
                       """.format(self.customer, self.subcustomer),as_dict=1)
 		frappe.msgprint(str(doc))
 		if self.tutupan > 0:
