@@ -57,6 +57,13 @@ function hitung(){
 var list_kat = [];
 frappe.ui.form.on('Close Bundle Stock', {
 	refresh: function(frm) {
+		cur_frm.get_field("bundle").set_focus()
+		// if( connected == 0){
+		frm.add_custom_button(__("Connect"), () => frm.events.get_connect(frm));
+		// }else{
+		frm.add_custom_button(__("Disconnect"), () => frm.events.get_disconnect(frm));
+		// }
+
 		frm.set_query("bundle", function(){
 			return {
 				"filters": [
