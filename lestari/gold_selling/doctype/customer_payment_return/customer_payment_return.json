@@ -228,7 +228,11 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
+<<<<<<< HEAD
  "modified": "2023-06-07 13:56:49.834479",
+=======
+ "modified": "2023-06-05 14:14:11.614595",
+>>>>>>> 53a75a044ea201cd6d65cc77b4b2a0102d6ac3e5
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Payment Return",
