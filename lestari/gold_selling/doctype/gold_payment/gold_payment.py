@@ -242,7 +242,7 @@ class GoldPayment(StockController):
                       customer = "{0}"
                       or customer = "{1}" )
                       """.format(self.customer, self.subcustomer),as_dict=1)
-		frappe.msgprint(str(doc))
+		# frappe.msgprint(str(doc))
 		if self.tutupan > 0:
 			tutupan = self.tutupan
 		else:
