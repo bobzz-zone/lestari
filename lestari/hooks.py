@@ -15,6 +15,9 @@ app_license = "MIT"
 # include js, css files in header of desk.html
 # app_include_css = "/assets/lestari/css/lestari.css"
 # app_include_js = "/assets/lestari/js/lestari.js"
+app_include_css = "/assets/lestari/css/dx.light.css"
+app_include_js = ['/assets/lestari/js/dx.all.js','/assets/lestari/js/exceljs.min.js','/assets/lestari/js/FileSaver.min.js','/assets/lestari/js/jspdf.umd.min.js','/assets/lestari/js/polyfill.min.js']
+
 
 # include js, css files in header of web template
 # web_include_css = "/assets/lestari/css/lestari.css"
