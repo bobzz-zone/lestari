@@ -62,7 +62,7 @@ function calculate_table_idr(frm,cdt,cdn){
 	refresh_field("total_idr_gold");
 	//calculate total payment
 	frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold;
-	frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment;
+	frm.doc.unallocated_payment=frm.doc.total_payment+frm.doc.total_advance-frm.doc.allocated_payment;
 	refresh_field("total_payment");
 	refresh_field("unallocated_payment");
 	if(frm.doc.unallocated_payment<0){
@@ -81,7 +81,7 @@ function calculate_table_stock(frm,cdt,cdn){
     refresh_field("total_gold_payment");
 	//calculate total payment
 	frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold;
-	frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment;
+	frm.doc.unallocated_payment=frm.doc.total_payment+frm.doc.total_advance-frm.doc.allocated_payment;
 	refresh_field("total_payment");
 	refresh_field("unallocated_payment");
 }
@@ -510,7 +510,7 @@ frappe.ui.form.on('Gold Payment Return', {
 		frm.doc.allocated_payment=allocated;
 		refresh_field("discount_amount");
 		refresh_field("allocated_payment");
-		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment;
+		frm.doc.unallocated_payment=frm.doc.total_payment+frm.doc.total_advance-frm.doc.allocated_payment;
 		refresh_field("unallocated_payment");
 	}
 });
@@ -552,7 +552,7 @@ function calculate_table_charges(frm,cdt,cdn){
 	if(frm.doc.allocated_payment>0){
 		reset_allocated(frm);
 	}else{
-		frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment;
+		frm.doc.unallocated_payment=frm.doc.total_payment+frm.doc.total_advance-frm.doc.allocated_payment;
 	}
 	
 }
@@ -576,7 +576,7 @@ frappe.ui.form.on('Stock Payment', {
 				//calculate total payment
 				frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold;
 				refresh_field("total_payment");
-				frm.doc.unallocated_payment=frm.doc.total_payment-frm.doc.allocated_payment;
+				frm.doc.unallocated_payment=frm.doc.total_payment+frm.doc.total_advance-frm.doc.allocated_payment;
 				refresh_field("unallocated_payment");
 			}
 		});
