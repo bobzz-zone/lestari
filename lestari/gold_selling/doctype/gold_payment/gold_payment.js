@@ -616,7 +616,7 @@ function calculate_table_advance(frm,cdt,cdn){
 	var allocated=0;
 	$.each(frm.doc.invoice_advance,  function(i,  g) {
 		total_idr=total_idr+g.idr_allocated;
-		allocated=allocated+g.idr_allocated;
+		allocated=allocated+parseFloat(g.idr_allocated/frm.doc.tutupan);
 	});
 	$.each(frm.doc.gold_invoice_advance,  function(i,  g) {
 		total_gold=total_gold+g.gold_allocated;
