@@ -15,17 +15,17 @@ def contoh_report():
         baris_baris = {
             'no' : no,
             'name' : doc.name,
-            'transaction_date' : frappe.format(doc.transaction_date,{'fieldtype':'Date'}),
-            'schedule_date' : frappe.format(doc.schedule_date,{'fieldtype':'Date'}),
+            'Transaction_Date' : frappe.format(doc.transaction_date,{'fieldtype':'Date'}),
+            'Schedule_Date' : frappe.format(doc.schedule_date,{'fieldtype':'Date'}),
             'pajak' : doc.pajak,
             'ppn' : doc.ppn,
-            'no_faktur' : doc.no_faktur,
-            'supplier' : doc.supplier,
-            'total_qty' : doc.total_qty,
-            'currency' : doc.currency,
+            'No_Faktur' : doc.no_faktur,
+            'Supplier' : doc.supplier,
+            'Total_Qty' : doc.total_qty,
+            'Mata_Uang' : doc.currency,
             # 'total' : frappe.utils.fmt_money(doc.total,currency=frappe.db.get_value("Currency",doc.currency,"Symbol")),
-            'total' : doc.total,
-            'status' : doc.status
+            'Total' : doc.total,
+            'Status' : doc.status
         }
         po.append(baris_baris)
     # frappe.msgprint(str(po))  

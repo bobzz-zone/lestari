@@ -19,8 +19,13 @@ DevExtreme = Class.extend({
 		</div>`;
 		$(frappe.render_template(body, this)).appendTo(this.page.main)
 		var employees =  await this.employees()
-		
-		DevExpress.localization.locale('id');
+		// var formattedNumber = DevExpress.localization.formatNumber(employees.message., {
+		// 	style: "currency",
+		// 	currency: "",
+		// 	useGrouping: true
+		//   });
+		console.log(employees)		
+		// DevExpress.localization.locale('id');
 		$("#dataGrid").dxDataGrid({
 			dataSource: employees.message,
         	keyExpr: 'name',
@@ -45,18 +50,44 @@ DevExtreme = Class.extend({
 			  {
 				dataField: 'name',
 				format: 'string',
+				caption: 'Nomor PO'
 			  },
 			  {
-				dataField: 'supplier',
+				dataField: 'Transaction_Date',
+				format: 'string',
+				alignment: 'left',
+				width: 110
+			  },
+			  {
+				dataField: 'Schedule_Date',
+				format: 'string',
+				alignment: 'left',
+				width: 110
+			  },
+			  {
+				dataField: 'Status',
+				format: 'string',
+				alignment: 'left',
+				width: 100
+			  },
+			  {
+				dataField: 'Supplier',
 				format: 'string',
 			  },
 			  {
-				dataField: 'total',
+				dataField: 'Mata_Uang',
+				format: 'string',
+				width: 70,
+				alignment: 'center',
+			  },
+			  {
+				dataField: 'Total',
 				alignment: 'right',
 				format: {
-					type: "currency",
-					currency: "IDR"
-				}
+					type: 'fixedPoint',
+					precision: 2,
+					currency: '',
+				  },
 			  },
 			  ],
 			summary: {
@@ -65,12 +96,18 @@ DevExtreme = Class.extend({
 					summaryType: 'count',
 					displayFormat: '{0} orders',
 				  }, {
-					column: 'total',
+					column: 'Total',
 					summaryType: 'sum',
 					displayFormat: 'Total: {0}',
-					valueFormat: 'currency',
 					showInGroupFooter: false,
 					alignByColumn: true,
+					valueFormat: {
+						type: 'fixedPoint',
+						precision: 2,
+						thousandsSeparator: ',',
+						currencySymbol: '',
+						useGrouping: true,
+					},
 				  }],
 			  },
 			onExporting(e) {
