@@ -153,7 +153,6 @@ class GoldPayment(StockController):
 						patch[row.customer_deposit]['credit_in_account_currency']=flt(det[4])
 		for row in self.gold_invoice_advance:
 			if row.gold_allocated>0:
-				frappe.throw("Test")
 				gl_list=frappe.db.sql("""select name ,debit,credit,debit_in_account_currency,credit_in_account_currency from `tabGL Entry` where voucher_no="{}" and account="{}" and against_voucher_type=NULL and against_voucher=NULL and is_cancelled=0 """.format(row.customer_deposit,piutang_gold),as_list=1)
 				for det in gl_list:
 					if row.customer_deposit in patch:
