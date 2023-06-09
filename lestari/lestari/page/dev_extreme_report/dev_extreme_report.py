@@ -23,8 +23,8 @@ def contoh_report():
             'supplier' : doc.supplier,
             'total_qty' : doc.total_qty,
             'currency' : doc.currency,
-            'total' : frappe.utils.fmt_money(doc.total,currency=frappe.db.get_value("Currency",doc.currency,"Symbol")),
-            # 'total' : doc.total,
+            # 'total' : frappe.utils.fmt_money(doc.total,currency=frappe.db.get_value("Currency",doc.currency,"Symbol")),
+            'total' : doc.total,
             'status' : doc.status
         }
         po.append(baris_baris)
