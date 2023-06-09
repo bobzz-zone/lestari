@@ -70,7 +70,7 @@ class GoldPayment(StockController):
 			# frappe.msgprint(self.total_invoice)
 			frappe.throw("Error,unallocated Payment Masih ada {}".format(self.unallocated_payment))
 		else:
-			#			for cek in self.idr_payment:
+			##			for cek in self.idr_payment:
 				# if cek.mode_of_payment != "Cash":
 					# frappe.throw("Silahkan Cek Transfer Bank Terlebih Dahulu")
 				# else:				
