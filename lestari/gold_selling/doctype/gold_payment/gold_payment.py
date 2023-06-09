@@ -120,6 +120,7 @@ class GoldPayment(StockController):
 						frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_payment,self.janji_bayar))
 	def on_cancel(self):
 		self.flags.ignore_links=True
+		piutang_gold = frappe.db.get_single_value('Gold Selling Settings', 'piutang_gold')
 		self.make_gl_entries_on_cancel()
 		self.update_stock_ledger()
 		self.repost_future_sle_and_gle()
@@ -152,7 +153,7 @@ class GoldPayment(StockController):
 						patch[row.customer_deposit]['credit_in_account_currency']=flt(det[4])
 		for row in self.gold_invoice_advance:
 			if row.gold_allocated>0:
-				gl_list=frappe.db.sql("""select name ,debit,credit,debit_in_account_currency,credit_in_account_currency from `tabGL Entry` where voucher_no="{}" and account="{}" and against_voucher_type=NULL and against_voucher=NULL and is_cancelled=0 """.format(row.customer_deposit,row.piutang_gold),as_list=1)
+				gl_list=frappe.db.sql("""select name ,debit,credit,debit_in_account_currency,credit_in_account_currency from `tabGL Entry` where voucher_no="{}" and account="{}" and against_voucher_type=NULL and against_voucher=NULL and is_cancelled=0 """.format(row.customer_deposit,piutang_gold),as_list=1)
 				for det in gl_list:
 					if row.customer_deposit in patch:
 						if gl_need_deleted!="":
