@@ -18,9 +18,9 @@ DevExtreme = Class.extend({
 			<div id="dataGrid"></div>
 		</div>`;
 		$(frappe.render_template(body, this)).appendTo(this.page.main)
-		// Globalize.locale("id");
 		var employees =  await this.employees()
 		
+		DevExpress.localization.locale('id');
 		$("#dataGrid").dxDataGrid({
 			dataSource: employees.message,
         	keyExpr: 'name',
@@ -69,7 +69,6 @@ DevExtreme = Class.extend({
 					summaryType: 'sum',
 					displayFormat: 'Total: {0}',
 					valueFormat: 'currency',
-					currencyFormat: "IDR",
 					showInGroupFooter: false,
 					alignByColumn: true,
 				  }],
