@@ -9,6 +9,7 @@
  "field_order": [
   "naming_series",
   "no_nota",
+  "saldo_awal",
   "company",
   "customer",
   "customer_name",
@@ -47,31 +48,9 @@
    "reqd": 1
   },
   {
-   "bold": 1,
-   "fieldname": "customer",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Customer",
-   "options": "Customer"
-  },
-  {
-   "fieldname": "column_break",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "due_date",
-   "fieldtype": "Date",
-   "hidden": 1,
-   "label": "Due Date"
-  },
-  {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Customer Payment Return",
-   "print_hide": 1,
-   "read_only": 1
+   "fieldname": "no_nota",
+   "fieldtype": "Data",
+   "label": "No Nota"
   },
   {
    "fieldname": "company",
@@ -80,16 +59,19 @@
    "options": "Company"
   },
   {
+   "bold": 1,
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
    "fetch_from": "customer.customer_name",
    "fieldname": "customer_name",
    "fieldtype": "Data",
    "label": "Customer Name",
    "read_only": 1
-  },
-  {
-   "fieldname": "summary_sb",
-   "fieldtype": "Section Break",
-   "label": "Summary"
   },
   {
    "fetch_from": "customer.customer_group",
@@ -108,9 +90,55 @@
    "read_only": 1
   },
   {
+   "fieldname": "column_break",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Now",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "default": "Now",
+   "fieldname": "posting_time",
+   "fieldtype": "Time",
+   "label": "Posting Time"
+  },
+  {
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "Due Date"
+  },
+  {
    "fieldname": "return_detail_sb",
    "fieldtype": "Section Break",
    "label": "Return Detail"
+  },
+  {
+   "fieldname": "gold_payment",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Gold Payment",
+   "options": "Gold Payment"
+  },
+  {
+   "fieldname": "sales_bundle",
+   "fieldtype": "Link",
+   "label": "Sales Bundle",
+   "options": "Sales Stock Bundle"
+  },
+  {
+   "fieldname": "get_from_bundle",
+   "fieldtype": "Button",
+   "label": "Get From Bundle",
+   "options": "get_sales_bundle"
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
   },
   {
    "fetch_from": "sales_bundle.warehouse",
@@ -121,81 +149,25 @@
    "read_only": 1
   },
   {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
    "fieldname": "items",
    "fieldtype": "Table",
    "label": "Returned Stock",
    "options": "Stock Payment Return Item"
   },
   {
+   "fieldname": "summary_sb",
+   "fieldtype": "Section Break",
+   "label": "Summary"
+  },
+  {
    "fieldname": "total",
    "fieldtype": "Float",
-   "label": "Total",
+   "label": "Total 24K",
    "read_only": 1
-  },
-  {
-   "fieldname": "outstanding",
-   "fieldtype": "Float",
-   "hidden": 1,
-   "label": "Outstanding",
-   "read_only": 1
-  },
-  {
-   "default": "Now",
-   "fieldname": "posting_time",
-   "fieldtype": "Time",
-   "label": "Posting Time"
-  },
-  {
-   "default": "Now",
-   "fieldname": "posting_date",
-   "fieldtype": "Date",
-   "label": "Date",
-   "reqd": 1
-  },
-  {
-   "fieldname": "tutupan",
-   "fieldtype": "Currency",
-   "hidden": 1,
-   "label": "Tutupan"
-  },
-  {
-   "default": "Unpaid",
-   "fieldname": "invoice_status",
-   "fieldtype": "Select",
-   "hidden": 1,
-   "label": "Status",
-   "options": "Unpaid\nPaid"
-  },
-  {
-   "fieldname": "gold_payment",
-   "fieldtype": "Link",
-   "hidden": 1,
-   "label": "Gold Payment",
-   "options": "Gold Payment"
-  },
-  {
-   "fieldname": "get_from_bundle",
-   "fieldtype": "Button",
-   "label": "Get From Bundle",
-   "options": "get_sales_bundle"
-  },
-  {
-   "fieldname": "sales_bundle",
-   "fieldtype": "Link",
-   "label": "Sales Bundle",
-   "options": "Sales Stock Bundle"
-  },
-  {
-   "fieldname": "column_break_15",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "section_break_17",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "column_break_21",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "total_terima",
@@ -220,15 +192,50 @@
    "report_hide": 1
   },
   {
-   "fieldname": "no_nota",
-   "fieldtype": "Data",
-   "label": "No Nota"
+   "fieldname": "column_break_21",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "outstanding",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Outstanding",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tutupan",
+   "fieldtype": "Currency",
+   "hidden": 1,
+   "label": "Tutupan"
+  },
+  {
+   "default": "Unpaid",
+   "fieldname": "invoice_status",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Status",
+   "options": "Unpaid\nPaid"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Customer Payment Return",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "saldo_awal",
+   "fieldtype": "Check",
+   "label": "Saldo Awal"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-06-05 14:14:11.614595",
+ "modified": "2023-06-08 18:03:17.622294",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Payment Return",

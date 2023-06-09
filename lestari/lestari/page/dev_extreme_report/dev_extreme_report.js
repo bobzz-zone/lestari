@@ -8,20 +8,19 @@ DevExtreme = Class.extend({
 			title: 'DevExtreme',
 			single_column: true
 		});
-
 		this.make()
 	},
 	// make page
 	make: async function(){
 		let me = $(this);
-	
+		DevExpress.localization.locale(navigator.language);
 		let body = `<div class="dx-viewport">
 			<div id="dataGrid"></div>
 		</div>`;
 		$(frappe.render_template(body, this)).appendTo(this.page.main)
-		
 		var employees =  await this.employees()
-
+		
+		DevExpress.localization.locale('id');
 		$("#dataGrid").dxDataGrid({
 			dataSource: employees.message,
         	keyExpr: 'name',
@@ -37,27 +36,43 @@ DevExtreme = Class.extend({
 			export: {
 				enabled: true
 			},
-			// columns: [{
-			// 	dataField: 'no',
-			// 	width: 50,
-			// 	alignment: 'center',
-			// 	caption: 'No.',
-			//   }, {
-			// 	dataField: 'total',
-			// 	alignment: 'right',
-			// 	format: 'currency',
-			//   },
-			//   ],
-			// summary: {
-			// 	totalItems: [{
-			// 	  column: 'no',
-			// 	  summaryType: 'count',
-			// 	}, {
-			// 	  column: 'total',
-			// 	  summaryType: 'sum',
-			// 	  valueFormat: 'currency',
-			// 	}],
-			//   },
+			columns: [{
+				dataField: 'no',
+				width: 50,
+				alignment: 'center',
+				caption: 'No.',
+			  }, 
+			  {
+				dataField: 'name',
+				format: 'string',
+			  },
+			  {
+				dataField: 'supplier',
+				format: 'string',
+			  },
+			  {
+				dataField: 'total',
+				alignment: 'right',
+				format: {
+					type: "currency",
+					currency: "IDR"
+				}
+			  },
+			  ],
+			summary: {
+				groupItems: [{
+					column: 'no',
+					summaryType: 'count',
+					displayFormat: '{0} orders',
+				  }, {
+					column: 'total',
+					summaryType: 'sum',
+					displayFormat: 'Total: {0}',
+					valueFormat: 'currency',
+					showInGroupFooter: false,
+					alignByColumn: true,
+				  }],
+			  },
 			onExporting(e) {
 				const workbook = new ExcelJS.Workbook();
 				const worksheet = workbook.addWorksheet('Employees');
