@@ -149,7 +149,7 @@ frappe.ui.form.on('Gold Payment', {
 	validate:function(frm){
 		//validate allocated amount
 		if (frm.doc.list_janji_bayar.length>0){
-			doc.janji_bayar=frm.doc.list_janji_bayar[0].janji_bayar;
+			cur_frm.doc.janji_bayar=frm.doc.list_janji_bayar[0].janji_bayar;
 			refresh_field("janji_bayar");
 		}
 		$.each(frm.doc.invoice_table,  function(i,  g) {
