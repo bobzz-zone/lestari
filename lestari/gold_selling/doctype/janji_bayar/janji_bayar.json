@@ -163,6 +163,8 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Status",
    "no_copy": 1,
    "options": "Pending\nLunas\nCancelled\nStopped"
@@ -182,6 +184,7 @@
   {
    "fieldname": "jenis_janji",
    "fieldtype": "Select",
+   "in_standard_filter": 1,
    "label": "Jenis Janji",
    "options": "\nPembayaran\nDeposit"
   },
@@ -194,7 +197,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-14 14:22:11.744011",
+ "modified": "2023-06-09 14:57:41.021659",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Janji Bayar",
