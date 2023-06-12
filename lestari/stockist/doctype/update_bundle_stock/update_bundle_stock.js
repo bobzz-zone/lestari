@@ -229,7 +229,7 @@ frappe.ui.form.on('Update Bundle Stock', {
 				cur_frm.refresh_field("pic");
 				cur_frm.refresh_field("id_employee");
 			//   console.log(responseJSON)
-			})
+			});
 		}		
 		frm.set_query("pic", function(){
 			return {
