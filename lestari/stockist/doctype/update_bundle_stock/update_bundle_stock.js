@@ -221,15 +221,16 @@ frappe.ui.form.on('Update Bundle Stock', {
 		// }else{
 		frm.add_custom_button(__("Disconnect"), () => frm.events.get_disconnect(frm));
 		// }
-		frappe.db.get_value("Employee", { "user_id": frappe.session.user }, ["name","id_employee"]).then(function (responseJSON) {
-		  cur_frm.set_value("pic", responseJSON.message.name);
-		  cur_frm.set_value("id_employee", responseJSON.message.id_employee);
-		  cur_frm.get_field("bundle").set_focus()
-		  cur_frm.refresh_field("pic");
-		  cur_frm.refresh_field("id_employee");
-		//   console.log(responseJSON)
-		})
-		
+		if (cur_frm.is_new()){
+			frappe.db.get_value("Employee", { "user_id": frappe.session.user }, ["name","id_employee"]).then(function (responseJSON) {
+				cur_frm.set_value("pic", responseJSON.message.name);
+				cur_frm.set_value("id_employee", responseJSON.message.id_employee);
+				cur_frm.get_field("bundle").set_focus()
+				cur_frm.refresh_field("pic");
+				cur_frm.refresh_field("id_employee");
+			//   console.log(responseJSON)
+			})
+		}		
 		frm.set_query("pic", function(){
 			return {
 				"filters": [
