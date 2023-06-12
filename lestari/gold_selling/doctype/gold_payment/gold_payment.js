@@ -148,7 +148,10 @@ frappe.ui.form.on('Gold Payment', {
     // },
 	validate:function(frm){
 		//validate allocated amount
-
+		if (frm.doc.list_janji_bayar.length>0){
+			doc.janji_bayar=frm.doc.list_janji_bayar[0].janji_bayar;
+			refresh_field("janji_bayar");
+		}
 		$.each(frm.doc.invoice_table,  function(i,  g) {
 			if (g.allocated>g.outstanding){
 				frappe.msgprint("Nota "+g.gold_invoice+" nilai alokasi salah");
