@@ -98,7 +98,8 @@ class CustomerPaymentReturn(StockController):
 					purchase_rate = get_gold_purchase_rate(col.item,self.customer,self.customer_group)
 					if col.type == "Keluar":
 						frappe.msgprint(str(frappe.db.get_value(str(col.voucher_type), col.voucher_no, ['tutupan'])))
-						total = total + (col.berat*purchase_rate['nilai']/100)
+						total = total + col.berat
+						# total = total + (col.berat*purchase_rate['nilai']/100)
 						baris_baru = {
 							'item': col.item,
 							'qty': col.berat,

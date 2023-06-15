@@ -1,0 +1,230 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{########}",
+ "creation": "2023-06-12 13:51:27.166495",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "transfer",
+  "s_warehouse",
+  "t_warehouse",
+  "keterangan",
+  "cb1",
+  "id_employee",
+  "pic",
+  "nama_stokist",
+  "detail_timbangan_section",
+  "berat",
+  "column_break_26",
+  "status_timbangan",
+  "jenis_timbangan",
+  "sb1",
+  "total_perkadar",
+  "items",
+  "section_break_31",
+  "total_bruto",
+  "total_per_kadar_section",
+  "per_kadar",
+  "total_per_sub_category_section",
+  "per_sub_category",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "transfer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Transfer",
+   "options": "Stock Entry Transfer",
+   "reqd": 1
+  },
+  {
+   "default": "Stockist - LMS",
+   "fieldname": "s_warehouse",
+   "fieldtype": "Link",
+   "label": "Source Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "t_warehouse",
+   "fieldtype": "Link",
+   "label": "Target Warehouse",
+   "options": "Warehouse",
+   "read_only": 1
+  },
+  {
+   "fieldname": "keterangan",
+   "fieldtype": "Small Text",
+   "label": "Keterangan"
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "id_employee",
+   "fieldtype": "Data",
+   "label": "ID Employee"
+  },
+  {
+   "fieldname": "pic",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Stokist",
+   "options": "Employee",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "pic.employee_name",
+   "fieldname": "nama_stokist",
+   "fieldtype": "Data",
+   "label": "Nama Stokist",
+   "read_only": 1
+  },
+  {
+   "fieldname": "detail_timbangan_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Timbangan"
+  },
+  {
+   "bold": 1,
+   "fieldname": "berat",
+   "fieldtype": "Float",
+   "label": "Berat Timbangan",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_26",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Not Connect",
+   "fieldname": "status_timbangan",
+   "fieldtype": "Select",
+   "label": "Status Timbangan",
+   "options": "Not Connect\nConnected",
+   "read_only": 1
+  },
+  {
+   "fieldname": "jenis_timbangan",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Jenis Timbangan",
+   "options": "\nShinko\nVibra\nMettler\nAND"
+  },
+  {
+   "fieldname": "sb1",
+   "fieldtype": "Section Break",
+   "label": "Detail Item"
+  },
+  {
+   "depends_on": "eval:doc.bundle",
+   "fieldname": "total_perkadar",
+   "fieldtype": "Button",
+   "hidden": 1,
+   "label": "Total Perkadar",
+   "options": "calculate_total"
+  },
+  {
+   "depends_on": "eval:doc.bundle",
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Detail Penambahan Stock",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_31",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_bruto",
+   "fieldtype": "Float",
+   "label": "Total Berat",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_per_kadar_section",
+   "fieldtype": "Section Break",
+   "label": "Total Per Kadar"
+  },
+  {
+   "fieldname": "per_kadar",
+   "fieldtype": "Table",
+   "label": "Per Kadar",
+   "options": "Update Bundle Stock Kadar",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_per_sub_category_section",
+   "fieldtype": "Section Break",
+   "label": "Total Per Sub Category"
+  },
+  {
+   "fieldname": "per_sub_category",
+   "fieldtype": "Table",
+   "label": "Per Sub Category",
+   "options": "Update Bundle Stock Sub",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Transfer Stockist",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-06-12 13:51:27.166495",
+ "modified_by": "Administrator",
+ "module": "Stockist",
+ "name": "Transfer Stockist",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "All",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

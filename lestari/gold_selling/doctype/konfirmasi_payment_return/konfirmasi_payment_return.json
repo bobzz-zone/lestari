@@ -17,6 +17,12 @@
   "section_break_6",
   "detail_perhiasan",
   "detail_rongsok",
+  "summary_section",
+  "total_berat",
+  "column_break_13",
+  "total_terima",
+  "total_tolak",
+  "summary_per_kadar_section",
   "detail_kadar",
   "amended_from"
  ],
@@ -97,12 +103,47 @@
    "fieldtype": "Table",
    "label": "Detail Kadar",
    "options": "Konfirmasi Payment Return Kadar"
+  },
+  {
+   "fieldname": "summary_section",
+   "fieldtype": "Section Break",
+   "label": "Summary"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_berat",
+   "fieldtype": "Float",
+   "label": "Total Berat",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_13",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_terima",
+   "fieldtype": "Float",
+   "label": "Total Terima",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_tolak",
+   "fieldtype": "Float",
+   "label": "Total Tolak",
+   "read_only": 1
+  },
+  {
+   "fieldname": "summary_per_kadar_section",
+   "fieldtype": "Section Break",
+   "label": "Summary Per Kadar"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-05-29 23:46:37.813425",
+ "modified": "2023-06-15 11:20:55.374632",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Konfirmasi Payment Return",

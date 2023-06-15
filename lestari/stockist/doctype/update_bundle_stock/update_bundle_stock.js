@@ -15,7 +15,7 @@ const baud = 9800;
 
 async function connectSerial() {
   try {
-	console.log("Connected");
+	// console.log("Connected");
 	connected = 1;
 	cur_frm.set_value("status_timbangan","Connected")
 	cur_frm.refresh_field("status_timbangan");
@@ -49,7 +49,7 @@ async function listenToPort() {
       break;
     }
 
-    console.log("value:" + value);
+    // console.log("value:" + value);
     appendToTerminal(value);
   }
 }
@@ -66,8 +66,8 @@ async function sendSerialLine() {
 }
 
 async function appendToTerminal(newStuff) {
-  console.log("Timbangan"+timbangan)
-  console.log("newStuff"+newStuff)
+//   console.log("Timbangan"+timbangan)
+//   console.log("newStuff"+newStuff)
   if (newStuff == "E01" || newStuff == "E" || newStuff == "01" && type_timbangan == "AND"){
 	timbangan = 0;
 	type_timbangan = "SHINKO";
@@ -107,14 +107,36 @@ async function appendToTerminal(newStuff) {
 	  newStuff += '00'; // tambahkan string "00" di belakangnya
   }
   if( connected == 1){
+	  // var warna;
+	  // frappe.call({
+		  // 	method: 'frappe.client.get',
+		  // 	args: {
+			  // 	  doctype: 'User',
+			  // 	  filters: { name: frappe.session.user },
+			  // 	  fields: ['desk_theme'],
+			  // 	},
+			  // 	callback: function(response) {
+				  // 	  var user = response.message;
+				  // 	  var isDarkMode = user.desk_theme === 'Light';
+				  
+				  // 	  if (isDarkMode) {
+					  // 		console.log("Mode Gelap aktif");
+					  // 		warna = "#f9fafa"
+					  // 	  } else {
+						  // 		console.log("Mode Terang aktif");
+						  // 		warna = "#1f272e"
+						  // 	  }
+						  // 	}
+						  //   });	  
 	let result = newStuff.includes("G S");
 	if (result) {
 		newStuff = newStuff.replace("G S", "");
-		cur_frm.set_value("berat", newStuff);
-		cur_frm.refresh_field("berat");
+		// cur_frm.set_value("berat", newStuff);
+		// cur_frm.refresh_field("berat");
 	}
 	cur_frm.set_value("berat", newStuff);
 	cur_frm.refresh_field("berat");
+	$(".berat_real").text(cur_frm.doc.berat);
   }
 }
 /////////////////////////////////////////////////////////
@@ -182,7 +204,7 @@ function hitung(){
 		// console.log(e.qty_penambahan)
 		if(e.qty_penambahan != null){
 		totalberat = parseFloat(totalberat) + parseFloat(e.qty_penambahan)
-		console.log(totalberat)
+		// console.log(totalberat)
 		}
 	})
 	cur_frm.set_value("total_bruto", totalberat)
@@ -205,21 +227,34 @@ function hitung(){
 				var child = cur_frm.add_child('per_kadar');
 				child.kadar = kadar;
 				child.bruto = total_berat;
-				console.log(total_berat);
+				// console.log(total_berat);
 			}
 			cur_frm.refresh_field('per_kadar');
 }
 var list_kat = [];
 frappe.ui.form.on('Update Bundle Stock', {
+	onload:function(frm){
+		frm.trigger('get_connect')
+	},
 	validate: function(frm){
 		frm.events.get_disconnect(frm)
 	},
-	refresh: function(frm) {
+	refresh: function(frm) {	
+		cur_frm.dashboard.refresh();
+		const hasil_timbang = `
+			<div class="hasiltimbangan" style="font-weight:bold;margin:0px 13px 0px 2px;
+				color:#f9fafa;font-size:18px;display:inline-block;vertical-align:text-bottom;>
+				<span class="label_berat">Berat</span>
+				<span class="colon">:</span>
+				<span class="berat_real">0</span>
+			</div>`;
+	
+		cur_frm.toolbar.page.add_inner_message(hasil_timbang);
 		cur_frm.get_field("bundle").set_focus()
 		// if( connected == 0){
 		frm.add_custom_button(__("Connect"), () => frm.events.get_connect(frm));
 		// }else{
-		frm.add_custom_button(__("Disconnect"), () => frm.events.get_disconnect(frm));
+		// frm.add_custom_button(__("Disconnect"), () => frm.events.get_disconnect(frm));
 		// }
 		if (cur_frm.is_new()){
 			frappe.db.get_value("Employee", { "user_id": frappe.session.user }, ["name","id_employee"]).then(function (responseJSON) {
@@ -284,7 +319,7 @@ frappe.ui.form.on('Update Bundle Stock', {
 			if ("serial" in navigator) {
 			  var ports = await navigator.serial.getPorts();
 			  if (ports.length == 0 || fromWorker) {
-				console.log("Not Connected");
+				// console.log("Not Connected");
 				cur_frm.set_value("status_timbangan","Not Connect")
 				cur_frm.refresh_field("status_timbangan");
 				frappe.confirm(
@@ -299,7 +334,7 @@ frappe.ui.form.on('Update Bundle Stock', {
 			  } else {
 				port = ports[0];
 				connectSerial();
-				console.log("Connected");
+				// console.log("Connected");
 				cur_frm.set_value("status_timbangan","Connected")
 				cur_frm.refresh_field("status_timbangan");
 				// Prompt user to select any serial port.

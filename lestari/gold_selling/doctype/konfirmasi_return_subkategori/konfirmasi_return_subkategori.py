@@ -11,6 +11,7 @@ class KonfirmasiReturnSubkategori(Document):
 		if doc.detail_perhiasan:
 			for row in doc.detail_perhiasan:
 				if row.is_out == 0 and row.is_confirm == 0:
+					self.total_berat_input += row.terima_qty
 					baris_baru = {
 						'idx_konfirmasi': row.idx,
 						'item': row.item,
@@ -27,6 +28,7 @@ class KonfirmasiReturnSubkategori(Document):
 		if doc.detail_rongsok:
 			for row in doc.detail_rongsok:
 				if row.is_out == 0 and row.is_confirm == 0:
+					self.total_berat_input += row.terima_qty
 					baris_baru = {
 						'idx_konfirmasi': row.idx,
 						'item': row.item,

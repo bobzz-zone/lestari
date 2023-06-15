@@ -11,6 +11,7 @@
   "kadar",
   "kategori",
   "terima_berat",
+  "total_berat_input",
   "column_break_7",
   "sales_bundle",
   "sales",
@@ -53,11 +54,13 @@
    "read_only": 1
   },
   {
+   "default": "0",
+   "fetch_from": "no_konfirmasi.total_terima",
    "fieldname": "terima_berat",
    "fieldtype": "Float",
-   "hidden": 1,
    "label": "Terima Berat",
-   "precision": "3"
+   "precision": "3",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_7",
@@ -134,12 +137,18 @@
    "label": "Territory",
    "options": "Territory",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_berat_input",
+   "fieldtype": "Float",
+   "label": "Total Berat Input"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-05-30 01:45:08.143970",
+ "modified": "2023-06-15 12:28:21.965688",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Konfirmasi Return Subkategori",

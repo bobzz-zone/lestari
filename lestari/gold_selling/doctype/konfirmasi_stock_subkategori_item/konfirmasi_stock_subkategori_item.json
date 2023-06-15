@@ -10,6 +10,7 @@
   "item",
   "sub_kategori",
   "terima_berat",
+  "duplicate",
   "berat_pembayaran",
   "customer",
   "child_table",
@@ -69,6 +70,7 @@
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Terima Berat",
+   "no_copy": 1,
    "precision": "3",
    "reqd": 1
   },
@@ -82,12 +84,19 @@
    "fieldtype": "Link",
    "label": "Customer",
    "options": "Customer"
+  },
+  {
+   "columns": 1,
+   "fieldname": "duplicate",
+   "fieldtype": "Button",
+   "in_list_view": 1,
+   "label": "Duplicate"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-05-30 01:26:51.738118",
+ "modified": "2023-06-15 14:19:11.476781",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Konfirmasi Stock Subkategori Item",

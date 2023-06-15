@@ -105,24 +105,28 @@ frappe.ui.form.on('Konfirmasi Payment Return Perhiasan', {
 		var d=locals[cdt][cdn];
 		frappe.model.set_value(cdt, cdn,"tolak_qty",d.qty-d.terima_qty);
 		frappe.model.set_value(cdt, cdn,"total_berat",d.qty);
+		cur_frm.set_value('total_terima', cur_frm.doc.total_terima + d.terima_qty)
+		cur_frm.set_value('total_tolak', cur_frm.doc.total_tolak + d.tolak_qty)
 		hitung()
 	},
 	// tolak_qty: function(frm, cdt, cdn){
+		// 	var d=locals[cdt][cdn];
+		// 	frappe.model.set_value(cdt, cdn,"total_berat",d.terima_qty+d.tolak_qty);
+		// 	hitung()
+		// }
+	});
+	frappe.ui.form.on('Konfirmasi Payment Return Rongsok', {
+		terima_qty: function(frm, cdt, cdn){
+			var d=locals[cdt][cdn];
+			frappe.model.set_value(cdt, cdn,"tolak_qty",d.qty-d.terima_qty);
+			frappe.model.set_value(cdt, cdn,"total_berat",d.qty);
+			cur_frm.set_value('total_terima', cur_frm.doc.total_terima + d.terima_qty)
+			cur_frm.set_value('total_tolak', cur_frm.doc.total_tolak + d.tolak_qty)
+			hitung()
+		},
+	});
+		// tolak_qty: function(frm, cdt, cdn){
 	// 	var d=locals[cdt][cdn];
 	// 	frappe.model.set_value(cdt, cdn,"total_berat",d.terima_qty+d.tolak_qty);
 	// 	hitung()
 	// }
-});
-frappe.ui.form.on('Konfirmasi Payment Return Rongsok', {
-	terima_qty: function(frm, cdt, cdn){
-		var d=locals[cdt][cdn];
-		frappe.model.set_value(cdt, cdn,"tolak_qty",d.qty-d.terima_qty);
-		frappe.model.set_value(cdt, cdn,"total_berat",d.qty);
-		hitung()
-	},
-	// tolak_qty: function(frm, cdt, cdn){
-	// 	var d=locals[cdt][cdn];
-	// 	frappe.model.set_value(cdt, cdn,"total_berat",d.terima_qty+d.tolak_qty);
-	// 	hitung()
-	// }
-});

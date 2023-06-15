@@ -39,6 +39,7 @@ class KonfirmasiPaymentReturn(Document):
         for row in doc.details:
             if frappe.db.get_value('Item', {'item_code': row.item}, ['item_group']) == "Rongsok":
                 if row.sudah_cek == 0:
+                    self.total_berat += row.qty
                     rongsok = {
 						'item': row.item,
 						'qty': row.qty,
@@ -51,6 +52,7 @@ class KonfirmasiPaymentReturn(Document):
                     self.append("detail_rongsok",rongsok)
             if frappe.db.get_value('Item', {'item_code': row.item}, ['item_group']) == "Perhiasan":
                 if row.sudah_cek == 0:
+                    self.total_berat += row.qty
                     perhiasan = {
 						'item': row.item,
 						'qty': row.qty,
