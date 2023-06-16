@@ -82,6 +82,14 @@ frappe.ui.form.on('Konfirmasi Return Subkategori', {
 			if(cur_frm.doc.items.length > 0){
 				cur_frm.clear_table("items")
 				cur_frm.refresh_field('items')
+			}else{
+				frappe.call({
+					method: "get_konfirmasi",
+					doc: frm.doc,
+					callback: function (r){
+						frm.refresh();	
+						}
+					})
 			}
 		}else{
 			frappe.call({
