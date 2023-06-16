@@ -3,6 +3,7 @@
  "allow_rename": 1,
  "creation": "2022-11-15 11:40:31.496282",
  "doctype": "DocType",
+ "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "customer",
@@ -132,7 +133,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-04-17 13:33:51.943926",
+ "modified": "2023-06-16 13:09:02.028409",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Serah Terima Stock Item Detail",

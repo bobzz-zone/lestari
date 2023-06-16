@@ -24,21 +24,25 @@ class KonfirmasiReturnSubkategori(Document):
 						'child_table':row.doctype,
 						'child_id':row.name
 					}
-				self.append("items",baris_baru)
-		if doc.detail_rongsok:
-			for row in doc.detail_rongsok:
-				if row.is_out == 0 and row.is_confirm == 0:
-					self.total_berat_input += row.terima_qty
-					baris_baru = {
-						'idx_konfirmasi': row.idx,
-						'item': row.item,
-      					# 'sub_kategori': frappe.db.get_value('Item', {'item_code': row.item}, ['item_group']),
-						'terima_berat': row.terima_qty,
-						'berat_pembayaran': row.qty,
-						'customer':row.customer,
-						'voucher_type':row.voucher_type,
-						'voucher_no':row.voucher_no,
-						'child_table':row.doctype,
-						'child_id':row.name
-					}
-				self.append("items",baris_baru)
+					self.append("items",baris_baru)
+				else:
+					frappe.msgprint("Konfirmasi Payment Return Sudah tidak ada yang bisa di Return")
+		else:
+			frappe.msgprint("Konfirmasi Payment Return Tidak ada Return Perhiasan")
+		# if doc.detail_rongsok:
+		# 	for row in doc.detail_rongsok:
+		# 		if row.is_out == 0 and row.is_confirm == 0:
+		# 			self.total_berat_input += row.terima_qty
+		# 			baris_baru = {
+		# 				'idx_konfirmasi': row.idx,
+		# 				'item': row.item,
+      	# 				# 'sub_kategori': frappe.db.get_value('Item', {'item_code': row.item}, ['item_group']),
+		# 				'terima_berat': row.terima_qty,
+		# 				'berat_pembayaran': row.qty,
+		# 				'customer':row.customer,
+		# 				'voucher_type':row.voucher_type,
+		# 				'voucher_no':row.voucher_no,
+		# 				'child_table':row.doctype,
+		# 				'child_id':row.name
+		# 			}
+		# 		self.append("items",baris_baru)

@@ -57,7 +57,12 @@ frappe.ui.form.on('Konfirmasi Return Subkategori', {
 				]
 			};
 		  });
+		
 	},no_konfirmasi: function(frm){
+		if(cur_frm.doc.items.length > 0){
+			cur_frm.clear_table("items")
+			cur_frm.refresh_field('items')
+		}else{
 		frappe.call({
 			method: "get_konfirmasi",
 			doc: frm.doc,
@@ -65,7 +70,8 @@ frappe.ui.form.on('Konfirmasi Return Subkategori', {
 				frm.refresh();	
 				}
 			})
-	},
+		}
+	}
 	
 	// items_add: function(frm,cdt,cdn){
 	// 	cur_frm.fields_dict['items'].grid.grid_rows.sortable('refresh');
@@ -75,6 +81,12 @@ frappe.ui.form.on('Konfirmasi Return Subkategori', {
 	// },
 });
 frappe.ui.form.on('Konfirmasi Stock Subkategori Item', {
+	items_add: function(frm, cdt,cdn){
+		frappe.model.set_value(cdt, cdn,"sub_kategori","");
+		frappe.model.set_value(cdt, cdn,"terima_berat","");
+	},items_remove: function(frm, cdt,cdn){
+		hitung();
+	},
 	terima_berat: function(frm,cdt,cdn){
 		var d = locals[cdt][cdn]
 		hitung();

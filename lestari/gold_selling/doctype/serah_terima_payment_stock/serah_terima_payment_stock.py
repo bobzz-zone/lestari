@@ -16,11 +16,11 @@ class SerahTerimaPaymentStock(Document):
 			# frappe.msgprint(str(row.voucher_type))
 			doc = frappe.get_doc(str(row.parenttype), row.parent).sales_bundle
 			if doc and doc == self.sales_bundle:
-				item_baru = {
-					'item':row.item,
-					'qty':row.qty,
-				}
-				self.append('items',item_baru)
+				# item_baru = {
+				# 	'item':row.item,
+				# 	'qty':row.qty,
+				# }
+				# self.append('items',item_baru)
 				customer = frappe.db.get_value(row.parenttype,row.parent,'customer')
 				subcustomer = frappe.db.get_value(row.parenttype,row.parent,'subcustomer')
 				baris_baru = {
@@ -42,7 +42,7 @@ class SerahTerimaPaymentStock(Document):
 	def on_submit(self):
 		ste = frappe.new_doc('Stock Entry')
 		ste.stock_entry_type = "Material Transfer"
-		for row in self.items:
+		for row in self.details:
 			baris_baru = {
 				's_warehouse' : self.s_warehouse,
 				't_warehouse' : self.t_warehouse,
