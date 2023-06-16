@@ -16,11 +16,11 @@ class SerahTerimaPaymentStock(Document):
 			# frappe.msgprint(str(row.voucher_type))
 			doc = frappe.get_doc(str(row.parenttype), row.parent).sales_bundle
 			if doc and doc == self.sales_bundle:
-				item_baru = {
-					'item':row.item,
-					'qty':row.qty,
-				}
-				self.append('items',item_baru)
+				# item_baru = {
+				# 	'item':row.item,
+				# 	'qty':row.qty,
+				# }
+				# self.append('items',item_baru)
 				customer = frappe.db.get_value(row.parenttype,row.parent,'customer')
 				subcustomer = frappe.db.get_value(row.parenttype,row.parent,'subcustomer')
 				baris_baru = {
@@ -40,8 +40,17 @@ class SerahTerimaPaymentStock(Document):
 		# self.flags.ignore_permissions = True
 		# self.save()
 	def on_submit(self):
+		self.items=[]
+		for col in self.details:
+			frappe.db.set_value("Stock Payment", col.child_id, "is_done", 1)
+			item_baru = {
+					'item':col.item,
+					'qty':col.qty,
+				}
+			self.append('items',item_baru)
 		ste = frappe.new_doc('Stock Entry')
 		ste.stock_entry_type = "Material Transfer"
+
 		for row in self.items:
 			baris_baru = {
 				's_warehouse' : self.s_warehouse,
@@ -53,5 +62,3 @@ class SerahTerimaPaymentStock(Document):
 			ste.append('items', baris_baru)
 		ste.flags.ignore_permissions = True
 		ste.save()
-		for col in self.details:
-			frappe.db.set_value("Stock Payment", col.child_id, "is_done", 1)
