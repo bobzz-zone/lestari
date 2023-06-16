@@ -50,7 +50,7 @@ function hitung(){
 		})
 	}
 	if(cur_frm.doc.detail_perhiasan.length > 0){
-		$.each(cur_frm.doc.detail_rongsok, function(i,e){
+		$.each(cur_frm.doc.detail_perhiasan, function(i,e){
 			// console.log(e.qty_penambahan)
 			if(e.qty != null){
 				totalberat = parseFloat(totalberat) + parseFloat(e.qty)
