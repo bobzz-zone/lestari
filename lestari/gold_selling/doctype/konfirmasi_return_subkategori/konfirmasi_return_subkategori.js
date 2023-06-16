@@ -17,20 +17,22 @@ function hitung(){
 
 var list_kat = [];
 frappe.ui.form.on('Konfirmasi Return Subkategori', {
-	onload_post_render: function(frm) {
-		frm.fields_dict.items.grid.wrapper.on('keypress', 'button[data-fieldname="duplicate"][data-doctype="Konfirmasi Stock Subkategori Item"]', function(event) {
-				  if(event.keyCode === 13)
-				  {
-					console.log('testenter')
-					  return false;
-				  }
-				  
-			  });
-	},
 	setup: function(frm){
 		// cur_frm.fields_dict.items.grid.setup_grid_pagination = 100
+		// cur_frm.fields_dict.items.grid.wrapper.on('keypress',function(event){
+		// 	if(event.keyCode === 13){
+		// 	return false;
+		// 	}
+		//   })
 	},
 	refresh: function(frm) {
+		cur_frm.fields_dict.items.grid.wrapper.on("keypress", function(evt){
+			// Code specified here will run when a key is pressed on the customer field.
+			if(event.keyCode === 13){
+				// console.log('testtete')
+				return false;
+			}
+			});
 		// cur_frm.fields_dict['items'].grid.grid_rows.sortable('refresh');
 		frm.get_field('items').grid.grid_pagination.page_length = 100;
 		frm.get_field('items').grid.reset_grid();
