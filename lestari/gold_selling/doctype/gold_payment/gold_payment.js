@@ -276,7 +276,7 @@ frappe.ui.form.on('Gold Payment', {
 			//refresh_field("total_sisa_invoice");
 			frm.doc.unallocated_payment=need_to;
 			cur_frm.set_value("unallocated_payment",need_to.toFixed(3));
-			cur_frm.set_value("allocated_payment",total_alo.toFixed(3));
+			cur_frm.set_value("allocated_payment",(total_alo-frm.doc.total_extra_charges).toFixed(3));
 			refresh_field("unallocated_payment");
 			refresh_field("allocated_payment");
 			
@@ -460,7 +460,7 @@ frappe.ui.form.on('Gold Payment Invoice', {
 		});
 		//frm.doc.bruto_discount=bruto;
 		frm.doc.discount_amount=frm.doc.bruto_discount/100*frm.doc.discount;
-		frm.doc.allocated_payment=allocated;
+		frm.doc.allocated_payment=allocated-frm.doc.total_extra_charges;
 		refresh_field("discount_amount");
 		refresh_field("allocated_payment");
 		//karena allocated itu termasuk di advance dan total payment belum advance jadi perlu di tambahkan advace di sini
