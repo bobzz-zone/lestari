@@ -73,6 +73,7 @@ frappe.ui.form.on('Konfirmasi Return Subkategori', {
 			return {
 				"filters": [
 					["Konfirmasi Payment Return", "docstatus", "=", 1],
+					["Konfirmasi Payment Return", "sales_bundle", "=", cur_frm.doc.sales_bundle],
 				]
 			};
 		  });
