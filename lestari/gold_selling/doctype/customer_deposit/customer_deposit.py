@@ -61,6 +61,7 @@ class CustomerDeposit(StockController):
 					frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar-{0} , sisa_janji=sisa_janji+{0} where name = "{1}" """.format(self.total_idr_deposit,self.janji_bayar))
 	@frappe.whitelist()
 	def get_janji_bayar(self):
+		self.list_janji_bayar=[]
 		doc = frappe.db.get_list("Janji Bayar", filters={"customer": self.customer, "status":"Pending", 'docstatus':1, 'jenis_janji':"Deposit"}, fields=['name','tanggal_janji','customer','gold_invoice','total_bayar','total_terbayar','sisa_janji','status'])
 		total_idr_payment = 0
 		if len(doc) > 0:

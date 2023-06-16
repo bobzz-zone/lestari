@@ -25,7 +25,15 @@ function calculate_table_invoice(frm,cdt,cdn){
 function refresh_total_and_charges(frm){
 	frm.doc.total_extra_charges=frm.doc.write_off+ frm.doc.total_biaya_tambahan - frm.doc.bonus - frm.doc.discount_amount;
 	refresh_field("total_extra_charges");
-	frm.doc.total_sisa_invoice=frm.doc.total_invoice + frm.doc.total_extra_charges - frm.doc.allocated_payment;
+	if (frm.doc.allocated_payment>0){
+		if (frm.doc.allocated_payment>frm.doc.total_extra_charges){
+			frm.doc.total_sisa_invoice=frm.doc.total_invoice - frm.doc.allocated_payment;
+		}else{
+			frm.doc.total_sisa_invoice=frm.doc.total_invoice + frm.doc.total_extra_charges - frm.doc.allocated_payment;
+		}
+	}else{
+		frm.doc.total_sisa_invoice=frm.doc.total_invoice + frm.doc.total_extra_charges;
+	}
 	if (frm.doc.total_sisa_invoice <0 ){
 		frm.doc.total_sisa_invoice=0;
 	}
@@ -226,7 +234,7 @@ frappe.ui.form.on('Gold Payment', {
 			reset_allocated(frm);
 			var need_to=frm.doc.unallocated_payment-frm.doc.total_extra_charges;
 			// console.log(need_to)
-			var sisa_invoice = parseFloat(cur_frm.doc.total_invoice) - parseFloat(need_to) ;
+			var sisa_invoice = parseFloat(cur_frm.doc.total_invoice) - parseFloat(need_to) + frm.doc.total_extra_charges ;
 			if (sisa_invoice <0){
 				sisa_invoice=0
 			}
