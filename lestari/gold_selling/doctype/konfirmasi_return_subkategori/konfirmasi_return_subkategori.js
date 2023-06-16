@@ -69,6 +69,13 @@ frappe.ui.form.on('Konfirmasi Return Subkategori', {
 				]
 			};
 		  });
+		frm.set_query("no_konfirmasi", function () {
+			return {
+				"filters": [
+					["Konfirmasi Payment Return", "docstatus", "=", 1],
+				]
+			};
+		  });
 		
 	},no_konfirmasi: function(frm){
 		if(cur_frm.doc.items){
