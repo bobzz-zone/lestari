@@ -276,7 +276,7 @@ frappe.ui.form.on('Gold Payment', {
 			//refresh_field("total_sisa_invoice");
 			frm.doc.unallocated_payment=need_to;
 			cur_frm.set_value("unallocated_payment",need_to.toFixed(3));
-			cur_frm.set_value("allocated_payment",total_alo.toFixed(3));
+			cur_frm.set_value("allocated_payment",(total_alo).toFixed(3));
 			refresh_field("unallocated_payment");
 			refresh_field("allocated_payment");
 			
