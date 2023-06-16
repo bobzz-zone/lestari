@@ -80,8 +80,7 @@
    "fieldname": "details",
    "fieldtype": "Table",
    "label": "Details",
-   "options": "Serah Terima Stock Item Detail",
-   "read_only": 1
+   "options": "Serah Terima Stock Item Detail"
   },
   {
    "fieldname": "get_detail",
@@ -132,7 +131,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-05-29 23:50:33.361566",
+ "modified": "2023-06-16 11:39:38.315235",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Serah Terima Payment Stock",
