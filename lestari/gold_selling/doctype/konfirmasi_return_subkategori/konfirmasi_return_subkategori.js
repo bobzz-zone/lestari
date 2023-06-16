@@ -3,11 +3,11 @@
 function hitung(){
 	var total_berat_input = 0
 	if (cur_frm.doc.items.length > 0 ){
-		console.log(total_berat_input)
+		// console.log(total_berat_input)
 		$.each(cur_frm.doc.items, function(i,e){
 			if(e.terima_berat != null){
 			total_berat_input += e.terima_berat
-			console.log(e.terima_berat)
+			// console.log(e.terima_berat)
 			}
 		})
 		cur_frm.set_value("total_berat_input",total_berat_input)
@@ -17,6 +17,16 @@ function hitung(){
 
 var list_kat = [];
 frappe.ui.form.on('Konfirmasi Return Subkategori', {
+	onload_post_render: function(frm) {
+		frm.fields_dict.items.grid.wrapper.on('keypress', 'button[data-fieldname="duplicate"][data-doctype="Konfirmasi Stock Subkategori Item"]', function(event) {
+				  if(event.keyCode === 13)
+				  {
+					console.log('testenter')
+					  return false;
+				  }
+				  
+			  });
+	},
 	setup: function(frm){
 		// cur_frm.fields_dict.items.grid.setup_grid_pagination = 100
 	},
