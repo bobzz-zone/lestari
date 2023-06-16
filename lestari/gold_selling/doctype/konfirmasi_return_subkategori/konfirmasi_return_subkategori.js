@@ -87,7 +87,7 @@ frappe.ui.form.on('Konfirmasi Return Subkategori', {
 					method: "get_konfirmasi",
 					doc: frm.doc,
 					callback: function (r){
-						frm.refresh();	
+						cur_frm.refresh_fields();	
 						}
 					})
 			}
@@ -96,7 +96,7 @@ frappe.ui.form.on('Konfirmasi Return Subkategori', {
 				method: "get_konfirmasi",
 				doc: frm.doc,
 				callback: function (r){
-					frm.refresh();	
+					cur_frm.refresh_fields();
 					}
 				})
 			}
