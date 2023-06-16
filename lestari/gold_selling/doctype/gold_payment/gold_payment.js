@@ -613,6 +613,15 @@ frappe.ui.form.on('Gold Invoice Advance Gold', {
 	}
 });
 
+frappe.ui.form.on('Gold Payment Return', {
+	gold_invoice_advance_remove: function(frm,cdt,cdn){
+		// console.log("Gold Remove")
+		calculate_table_advance(frm,cdt,cdn)
+	}
+});
+
+
+
 function calculate_table_advance(frm,cdt,cdn){
 	var total_gold=0;
 	var total_idr=0;
