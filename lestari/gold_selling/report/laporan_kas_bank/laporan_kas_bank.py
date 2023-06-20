@@ -187,7 +187,8 @@ def get_accountwise_gle(filters, gl_entries,opening):
 			keylist = [
 				gle.get("voucher_type"),
 				gle.get("voucher_no"),
-				gle.get("account")
+				gle.get("account"),
+				gle.get("gl_entry")
 			]
 
 			key = tuple(keylist)
