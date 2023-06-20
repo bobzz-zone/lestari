@@ -226,13 +226,6 @@ def get_column():
 	currency = get_company_currency(company)
 
 	columns = [
-		{
-			"label": _("ID"),
-			"fieldname": "gl_entry",
-			"fieldtype": "Link",
-			"options": "GL Entry",
-			"width": 150
-		},
 		{"label": _("Posting Date"), "fieldname": "posting_date", "fieldtype": "Date", "width": 120},
 		{
 			"label": _("Buku"), 
