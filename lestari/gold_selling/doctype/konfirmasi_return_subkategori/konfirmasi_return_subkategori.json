@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "format:KRS{YY}{MM}{#######}",
  "creation": "2023-04-18 01:47:21.205837",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -147,7 +148,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-06-16 13:59:17.506730",
+ "modified": "2023-06-19 12:50:45.520855",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Konfirmasi Return Subkategori",

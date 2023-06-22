@@ -19,6 +19,8 @@ class KonfirmasiPaymentReturn(Document):
                         'allow_zero_valuation_rate' : 1
                     }
                     ste.append('items', baris_baru)
+                else:
+                    return
         if self.detail_rongsok:
             for row in self.detail_rongsok:
                 if row.tolak_qty > 0:
@@ -30,8 +32,11 @@ class KonfirmasiPaymentReturn(Document):
                         'allow_zero_valuation_rate' : 1
                     }
                     ste.append('items', baris_baru)
-        ste.flags.ignore_permissions = True
-        ste.save()
+                else:
+                    return
+        if len(ste.items) <= 1:
+            ste.flags.ignore_permissions = True
+            ste.save()
 	
     @frappe.whitelist()
     def get_serah_terima(self):

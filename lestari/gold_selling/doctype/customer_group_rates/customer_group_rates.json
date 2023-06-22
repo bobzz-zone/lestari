@@ -9,6 +9,7 @@
  "field_order": [
   "customer_group",
   "type",
+  "type_emas",
   "category",
   "item",
   "nilai_tukar",
@@ -59,11 +60,17 @@
    "label": "Item",
    "mandatory_depends_on": "eval:doc.type==\"Buying\"",
    "options": "Item"
+  },
+  {
+   "fieldname": "type_emas",
+   "fieldtype": "Link",
+   "label": "Type Emas",
+   "options": "Basic Nilai Tukar Emas"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-09-01 13:49:57.721932",
+ "modified": "2023-06-22 16:01:07.672836",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Group Rates",

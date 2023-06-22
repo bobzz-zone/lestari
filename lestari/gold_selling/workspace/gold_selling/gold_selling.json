@@ -173,8 +173,8 @@
    "type": "Link"
   }
  ],
- "modified": "2023-05-24 11:32:53.293682",
- "modified_by": "arikba@lms.com",
+ "modified": "2023-06-16 15:55:17.251605",
+ "modified_by": "dendro@lms.com",
  "module": "Gold Selling",
  "name": "Gold Selling",
  "owner": "Administrator",
@@ -264,6 +264,12 @@
    "doc_view": "List",
    "label": "Konfirmasi Return Sub Kategori",
    "link_to": "Konfirmasi Return Subkategori",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Stock Return Transfer",
+   "link_to": "Stock Return Transfer",
    "type": "DocType"
   }
  ]
