@@ -61,6 +61,9 @@ function hitung(){
 	}
 	cur_frm.set_value("total_terima",terima)
 	cur_frm.set_value("total_tolak",tolak)
+	cur_frm.set_value("total_berat",totalberat)
+	console.log(totalberat)
+	cur_frm.refresh_fields()
 	cur_frm.clear_table("detail_kadar")
 	cur_frm.doc.detail_perhiasan.forEach(function(row) {
 		var kadar = row.kadar;

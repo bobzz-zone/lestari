@@ -28,7 +28,7 @@ frappe.ui.form.on('Konfirmasi Return Subkategori', {
 	refresh: function(frm) {
 		cur_frm.fields_dict.items.grid.wrapper.on("keypress", function(evt){
 			// Code specified here will run when a key is pressed on the customer field.
-			if(event.keyCode === 13){
+			if(evt.keyCode === 13){
 				// console.log('testtete')
 				return false;
 			}
