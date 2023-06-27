@@ -9,13 +9,18 @@
  "field_order": [
   "date",
   "transfer",
+  "transfer_type",
   "s_warehouse",
   "t_warehouse",
-  "keterangan",
   "cb1",
   "id_employee",
   "pic",
   "nama_stokist",
+  "id_penerima",
+  "employee_penerima",
+  "nama_penerima",
+  "area_penerima",
+  "keterangan",
   "detail_timbangan_section",
   "berat",
   "column_break_26",
@@ -26,6 +31,8 @@
   "items",
   "section_break_31",
   "total_bruto",
+  "column_break_21",
+  "total_qty",
   "total_per_kadar_section",
   "per_kadar",
   "total_per_sub_category_section",
@@ -43,18 +50,22 @@
    "fieldname": "transfer",
    "fieldtype": "Link",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Transfer",
    "options": "Stock Entry Transfer",
+   "read_only": 1,
    "reqd": 1
   },
   {
-   "default": "Stockist - LMS",
+   "fetch_from": "transfer.gudang_sumber",
    "fieldname": "s_warehouse",
    "fieldtype": "Link",
    "label": "Source Warehouse",
-   "options": "Warehouse"
+   "options": "Warehouse",
+   "read_only": 1
   },
   {
+   "fetch_from": "transfer.gudang_tujuan",
    "fieldname": "t_warehouse",
    "fieldtype": "Link",
    "label": "Target Warehouse",
@@ -73,13 +84,13 @@
   {
    "fieldname": "id_employee",
    "fieldtype": "Data",
-   "label": "ID Employee"
+   "label": "ID Stockist"
   },
   {
    "fieldname": "pic",
    "fieldtype": "Link",
    "hidden": 1,
-   "label": "Stokist",
+   "label": "Stockist",
    "options": "Employee",
    "read_only": 1
   },
@@ -87,7 +98,7 @@
    "fetch_from": "pic.employee_name",
    "fieldname": "nama_stokist",
    "fieldtype": "Data",
-   "label": "Nama Stokist",
+   "label": "Nama Stockist",
    "read_only": 1
   },
   {
@@ -136,11 +147,10 @@
    "options": "calculate_total"
   },
   {
-   "depends_on": "eval:doc.bundle",
    "fieldname": "items",
    "fieldtype": "Table",
    "label": "Items",
-   "options": "Detail Penambahan Stock",
+   "options": "Transfer Stockist Item",
    "reqd": 1
   },
   {
@@ -148,6 +158,7 @@
    "fieldtype": "Section Break"
   },
   {
+   "default": "0",
    "fieldname": "total_bruto",
    "fieldtype": "Float",
    "label": "Total Berat",
@@ -163,7 +174,7 @@
    "fieldname": "per_kadar",
    "fieldtype": "Table",
    "label": "Per Kadar",
-   "options": "Update Bundle Stock Kadar",
+   "options": "Transfer Stockist Kadar",
    "read_only": 1
   },
   {
@@ -186,12 +197,59 @@
    "options": "Transfer Stockist",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fetch_from": "transfer.type",
+   "fieldname": "transfer_type",
+   "fieldtype": "Data",
+   "label": "Transfer Type",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_21",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.transfer == \"Transfer Stockist ke Produksi\"",
+   "fieldname": "total_qty",
+   "fieldtype": "Int",
+   "label": "Total Qty",
+   "read_only": 1
+  },
+  {
+   "fieldname": "employee_penerima",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Employee Penerima",
+   "options": "Employee"
+  },
+  {
+   "depends_on": "eval:doc.transfer == \"Transfer Stockist ke Produksi\"",
+   "fieldname": "id_penerima",
+   "fieldtype": "Data",
+   "label": "ID Penerima"
+  },
+  {
+   "fetch_from": "employee_penerima.employee_name",
+   "fieldname": "nama_penerima",
+   "fieldtype": "Data",
+   "label": "Nama Penerima",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "employee_penerima.department",
+   "fieldname": "area_penerima",
+   "fieldtype": "Link",
+   "label": "Area Penerima",
+   "options": "Department",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-06-12 13:51:27.166495",
+ "modified": "2023-06-22 15:14:12.694937",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Transfer Stockist",

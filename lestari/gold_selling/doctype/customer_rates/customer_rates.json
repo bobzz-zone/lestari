@@ -9,6 +9,7 @@
  "field_order": [
   "customer",
   "type",
+  "type_emas",
   "item",
   "category",
   "nilai_tukar",
@@ -60,11 +61,17 @@
    "label": "Item",
    "mandatory_depends_on": "eval:doc.type==\"Buying\"",
    "options": "Item"
+  },
+  {
+   "fieldname": "type_emas",
+   "fieldtype": "Link",
+   "label": "Type Emas",
+   "options": "Basic Nilai Tukar Emas"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-10-10 11:08:42.581655",
+ "modified": "2023-06-22 16:00:53.833604",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Rates",

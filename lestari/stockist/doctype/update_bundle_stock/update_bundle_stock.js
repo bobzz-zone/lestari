@@ -285,7 +285,7 @@ frappe.ui.form.on('Update Bundle Stock', {
 				parent_item_group: 'Products'
 			}
 		}).then(records => {
-			for(var i = 0; i<= records.length; i++){
+			for(var i = 0; i < records.length; i++){
 				list_kat.push(records[i].name)
 			}
 		})

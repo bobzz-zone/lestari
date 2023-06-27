@@ -25,6 +25,7 @@
   "get_gold_invoice",
   "invoice_table",
   "customer_return",
+  "stock_return_transfer",
   "deposit_sb",
   "ag_cb",
   "gold_invoice_advance",
@@ -455,12 +456,18 @@
    "fieldname": "get_janji_bayar",
    "fieldtype": "Button",
    "label": "Get Janji Bayar"
+  },
+  {
+   "fieldname": "stock_return_transfer",
+   "fieldtype": "Table",
+   "label": "Stock Return Transfer",
+   "options": "Gold Payment Stock Return"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-05-30 16:21:39.324643",
+ "modified": "2023-06-20 13:56:34.111635",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

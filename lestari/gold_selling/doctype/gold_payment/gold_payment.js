@@ -336,19 +336,23 @@ frappe.ui.form.on('Gold Payment', {
 		// var button = cur_frm.get_field('get_janji_bayar').$input;
 		// button.prop('disabled', true);
 		// isButtonClicked = true;
-		frappe.call({
-			method: "get_janji_bayar",
-			doc: frm.doc,
-			callback: function (r){
-				frm.refresh();	
-				// setTimeout(function() {
-				// 	// Check if the button was clicked and disable it
-				// 	if (isButtonClicked1) {
-				// 		button.prop('disabled', true);
-				// 	}
-				// }, 0);
-			}
-		})
+		if(cur_frm.doc.list_janji_bayar.length > 0){
+			return false;
+		}else{
+			frappe.call({
+				method: "get_janji_bayar",
+				doc: frm.doc,
+				callback: function (r){
+					frm.refresh();	
+					// setTimeout(function() {
+					// 	// Check if the button was clicked and disable it
+					// 	if (isButtonClicked1) {
+					// 		button.prop('disabled', true);
+					// 	}
+					// }, 0);
+				}
+			})
+		}
 	},
 	refresh: function(frm) {
 		// Get the input field element
