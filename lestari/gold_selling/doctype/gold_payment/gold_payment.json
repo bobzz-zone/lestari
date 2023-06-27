@@ -14,6 +14,9 @@
   "sales_bundle",
   "janji_bayar",
   "sales_warehouse",
+  "type_payment",
+  "type_emas",
+  "piutang_gold",
   "column_break_2",
   "naming_series",
   "posting_date",
@@ -32,6 +35,7 @@
   "total_gold",
   "cb_idr",
   "invoice_advance",
+  "total_idr_advance",
   "total_idr_in_gold",
   "payment_detail_sec",
   "gold_payment_col",
@@ -58,9 +62,12 @@
   "total_invoice",
   "total_extra_charges",
   "total_sisa_invoice",
+  "total_pajak",
   "column_break_36",
   "total_advance",
+  "allocated_idr_payment",
   "allocated_payment",
+  "unallocated_idr_payment",
   "unallocated_payment",
   "jadi_deposit",
   "auto_distribute",
@@ -113,12 +120,14 @@
    "options": "Gold Payment Invoice"
   },
   {
+   "depends_on": "eval:doc.type_payment==\"Gold\"",
    "fieldname": "stock_payment",
    "fieldtype": "Table",
    "label": "Stock Payment",
    "options": "Stock Payment"
   },
   {
+   "depends_on": "eval:doc.type_payment==\"IDR\"",
    "fieldname": "idr_payment",
    "fieldtype": "Table",
    "label": "IDR Payment",
@@ -280,7 +289,7 @@
   {
    "fieldname": "allocated_payment",
    "fieldtype": "Float",
-   "label": "allocated",
+   "label": "Allocated Emas",
    "precision": "3",
    "read_only": 1
   },
@@ -372,6 +381,7 @@
    "options": "jadikan_deposit"
   },
   {
+   "depends_on": "eval:doc.type_payment==\"IDR\"",
    "fieldname": "invoice_advance",
    "fieldtype": "Table",
    "label": "Advance IDR",
@@ -462,12 +472,58 @@
    "fieldtype": "Table",
    "label": "Stock Return Transfer",
    "options": "Gold Payment Stock Return"
+  },
+  {
+   "fieldname": "type_payment",
+   "fieldtype": "Select",
+   "label": "Type Pembayaran",
+   "options": "IDR\nGold"
+  },
+  {
+   "default": "CT",
+   "fieldname": "type_emas",
+   "fieldtype": "Link",
+   "label": "Type Emas",
+   "options": "Basic Nilai Tukar Emas"
+  },
+  {
+   "fieldname": "allocated_idr_payment",
+   "fieldtype": "Currency",
+   "label": "Allocated For Tax",
+   "read_only": 1
+  },
+  {
+   "fieldname": "unallocated_idr_payment",
+   "fieldtype": "Currency",
+   "label": "UnAllocated IDR",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_pajak",
+   "fieldtype": "Currency",
+   "label": "Total Pajak Perlu Di Bayar",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_idr_advance",
+   "fieldtype": "Currency",
+   "label": "Total IDR Advance",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "type_emas.piutang_emas",
+   "fieldname": "piutang_gold",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Piutang Gold",
+   "options": "Account",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-06-20 13:56:34.111635",
+ "modified": "2023-06-27 11:14:52.404612",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

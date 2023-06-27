@@ -16,7 +16,9 @@
   "uang_buat_beli_emas",
   "payment_deposit_coa",
   "default_warehouse",
-  "default_kas_kantor"
+  "default_kas_kantor",
+  "ppn_account",
+  "pph_account"
  ],
  "fields": [
   {
@@ -95,12 +97,24 @@
    "fieldtype": "Link",
    "label": "Transit Deposit Account",
    "options": "Account"
+  },
+  {
+   "fieldname": "ppn_account",
+   "fieldtype": "Link",
+   "label": "PPN Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "pph_account",
+   "fieldtype": "Link",
+   "label": "PPH Account",
+   "options": "Account"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-04-05 20:57:17.254663",
+ "modified": "2023-06-23 13:18:33.710979",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling Settings",

@@ -22,7 +22,8 @@ from erpnext.accounts.doctype.sales_invoice.sales_invoice import get_bank_cash_a
 from erpnext.controllers.stock_controller import StockController
 
 form_grid_templates = {"invoice_table": "templates/item_grid.html"}
-
+#need to check GL
+#need check write off dan deposit
 class GoldPayment(StockController):
 	def validate(self):
 		if self.list_janji_bayar:
@@ -31,37 +32,6 @@ class GoldPayment(StockController):
 					self.janji_bayar = row.janji_bayar
 			else:
 				frappe.throw("Janji Bayar Lebih dari 1")
-		#seharusnya validasi agaryang belum due, di pastikan tutupan sama..atau hanya 1 invoice agar di gold payment tutupan di samakan
-		#check unallocated harus 00
-# <<<<<<< HEAD
-# 		if self.unallocated_payment<0.0001:
-# 			self.unallocated_payment = 0
-# 		else:
-# 			unallocated=self.total_payment
-# 			for row in self.invoice_table:
-# 				if row.allocated:
-# 					# frappe.msgprint(row.allocated)
-# 					unallocated=flt(unallocated,3)-flt(row.allocated,3)
-# 			for row in self.customer_return:
-# 				if row.allocated:
-# 					unallocated=flt(unallocated,3)-flt(row.allocated,3)
-# 			self.unallocated_payment=flt(unallocated,3)
-# =======
-		#validasi  lewat  js aja
-		# unallocated=flt(self.total_payment)+flt(self.total_advance)-flt(self.jadi_deposit)-flt(self.total_extra_charges)
-		# for row in self.invoice_table:
-		# 	if row.allocated:
-		# 		# frappe.msgprint(row.allocated)
-		# 		unallocated=flt(unallocated,3)-flt(row.allocated,3)
-		# for row in self.customer_return:
-		# 	if row.allocated:
-		# 		unallocated=flt(unallocated,3)-flt(row.allocated,3)
-		# unallocated=flt(unallocated,3)
-		# self.unallocated_payment=flt(unallocated,3)
-# >>>>>>> 4ff73b59f620a2c5a1982c33c1414d63f5363615
-		# if self.unallocated_payment and self.unallocated_payment>0.0001:
-			# frappe.msgprint(self.total_invoice)
-			# frappe.throw("Error,unallocated Payment Masih tersisa {}".format(self.unallocated_payment))
 		if not self.warehouse:
 			self.warehouse = frappe.db.get_single_value('Gold Selling Settings', 'default_warehouse')
 
@@ -80,7 +50,7 @@ class GoldPayment(StockController):
 			self.repost_future_sle_and_gle()
 				#update invoice
 			if self.jadi_deposit>0:
-				piutang_gold = frappe.db.get_single_value('Gold Selling Settings', 'piutang_gold')
+				piutang_gold = self.piutang_gold
 				depo = frappe.new_doc("Customer Deposit")
 				depo.customer = self.customer
 				depo.customer_group = self.customer_group
@@ -102,10 +72,10 @@ class GoldPayment(StockController):
 				#depo.submit()
 				frappe.msgprint("Customer Deposit {} Telah Terbuat".format(depo.name))
 			for row in self.invoice_table:
-				if row.allocated==row.outstanding:
-					frappe.db.sql("""update `tabGold Invoice` set outstanding=outstanding-{} , invoice_status="Paid", gold_payment="{}" where name = "{}" """.format(row.allocated,self.name,row.gold_invoice))
+				if row.allocated==row.outstanding and row.tax_allocated==row.outstanding_tax:
+					frappe.db.sql("""update `tabGold Invoice` set sisa_pajak=sisa_pajak - {} ,outstanding=outstanding-{} , invoice_status="Paid", gold_payment="{}" where name = "{}" """.format(row.tax_allocated,row.allocated,self.name,row.gold_invoice))
 				else:
-					frappe.db.sql("""update `tabGold Invoice` set outstanding=outstanding-{} , gold_payment="{}" where name = "{}" """.format(row.allocated,self.name,row.gold_invoice))
+					frappe.db.sql("""update `tabGold Invoice` set sisa_pajak=sisa_pajak - {} , outstanding=outstanding-{} , gold_payment="{}" where name = "{}" """.format(row.tax_allocated,row.allocated,self.name,row.gold_invoice))
 			for row in self.customer_return:
 				if row.allocated==row.outstanding:
 					frappe.db.sql("""update `tabCustomer Payment Return` set outstanding=outstanding-{} , invoice_status="Paid" where name = "{}" """.format(row.allocated,row.invoice))
@@ -120,7 +90,7 @@ class GoldPayment(StockController):
 						frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_payment,self.janji_bayar))
 	def on_cancel(self):
 		self.flags.ignore_links=True
-		piutang_gold = frappe.db.get_single_value('Gold Selling Settings', 'piutang_gold')
+		piutang_gold = self.piutang_gold
 		self.make_gl_entries_on_cancel()
 		self.update_stock_ledger()
 		self.repost_future_sle_and_gle()
@@ -188,7 +158,7 @@ class GoldPayment(StockController):
 
 		#update invoice
 		for row in self.invoice_table:
-			frappe.db.sql("""update `tabGold Invoice` set outstanding=outstanding+{} , invoice_status="Unpaid" where name = "{}" """.format(row.allocated,row.gold_invoice))
+			frappe.db.sql("""update `tabGold Invoice` set sisa_pajak=sisa_pajak+{} ,outstanding=outstanding+{} , invoice_status="Unpaid" where name = "{}" """.format(row.tax_allocated,row.allocated,row.gold_invoice))
 		for row in self.customer_return:
 			frappe.db.sql("""update `tabCustomer Payment Return` set outstanding=outstanding+{} , invoice_status="Unpaid" where name = "{}" """.format(row.allocated,row.invoice))
 		if self.janji_bayar and self.total_idr_payment>0:
@@ -226,7 +196,13 @@ class GoldPayment(StockController):
 			
 	@frappe.whitelist()
 	def get_gold_invoice(self):
-			# doc = frappe.db.get_list("Gold Invoice", filters={"customer": self.customer, "invoice_status":"Unpaid", 'docstatus':1}, fields=['name','posting_date','customer','subcustomer','enduser','outstanding','due_date','tutupan','total_bruto','grand_total'])
+		#reset before add
+		self.invoice_table=[]
+		self.gold_invoice_advance=[]
+		self.customer_return=[]
+		self.invoice_advance=[]
+		self.total_gold = 0
+		# doc = frappe.db.get_list("Gold Invoice", filters={"customer": self.customer, "invoice_status":"Unpaid", 'docstatus':1}, fields=['name','posting_date','customer','subcustomer','enduser','outstanding','due_date','tutupan','total_bruto','grand_total'])
 		doc = frappe.db.sql("""
                       SELECT
                       name,
@@ -238,7 +214,8 @@ class GoldPayment(StockController):
                       due_date,
                       tutupan,
                       total_bruto,
-                      grand_total
+                      grand_total,
+                      sisa_pajak
                       FROM `tabGold Invoice`
                       WHERE invoice_status = "Unpaid"
                       and docstatus = 1
@@ -277,7 +254,8 @@ class GoldPayment(StockController):
 					'total':row.grand_total,
 					'due_date':row.due_date,
 					'total_bruto':row.total_bruto,
-					'tutupan':row.tutupan
+					'tutupan':row.tutupan,
+					'outstanding_tax':row.sisa_pajak
 				}
 				self.append("invoice_table",baris_baru)
 		doc = frappe.db.get_list("Customer Payment Return", filters={"customer": self.customer, "invoice_status":"Unpaid", 'docstatus':1}, fields=['name','outstanding','due_date','tutupan','total'])
@@ -294,44 +272,45 @@ class GoldPayment(StockController):
 			self.append("customer_return",baris_baru)
 		#lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_idr_advance
 		#lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_gold_advance
-
-		list_deposit=frappe.db.sql("""select name , idr_left ,account_piutang,posting_date,customer from `tabCustomer Deposit` where deposit_type="IDR" and docstatus=1 and (customer="{}" or subcustomer="{}" ) """.format(self.customer,self.subcustomer),as_dict=1)
 		total_advance = 0
-		total_idr_in_gold = 0
-		for row in list_deposit:
-			# frappe.msgprint(str(row))
-			total_idr_in_gold += flt(row.idr_left)
-			baris_baru = {
-				'customer_deposit':row.name,
-				'idr_deposit':row.idr_left,
-				'idr_allocated':row.idr_left,
-				'date':row.posting_date,
-				'customer':row.customer,
-				'account_piutang':row.account_piutang
-			}
-			# frappe.msgprint(str(total_idr_in_gold))
-			self.append("invoice_advance",baris_baru)
-		if total_idr_in_gold > 0:
-			# frappe.msgprint(str(tutupan[0]))
-			total_idr_in_gold = flt(total_idr_in_gold) / flt(tutupan)
-			self.total_idr_in_gold = total_idr_in_gold
-			total_advance += total_idr_in_gold
-		list_deposit=frappe.db.sql("""select name , gold_left ,tutupan,posting_date,customer from `tabCustomer Deposit` where deposit_type="Emas" and docstatus=1 and (customer="{}" or subcustomer="{}" ) """.format(self.customer,self.subcustomer),as_dict=1)
-		total_gold = 0
-		for row in list_deposit:
-			# frappe.msgprint(str(row))
-			total_gold += row.gold_left
-			baris_baru = {
-				'customer_deposit':row.name,
-				'gold_deposit':row.gold_left,
-				'gold_allocated':row.gold_left,
-				'date':row.posting_date,
-				'customer':row.customer,
-				'tutupan':row.tutupan
-			}
-			self.append("gold_invoice_advance",baris_baru)
-		self.total_gold = total_gold
-		total_advance += total_gold
+		if self.type_payment=="IDR":
+			list_deposit=frappe.db.sql("""select name , idr_left ,account_piutang,posting_date,customer from `tabCustomer Deposit` where deposit_type="IDR" and docstatus=1 and (customer="{}" or subcustomer="{}" ) """.format(self.customer,self.subcustomer),as_dict=1)
+			total_idr_in_gold = 0
+			for row in list_deposit:
+				# frappe.msgprint(str(row))
+				total_idr_in_gold += flt(row.idr_left)
+				baris_baru = {
+					'customer_deposit':row.name,
+					'idr_deposit':row.idr_left,
+					'idr_allocated':row.idr_left,
+					'date':row.posting_date,
+					'customer':row.customer,
+					'account_piutang':row.account_piutang
+				}
+				# frappe.msgprint(str(total_idr_in_gold))
+				self.append("invoice_advance",baris_baru)
+			if total_idr_in_gold > 0:
+				# frappe.msgprint(str(tutupan[0]))
+				total_idr_in_gold = flt(total_idr_in_gold) / flt(tutupan)
+				self.total_idr_in_gold = total_idr_in_gold
+				total_advance += total_idr_in_gold
+		if self.type_payment=="Gold":
+			list_deposit=frappe.db.sql("""select name , gold_left ,tutupan,posting_date,customer from `tabCustomer Deposit` where deposit_type="Emas" and docstatus=1 and (customer="{}" or subcustomer="{}" ) """.format(self.customer,self.subcustomer),as_dict=1)
+			total_gold = 0
+			for row in list_deposit:
+				# frappe.msgprint(str(row))
+				total_gold += row.gold_left
+				baris_baru = {
+					'customer_deposit':row.name,
+					'gold_deposit':row.gold_left,
+					'gold_allocated':row.gold_left,
+					'date':row.posting_date,
+					'customer':row.customer,
+					'tutupan':row.tutupan
+				}
+				self.append("gold_invoice_advance",baris_baru)
+			self.total_gold = total_gold
+			total_advance += total_gold
 		self.total_advance = total_advance
 	def update_stock_ledger(self):
 		sl_entries = []
@@ -387,7 +366,7 @@ class GoldPayment(StockController):
 
 			if update_outstanding == "No":
 				from erpnext.accounts.doctype.gl_entry.gl_entry import update_outstanding_amt
-				piutang_gold = frappe.db.get_single_value('Gold Selling Settings', 'piutang_gold')
+				piutang_gold = self.piutang_gold
 				update_outstanding_amt(
 					piutang_gold,
 					"Customer",
@@ -453,18 +432,21 @@ class GoldPayment(StockController):
 		gl = {}
 		
 		gl_piutang = []
+		gl_piutang_idr = []
 		fiscal_years = get_fiscal_years(self.posting_date, company=self.company)[0][0]
 		#1 untuk GL untuk piutang Gold
-		piutang_gold = frappe.db.get_single_value('Gold Selling Settings', 'piutang_gold')
+		piutang_gold = self.piutang_gold
 		selisih_kurs = frappe.db.get_single_value('Gold Selling Settings', 'selisih_kurs')
+		piutang_idr = frappe.db.get_single_value('Gold Selling Settings', 'piutang_idr')
 		cost_center = frappe.db.get_single_value('Gold Selling Settings', 'cost_center')
 		#mapping allocated
-		inv_payment_map = {}
-		for row in self.invoice_table:
-			inv_payment_map[row.gold_invoice] = row.allocated
-			
-		for row in self.customer_return:
-			inv_payment_map[row.invoice] = row.allocated
+		# inv_payment_map = {}
+		# inv_tax_payment_map = {}
+		# for row in self.invoice_table:
+		# 	inv_payment_map[row.gold_invoice] = row.allocated
+		# 	inv_tax_payment_map[row.gold_invoice] = row.tax_allocated
+		# for row in self.customer_return:
+		# 	inv_payment_map[row.invoice] = row.allocated
 
 		nilai_selisih_kurs = 0
 		#hitung selisih kurs untuk DP
@@ -472,16 +454,41 @@ class GoldPayment(StockController):
 			nilai_selisih_kurs=nilai_selisih_kurs+(row.gold_allocated*(self.tutupan-row.tutupan))
 		print(nilai_selisih_kurs)
 		# distribute total gold perlu bagi per invoice
-		sisa= self.total_payment
+		#sisa= self.allocated_payment
 		credit=0
 		debit=0
 		for row in self.invoice_table:
-			if sisa>0 and row.allocated>0:
-				payment=row.allocated
-				if sisa < row.allocated:
-					payment=sisa
+			if row.tax_allocated>0:
+				gl_piutang_idr.append({
+					"posting_date":self.posting_date,
+					"account":piutang_idr,
+					"party_type":"Customer",
+					"party":self.customer,
+					"cost_center":cost_center,
+					"debit":0,
+					"credit":row.tax_allocated,
+					"account_currency":"IDR",
+					"debit_in_account_currency":0,
+					"credit_in_account_currency":row.tax_allocated,
+					#"against":"4110.000 - Penjualan - L",
+					"voucher_type":"Gold Payment",
+					"against_voucher_type":"Gold Invoice",
+					"against_voucher":row.gold_invoice,
+					"voucher_no":self.name,
+					#"remarks":"",
+					"is_opening":"No",
+					"is_advance":"No",
+					"fiscal_year":fiscal_years,
+					"company":self.company,
+					"is_cancelled":0
+				})
+			# if sisa>0 and row.allocated>0:
+			if row.allocated>0:
+				# payment=row.allocated
+				# if sisa < row.allocated:
+				# 	payment=sisa
 
-				inv_payment_map[row.gold_invoice]=inv_payment_map[row.gold_invoice]-payment
+				# inv_payment_map[row.gold_invoice]=inv_payment_map[row.gold_invoice]-payment
 				gl_piutang.append({
 					"posting_date":self.posting_date,
 					"account":piutang_gold,
@@ -489,10 +496,10 @@ class GoldPayment(StockController):
 					"party":self.customer,
 					"cost_center":cost_center,
 					"debit":0,
-					"credit":payment*row.tutupan,
+					"credit":row.allocated*row.tutupan,
 					"account_currency":"GOLD",
 					"debit_in_account_currency":0,
-					"credit_in_account_currency":payment,
+					"credit_in_account_currency":row.allocated,
 					#"against":"4110.000 - Penjualan - L",
 					"voucher_type":"Gold Payment",
 					"against_voucher_type":"Gold Invoice",
@@ -507,14 +514,15 @@ class GoldPayment(StockController):
 				})
 		#		credit=credit+(payment*row.tutupan)
 				if row.tutupan!=self.tutupan:
-					nilai_selisih_kurs=nilai_selisih_kurs+((self.tutupan-row.tutupan)*payment)
+					nilai_selisih_kurs=nilai_selisih_kurs+((self.tutupan-row.tutupan)*row.allocated)
 		#frappe.msgprint("Invoice Payment credit = {} , debit = {}".format(credit,debit))
 		for row in self.customer_return:
-			if sisa>0 and row.allocated>0:
-				payment=row.allocated
-				if sisa<row.allocated:
-					payment = sisa
-				inv_payment_map[row.invoice]=inv_payment_map[row.invoice]-payment
+			#if sisa>0 and row.allocated>0:
+			if row.allocated>0:
+				# payment=row.allocated
+				# if sisa<row.allocated:
+				# 	payment = sisa
+				# inv_payment_map[row.invoice]=inv_payment_map[row.invoice]-payment
 
 				gl_piutang.append({
 					"posting_date":self.posting_date,
@@ -523,10 +531,10 @@ class GoldPayment(StockController):
 					"party":self.customer,
 					"cost_center":cost_center,
 					"debit":0,
-					"credit":payment*row.tutupan,
+					"credit":row.allocated*row.tutupan,
 					"account_currency":"GOLD",
 					"debit_in_account_currency":0,
-					"credit_in_account_currency":payment,
+					"credit_in_account_currency":row.allocated,
 					#"against":"4110.000 - Penjualan - L",
 					"voucher_type":"Gold Payment",
 					"against_voucher_type":"Customer Payment Return",
@@ -541,11 +549,14 @@ class GoldPayment(StockController):
 				})
 #				credit=credit+(payment*row.tutupan)
 				if row.tutupan!=self.tutupan:
-					nilai_selisih_kurs=nilai_selisih_kurs+((self.tutupan-row.tutupan)*payment)
+					nilai_selisih_kurs=nilai_selisih_kurs+((self.tutupan-row.tutupan)*row.allocated)
 					print(nilai_selisih_kurs)
 		roundoff=0
 #		frappe.msgprint("Customer Return credit = {} , debit = {}".format(credit,debit))
 		for row in gl_piutang:
+			roundoff=roundoff+row['debit']-row['credit']
+			gl_entries.append(frappe._dict(row))
+		for row in gl_piutang_idr:
 			roundoff=roundoff+row['debit']-row['credit']
 			gl_entries.append(frappe._dict(row))
 		#perlu check selisih kurs dari tutupan

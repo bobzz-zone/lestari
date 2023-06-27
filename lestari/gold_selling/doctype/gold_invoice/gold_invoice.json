@@ -9,7 +9,11 @@
  "field_order": [
   "naming_series",
   "no_invoice",
-  "purpose",
+  "tax_status",
+  "type_emas",
+  "piutang_gold",
+  "is_skb",
+  "non_pph",
   "company",
   "customer",
   "customer_name",
@@ -35,6 +39,11 @@
   "add",
   "items_section",
   "items",
+  "tax_sb",
+  "ppn",
+  "pph",
+  "total_pajak",
+  "sisa_pajak",
   "sb_bill",
   "total_bruto",
   "cash_back",
@@ -121,7 +130,6 @@
   {
    "fieldname": "tutupan_section",
    "fieldtype": "Section Break",
-   "hidden": 1,
    "label": "Tutupan",
    "no_copy": 1
   },
@@ -296,7 +304,6 @@
   {
    "fieldname": "summary_sec",
    "fieldtype": "Section Break",
-   "hidden": 1,
    "label": "Summary"
   },
   {
@@ -388,15 +395,75 @@
    "precision": "3"
   },
   {
-   "fieldname": "purpose",
+   "fieldname": "tax_sb",
+   "fieldtype": "Section Break",
+   "label": "Tax Section"
+  },
+  {
+   "fieldname": "ppn",
+   "fieldtype": "Currency",
+   "label": "PPN",
+   "read_only": 1
+  },
+  {
+   "fieldname": "pph",
+   "fieldtype": "Currency",
+   "label": "PPH",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tax_status",
    "fieldtype": "Select",
-   "label": "Purpose",
-   "options": "Tax\nNon Tax"
+   "label": "Tax Status",
+   "options": "Non Tax\nTax"
+  },
+  {
+   "default": "0",
+   "depends_on": "tax_status==\"Tax\"",
+   "fetch_from": "customer.is_skb",
+   "fieldname": "is_skb",
+   "fieldtype": "Check",
+   "label": "is SKB",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "depends_on": "tax_status==\"Tax\";\nis_skb===0;",
+   "description": "jika di centang maka akan kena PPN 1,65%",
+   "fieldname": "non_pph",
+   "fieldtype": "Check",
+   "label": "Non PPH"
+  },
+  {
+   "fieldname": "type_emas",
+   "fieldtype": "Link",
+   "label": "Kurs Emas",
+   "options": "Basic Nilai Tukar Emas"
+  },
+  {
+   "fetch_from": "type_emas.piutang_emas",
+   "fieldname": "piutang_gold",
+   "fieldtype": "Link",
+   "label": "Account",
+   "options": "Account",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_pajak",
+   "fieldtype": "Currency",
+   "label": "Total Pajak",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sisa_pajak",
+   "fieldtype": "Currency",
+   "label": "Sisa Pajak",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-05-25 14:14:51.493208",
+ "modified": "2023-06-24 23:46:53.109788",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",
