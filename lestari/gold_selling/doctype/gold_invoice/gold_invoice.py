@@ -5,6 +5,7 @@ from erpnext.accounts.utils import get_account_currency, get_fiscal_years, valid
 from frappe.utils import flt
 class GoldInvoice(Document):
 	def validate(self):
+
 		if(self.no_invoice):
 			self.name = self.no_invoice
 			#total items
@@ -35,6 +36,8 @@ class GoldInvoice(Document):
 		self.category = ""
 		self.add_bruto = ""
 	def before_submit(self):
+		if not self.posting_date:
+			frappe.throw("Tanggal Invoice belum terisi")
 		if self.outstanding<0:
 			frappe.throw("Error, Outstanding should not be less than zero")
 		if self.outstanding==0:

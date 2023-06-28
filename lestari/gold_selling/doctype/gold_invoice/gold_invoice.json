@@ -20,6 +20,8 @@
   "customer_group",
   "territory",
   "column_break_2",
+  "is_titipan",
+  "tanggal_titip",
   "posting_date",
   "due_date",
   "bundle",
@@ -119,13 +121,12 @@
    "fieldname": "posting_date",
    "fieldtype": "Date",
    "label": "Posting Date",
-   "reqd": 1
+   "mandatory_depends_on": "eval:doc.is_titipan===0;"
   },
   {
    "fieldname": "due_date",
    "fieldtype": "Date",
-   "label": "Due Date",
-   "reqd": 1
+   "label": "Due Date"
   },
   {
    "fieldname": "tutupan_section",
@@ -459,11 +460,23 @@
    "fieldtype": "Currency",
    "label": "Sisa Pajak",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_titipan",
+   "fieldtype": "Check",
+   "label": "Merupakan titipan"
+  },
+  {
+   "depends_on": "eval:doc.is_titipan===1",
+   "fieldname": "tanggal_titip",
+   "fieldtype": "Date",
+   "label": "Tanggal Titip"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-06-24 23:46:53.109788",
+ "modified": "2023-06-28 13:14:46.621077",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",

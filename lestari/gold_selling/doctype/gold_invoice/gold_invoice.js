@@ -104,6 +104,16 @@ frappe.ui.form.on("Gold Invoice", {
 			},
 		});
 	},
+	posting_date:function(frm){
+		frappe.call({
+				method: "lestari.gold_selling.doctype.gold_rates.gold_rates.get_latest_rates",
+				args: { type: frm.doc.type_emas || "CT"},
+				callback: function (r) {
+					frm.doc.tutupan = r.message.nilai;
+					refresh_field("tutupan");
+				},
+			});
+	},
 	tutupan: function (frm) {
 		var idr = 0;
 		$.each(frm.doc.invoice_advance, function (i, g) {
