@@ -57,6 +57,8 @@ class CustomerDeposit(StockController):
 		# 			deposit = deposit - janji.sisa_janji
 	def on_cancel(self):
 		self.flags.ignore_links=True
+		if self.idr_left !=self.total_idr_deposit or self.gold_left != self.total_gold_deposit:
+			frappe.throw("Deposit ini sudah terpakai tidak bisa di cancel")
 		self.make_gl_entries_on_cancel()
 		if self.terima_barang==1 and self.is_convert==0:
 			self.update_stock_ledger()
