@@ -3,7 +3,7 @@
 
 function calculate_table_stock(frm,cdt,cdn){
 	var d=locals[cdt][cdn];
-    // frappe.model.set_value(cdt, cdn,"amount",d.rate*d.qty/100);
+    frappe.model.set_value(cdt, cdn,"amount",d.rate*d.qty/100);
     var total=0;
     $.each(frm.doc.items,  function(i,  g) {
     	total=total+g.qty;

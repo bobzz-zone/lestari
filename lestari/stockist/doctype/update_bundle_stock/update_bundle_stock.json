@@ -297,7 +297,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-05-30 12:57:31.736013",
+ "modified": "2023-07-03 14:21:07.265009",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Update Bundle Stock",
@@ -331,5 +331,6 @@
   }
  ],
  "sort_field": "modified",
- "sort_order": "DESC"
+ "sort_order": "DESC",
+ "track_changes": 1
 }

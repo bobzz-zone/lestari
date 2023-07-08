@@ -23,8 +23,8 @@
    "type": "Link"
   }
  ],
- "modified": "2023-06-21 11:20:53.776445",
- "modified_by": "dendro@lms.com",
+ "modified": "2023-06-26 08:23:48.958777",
+ "modified_by": "arikba@lms.com",
  "module": "Stockist",
  "name": "Stockist",
  "owner": "Administrator",
@@ -75,7 +75,7 @@
    "doc_view": "New",
    "label": "Transfer Stockist ke Produksi",
    "link_to": "Transfer Stockist",
-   "stats_filter": "{\r\n    \"transfer\": \"Transfer Stockist ke Produksi\"\r\n}",
+   "stats_filter": "{\r\n    \"transfer\": \"Transfer Stockist ke Produksi\",\r\n    \"id_penerima\":562\r\n}",
    "type": "DocType"
   },
   {
@@ -84,6 +84,12 @@
    "link_to": "dashboard-metabase",
    "stats_filter": "",
    "type": "Page"
+  },
+  {
+   "doc_view": "List",
+   "label": "List Transfer Stockist",
+   "link_to": "Transfer Stockist",
+   "type": "DocType"
   }
  ]
 }

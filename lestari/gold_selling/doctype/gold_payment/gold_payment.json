@@ -25,7 +25,9 @@
   "get_gold_invoice",
   "invoice_table",
   "customer_return",
+  "section_break_19",
   "stock_return_transfer",
+  "total_24k_return",
   "deposit_sb",
   "ag_cb",
   "gold_invoice_advance",
@@ -462,12 +464,22 @@
    "fieldtype": "Table",
    "label": "Stock Return Transfer",
    "options": "Gold Payment Stock Return"
+  },
+  {
+   "fieldname": "total_24k_return",
+   "fieldtype": "Float",
+   "label": "Total 24K Return",
+   "precision": "2"
+  },
+  {
+   "fieldname": "section_break_19",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-06-20 13:56:34.111635",
+ "modified": "2023-06-27 16:06:16.589879",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

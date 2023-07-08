@@ -91,7 +91,6 @@
    "read_only": 1
   },
   {
-   "fetch_from": "voucher_no.subcustomer",
    "fieldname": "sub_customer",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -138,7 +137,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-04-17 14:09:16.125371",
+ "modified": "2023-06-28 15:55:01.431020",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Stock Return Transfer Details",

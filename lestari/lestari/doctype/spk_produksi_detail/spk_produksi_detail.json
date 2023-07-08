@@ -7,19 +7,20 @@
  "engine": "InnoDB",
  "field_order": [
   "no_so",
-  "so_type",
   "tanggal_order",
-  "column_break_4",
+  "so_type",
   "customer",
-  "produk_id",
-  "kadar",
+  "column_break_4",
   "kategori",
   "sub_kategori",
+  "produk_id",
+  "kadar",
   "section_break_10",
   "qty",
   "qty_isi_pohon",
   "jumlah_pohon",
-  "variasi",
+  "keterangan_variasi",
+  "keterangan_batu",
   "target_berat"
  ],
  "fields": [
@@ -35,7 +36,6 @@
    "columns": 1,
    "fieldname": "customer",
    "fieldtype": "Link",
-   "in_list_view": 1,
    "label": "Customer",
    "options": "Customer",
    "read_only": 1
@@ -59,13 +59,9 @@
    "label": "Jumlah Pohon"
   },
   {
-   "fieldname": "variasi",
-   "fieldtype": "Data",
-   "label": "Variasi"
-  },
-  {
    "fieldname": "target_berat",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "Target Berat"
   },
   {
@@ -88,7 +84,8 @@
    "fieldname": "no_so",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "No Order"
+   "label": "No Order",
+   "read_only": 1
   },
   {
    "columns": 1,
@@ -119,12 +116,22 @@
   {
    "fieldname": "section_break_10",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "keterangan_variasi",
+   "fieldtype": "Small Text",
+   "label": "Keterangan Variasi"
+  },
+  {
+   "fieldname": "keterangan_batu",
+   "fieldtype": "Small Text",
+   "label": "Keterangan Batu"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-02-28 12:52:10.134778",
+ "modified": "2023-07-06 10:47:25.359794",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "SPK Produksi Detail",
