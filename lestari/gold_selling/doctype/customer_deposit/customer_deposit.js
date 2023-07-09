@@ -16,12 +16,28 @@ function calculate(frm,cdt,cdn){
 
 frappe.ui.form.on('Customer Deposit', {
 	validate:function(frm){
-		$.each(frm.doc.source,  function(i,  g) {
-		   	if(g.janji_bayar==""){
-		   		g.janji_bayar=cur_frm.doc.janji_bayar;
-		   	}
-		});
-	},refresh: function(frm) {
+		// var deposit = cur_frm.doc.total_idr_deposit
+		// $.each(frm.doc.list_janji_bayar,  function(i,  g) {
+		// 	var idr_janji_bayar = 0
+		// 	if(deposit > 0){
+		// 		deposit = deposit - g.sisa_janji
+		// 		if(deposit > 0){
+		// 			idr_janji_bayar = g.sisa_janji
+		// 			g.sisa_janji = 	0
+		// 		}else{
+		// 			idr_janji_bayar = g.sisa_janji
+		// 			g.sisa_janji = 	0
+		// 		}
+		// 		if(g.sisa_janji > 0){
+		// 			g.status_janji = 'Pending'
+		// 		}else{
+		// 			g.status_janji = 'Lunas'
+		// 		}
+		// 		g.idr_janji_bayar = 
+		// 	}
+		// });
+	},
+	refresh: function(frm) {
 		frm.set_query("item","stock_deposit", function(doc, cdt, cdn) {
     			return {
     				"filters": {

@@ -65,6 +65,19 @@ function refresh_total_and_charges(frm){
 	}
 	refresh_field("total_sisa_invoice");
 }
+
+function calculate_stock_return(frm,cdt,cdn){
+	var amount = 0;
+	var total = 0;
+	$.each(frm.doc.stock_return_transfer,  function(i,  g) {
+		amount += g.rate * g.bruto / 100;
+		g.amount = amount;
+		total += amount;
+	})
+	frm.doc.total_24k_return = total;
+	frm.refresh_field("total_24k_return")	
+	frm.refresh_field("stock_return_transfer")	
+}
 function reset_allocated(frm){
 	$.each(frm.doc.invoice_table,  function(i,  g) {
 		g.allocated=0;
@@ -682,6 +695,18 @@ frappe.ui.form.on('Gold Payment Return', {
 	gold_invoice_advance_remove: function(frm,cdt,cdn){
 		// console.log("Gold Remove")
 		calculate_table_advance(frm,cdt,cdn)
+	}
+});
+
+frappe.ui.form.on('Gold Payment Stock Return', {
+	rate: function(frm,cdt,cdn){
+		calculate_stock_return(frm,cdt,cdn)
+	},
+	bruto: function(frm,cdt,cdn){
+		calculate_stock_return(frm,cdt,cdn)
+	},
+	stock_return_transfer_remove: function(frm,cdt,cdn){
+		calculate_stock_return(frm,cdt,cdn)
 	}
 });
 

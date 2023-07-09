@@ -19,7 +19,7 @@ frappe.ui.form.on('Item Generator', {
 
 	// }
 	before_save: function(frm){
-		frappe.msgprint('hallooo')
+		// frappe.msgprint('hallooo')
 		var item_code;
 		if(cur_frm.doc.item_code){
 			item_code = cur_frm.doc.item_code

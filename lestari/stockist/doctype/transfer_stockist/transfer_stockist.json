@@ -70,7 +70,8 @@
    "fieldtype": "Link",
    "label": "Target Warehouse",
    "options": "Warehouse",
-   "read_only": 1
+   "read_only": 1,
+   "read_only_depends_on": "eval: doc.employee_id != 9999999999"
   },
   {
    "fieldname": "keterangan",
@@ -225,7 +226,7 @@
    "options": "Employee"
   },
   {
-   "depends_on": "eval:doc.transfer == \"Transfer Stockist ke Produksi\"",
+   "depends_on": "eval:doc.transfer == \"Transfer Stockist ke Produksi\" || doc.transfer == \"Transfer Stockist ke Barang Lama\" || doc.transfer == \"Transfer Stockist dari Barang Lama\" || doc.transfer == \"Transfer Stockist ke PCB\" || doc.transfer == \"Transfer Stockist dari PCB\"",
    "fieldname": "id_penerima",
    "fieldtype": "Data",
    "label": "ID Penerima"
@@ -249,7 +250,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-06-22 15:14:12.694937",
+ "modified": "2023-07-08 11:46:41.576418",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Transfer Stockist",

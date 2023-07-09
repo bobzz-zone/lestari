@@ -76,6 +76,7 @@
   {
    "fieldname": "pic",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "PIC",
    "options": "Employee"
   },
@@ -112,16 +113,19 @@
   {
    "fieldname": "production_period_week",
    "fieldtype": "Int",
+   "hidden": 1,
    "label": "Production Period Week"
   },
   {
    "fieldname": "production_period_month",
    "fieldtype": "Int",
+   "hidden": 1,
    "label": "Production Period Month"
   },
   {
    "fieldname": "production_period_year",
    "fieldtype": "Int",
+   "hidden": 1,
    "label": "Production Period Year"
   },
   {
@@ -307,7 +311,7 @@
   {
    "default": "Today",
    "fieldname": "posting_date",
-   "fieldtype": "Datetime",
+   "fieldtype": "Date",
    "label": "Posting Date",
    "read_only": 1,
    "read_only_depends_on": "eval: doc.edit_posting_date == 0"
@@ -323,7 +327,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-11-17 14:56:08.176443",
+ "modified": "2023-07-03 11:09:38.899849",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Form Order",

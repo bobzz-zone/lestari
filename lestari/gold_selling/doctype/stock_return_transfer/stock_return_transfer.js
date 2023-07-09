@@ -6,12 +6,16 @@ frappe.ui.form.on('Stock Return Transfer', {
 
 	// }
 	get_details: function(frm){
+		if(cur_frm.doc.transfer_details){
+				cur_frm.clear_table("transfer_details")
+				cur_frm.refresh_fields()
+		}
 		frappe.call({
 			method: "get_kpr",
 			doc: frm.doc,
 			callback: function (r){
 				frm.refresh();	
-				}
-			})
+			}
+		})
 	}
 });

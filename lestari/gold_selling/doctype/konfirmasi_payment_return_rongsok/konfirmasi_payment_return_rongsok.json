@@ -21,7 +21,7 @@
  ],
  "fields": [
   {
-   "columns": 2,
+   "columns": 1,
    "fieldname": "item",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -30,20 +30,21 @@
    "reqd": 1
   },
   {
-   "columns": 1,
+   "columns": 2,
    "fieldname": "terima_qty",
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Terima Berat",
+   "precision": "2",
    "reqd": 1
   },
   {
-   "columns": 1,
+   "columns": 2,
    "fieldname": "tolak_qty",
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Tolak Berat",
-   "precision": "3",
+   "precision": "2",
    "reqd": 1
   },
   {
@@ -87,7 +88,7 @@
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Total Berat",
-   "precision": "3"
+   "precision": "2"
   },
   {
    "fetch_from": "item.kadar",
@@ -112,7 +113,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-05-26 15:54:58.466689",
+ "modified": "2023-06-26 14:28:50.105276",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Konfirmasi Payment Return Rongsok",

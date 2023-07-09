@@ -28,7 +28,9 @@
   "get_gold_invoice",
   "invoice_table",
   "customer_return",
+  "section_break_19",
   "stock_return_transfer",
+  "total_24k_return",
   "deposit_sb",
   "ag_cb",
   "gold_invoice_advance",
@@ -474,6 +476,7 @@
    "options": "Gold Payment Stock Return"
   },
   {
+<<<<<<< HEAD
    "fieldname": "type_payment",
    "fieldtype": "Select",
    "label": "Type Pembayaran",
@@ -518,12 +521,26 @@
    "label": "Piutang Gold",
    "options": "Account",
    "read_only": 1
+=======
+   "fieldname": "total_24k_return",
+   "fieldtype": "Float",
+   "label": "Total 24K Return",
+   "precision": "2"
+  },
+  {
+   "fieldname": "section_break_19",
+   "fieldtype": "Section Break"
+>>>>>>> e32b27d744502406015d972204281c9b9204abcb
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
+<<<<<<< HEAD
  "modified": "2023-06-27 11:14:52.404612",
+=======
+ "modified": "2023-06-27 16:06:16.589879",
+>>>>>>> e32b27d744502406015d972204281c9b9204abcb
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",
