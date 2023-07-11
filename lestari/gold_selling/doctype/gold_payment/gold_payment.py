@@ -282,6 +282,8 @@ class GoldPayment(StockController):
 				self.append("invoice_table",baris_baru)
 		list_cpr = frappe.db.get_list("Customer Payment Return", filters={"customer": self.customer, "invoice_status":"Unpaid", 'docstatus':1}, fields=['name','outstanding','due_date','tutupan','total'])
 		total24k = 0
+		if not self.total_invoice:
+			self.total_invoice=0
 		for row in list_cpr:
 			# frappe.msgprint(str(row))
 			self.total_invoice = self.total_invoice + row.outstanding
