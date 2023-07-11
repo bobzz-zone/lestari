@@ -21,7 +21,7 @@ class GoldInvoice(Document):
 			self.grand_total=flt(self.total)-flt(self.discount)
 			self.outstanding = self.grand_total - flt(self.total_advance)
 			if self.outstanding<0:
-				frappe.throw("Ouutstanding tidak boleh lebih kecil dari 0")
+				frappe.throw("Outstanding tidak boleh lebih kecil dari 0")
 	@frappe.whitelist(allow_guest=True)
 	def add_row_action(self):
 		gi = frappe.db.sql("""select name,income_account from `tabGold Selling Item` where kadar="{}" and item_group="{}" """.format(self.kadar,self.category),as_list=1)
