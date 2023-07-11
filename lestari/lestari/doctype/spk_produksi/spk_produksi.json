@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:SPKR{YYYY}{MM}{#####}",
+ "autoname": "format:SPK{YY}{MM}{#####}",
  "creation": "2022-04-11 10:00:37.059091",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -120,7 +120,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-07-03 13:06:17.604321",
+ "modified": "2023-07-10 12:35:20.625973",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "SPK Produksi",
