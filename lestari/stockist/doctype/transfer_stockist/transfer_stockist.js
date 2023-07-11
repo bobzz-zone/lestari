@@ -233,7 +233,7 @@ function removeColumns(frm, fields, table) {
     let grid = frm.get_field(table).grid;
     
     for (let field of fields) {
-		console.log(grid.fields_map[field])
+		// console.log(grid.fields_map[field])
         grid.fields_map[field].hidden = 1;
     }
     

@@ -221,15 +221,15 @@
   {
    "fieldname": "employee_penerima",
    "fieldtype": "Link",
-   "hidden": 1,
    "label": "Employee Penerima",
    "options": "Employee"
   },
   {
-   "depends_on": "eval:doc.transfer == \"Transfer Stockist ke Produksi\" || doc.transfer == \"Transfer Stockist ke Barang Lama\" || doc.transfer == \"Transfer Stockist dari Barang Lama\" || doc.transfer == \"Transfer Stockist ke PCB\" || doc.transfer == \"Transfer Stockist dari PCB\"",
+   "depends_on": "eval:doc.transfer != 'Transfer Stockist ke Barang Lama'",
    "fieldname": "id_penerima",
    "fieldtype": "Data",
-   "label": "ID Penerima"
+   "label": "ID Penerima",
+   "mandatory_depends_on": "eval:doc.transfer == \"Transfer Stockist ke Produksi\" || doc.transfer == \"Transfer Stockist ke Barang Lama\" || doc.transfer == \"Transfer Stockist dari Barang Lama\" || doc.transfer == \"Transfer Stockist ke PCB\" || doc.transfer == \"Transfer Stockist dari PCB\""
   },
   {
    "fetch_from": "employee_penerima.employee_name",
@@ -250,7 +250,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-07-08 11:46:41.576418",
+ "modified": "2023-07-11 13:00:36.309311",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Transfer Stockist",

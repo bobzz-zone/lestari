@@ -24,7 +24,8 @@ app_include_js = ['/assets/lestari/js/dx.all.js',
                   '/assets/lestari/js/polyfill.min.js',
                   '/assets/lestari/js/Sortable.min.js',
                   '/assets/lestari/js/clusterize.min.js',
-                  '/assets/lestari/js/frappe-datatable.min.js']
+                  '/assets/lestari/js/frappe-datatable.min.js',
+                  '/assets/lestari/js/lestari.js']
 
 
 # include js, css files in header of web template
