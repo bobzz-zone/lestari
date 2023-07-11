@@ -6,22 +6,23 @@ frappe.ui.form.on("Gold Invoice", {
 	// 	frm.events.make_custom_buttons(frm);
 	// },
 	validate: function (frm) {
-	if (!cur_frm.doc.no_invoice) {
-		cur_frm.set_df_property("no_invoice", "hidden", 1);
-	}
+		if (!cur_frm.doc.no_invoice) {
+			cur_frm.set_df_property("no_invoice", "hidden", 1);
+		}
 	},
 	refresh: function (frm) {
 	// your code here
-	frm.events.make_custom_buttons(frm);
-	if (!frm.doc.tutupan) {
-		frappe.call({
-		method: "lestari.gold_selling.doctype.gold_rates.gold_rates.get_latest_rates",
-		callback: function (r) {
-			frm.doc.tutupan = r.message.nilai;
-			refresh_field("tutupan");
-		},
-		});
-	}
+		frm.events.make_custom_buttons(frm);
+		if (!frm.doc.tutupan) {
+			frappe.call({
+				method: "lestari.gold_selling.doctype.gold_rates.gold_rates.get_latest_rates",
+				args: { type: frm.doc.type_emas || "CT"},
+				callback: function (r) {
+					frm.doc.tutupan = r.message.nilai;
+					refresh_field("tutupan");
+				},
+			});
+		}
 	if (frm.doc.docstatus > 0) {
 		cur_frm.add_custom_button(
 		__("Accounting Ledger"),
@@ -83,14 +84,36 @@ frappe.ui.form.on("Gold Invoice", {
 		});
 		frm.doc.discount_amount = (total / 100) * frm.doc.discount;
 		frm.doc.grand_total = frm.doc.total - frm.doc.discount_amount;
+		hitung_pajak(frm);
 		if (!frm.doc.total_advance) {
 			frm.doc.total_advance = 0;
 		}
 		frm.doc.outstanding = frm.doc.grand_total - frm.doc.total_advance;
+
 		refresh_field("outstanding");
 		refresh_field("discount_amount");
 		refresh_field("grand_total");
 		},
+	type_kurs:function (frm) {
+		frappe.call({
+			method: "lestari.gold_selling.doctype.gold_rates.gold_rates.get_latest_rates",
+			args: { type: frm.doc.type_kurs},
+			callback: function (r) {
+				frm.doc.tutupan = r.message.nilai;
+				refresh_field("tutupan");
+			},
+		});
+	},
+	posting_date:function(frm){
+		frappe.call({
+				method: "lestari.gold_selling.doctype.gold_rates.gold_rates.get_latest_rates",
+				args: { type: frm.doc.type_emas || "CT"},
+				callback: function (r) {
+					frm.doc.tutupan = r.message.nilai;
+					refresh_field("tutupan");
+				},
+			});
+	},
 	tutupan: function (frm) {
 		var idr = 0;
 		$.each(frm.doc.invoice_advance, function (i, g) {
@@ -106,6 +129,30 @@ frappe.ui.form.on("Gold Invoice", {
 		refresh_field("total_advance");
 	},
 });
+function hitung_pajak(frm){
+	if (frm.doc.tax_status=="Tax"){
+		//semua pajak di bagi 10.000
+		var ppn_rate=110;
+		var pph_rate=25;
+		if (frm.doc.non_pph==1){
+			if(frm.doc.is_skb==1){
+				pph_rate=0;
+			}else{
+				ppn_rate=165;
+				pph_rate=0;
+			}
+		}
+		frm.doc.ppn=frm.doc.grand_total * frm.doc.tutupan * ppn_rate / 10000;
+		frm.doc.pph=frm.doc.grand_total * frm.doc.tutupan * pph_rate / 10000;
+		//frm.doc.total_tax_in_gold = (frm.doc.ppn+frm.doc.pph) / frm.doc.tutupan;
+		frm.doc.total_pajak=frm.doc.ppn+frm.doc.pph;
+		frm.doc.sisa_pajak=frm.doc.total_pajak;
+		refresh_field("pph");
+		refresh_field("ppn");
+		refresh_field("total_pajak");
+		refresh_field("sisa_pajak");
+	}
+}
 frappe.ui.form.on("Gold Invoice Advance IDR", {
 	idr_allocated: function (frm, cdt, cdn) {
 		var d = locals[cdt][cdn];
@@ -175,6 +222,7 @@ frappe.ui.form.on("Gold Invoice Item", {
 				if (!frm.doc.discount_amount) {
 					frm.doc.discount_amount = 0;
 				}
+				hitung_pajak(frm);
 				frm.doc.grand_total = frm.doc.total - frm.doc.discount_amount;
 				if (!frm.doc.total_advance) {
 					frm.doc.total_advance = 0;
@@ -207,6 +255,7 @@ frappe.ui.form.on("Gold Invoice Item", {
 			frm.doc.discount_amount = 0;
 		}
 		frm.doc.grand_total = frm.doc.total - frm.doc.discount_amount;
+		hitung_pajak(frm);
 		if (!frm.doc.total_advance) {
 			frm.doc.total_advance = 0;
 		}
@@ -237,6 +286,7 @@ frappe.ui.form.on("Gold Invoice Item", {
 			frm.doc.discount_amount = 0;
 		}
 		frm.doc.grand_total = frm.doc.total - frm.doc.discount_amount;
+		hitung_pajak(frm);
 		if (!frm.doc.total_advance) {
 			frm.doc.total_advance = 0;
 		}

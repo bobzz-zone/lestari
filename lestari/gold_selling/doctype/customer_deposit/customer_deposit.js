@@ -55,6 +55,7 @@ frappe.ui.form.on('Customer Deposit', {
 		if(!frm.doc.tutupan){
 		    frappe.call({
                 method: "lestari.gold_selling.doctype.gold_rates.gold_rates.get_latest_rates",
+                args:{type:frm.doc.type_emas},
                 callback: function (r){
                     frm.doc.tutupan=r.message.nilai;
                     refresh_field("tutupan")

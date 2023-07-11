@@ -14,6 +14,8 @@
   "customer_group",
   "territory",
   "deposit_type",
+  "type_emas",
+  "piutang_gold",
   "account_piutang",
   "janji_bayar",
   "sisa_janji",
@@ -290,11 +292,25 @@
    "fieldname": "get_janji_bayar",
    "fieldtype": "Button",
    "label": "Get Janji Bayar"
+  },
+  {
+   "fieldname": "type_emas",
+   "fieldtype": "Link",
+   "label": "Kurs Emas",
+   "options": "Basic Nilai Tukar Emas"
+  },
+  {
+   "fetch_from": "type_emas.piutang_emas",
+   "fieldname": "piutang_gold",
+   "fieldtype": "Link",
+   "label": "Piutang Emas",
+   "options": "Account",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-06-20 14:53:05.575282",
+ "modified": "2023-06-27 11:13:35.684960",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Deposit",

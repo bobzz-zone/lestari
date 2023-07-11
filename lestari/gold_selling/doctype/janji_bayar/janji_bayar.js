@@ -8,6 +8,7 @@ frappe.ui.form.on('Janji Bayar', {
 		if(!frm.doc.tutupan){
 			frappe.call({
 				method: "lestari.gold_selling.doctype.gold_rates.gold_rates.get_latest_rates",
+				args:{type:frm.doc.type_emas},
 				callback: function (r){
 					frm.doc.tutupan=r.message.nilai;
 					refresh_field("tutupan")
@@ -21,6 +22,18 @@ frappe.ui.form.on('Janji Bayar', {
 					["Gold Invoice", "customer", "=", cur_frm.doc.customer],
 					["Gold Invoice", "outstanding", ">", 0.000]
 				]
+			}
+		});
+	},
+	type_emas:function(frm){
+		frm.doc.stock_deposit=[];
+		refresh_field("stock_deposit");
+		frappe.call({
+			method: "lestari.gold_selling.doctype.gold_rates.gold_rates.get_latest_rates",
+			args:{type:frm.doc.type_emas},
+			callback: function (r){
+				frm.doc.tutupan=r.message.nilai;
+				refresh_field("tutupan");
 			}
 		});
 	},

@@ -159,7 +159,7 @@ class CustomerDeposit(StockController):
 
 			if update_outstanding == "No":
 				from erpnext.accounts.doctype.gl_entry.gl_entry import update_outstanding_amt
-				piutang_gold = frappe.db.get_single_value('Gold Selling Settings', 'piutang_gold')
+				piutang_gold = self.piutang_gold
 				update_outstanding_amt(
 					piutang_gold,
 					"Customer",
@@ -224,7 +224,7 @@ class CustomerDeposit(StockController):
 		if self.is_convert==0:
 			#1 untuk GL untuk piutang Gold
 			if self.total_gold_deposit>0 and self.deposit_type=="Emas":
-				piutang_gold = frappe.db.get_single_value('Gold Selling Settings', 'piutang_gold')
+				piutang_gold = self.piutang_gold
 				gl[piutang_gold]={
 											"posting_date":self.posting_date,
 											"account":piutang_gold,
@@ -313,7 +313,7 @@ class CustomerDeposit(StockController):
 				frappe.throw("Conversion hanya bisa untuk Deposit Rupiah menjadi emas")
 			if self.total_value_converted>0:
 				piutang_idr = frappe.db.get_single_value('Gold Selling Settings', 'piutang_idr')
-				piutang_gold = frappe.db.get_single_value('Gold Selling Settings', 'piutang_gold')
+				piutang_gold = self.piutang_gold
 				uang_buat_beli_emas = frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
 				for row in self.source:
 					gl[row.customer_deposit]={
