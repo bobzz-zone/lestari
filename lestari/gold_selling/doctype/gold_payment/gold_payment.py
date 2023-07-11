@@ -43,7 +43,7 @@ class GoldPayment(StockController):
 			##			for cek in self.idr_payment:
 				# if cek.mode_of_payment != "Cash":
 					# frappe.throw("Silahkan Cek Transfer Bank Terlebih Dahulu")
-				# else:				
+				# else:
 			self.make_gl_entries()
 				#posting Stock Ledger Post
 			self.update_stock_ledger()
@@ -306,7 +306,6 @@ class GoldPayment(StockController):
 		self.total_24k_return = total24k
 		#lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_idr_advance
 		#lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_gold_advance
-<<<<<<< HEAD
 		total_advance = 0
 		if self.type_payment=="IDR":
 			list_deposit=frappe.db.sql("""select name , idr_left ,account_piutang,posting_date,customer from `tabCustomer Deposit` where deposit_type="IDR" and docstatus=1 and (customer="{}" or subcustomer="{}" ) """.format(self.customer,self.subcustomer),as_dict=1)
@@ -346,46 +345,43 @@ class GoldPayment(StockController):
 				self.append("gold_invoice_advance",baris_baru)
 			self.total_gold = total_gold
 			total_advance += total_gold
-=======
-
-		list_deposit=frappe.db.sql("""select name , idr_left ,account_piutang,posting_date,customer from `tabCustomer Deposit` where idr_left>0 and deposit_type="IDR" and docstatus=1 and (customer="{}" or subcustomer="{}" ) """.format(self.customer,self.subcustomer),as_dict=1)
-		total_advance = 0
-		total_idr_in_gold = 0
-		for row in list_deposit:
-			# frappe.msgprint(str(row))
-			total_idr_in_gold += flt(row.idr_left)
-			baris_baru = {
-				'customer_deposit':row.name,
-				'idr_deposit':row.idr_left,
-				'idr_allocated':row.idr_left,
-				'date':row.posting_date,
-				'customer':row.customer,
-				'account_piutang':row.account_piutang
-			}
-			# frappe.msgprint(str(total_idr_in_gold))
-			self.append("invoice_advance",baris_baru)
-		if total_idr_in_gold > 0:
-			# frappe.msgprint(str(tutupan[0]))
-			total_idr_in_gold = flt(total_idr_in_gold) / flt(tutupan)
-			self.total_idr_in_gold = total_idr_in_gold
-			total_advance += total_idr_in_gold
-		list_deposit=frappe.db.sql("""select name , gold_left ,tutupan,posting_date,customer from `tabCustomer Deposit` where gold_left>0 and deposit_type="Emas" and docstatus=1 and (customer="{}" or subcustomer="{}" ) """.format(self.customer,self.subcustomer),as_dict=1)
-		total_gold = 0
-		for row in list_deposit:
-			# frappe.msgprint(str(row))
-			total_gold += row.gold_left
-			baris_baru = {
-				'customer_deposit':row.name,
-				'gold_deposit':row.gold_left,
-				'gold_allocated':row.gold_left,
-				'date':row.posting_date,
-				'customer':row.customer,
-				'tutupan':row.tutupan
-			}
-			self.append("gold_invoice_advance",baris_baru)
-		self.total_gold = total_gold
-		total_advance += total_gold
->>>>>>> e32b27d744502406015d972204281c9b9204abcb
+#		list_deposit=frappe.db.sql("""select name , idr_left ,account_piutang,posting_date,customer from `tabCustomer Deposit` where idr_left>0 and deposit_type="IDR" and docstatus=1 and (customer="{}" or subcustomer="{}" ) """.format(self.customer,self.subcustomer),as_dict=1)
+#		total_advance = 0
+#		total_idr_in_gold = 0
+#		for row in list_deposit:
+#			# frappe.msgprint(str(row))
+#			total_idr_in_gold += flt(row.idr_left)
+#			baris_baru = {
+#				'customer_deposit':row.name,
+#				'idr_deposit':row.idr_left,
+#				'idr_allocated':row.idr_left,
+#				'date':row.posting_date,
+#				'customer':row.customer,
+#				'account_piutang':row.account_piutang
+#			}
+#			# frappe.msgprint(str(total_idr_in_gold))
+#			self.append("invoice_advance",baris_baru)
+#		if total_idr_in_gold > 0:
+#			# frappe.msgprint(str(tutupan[0]))
+#			total_idr_in_gold = flt(total_idr_in_gold) / flt(tutupan)
+#			self.total_idr_in_gold = total_idr_in_gold
+#			total_advance += total_idr_in_gold
+#		list_deposit=frappe.db.sql("""select name , gold_left ,tutupan,posting_date,customer from `tabCustomer Deposit` where gold_left>0 and deposit_type="Emas" and docstatus=1 and (customer="{}" or subcustomer="{}" ) """.format(self.customer,self.subcustomer),as_dict=1)
+#		total_gold = 0
+#		for row in list_deposit:
+#			# frappe.msgprint(str(row))
+#			total_gold += row.gold_left
+#			baris_baru = {
+#				'customer_deposit':row.name,
+#				'gold_deposit':row.gold_left,
+#				'gold_allocated':row.gold_left,
+#				'date':row.posting_date,
+#				'customer':row.customer,
+#				'tutupan':row.tutupan
+#			}
+#			self.append("gold_invoice_advance",baris_baru)
+#		self.total_gold = total_gold
+#		total_advance += total_gold
 		self.total_advance = total_advance
 	def update_stock_ledger(self):
 		sl_entries = []
