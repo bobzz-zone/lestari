@@ -287,24 +287,24 @@ class GoldPayment(StockController):
 		for row in list_cpr:
 			# frappe.msgprint(str(row))
 			self.total_invoice = self.total_invoice + row.outstanding
-			# baris_baru = {
-			# 	'invoice':row.name,
-			# 	'total':row.total,
-			# 	'outstanding':row.outstanding,
-			# 	'due_date':row.due_date,
-			# 	'tutupan':row.tutupan
-			# }
-			# self.append("customer_return",baris_baru)
-			doc = frappe.get_doc("Customer Payment Return", row.name)
-			for col in doc.items:
-				total24k = total24k + col.amount
-				baris_baru_item = {
-					'item':col.item,
-					'bruto':col.qty,
-					'rate':col.rate,
-					'amount':col.amount
-				}
-				self.append("stock_return_transfer",baris_baru_item)
+			baris_baru = {
+				'invoice':row.name,
+				'total':row.total,
+				'outstanding':row.outstanding,
+				'due_date':row.due_date,
+				'tutupan':row.tutupan
+			}
+			self.append("customer_return",baris_baru)
+			# doc = frappe.get_doc("Customer Payment Return", row.name)
+			# for col in doc.items:
+			# 	total24k = total24k + col.amount
+			# 	baris_baru_item = {
+			# 		'item':col.item,
+			# 		'bruto':col.qty,
+			# 		'rate':col.rate,
+			# 		'amount':col.amount
+			# 	}
+			# 	self.append("stock_return_transfer",baris_baru_item)
 		self.total_24k_return = total24k
 		#lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_idr_advance
 		#lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_gold_advance
