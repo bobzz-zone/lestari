@@ -71,7 +71,7 @@ function calculate_stock_return(frm,cdt,cdn){
 	var total = 0;
 	$.each(frm.doc.stock_return_transfer,  function(i,  g) {
 		amount += g.rate * g.bruto / 100;
-		g.amount = amount;
+		g.amount = g.rate * g.bruto / 100;
 		total += amount;
 	})
 	frm.doc.total_24k_return = total;
@@ -122,6 +122,7 @@ function calculate_table_idr(frm,cdt,cdn){
 	//frappe.msgprint("Callculate IDR");
 	refresh_field("total_payment");
 	refresh_field("unallocated_payment");
+	refresh_field("unallocated_idr_payment");
 	if(frm.doc.unallocated_payment<0){
 		reset_allocated(frm);
 	}
