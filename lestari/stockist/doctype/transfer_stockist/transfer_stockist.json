@@ -221,6 +221,7 @@
   {
    "fieldname": "employee_penerima",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Employee Penerima",
    "options": "Employee"
   },
@@ -250,7 +251,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-07-11 13:00:36.309311",
+ "modified": "2023-07-11 16:41:04.472831",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Transfer Stockist",

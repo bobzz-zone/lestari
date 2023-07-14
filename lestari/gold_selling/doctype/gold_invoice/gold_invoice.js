@@ -9,17 +9,18 @@ frappe.ui.form.on("Gold Invoice", {
 		if (!cur_frm.doc.no_invoice) {
 			cur_frm.set_df_property("no_invoice", "hidden", 1);
 		}
+		
 	},
 	refresh: function (frm) {
 	// your code here
 		frm.events.make_custom_buttons(frm);
-		if (!frm.doc.tutupan) {
+		if (!cur_frm.doc.tutupan) {
 			frappe.call({
 				method: "lestari.gold_selling.doctype.gold_rates.gold_rates.get_latest_rates",
-				args: { type: frm.doc.type_emas || "CT"},
+				args: { type: cur_frm.doc.type_emas || "CT"},
 				callback: function (r) {
-					frm.doc.tutupan = r.message.nilai;
-					refresh_field("tutupan");
+					cur_frm.doc.tutupan = r.message.nilai;
+					cur_frm.refresh_field("tutupan");
 				},
 			});
 		}

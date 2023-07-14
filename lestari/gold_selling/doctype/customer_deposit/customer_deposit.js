@@ -15,6 +15,9 @@ function calculate(frm,cdt,cdn){
 }
 
 frappe.ui.form.on('Customer Deposit', {
+	on_submit:function(frm){
+		cur_frm.reload_doc()
+	},
 	validate:function(frm){
 		// var deposit = cur_frm.doc.total_idr_deposit
 		// $.each(frm.doc.list_janji_bayar,  function(i,  g) {

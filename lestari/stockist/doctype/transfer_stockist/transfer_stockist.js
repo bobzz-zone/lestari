@@ -305,10 +305,12 @@ frappe.ui.form.on('Transfer Stockist', {
 				cur_frm.refresh_field("id_employee");
 			//   console.log(responseJSON)
 			});
+			if(cur_frm.doc.id_penerima){
 			frappe.db.get_value("Employee", { "id_employee": cur_frm.doc.id_penerima }, ["name","employee_name"]).then(function (responseJSON) {
 				cur_frm.set_value("employee_penerima", responseJSON.message.name);
 				cur_frm.refresh_field("employee_penerima");
-			})
+				})
+			}
 		}		
 	getListAndSetQuery(frm);
 	},

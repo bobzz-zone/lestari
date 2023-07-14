@@ -137,8 +137,7 @@
   {
    "fieldname": "tutupan",
    "fieldtype": "Currency",
-   "label": "Harga 24K",
-   "read_only": 1
+   "label": "Harga 24K"
   },
   {
    "fieldname": "column_break_10",
@@ -438,7 +437,7 @@
   {
    "fieldname": "type_emas",
    "fieldtype": "Link",
-   "label": "Kurs Emas",
+   "label": "Satuan",
    "options": "Basic Nilai Tukar Emas"
   },
   {
@@ -476,7 +475,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-06-28 13:14:46.621077",
+ "modified": "2023-07-14 15:02:54.737050",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",
