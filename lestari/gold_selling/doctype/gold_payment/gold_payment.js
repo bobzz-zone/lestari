@@ -93,18 +93,24 @@ function reset_allocated(frm){
 	frm.doc.allocated_idr_payment=0;
 	frm.doc.unallocated_idr_payment=frm.doc.total_idr_payment + frm.doc.total_idr_advance;
 	frm.doc.unallocated_payment=frm.doc.total_gold_payment + frm.doc.total_gold;
-	frm.doc.unallocated_write_off=0;
+	//frm.doc.unallocated_write_off=0;
+	frm.doc.write_off=0;
+	frm.doc.write_off_idr=0;
+	frm.doc.write_off_total=0;
 	frm.doc.jadi_deposit=0;
 	refresh_field("allocated_idr_payment");
 	refresh_field("allocated_payment");
 	refresh_field("unallocated_idr_payment");
 	refresh_field("unallocated_payment");
-	refresh_field("unallocated_write_off");
+	//refresh_field("unallocated_write_off");
+	refresh_field("write_off");
+	refresh_field("write_off_idr");
+	refresh_field("write_off_total");
 	refresh_field("jadi_deposit");
 	//frappe.msgprint("Reset Called");
 	refresh_total_and_charges(frm);
 	calculate_table_advance(frm);
-
+	frappe.msgprint("Karena ad aperubahan nilai, maka data alokasi dan write off telah ter reset!!");
 }
 function calculate_table_idr(frm,cdt,cdn){
 	var total=0;
@@ -277,13 +283,20 @@ frappe.ui.form.on('Gold Payment', {
 			frm.doc.write_off=frm.doc.write_off-frm.doc.unallocated_payment;
 			frm.doc.unallocated_payment=0;
 			refresh_field("unallocated_payment");
-		}else if (frm.doc.total_sisa_invoice>0.1){
+		}
+		if(frm.doc.unallocated_idr_payment>0){
+			frm.doc.write_off_idr=frm.doc.write_off_idr-frm.doc.unallocated_payment;
+			frm.doc.unallocated_idr_payment=0;
+			refresh_field("unallocated_idr_payment");
+		}
+		if (frm.doc.total_sisa_invoice>0.1){
 			if(frm.doc.total_sisa_invoice>0.1){
 				frappe.msgprint("Penghapusan Sisa Invoice Melebihi 0.1 Gram Emas di lakukan apabila document ini di submit")
 			}
 			frm.doc.write_off=frm.doc.write_off+frm.doc.total_sisa_invoice;
 			refresh_field("total_sisa_invoice");
 		}
+		frm.doc.write_off_total=(frm.doc.write_off*frm.doc.tutupan)+frm.doc.write_off_idr;
 		refresh_field("write_off");
 		refresh_total_and_charges(frm);
 	},
@@ -300,22 +313,23 @@ frappe.ui.form.on('Gold Payment', {
 			frappe.throw("Tidak ada Invoice yang terpilih");
 		}else{
 			reset_allocated(frm);
-			//payment rupiah selali di alokasikan ke pajak dulu
-			var idr_need_to=frm.doc.unallocated_idr_payment;
-			var total_allocated=0;
-			$.each(frm.doc.invoice_table,  function(i,  g) {
-				if (idr_need_to > g.outstanding_tax){
-					g.tax_allocated=g.outstanding_tax;
-				}else{
-					g.tax_allocated=idr_need_to;
-				}
-				total_allocated = total_allocated + g.tax_allocated;
-				idr_need_to=idr_need_to-g.tax_allocated;
-			});
-			frm.doc.unallocated_idr_payment=idr_need_to;
-			frm.doc.allocated_idr_payment = total_allocated;
-			refresh_field("allocated_idr_payment");
-			
+			//payment rupiah selali di alokasikan ke pajak dulu apabila ada pajak
+			if (frm.doc.total_pajak>0){
+				var idr_need_to=frm.doc.unallocated_idr_payment;
+				var total_allocated=0;
+				$.each(frm.doc.invoice_table,  function(i,  g) {
+					if (idr_need_to > g.outstanding_tax){
+						g.tax_allocated=g.outstanding_tax;
+					}else{
+						g.tax_allocated=idr_need_to;
+					}
+					total_allocated = total_allocated + g.tax_allocated;
+					idr_need_to=idr_need_to-g.tax_allocated;
+				});
+				frm.doc.unallocated_idr_payment=idr_need_to;
+				frm.doc.allocated_idr_payment = total_allocated;
+				refresh_field("allocated_idr_payment");
+			}
 			var idr_to_gold=0;
 			if (frm.doc.unallocated_idr_payment>0){
 				idr_to_gold = (frm.doc.unallocated_idr_payment/frm.doc.tutupan);

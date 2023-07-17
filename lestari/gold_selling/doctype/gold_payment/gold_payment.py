@@ -764,9 +764,9 @@ class GoldPayment(StockController):
 		#	frappe.msgprint("Discount credit = {} , debit = {}".format(credit,debit))
 		if self.write_off!=0:
 			if self.write_off>0:
-				gl[self.write_off_account]=self.gl_dict(cost_center,self.write_off_account,self.write_off*self.tutupan,0,fiscal_years)
+				gl[self.write_off_account]=self.gl_dict(cost_center,self.write_off_account,self.write_off_total,0,fiscal_years)
 			else:
-				gl[self.write_off_account]=self.gl_dict(cost_center,self.write_off_account,0,self.write_off*self.tutupan*-1,fiscal_years)
+				gl[self.write_off_account]=self.gl_dict(cost_center,self.write_off_account,0,self.write_off_total*-1,fiscal_years)
 		if self.total_gold_payment>0:
 			warehouse_value=0
 			titip={}
