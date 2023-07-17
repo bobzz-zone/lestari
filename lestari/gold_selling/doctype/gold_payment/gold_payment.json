@@ -28,9 +28,7 @@
   "get_gold_invoice",
   "invoice_table",
   "customer_return",
-  "section_break_19",
   "stock_return_transfer",
-  "total_24k_return",
   "deposit_sb",
   "ag_cb",
   "gold_invoice_advance",
@@ -122,14 +120,12 @@
    "options": "Gold Payment Invoice"
   },
   {
-   "depends_on": "eval:doc.type_payment==\"Gold\"",
    "fieldname": "stock_payment",
    "fieldtype": "Table",
    "label": "Stock Payment",
    "options": "Stock Payment"
   },
   {
-   "depends_on": "eval:doc.type_payment==\"IDR\"",
    "fieldname": "idr_payment",
    "fieldtype": "Table",
    "label": "IDR Payment",
@@ -383,7 +379,6 @@
    "options": "jadikan_deposit"
   },
   {
-   "depends_on": "eval:doc.type_payment==\"IDR\"",
    "fieldname": "invoice_advance",
    "fieldtype": "Table",
    "label": "Advance IDR",
@@ -525,7 +520,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-06-27 11:14:52.404612",
+ "modified": "2023-07-17 16:53:48.195564",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",
