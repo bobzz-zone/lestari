@@ -23,7 +23,7 @@
    "type": "Link"
   }
  ],
- "modified": "2023-07-11 13:10:58.348287",
+ "modified": "2023-07-13 10:07:24.050176",
  "modified_by": "dendro@lms.com",
  "module": "Stockist",
  "name": "Stockist",
@@ -62,6 +62,13 @@
    "label": "Transfer Stockist ke Barang Lama",
    "link_to": "Transfer Stockist",
    "stats_filter": "    {\n        \"transfer\":\"Transfer Stockist ke Barang Lama\"\n    }",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "New",
+   "label": "Transfer Barang Lama ke Stockist",
+   "link_to": "Transfer Stockist",
+   "stats_filter": "{\r\n    \"transfer\": \"Transfer Barang Lama ke Stockist\"\r\n}",
    "type": "DocType"
   },
   {

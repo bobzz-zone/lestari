@@ -21,7 +21,8 @@
   "voucher_no",
   "column_break_9",
   "child_type",
-  "child_name"
+  "child_name",
+  "is_out"
  ],
  "fields": [
   {
@@ -132,12 +133,18 @@
   {
    "fieldname": "section_break_11",
    "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_out",
+   "fieldtype": "Check",
+   "label": "Is Out"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-06-28 15:55:01.431020",
+ "modified": "2023-07-14 15:50:01.328131",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Stock Return Transfer Details",

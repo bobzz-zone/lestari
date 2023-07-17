@@ -44,17 +44,21 @@ class CustomerDeposit(StockController):
 						frappe.db.sql("""update `tabJanji Bayar` set status="Lunas",total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_deposit,self.janji_bayar))
 					else:
 						frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_deposit,self.janji_bayar))
-		# if self.list_janji_bayar and self.total_idr_deposit>0:
-		# 	deposit = self.total_idr_deposit
-		# 	for row in self.list_janji_bayar:
-		# 		if deposit > 0:
-		# 			janji=frappe.get_doc("Janji Bayar",row.janji_bayar)
-		# 			if janji.status=="Pending":
-		# 				if janji.sisa_janji<=deposit : 
-		# 					frappe.db.sql("""update `tabJanji Bayar` set status="Lunas",total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(deposit,row.janji_bayar))
-		# 				else:
-		# 					frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(deposit,row.janji_bayar))
-		# 			deposit = deposit - janji.sisa_janji
+		if self.list_janji_bayar and self.total_idr_deposit>0:
+			deposit = self.total_idr_deposit #5,938,340,461.00
+			for row in self.list_janji_bayar:
+				if deposit > 0:
+					janji=frappe.get_doc("Janji Bayar",row.janji_bayar)
+					if janji.status=="Pending":
+						if janji.sisa_janji<=deposit : 
+							frappe.db.sql("""update `tabJanji Bayar` set status="Lunas", total_terbayar = {0}, sisa_janji=0 where name = "{1}" """.format(janji.total_bayar,row.janji_bayar))
+							frappe.db.sql("""UPDATE `tabPembayaran Janji Bayar` SET idr_janji_bayar = {2}, sisa_janji = {3}, status_janji = "{4}",allocated_janji = {0} where name = "{1}" """.format(janji.sisa_janji,row.name,janji.total_bayar, 0,"Lunas"))
+						else:
+							frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(deposit,row.janji_bayar))
+							frappe.db.sql("""UPDATE `tabPembayaran Janji Bayar` SET idr_janji_bayar = {2}, sisa_janji = {3},allocated_janji = {0} where name = "{1}" """.format(deposit,row.name,row.idr_janji_bayar + row.allocated_janji, (row.total_janji_bayar - row.allocated_janji)))
+					deposit = deposit - janji.sisa_janji # 5,938,340,461.00 - 5,451,000,000.00 = 487,340,461.00
+		self.reload()
+     
 	def on_cancel(self):
 		self.flags.ignore_links=True
 		if self.idr_left !=self.total_idr_deposit or self.gold_left != self.total_gold_deposit:
@@ -72,17 +76,14 @@ class CustomerDeposit(StockController):
 					frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar-{0} ,status="Pending", sisa_janji=sisa_janji+{0} where name = "{1}" """.format(self.total_idr_deposit,self.janji_bayar))
 				else:
 					frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar-{0} , sisa_janji=sisa_janji+{0} where name = "{1}" """.format(self.total_idr_deposit,self.janji_bayar))
-		# if self.list_janji_bayar and self.total_idr_deposit>0:
-		# 	deposit = self.total_idr_deposit
-		# 	for row in self.list_janji_bayar:
-		# 		if deposit > 0:
-		# 			janji=frappe.get_doc("Janji Bayar",row.janji_bayar)
-					# if janji.status == "Lunas":
-					# 	frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar-{0} ,status="Pending", sisa_janji=sisa_janji+{0} where name = "{1}" """.format(deposit,row.janji_bayar))
-					# else:
-					# 	frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar-{0} , sisa_janji=sisa_janji+{0} where name = "{1}" """.format(deposit,row.janji_bayar))
-					# deposit = janji.total_terbayar - deposit
-					# frappe.msgprint(deposit)
+		if self.list_janji_bayar and self.total_idr_deposit>0:
+			for row in self.list_janji_bayar:
+					janji=frappe.get_doc("Janji Bayar",row.janji_bayar)
+					if janji.status == "Lunas":
+						frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar-{0} ,status="Pending", sisa_janji=sisa_janji+{0} where name = "{1}" """.format(row.allocated_janji,row.janji_bayar))
+					else:
+						frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar-{0} , sisa_janji=sisa_janji+{0} where name = "{1}" """.format(row.allocated_janji,row.janji_bayar))
+
      
 	@frappe.whitelist()
 	def get_janji_bayar(self):

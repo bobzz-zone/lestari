@@ -52,6 +52,7 @@ class GoldPayment(StockController):
 			total_cpr24k = 0
 			if self.stock_return_transfer:
 				cpr = frappe.new_doc("Customer Payment Return")
+				cpr.no_pembayaran = self.name
 				cpr.no_nota = self.invoice_table[0].gold_invoice
 				cpr.customer = self.customer
 				cpr.sales_bundle = self.sales_bundle
@@ -68,8 +69,12 @@ class GoldPayment(StockController):
 						'total_amount': row.amount
 					}
 					cpr.append('items',baris_baru)
+					frappe.db.sql(""" UPDATE `tabStock Return Transfer Details SET is_out = {} where name = {} """.format(1,row.no_doc))
 				cpr.total = total_cpr24k
 				cpr.outstanding = total_cpr24k
+				cpr.flags.ignore_permissions = True
+				cpr.submit()
+				
 				#update invoice
 			if self.jadi_deposit>0:
 				piutang_gold = self.piutang_gold
@@ -119,6 +124,13 @@ class GoldPayment(StockController):
 		#revert advance
 		frappe.db.sql("""update `tabGL Entry` set  against_voucher_type=NULL,against_voucher=NULL where against_voucher_type="Gold Payment" and against_voucher="{}" """.format(self.name))
 		#merge if needed
+		if self.stock_return_transfer:
+			doc = frappe.get_doc("Customer Payment Return", filters={"no_pembayaran":self.name})
+			doc.flags.ignore_permissions = True
+			doc.cancel()
+			for row in self.stock_return_transfer:
+				frappe.db.sql(""" UPDATE `tabStock Return Transfer Details SET is_out = {} where name = {} """.format(0,row.no_doc))
+
 		gl_need_deleted=""
 		patch={}
 		for row in self.invoice_advance:
@@ -281,31 +293,34 @@ class GoldPayment(StockController):
 				}
 				self.append("invoice_table",baris_baru)
 		list_cpr = frappe.db.get_list("Customer Payment Return", filters={"customer": self.customer, "invoice_status":"Unpaid", 'docstatus':1}, fields=['name','outstanding','due_date','tutupan','total'])
-		total24k = 0
 		if not self.total_invoice:
 			self.total_invoice=0
 		for row in list_cpr:
 			# frappe.msgprint(str(row))
 			self.total_invoice = self.total_invoice + row.outstanding
-			# baris_baru = {
-			# 	'invoice':row.name,
-			# 	'total':row.total,
-			# 	'outstanding':row.outstanding,
-			# 	'due_date':row.due_date,
-			# 	'tutupan':row.tutupan
-			# }
-			# self.append("customer_return",baris_baru)
-			doc = frappe.get_doc("Customer Payment Return", row.name)
-			for col in doc.items:
-				total24k = total24k + col.amount
-				baris_baru_item = {
-					'item':col.item,
-					'bruto':col.qty,
-					'rate':col.rate,
-					'amount':col.amount
-				}
-				self.append("stock_return_transfer",baris_baru_item)
-		self.total_24k_return = total24k
+			baris_baru = {
+				'invoice':row.name,
+				'total':row.total,
+				'outstanding':row.outstanding,
+				'due_date':row.due_date,
+				'tutupan':row.tutupan
+			}
+			self.append("customer_return",baris_baru)
+		list_srt = frappe.db.get_list("Stock Return Transfer", filters={"type":"Keluar", "docstatus":1})
+		# total24k = 0
+		for row in list_srt:
+			doc = frappe.get_doc("Stock Return Transfer", row.name)
+			for col in doc.transfer_details:
+				if self.customer == col.customer or self.subcustomer == col.sub_customer:
+					# total24k = total24k + col.berat
+					baris_baru_item = {
+						'item':col.item,
+						'bruto':col.berat,
+						'no_parent' : row.name,
+						'no_doc': col.name
+					}
+					self.append("stock_return_transfer",baris_baru_item)
+		# self.total_24k_return = total24k
 		#lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_idr_advance
 		#lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_gold_advance
 		total_advance = 0

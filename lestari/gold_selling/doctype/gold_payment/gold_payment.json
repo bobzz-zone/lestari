@@ -515,12 +515,22 @@
    "label": "Piutang Gold",
    "options": "Account",
    "read_only": 1
+  },
+  {
+   "fieldname": "total_24k_return",
+   "fieldtype": "Float",
+   "label": "Total 24K Return",
+   "precision": "2"
+  },
+  {
+   "fieldname": "section_break_19",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-07-17 16:53:48.195564",
+ "modified": "2023-06-27 16:06:16.589879",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

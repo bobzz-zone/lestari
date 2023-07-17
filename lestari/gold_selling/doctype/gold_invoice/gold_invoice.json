@@ -137,8 +137,7 @@
   {
    "fieldname": "tutupan",
    "fieldtype": "Currency",
-   "label": "Harga 24K",
-   "read_only": 1
+   "label": "Harga 24K"
   },
   {
    "fieldname": "column_break_10",
@@ -438,7 +437,7 @@
   {
    "fieldname": "type_emas",
    "fieldtype": "Link",
-   "label": "Kurs Emas",
+   "label": "Satuan",
    "options": "Basic Nilai Tukar Emas"
   },
   {
