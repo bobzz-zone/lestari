@@ -118,12 +118,14 @@ function calculate_table_idr(frm,cdt,cdn){
 	//calculate total payment
 	frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_in_gold;
 	frm.doc.unallocated_idr_payment=frm.doc.total_idr_payment + frm.doc.total_idr_advance;
-	frm.doc.unallocated_payment=frm.doc.total_gold_payment+frm.doc.total_gold-frm.doc.allocated_payment;
+	frm.doc.unallocated_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold-frm.doc.allocated_payment;
 	//frappe.msgprint("Callculate IDR");
 	refresh_field("total_payment");
 	refresh_field("unallocated_payment");
 	refresh_field("unallocated_idr_payment");
-	if(frm.doc.unallocated_payment<0){
+	if(frm.doc.allocated_payment!=0){
+		reset_allocated(frm);
+	}else if(frm.doc.allocated_idr_payment!=0){
 		reset_allocated(frm);
 	}
 }
@@ -298,23 +300,22 @@ frappe.ui.form.on('Gold Payment', {
 			frappe.throw("Tidak ada Invoice yang terpilih");
 		}else{
 			reset_allocated(frm);
-			//kalo rupiah top sisakan ke sisa nilai IDR di potong pajak
-			if (frm.doc.type_payment=="IDR"){
-				var idr_need_to=frm.doc.unallocated_idr_payment;
-				var total_allocated=0;
-				$.each(frm.doc.invoice_table,  function(i,  g) {
-					if (idr_need_to > g.outstanding_tax){
-						g.tax_allocated=g.outstanding_tax;
-					}else{
-						g.tax_allocated=idr_need_to;
-					}
-					total_allocated = total_allocated + g.tax_allocated;
-					idr_need_to=idr_need_to-g.tax_allocated;
-				});
-				frm.doc.unallocated_idr_payment=idr_need_to;
-				frm.doc.allocated_idr_payment = total_allocated;
-				refresh_field("allocated_idr_payment");
-			}
+			//payment rupiah selali di alokasikan ke pajak dulu
+			var idr_need_to=frm.doc.unallocated_idr_payment;
+			var total_allocated=0;
+			$.each(frm.doc.invoice_table,  function(i,  g) {
+				if (idr_need_to > g.outstanding_tax){
+					g.tax_allocated=g.outstanding_tax;
+				}else{
+					g.tax_allocated=idr_need_to;
+				}
+				total_allocated = total_allocated + g.tax_allocated;
+				idr_need_to=idr_need_to-g.tax_allocated;
+			});
+			frm.doc.unallocated_idr_payment=idr_need_to;
+			frm.doc.allocated_idr_payment = total_allocated;
+			refresh_field("allocated_idr_payment");
+			
 			var idr_to_gold=0;
 			if (frm.doc.unallocated_idr_payment>0){
 				idr_to_gold = (frm.doc.unallocated_idr_payment/frm.doc.tutupan);
@@ -553,12 +554,12 @@ frappe.ui.form.on('Gold Payment', {
 			}, __("View"));
 		}
 	},
-	type_payment:function(frm){
+	/*type_payment:function(frm){
 		frm.doc.idr_payment=[];
 		frm.doc.stock_payment=[];
 		refresh_field("stock_payment");
 		refresh_field("idr_payment")
-	},
+	},*/
 	type_emas:function(frm){
 		frm.doc.stock_payment=[];
 		refresh_field("stock_payment");
