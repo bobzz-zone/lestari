@@ -325,7 +325,7 @@ class GoldPayment(StockController):
 		#lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_gold_advance
 		total_advance = 0
 		#if self.type_payment=="IDR":
-		list_deposit=frappe.db.sql("""select name , idr_left ,account_piutang,posting_date,customer from `tabCustomer Deposit` where deposit_type="IDR" and docstatus=1 and (customer="{}" or subcustomer="{}" ) """.format(self.customer,self.subcustomer),as_dict=1)
+		list_deposit=frappe.db.sql("""select name , idr_left ,account_piutang,posting_date,customer from `tabCustomer Deposit` where idr_left>0 and deposit_type="IDR" and docstatus=1 and (customer="{}" or subcustomer="{}" ) """.format(self.customer,self.subcustomer),as_dict=1)
 		total_idr_in_gold = 0
 		for row in list_deposit:
 			# frappe.msgprint(str(row))
@@ -346,7 +346,7 @@ class GoldPayment(StockController):
 			self.total_idr_in_gold = total_idr_in_gold
 			total_advance += total_idr_in_gold
 		#if self.type_payment=="Gold":
-		list_deposit=frappe.db.sql("""select name , gold_left ,tutupan,posting_date,customer from `tabCustomer Deposit` where deposit_type="Emas" and docstatus=1 and (customer="{}" or subcustomer="{}" ) """.format(self.customer,self.subcustomer),as_dict=1)
+		list_deposit=frappe.db.sql("""select name , gold_left ,tutupan,posting_date,customer from `tabCustomer Deposit` where gold_left>0 and deposit_type="Emas" and docstatus=1 and (customer="{}" or subcustomer="{}" ) """.format(self.customer,self.subcustomer),as_dict=1)
 		total_gold = 0
 		for row in list_deposit:
 			# frappe.msgprint(str(row))
