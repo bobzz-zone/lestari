@@ -12,6 +12,7 @@
   "transfer_type",
   "s_warehouse",
   "t_warehouse",
+  "status",
   "cb1",
   "id_employee",
   "pic",
@@ -246,12 +247,21 @@
    "label": "Area Penerima",
    "options": "Department",
    "read_only": 1
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Draft\nSubmitted\nCancelled",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-07-11 16:41:04.472831",
+ "modified": "2023-07-17 14:25:08.595980",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Transfer Stockist",

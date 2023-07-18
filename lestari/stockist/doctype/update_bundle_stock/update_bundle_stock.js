@@ -239,6 +239,10 @@ frappe.ui.form.on('Update Bundle Stock', {
 	validate: function(frm){
 		frm.events.get_disconnect(frm)
 	},
+	// before_submit: function(frm){
+	// 	cur_frm.set_value('status','Submitted')
+	// 	frm.refresh();
+	// },
 	refresh: function(frm) {	
 		cur_frm.dashboard.refresh();
 		const hasil_timbang = `

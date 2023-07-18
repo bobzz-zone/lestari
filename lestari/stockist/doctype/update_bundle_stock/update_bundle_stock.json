@@ -45,6 +45,7 @@
   "total_per_sub_category_section",
   "per_sub_category",
   "section_break_13",
+  "status",
   "amended_from"
  ],
  "fields": [
@@ -64,6 +65,7 @@
    "fieldname": "type",
    "fieldtype": "Select",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Type",
    "options": "\nAdd Stock\nDeduct Stock",
    "reqd": 1
@@ -292,12 +294,21 @@
    "options": "Update Bundle Stock",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Draft\nSubmitted\nCancelled",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-07-03 14:21:07.265009",
+ "modified": "2023-07-17 14:25:29.706383",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Update Bundle Stock",
