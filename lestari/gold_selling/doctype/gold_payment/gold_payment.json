@@ -14,7 +14,6 @@
   "sales_bundle",
   "janji_bayar",
   "sales_warehouse",
-  "type_payment",
   "type_emas",
   "piutang_gold",
   "column_break_2",
@@ -54,6 +53,8 @@
   "tutupan",
   "write_off_account",
   "write_off",
+  "write_off_idr",
+  "write_off_total",
   "total_payment",
   "charges_sb",
   "other_charges",
@@ -158,7 +159,8 @@
    "fieldname": "write_off",
    "fieldtype": "Float",
    "label": "Write Off",
-   "precision": "3"
+   "precision": "3",
+   "read_only": 1
   },
   {
    "fieldname": "amended_from",
@@ -471,12 +473,6 @@
    "options": "Gold Payment Stock Return"
   },
   {
-   "fieldname": "type_payment",
-   "fieldtype": "Select",
-   "label": "Type Pembayaran",
-   "options": "IDR\nGold"
-  },
-  {
    "default": "CT",
    "fieldname": "type_emas",
    "fieldtype": "Link",
@@ -517,20 +513,22 @@
    "read_only": 1
   },
   {
-   "fieldname": "total_24k_return",
-   "fieldtype": "Float",
-   "label": "Total 24K Return",
-   "precision": "2"
+   "fieldname": "write_off_idr",
+   "fieldtype": "Currency",
+   "label": "Write Off in IDR",
+   "read_only": 1
   },
   {
-   "fieldname": "section_break_19",
-   "fieldtype": "Section Break"
+   "fieldname": "write_off_total",
+   "fieldtype": "Currency",
+   "label": "Write Off Total",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-06-27 16:06:16.589879",
+ "modified": "2023-07-18 09:49:38.443635",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",
