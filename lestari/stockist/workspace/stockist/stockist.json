@@ -23,7 +23,7 @@
    "type": "Link"
   }
  ],
- "modified": "2023-07-17 13:38:08.084923",
+ "modified": "2023-07-21 11:02:35.158068",
  "modified_by": "dendro@lms.com",
  "module": "Stockist",
  "name": "Stockist",
@@ -35,6 +35,7 @@
    "doc_view": "List",
    "label": "Transfer Salesman",
    "link_to": "Update Bundle Stock",
+   "stats_filter": "{\n    \"status\" : \"Draft\"\n}",
    "type": "DocType"
   },
   {

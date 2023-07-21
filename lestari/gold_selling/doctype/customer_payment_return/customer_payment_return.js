@@ -15,6 +15,9 @@ function calculate_table_stock(frm,cdt,cdn){
 }
 
 frappe.ui.form.on('Customer Payment Return', {
+	setup: function(frm){
+		frm.set_value('posting_time', frappe.datetime.now_time());
+	},
 	refresh: function(frm) {
 		if(!frm.doc.tutupan){
 			frappe.call({
@@ -70,13 +73,15 @@ frappe.ui.form.on('Stock Payment Return Item', {
                 callback: function (r){
                     frappe.model.set_value(cdt, cdn,"rate",r.message.nilai);
                     frappe.model.set_value(cdt, cdn,"amount",parseFloat(r.message.nilai)*d.qty/100);
-                	var total=0;
+                	var total_amount=0;
+					var total_bruto=0;
 				    $.each(frm.doc.items,  function(i,  g) {
-				    	total=total+g.amount;
+				    	total_amount=total_amount+g.amount;
+				    	total_bruto=total_bruto+g.qty;
 				    });
-			    	frm.doc.total=total;
+			    	frm.doc.total=total_amount;
 				    refresh_field("total");
-				    frm.doc.outstanding=total;
+				    frm.doc.outstanding=total_bruto;
 					refresh_field("outstanding");
                 	}
                 });

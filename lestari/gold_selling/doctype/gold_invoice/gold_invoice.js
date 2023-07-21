@@ -13,6 +13,13 @@ frappe.ui.form.on("Gold Invoice", {
 	},
 	refresh: function (frm) {
 	// your code here
+	frm.set_query("bundle", function(){
+		return {
+			"filters": [
+				["Sales Stock Bundle","aktif", "=", "1"],
+			]
+		}
+	});
 		frm.events.make_custom_buttons(frm);
 		if (!cur_frm.doc.tutupan) {
 			frappe.call({

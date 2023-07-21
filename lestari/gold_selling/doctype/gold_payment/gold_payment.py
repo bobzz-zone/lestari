@@ -60,16 +60,16 @@ class GoldPayment(StockController):
 					total_cpr24k = total_cpr24k + row.amount
 					baris_baru = {
 						'item':row.item,
-						'bruto':row.bruto,
+						'qty':row.bruto,
 						'rate':row.rate,
 						'tutupan':self.tutupan,
 						'voucher_type': self.doctype,
 						'voucher_no': self.name,
-						'no_document': row.no_document,
-						'total_amount': row.amount
+						'no_document': row.no_parent,
+						'amount': row.amount
 					}
 					cpr.append('items',baris_baru)
-					frappe.db.sql(""" UPDATE `tabStock Return Transfer Details SET is_out = {} where name = {} """.format(1,row.no_doc))
+					frappe.db.sql(""" UPDATE `tabStock Return Transfer Details` SET is_out = {} where name = "{}" """.format(1,row.no_doc))
 				cpr.total = total_cpr24k
 				cpr.outstanding = total_cpr24k
 				cpr.flags.ignore_permissions = True
@@ -315,6 +315,8 @@ class GoldPayment(StockController):
 					# total24k = total24k + col.berat
 					baris_baru_item = {
 						'item':col.item,
+						'customer': col.customer,
+						'sub_customer': col.sub_customer,
 						'bruto':col.berat,
 						'no_parent' : row.name,
 						'no_doc': col.name
