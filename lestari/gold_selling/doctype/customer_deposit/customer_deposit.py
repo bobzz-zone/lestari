@@ -250,6 +250,7 @@ class CustomerDeposit(StockController):
 				if self.deposit_payment==1:
 					depo_account = frappe.db.get_single_value('Gold Selling Settings', 'payment_deposit_coa')
 					gl[depo_account]=self.gl_dict(cost_center,depo_account,self.total_gold_deposit*self.tutupan,0,fiscal_years)
+					frappe.msgprint(gl)
 				else:
 					warehouse_value=0
 					titip={}
