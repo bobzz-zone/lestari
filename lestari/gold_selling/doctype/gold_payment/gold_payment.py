@@ -92,7 +92,7 @@ class GoldPayment(StockController):
 				depo.gold_payment=self.name
 				depo.total_gold_deposit=self.jadi_deposit
 				depo.gold_left=self.jadi_deposit
-				depo.account_piutang=piutang_gold
+				depo.piutang_gold=piutang_gold
 				depo.account_piutang=frappe.db.get_single_value('Gold Selling Settings', 'piutang_idr')
 				# frappe.msgprint(depo)
 				depo.flags.ignore_permissions = True
