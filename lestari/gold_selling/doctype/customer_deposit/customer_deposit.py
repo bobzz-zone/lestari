@@ -146,7 +146,7 @@ class CustomerDeposit(StockController):
 			gl_entries = self.get_gl_entries()
 		#frappe.msgprint(gl_entries)
 		for row in gl_entries:
-			frappe.msgprint(row)
+			print(row)
 		if gl_entries:
 			update_outstanding = "Yes"
 
