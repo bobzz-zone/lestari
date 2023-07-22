@@ -306,6 +306,7 @@ frappe.ui.form.on('Gold Payment', {
 		frm.doc.unallocated_payment=0;
 		frm.doc.unallocated_idr_payment=0;
 		refresh_field("unallocated_payment");
+		refresh_field("unallocated_idr_payment");
 		refresh_field("jadi_deposit");
 		//frm.dirty();
 	},
