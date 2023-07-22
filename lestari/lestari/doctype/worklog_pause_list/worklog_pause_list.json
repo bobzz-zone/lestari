@@ -1,0 +1,62 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-07-18 12:24:25.811745",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "start_pause",
+  "end_pause",
+  "keterangan_pause",
+  "catatan",
+  "total_seconds"
+ ],
+ "fields": [
+  {
+   "fieldname": "start_pause",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Start Pause",
+   "reqd": 1
+  },
+  {
+   "fieldname": "end_pause",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "End Pause",
+   "reqd": 1
+  },
+  {
+   "fieldname": "keterangan_pause",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Keterangan Pause",
+   "options": "Keterangan Pause",
+   "reqd": 1
+  },
+  {
+   "fieldname": "catatan",
+   "fieldtype": "Data",
+   "label": "Catatan"
+  },
+  {
+   "fieldname": "total_seconds",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Total Seconds",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-07-21 14:55:41.199620",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Worklog Pause List",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

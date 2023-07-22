@@ -37,6 +37,7 @@
   {
    "fieldname": "purpose",
    "fieldtype": "Select",
+   "in_standard_filter": 1,
    "label": "Purpose",
    "options": "Sales\nEvent"
   },
@@ -45,6 +46,7 @@
    "default": "1",
    "fieldname": "aktif",
    "fieldtype": "Check",
+   "in_standard_filter": 1,
    "label": "Aktif"
   },
   {
@@ -57,6 +59,7 @@
    "in_global_search": 1,
    "in_list_view": 1,
    "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Sales",
    "options": "Sales Partner",
    "search_index": 1
@@ -94,7 +97,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-05 14:00:47.262691",
+ "modified": "2023-07-18 11:38:53.412076",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Sales Stock Bundle",

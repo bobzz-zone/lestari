@@ -7,6 +7,8 @@
  "engine": "InnoDB",
  "field_order": [
   "item",
+  "customer",
+  "sub_customer",
   "bruto",
   "rate",
   "amount",
@@ -23,12 +25,14 @@
    "reqd": 1
   },
   {
+   "columns": 1,
    "fieldname": "bruto",
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Bruto"
   },
   {
+   "columns": 1,
    "fieldname": "rate",
    "fieldtype": "Percent",
    "in_list_view": 1,
@@ -43,20 +47,32 @@
   {
    "fieldname": "no_doc",
    "fieldtype": "Data",
-   "hidden": 1,
    "label": "No Doc"
   },
   {
    "fieldname": "no_parent",
    "fieldtype": "Data",
-   "hidden": 1,
    "label": "No Parent"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "sub_customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Sub Customer",
+   "options": "Customer"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-07-14 16:29:55.077828",
+ "modified": "2023-07-20 16:22:16.531054",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment Stock Return",

@@ -41,6 +41,13 @@ frappe.ui.form.on('Customer Deposit', {
 		// });
 	},
 	refresh: function(frm) {
+		frm.set_query("sales_bundle", function(){
+			return {
+				"filters": [
+					["Sales Stock Bundle","aktif", "=", "1"],
+				]
+			}
+		});
 		frm.set_query("item","stock_deposit", function(doc, cdt, cdn) {
     			return {
     				"filters": {

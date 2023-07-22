@@ -173,7 +173,7 @@
    "type": "Link"
   }
  ],
- "modified": "2023-06-16 15:55:17.251605",
+ "modified": "2023-07-18 10:55:54.759995",
  "modified_by": "dendro@lms.com",
  "module": "Gold Selling",
  "name": "Gold Selling",
@@ -206,18 +206,7 @@
    "type": "DocType"
   },
   {
-   "doc_view": "List",
-   "label": "Update Bundle Stock",
-   "link_to": "Update Bundle Stock",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "List",
-   "label": "Form Order",
-   "link_to": "Form Order",
-   "type": "DocType"
-  },
-  {
+   "color": "#CB2929",
    "doc_view": "List",
    "label": "Serah Terima Payment Cash",
    "link_to": "Serah Terima Payment Cash",
