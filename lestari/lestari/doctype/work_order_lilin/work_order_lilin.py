@@ -122,7 +122,7 @@ class WorkOrderLilin(Document):
 		target_doc = frappe.new_doc("NTHKO Lilin")
 		target_doc.pohon_id = sumber_doc.pohon_id
 		target_doc.work_order_id = sumber_doc.name
-		target_doc.warehouse_tujuan = "Supermarket - L"
+		target_doc.warehouse_tujuan = "Supermarket - LMS"
 		target_doc.kadar = sumber_doc.kadar
 		target_doc.ukuran_base_karet = sumber_doc.ukuran_base_karet
 		target_doc.nomor_base_karet = sumber_doc.nomor_base_karet
