@@ -8,7 +8,6 @@
  "engine": "InnoDB",
  "field_order": [
   "batch_work_log",
-  "spko",
   "operation",
   "employee",
   "employee_id",
@@ -30,7 +29,8 @@
   "detik_akumulasi",
   "uuid",
   "list_pause",
-  "amended_from"
+  "amended_from",
+  "list_spko"
  ],
  "fields": [
   {
@@ -38,14 +38,6 @@
    "fieldtype": "Link",
    "label": "Batch Work Log",
    "options": "Batch Work Log"
-  },
-  {
-   "fieldname": "spko",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "SPKO",
-   "options": "SPKO",
-   "reqd": 1
   },
   {
    "fieldname": "operation",
@@ -170,12 +162,19 @@
    "options": "Work log Testing",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "list_spko",
+   "fieldtype": "Table",
+   "label": "List Spko",
+   "options": "Worklog spko list",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-07-21 14:55:06.870372",
+ "modified": "2023-07-24 10:48:30.926194",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Work log Testing",
