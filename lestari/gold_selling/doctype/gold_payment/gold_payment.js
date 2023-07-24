@@ -356,7 +356,7 @@ frappe.ui.form.on('Gold Payment', {
 				//frappe.msgprint("Tidak ada pembayaran yang dapat di alokasikan");
 				return;
 			}
-			frappe.msgprint("Need to "+need_to +" dari IDR "+idr_to_gold);
+			frappe.msgprint("Need to "+need_to +" dari IDR "+idr_to_gold+" dari GOLD "+saldo_gold);
 			$.each(frm.doc.customer_return,  function(i,  g) {
 				var alo=0;
 				if (need_to>(g.outstanding-g.allocated)){
