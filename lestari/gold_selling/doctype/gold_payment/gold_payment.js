@@ -369,6 +369,7 @@ frappe.ui.form.on('Gold Payment', {
 				need_to=need_to-alo;
 				frappe.model.set_value(g.doctype, g.name, "allocated", alo);
 			});
+			frappe.msgprint("Gold Terbaca "+need_to);
 			if (need_to>0) {
 				$.each(frm.doc.invoice_table,  function(i,  g) {
 					var alo=0;
