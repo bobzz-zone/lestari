@@ -611,6 +611,7 @@ frappe.ui.form.on('Gold Payment Invoice', {
 	},
 	allocated:function(frm,cdt,cdn) {
 		if(!onDistribute){
+			frappe.msgprint("shitt");
 			calculate_table_invoice_alo(frm,cdt,cdn);
 		}else{
 			frappe.msgprint("its work");
