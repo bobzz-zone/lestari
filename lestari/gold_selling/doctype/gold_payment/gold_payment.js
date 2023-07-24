@@ -158,7 +158,7 @@ function calculate_table_stock(frm,cdt,cdn){
 
 frappe.ui.form.on("Gold Invoice Advance IDR", {
 	idr_allocated: function (frm, cdt, cdn) {
-		/*var d = locals[cdt][cdn];
+		var d = locals[cdt][cdn];
 		if (d.idr_allocated > d.idr_deposit) {
 			frappe.model.set_value(cdt, cdn, "idr_allocated", 0);
 			frappe.throw("Allocated cant be higher than deposit value");
@@ -172,21 +172,20 @@ frappe.ui.form.on("Gold Invoice Advance IDR", {
 		frm.doc.total_idr_in_gold = idr / frm.doc.tutupan;
 		frm.doc.total_idr_advance=idr;
 		frm.doc.total_advance = frm.doc.total_gold + frm.doc.total_idr_in_gold;
-		frm.doc.unallocated_idr_payment=frm.doc.total_idr_payment+frm.doc.total_idr_advance;
+		/*frm.doc.unallocated_idr_payment=frm.doc.total_idr_payment+frm.doc.total_idr_advance;
 		frm.doc.unallocated_payment=frm.doc.total_gold_payment+frm.doc.total_gold-frm.doc.allocated_payment;
-		//frappe.msgprint("IDR Allocated");
 		refresh_field("unallocated_payment");
-		refresh_field("unallocated_idr_payment");
+		refresh_field("unallocated_idr_payment");*/
 		refresh_field("total_idr_in_gold");
 		refresh_field("total_advance");
-		if(frm.doc.allocated_payment>0 || frm.doc.allocated_idr_payment>0){
+		//if(frm.doc.allocated_payment>0 || frm.doc.allocated_idr_payment>0){
 			reset_allocated(frm);
-		}*/
+		//}
 	},
 });
 frappe.ui.form.on("Gold Invoice Advance Gold", {
 	gold_allocated: function (frm, cdt, cdn) {
-		/*var d = locals[cdt][cdn];
+		var d = locals[cdt][cdn];
 		if (d.gold_allocated > d.gold_deposit) {
 			frappe.model.set_value(cdt, cdn, "gold_allocated", 0);
 			frappe.throw("Allocated cant be higher than deposit value");
@@ -201,14 +200,14 @@ frappe.ui.form.on("Gold Invoice Advance Gold", {
 		frm.doc.total_advance = frm.doc.total_gold + frm.doc.total_idr_in_gold;
 		refresh_field("total_advance");
 		refresh_field("total_gold");
-		frm.doc.unallocated_idr_payment=frm.doc.total_idr_payment+frm.doc.total_idr_advance;
+		/*frm.doc.unallocated_idr_payment=frm.doc.total_idr_payment+frm.doc.total_idr_advance;
 		frm.doc.unallocated_payment=frm.doc.total_gold_payment+frm.doc.total_gold-frm.doc.allocated_payment;
 		//frappe.msgprint("Gold Allocated");
 		refresh_field("unallocated_payment");
-		refresh_field("unallocated_idr_payment");
-		if(frm.doc.allocated_payment>0 || frm.doc.allocated_idr_payment>0){
+		refresh_field("unallocated_idr_payment");*/
+		//if(frm.doc.allocated_payment>0 || frm.doc.allocated_idr_payment>0){
 			reset_allocated(frm);
-		}*/
+		//}
 	},
 });
 
