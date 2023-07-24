@@ -339,7 +339,7 @@ frappe.ui.form.on('Gold Payment', {
 				idr_to_gold=parseFloat(idr_to_gold).toFixed(3);
 			}
 			var saldo_gold=frm.doc.unallocated_payment-frm.doc.total_extra_charges;
-			var need_to=saldo_gold+idr_to_gold;
+			var need_to= parseFloat(saldo_gold) + parseFloat(idr_to_gold);
 			frappe.msgprint("Need to "+need_to +" dari IDR "+idr_to_gold+" dari GOLD "+saldo_gold);
 			// console.log(need_to)
 			var sisa_invoice = parseFloat(cur_frm.doc.total_invoice) - parseFloat(need_to) + frm.doc.total_extra_charges ;
@@ -348,9 +348,7 @@ frappe.ui.form.on('Gold Payment', {
 			}
 			cur_frm.set_value("total_sisa_invoice",sisa_invoice);
 			refresh_field("total_sisa_invoice");
-			frappe.msgprint("Need to "+need_to +" dari IDR "+idr_to_gold+" dari GOLD "+saldo_gold);
 			need_to = parseFloat(need_to).toFixed(3);
-			frappe.msgprint("Need to "+need_to +" dari IDR "+idr_to_gold+" dari GOLD "+saldo_gold);
 			var total_alo=0;
 			// console.log(need_to)
 			if(need_to<=0){
