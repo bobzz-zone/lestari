@@ -148,16 +148,17 @@ function calculate_table_stock(frm,cdt,cdn){
 	//calculate total payment
 	frm.doc.total_payment=frm.doc.total_gold_payment+frm.doc.total_idr_gold;
 	refresh_field("total_payment");
-	frm.doc.unallocated_idr_payment=frm.doc.total_idr_payment+frm.doc.total_idr_advance;
-	frm.doc.unallocated_payment=frm.doc.total_gold_payment+frm.doc.total_gold-frm.doc.allocated_payment;
+	reset_allocated(frm);
+	/*frm.doc.unallocated_idr_payment=frm.doc.total_idr_payment+frm.doc.total_idr_advance;
+	frm.doc.unallocated_payment=frm.doc.total_gold_payment+frm.doc.total_gold;
 	//frappe.msgprint("Callculate Stock");
 	refresh_field("unallocated_payment");
-	refresh_field("unallocated_idr_payment");
+	refresh_field("unallocated_idr_payment");*/
 }
 
 frappe.ui.form.on("Gold Invoice Advance IDR", {
 	idr_allocated: function (frm, cdt, cdn) {
-		var d = locals[cdt][cdn];
+		/*var d = locals[cdt][cdn];
 		if (d.idr_allocated > d.idr_deposit) {
 			frappe.model.set_value(cdt, cdn, "idr_allocated", 0);
 			frappe.throw("Allocated cant be higher than deposit value");
@@ -180,12 +181,12 @@ frappe.ui.form.on("Gold Invoice Advance IDR", {
 		refresh_field("total_advance");
 		if(frm.doc.allocated_payment>0 || frm.doc.allocated_idr_payment>0){
 			reset_allocated(frm);
-		}
+		}*/
 	},
 });
 frappe.ui.form.on("Gold Invoice Advance Gold", {
 	gold_allocated: function (frm, cdt, cdn) {
-		var d = locals[cdt][cdn];
+		/*var d = locals[cdt][cdn];
 		if (d.gold_allocated > d.gold_deposit) {
 			frappe.model.set_value(cdt, cdn, "gold_allocated", 0);
 			frappe.throw("Allocated cant be higher than deposit value");
@@ -207,7 +208,7 @@ frappe.ui.form.on("Gold Invoice Advance Gold", {
 		refresh_field("unallocated_idr_payment");
 		if(frm.doc.allocated_payment>0 || frm.doc.allocated_idr_payment>0){
 			reset_allocated(frm);
-		}
+		}*/
 	},
 });
 
