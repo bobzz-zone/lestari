@@ -3,7 +3,7 @@
 
 var isButtonClicked = false;
 var isButtonClicked1 = false;
-var onDistribute=false;
+var onDistribute=0;
 //tax allocated itu di pisah tp kalo un allocated based on mata uang...
 function calculate_table_invoice(frm,cdt,cdn){
 	var total=0;
@@ -319,9 +319,9 @@ frappe.ui.form.on('Gold Payment', {
 		//frm.dirty();
 	},
 	auto_distribute:function(frm){
-		onDistribute=true;
+		onDistribute=1;
 		if (frm.doc.invoice_table==[] && frm.doc.customer_return==[]){
-			onDistribute=false;
+			onDistribute=0;
 			frappe.throw("Tidak ada Invoice yang terpilih");
 		}else{
 			reset_allocated(frm);
@@ -420,7 +420,7 @@ frappe.ui.form.on('Gold Payment', {
 			refresh_field("allocated_payment");
 			
 			refresh_total_and_charges(frm);
-			onDistribute=false;
+			onDistribute=0;
 			frappe.msgprint("Pembayaran Telah di Alokasikan");
 		}
 
@@ -610,8 +610,8 @@ frappe.ui.form.on('Gold Payment Invoice', {
 		calculate_table_invoice(frm,cdt,cdn);
 	},
 	allocated:function(frm,cdt,cdn) {
-		if(!onDistribute){
-			frappe.msgprint("shitt");
+		if(onDistribute==0){
+			frappe.msgprint("nooooo");
 			calculate_table_invoice_alo(frm,cdt,cdn);
 		}else{
 			frappe.msgprint("its work");
