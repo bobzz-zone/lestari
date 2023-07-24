@@ -340,6 +340,7 @@ frappe.ui.form.on('Gold Payment', {
 			}
 			var saldo_gold=frm.doc.unallocated_payment-frm.doc.total_extra_charges;
 			var need_to=saldo_gold+idr_to_gold;
+			frappe.msgprint("Need to "+need_to +" dari IDR "+idr_to_gold+" dari GOLD "+saldo_gold);
 			// console.log(need_to)
 			var sisa_invoice = parseFloat(cur_frm.doc.total_invoice) - parseFloat(need_to) + frm.doc.total_extra_charges ;
 			if (sisa_invoice <0){
@@ -347,7 +348,9 @@ frappe.ui.form.on('Gold Payment', {
 			}
 			cur_frm.set_value("total_sisa_invoice",sisa_invoice);
 			refresh_field("total_sisa_invoice");
+			frappe.msgprint("Need to "+need_to +" dari IDR "+idr_to_gold+" dari GOLD "+saldo_gold);
 			need_to = parseFloat(need_to).toFixed(3);
+			frappe.msgprint("Need to "+need_to +" dari IDR "+idr_to_gold+" dari GOLD "+saldo_gold);
 			var total_alo=0;
 			// console.log(need_to)
 			if(need_to<=0){
@@ -356,7 +359,6 @@ frappe.ui.form.on('Gold Payment', {
 				//frappe.msgprint("Tidak ada pembayaran yang dapat di alokasikan");
 				return;
 			}
-			frappe.msgprint("Need to "+need_to +" dari IDR "+idr_to_gold+" dari GOLD "+saldo_gold);
 			$.each(frm.doc.customer_return,  function(i,  g) {
 				var alo=0;
 				if (need_to>(g.outstanding-g.allocated)){
