@@ -3,26 +3,36 @@
 
 var isButtonClicked = false;
 var isButtonClicked1 = false;
+var onDistribute=false;
 //tax allocated itu di pisah tp kalo un allocated based on mata uang...
 function calculate_table_invoice(frm,cdt,cdn){
 	var total=0;
-	var allocated=0;
-	var tax_allocated=0;
 	var total_pajak=0;
 	$.each(frm.doc.invoice_table,  function(i,  g) {
 		total=total+g.outstanding;
-		allocated=allocated+g.allocated;
-		tax_allocated=g.tax_allocated;
 		total_pajak=g.outstanding_tax;
 	});
 	$.each(frm.doc.customer_return,  function(i,  g) {
 		total=total+g.outstanding;
-		allocated=allocated+g.allocated;
 	});
 	frm.doc.total_pajak=total_pajak;
 	frm.doc.total_invoice=total;
+	refresh_field("total_pajak");
+	refresh_field("total_invoice");
 	//frappe.model.set_value(cdt, cdn,"allocated",0);
 	frm.doc.discount_amount=frm.doc.bruto_discount/100*frm.doc.discount;
+	refresh_field("discount_amount");
+}
+function calculate_table_invoice_alo(frm,cdt,cdn){
+	var allocated=0;
+	var tax_allocated=0;
+	$.each(frm.doc.invoice_table,  function(i,  g) {
+		allocated=allocated+g.allocated;
+		tax_allocated=g.tax_allocated;
+	});
+	$.each(frm.doc.customer_return,  function(i,  g) {
+		allocated=allocated+g.allocated;
+	});
 	frm.doc.allocated_idr_payment=tax_allocated;
 	frm.doc.allocated_payment=allocated ;
 	frm.doc.unallocated_payment=frm.doc.total_gold_payment + frm.doc.total_gold -frm.doc.allocated_payment;
@@ -38,9 +48,6 @@ function calculate_table_invoice(frm,cdt,cdn){
 			frm.doc.unallocated_payment=0;
 		}
 	}
-	refresh_field("total_pajak");
-	refresh_field("total_invoice");
-	refresh_field("discount_amount");
 	refresh_field("allocated_payment");
 	refresh_field("unallocated_idr_payment");
 	refresh_field("unallocated_payment");
@@ -312,7 +319,9 @@ frappe.ui.form.on('Gold Payment', {
 		//frm.dirty();
 	},
 	auto_distribute:function(frm){
+		onDistribute=true;
 		if (frm.doc.invoice_table==[] && frm.doc.customer_return==[]){
+			onDistribute=false;
 			frappe.throw("Tidak ada Invoice yang terpilih");
 		}else{
 			reset_allocated(frm);
@@ -411,6 +420,7 @@ frappe.ui.form.on('Gold Payment', {
 			refresh_field("allocated_payment");
 			
 			refresh_total_and_charges(frm);
+			onDistribute=false;
 			frappe.msgprint("Pembayaran Telah di Alokasikan");
 		}
 
@@ -600,10 +610,13 @@ frappe.ui.form.on('Gold Payment Invoice', {
 		calculate_table_invoice(frm,cdt,cdn);
 	},
 	allocated:function(frm,cdt,cdn) {
-		calculate_table_invoice(frm,cdt,cdn);
+		if(!onDistribute){
+			calculate_table_invoice_alo(frm,cdt,cdn);
+		}
 	},
 	invoice_table_remove: function(frm,cdt,cdn){
 		calculate_table_invoice(frm,cdt,cdn);
+		reset_allocated(frm);
 	}
 });
 frappe.ui.form.on('Gold Payment Return', {
@@ -612,8 +625,9 @@ frappe.ui.form.on('Gold Payment Return', {
 		frappe.model.set_value(cdt, cdn,"allocated",0);
 	},
 	allocated:function(frm,cdt,cdn) {
-		calculate_table_invoice(frm,cdt,cdn);
-		
+		if(!onDistribute){
+			calculate_table_invoice_alo(frm,cdt,cdn);
+		}
 	}
 });
 frappe.ui.form.on('IDR Payment', {
