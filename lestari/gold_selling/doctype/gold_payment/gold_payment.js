@@ -356,7 +356,7 @@ frappe.ui.form.on('Gold Payment', {
 				//frappe.msgprint("Tidak ada pembayaran yang dapat di alokasikan");
 				return;
 			}
-			//frappe.msgprint("Need to "+need_to);
+			frappe.msgprint("Need to "+need_to +" dari IDR "+idr_to_gold);
 			$.each(frm.doc.customer_return,  function(i,  g) {
 				var alo=0;
 				if (need_to>(g.outstanding-g.allocated)){
@@ -369,7 +369,7 @@ frappe.ui.form.on('Gold Payment', {
 				need_to=need_to-alo;
 				frappe.model.set_value(g.doctype, g.name, "allocated", alo);
 			});
-			frappe.msgprint("Gold Terbaca "+need_to);
+
 			if (need_to>0) {
 				$.each(frm.doc.invoice_table,  function(i,  g) {
 					var alo=0;
