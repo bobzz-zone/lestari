@@ -346,7 +346,7 @@ class GoldInvoice(Document):
 		# 				frappe.db.sql("""update `tabGL Entry` set debit={},credit={},debit_in_account_currency={},credit_in_account_currency={} where name="{}" """.format(patch[row]['debit'],patch[row]['credit'],patch[row]['debit_in_account_currency'],patch[row]['credit_in_account_currency'],patch[row]['name']),as_list=1)
 		#==================end of line advance
 		for row in gl:
-			if not gl[row]['remarks']:
+			if 'remarks' not in gl[row]:
 				gl[row]['remarks']=""
 			gl_entries.append(frappe._dict(gl[row]))
 		gl_entries = merge_similar_entries(gl_entries)
