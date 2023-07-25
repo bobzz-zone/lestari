@@ -262,8 +262,9 @@ function removeColumns(frm, fields, table) {
     
 }
 
-var list_kat = [];
+var list_kat;
 async function getListAndSetQuery(frm) {
+list_kat = [];
 await frappe.db.get_list('Item Group', {
 			filters: {
 				parent_item_group: 'Products'
@@ -272,16 +273,23 @@ await frappe.db.get_list('Item Group', {
 			for(var i = 0; i< records.length; i++){
 				list_kat.push(records[i].name)
 			}
-			
+			list_kat.sort()
 		})
+		if(cur_frm.doc.transfer == "Transfer Stockist ke Barang Lama"){
+			list_kat.push('Pembayaran')
+			list_kat.sort()
+			console.log(list_kat)
+		}
 		frm.set_query("sub_kategori", "items",function () {
 			return {
 				"filters": [
 					["Item Group", "parent_item_group", "in", list_kat],
+					["Item Group", "name", "!=", "Rongsok"],
 				],
+				"order_by":['name asc']
 			};
-		  });
-		}
+		});
+	}
 
 frappe.ui.form.on('Transfer Stockist', {
 	before_load:function(frm){
