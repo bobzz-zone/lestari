@@ -226,6 +226,7 @@ class CustomerDeposit(StockController):
 			#1 untuk GL untuk piutang Gold
 			if self.total_gold_deposit>0 and self.deposit_type=="Emas":
 				piutang_gold = self.piutang_gold
+				frappe.msgprint(str(piutang_gold))
 				gl[piutang_gold]={
 											"posting_date":self.posting_date,
 											"account":piutang_gold,
@@ -249,6 +250,7 @@ class CustomerDeposit(StockController):
 											}
 				if self.deposit_payment==1:
 					depo_account = frappe.db.get_single_value('Gold Selling Settings', 'payment_deposit_coa')
+					frappe.msgprint(str(depo_account))
 					gl[depo_account]=self.gl_dict(cost_center,depo_account,self.total_gold_deposit*self.tutupan,0,fiscal_years)
 
 				else:
