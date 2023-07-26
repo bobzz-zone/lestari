@@ -509,10 +509,19 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "SPK Lilin",
+   "link_to": "SPK Lilin",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2023-04-17 14:59:38.575322",
- "modified_by": "Administrator",
+ "modified": "2023-07-26 10:50:59.393480",
+ "modified_by": "dendro@lms.com",
  "module": "Lestari",
  "name": "Lestari Production Tools",
  "owner": "Administrator",

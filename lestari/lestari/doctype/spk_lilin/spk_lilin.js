@@ -206,54 +206,54 @@ const customers = [{
 
 frappe.ui.form.on('SPK Lilin', {
 	refresh: function(frm) {
-		const datatable = new DataTable('#datatable', {
-			columns: ['Name', 'Position', 'Salary'],
-			data: [
-			  [cur_frm.doc.items[0].no_spk, 'Software Developer', '$1200'],
-			  ['Manas', 'Software Engineer', '$1400'],
-			],
-			checkboxColumn: true,
-  			inlineFilters: true
-		  });
+		// const datatable = new DataTable('#datatable', {
+		// 	columns: ['Name', 'Position', 'Salary'],
+		// 	data: [
+		// 	  [cur_frm.doc.items[0].no_spk, 'Software Developer', '$1200'],
+		// 	  ['Manas', 'Software Engineer', '$1400'],
+		// 	],
+		// 	checkboxColumn: true,
+  		// 	inlineFilters: true
+		//   });
 
-		  $(() => {
-			const dataGrid = $('#gridContainer').dxDataGrid({
-			  dataSource: customers,
-			  keyExpr: 'ID',
-			  allowColumnReordering: true,
-			  showBorders: true,
-			  grouping: {
-				autoExpandAll: true,
-			  },
-			  searchPanel: {
-				visible: true,
-			  },
-			  paging: {
-				pageSize: 10,
-			  },
-			  groupPanel: {
-				visible: true,
-			  },
-			  columns: [
-				'CompanyName',
-				'Phone',
-				'Fax',
-				'City',
-				{
-				  dataField: 'State',
-				  groupIndex: 0,
-				},
-			  ],
-			}).dxDataGrid('instance');
+		//   $(() => {
+		// 	const dataGrid = $('#gridContainer').dxDataGrid({
+		// 	  dataSource: customers,
+		// 	  keyExpr: 'ID',
+		// 	  allowColumnReordering: true,
+		// 	  showBorders: true,
+		// 	  grouping: {
+		// 		autoExpandAll: true,
+		// 	  },
+		// 	  searchPanel: {
+		// 		visible: true,
+		// 	  },
+		// 	  paging: {
+		// 		pageSize: 10,
+		// 	  },
+		// 	  groupPanel: {
+		// 		visible: true,
+		// 	  },
+		// 	  columns: [
+		// 		'CompanyName',
+		// 		'Phone',
+		// 		'Fax',
+		// 		'City',
+		// 		{
+		// 		  dataField: 'State',
+		// 		  groupIndex: 0,
+		// 		},
+		// 	  ],
+		// 	}).dxDataGrid('instance');
 		  
-			$('#autoExpand').dxCheckBox({
-			  value: true,
-			  text: 'Expand All Groups',
-			  onValueChanged(data) {
-				dataGrid.option('grouping.autoExpandAll', data.value);
-			  },
-			});
-		  });
+		// 	$('#autoExpand').dxCheckBox({
+		// 	  value: true,
+		// 	  text: 'Expand All Groups',
+		// 	  onValueChanged(data) {
+		// 		dataGrid.option('grouping.autoExpandAll', data.value);
+		// 	  },
+		// 	});
+		//   });
 		if (cur_frm.is_new()){
 			frappe.db.get_value("Employee", { "user_id": frappe.session.user }, ["name","id_employee"]).then(function (responseJSON) {
 				cur_frm.set_value("employee", responseJSON.message.name);

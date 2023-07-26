@@ -1,0 +1,118 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-07-26 14:35:33.865622",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "spk_ppic",
+  "item",
+  "barang_jadi",
+  "qty",
+  "inject",
+  "tok",
+  "sc",
+  "rekap_lilin",
+  "stone_note",
+  "resep",
+  "type_karet"
+ ],
+ "fields": [
+  {
+   "columns": 1,
+   "fieldname": "spk_ppic",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "SPK PPIC",
+   "options": "SPK Produksi",
+   "read_only": 1
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "ITEM",
+   "options": "Item",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "item.item_name",
+   "fieldname": "barang_jadi",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "BARANG JADI",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "qty",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "QTY",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "inject",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "INJECT",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "tok",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "TOK"
+  },
+  {
+   "columns": 1,
+   "fieldname": "sc",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "SC"
+  },
+  {
+   "columns": 1,
+   "fieldname": "rekap_lilin",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "REKAP LILIN",
+   "options": "SPK Lilin",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "stone_note",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "STONE NOTE",
+   "read_only": 1
+  },
+  {
+   "fieldname": "resep",
+   "fieldtype": "Link",
+   "label": "RESEP",
+   "options": "Resep Mul Karet",
+   "read_only": 1
+  },
+  {
+   "fieldname": "type_karet",
+   "fieldtype": "Data",
+   "label": "TYPE KARET",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-07-26 15:39:00.295672",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "SPK Inject Lilin Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

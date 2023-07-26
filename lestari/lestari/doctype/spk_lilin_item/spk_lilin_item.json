@@ -16,7 +16,8 @@
   "resep_mul_karet",
   "parts",
   "inject",
-  "keterangan_batu"
+  "keterangan_batu",
+  "is_out"
  ],
  "fields": [
   {
@@ -93,13 +94,19 @@
   {
    "fieldname": "column_break_7",
    "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_out",
+   "fieldtype": "Check",
+   "label": "Is Out"
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-07-05 14:25:26.984073",
+ "modified": "2023-07-26 11:16:29.080012",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "SPK Lilin Item",

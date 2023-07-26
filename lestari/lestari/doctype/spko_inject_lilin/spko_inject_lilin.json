@@ -1,0 +1,193 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-07-26 13:31:43.922546",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "id",
+  "id_operator",
+  "nama_operator",
+  "operator",
+  "column_break_5",
+  "tanggal",
+  "kelompok",
+  "kotak",
+  "column_break_10",
+  "rph_lilin",
+  "kadar",
+  "label_piring",
+  "stick_pohon",
+  "column_break_15",
+  "total_qty",
+  "catatan",
+  "section_break_19",
+  "admin_lilin",
+  "employee",
+  "column_break_23",
+  "entry_date",
+  "item_section",
+  "items"
+ ],
+ "fields": [
+  {
+   "default": "-",
+   "fieldname": "id",
+   "fieldtype": "Data",
+   "label": "ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "id_operator",
+   "fieldtype": "Data",
+   "label": "ID OPERATOR"
+  },
+  {
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "label": "KADAR",
+   "options": "Data Logam"
+  },
+  {
+   "fieldname": "label_piring",
+   "fieldtype": "Link",
+   "label": "LABEL PIRING",
+   "options": "Serial No"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "-",
+   "fieldname": "nama_operator",
+   "fieldtype": "Data",
+   "label": "NAMA OPERATOR",
+   "read_only": 1
+  },
+  {
+   "fieldname": "operator",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "OPERATOR",
+   "options": "Employee",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "tanggal",
+   "fieldtype": "Date",
+   "label": "TANGGAL"
+  },
+  {
+   "fieldname": "kelompok",
+   "fieldtype": "Int",
+   "label": "KELOMPOK"
+  },
+  {
+   "fieldname": "rph_lilin",
+   "fieldtype": "Link",
+   "label": "RPH LILIN",
+   "options": "RPH Lilin"
+  },
+  {
+   "fieldname": "stick_pohon",
+   "fieldtype": "Link",
+   "label": "STICK POHON",
+   "options": "Data Jenis Sprue Utama"
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_qty",
+   "fieldtype": "Int",
+   "label": "TOTAL QTY",
+   "read_only": 1
+  },
+  {
+   "fieldname": "kotak",
+   "fieldtype": "Int",
+   "label": "KOTAK"
+  },
+  {
+   "fieldname": "section_break_19",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "catatan",
+   "fieldtype": "Small Text",
+   "label": "CATATAN"
+  },
+  {
+   "fieldname": "admin_lilin",
+   "fieldtype": "Data",
+   "label": "Admin Lilin",
+   "read_only": 1
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Employee",
+   "options": "Employee",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_23",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Now",
+   "fieldname": "entry_date",
+   "fieldtype": "Datetime",
+   "label": "ENTRY DATE",
+   "read_only": 1
+  },
+  {
+   "fieldname": "item_section",
+   "fieldtype": "Section Break",
+   "label": "Item"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "SPK Inject Lilin Item"
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-07-26 15:11:17.771130",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "SPKO Inject Lilin",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}

@@ -78,7 +78,8 @@
   },
   {
    "fieldname": "section_break_6",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "label": "Detail Item"
   },
   {
    "fieldname": "items",
@@ -119,8 +120,10 @@
    "label": "Total Qty"
   },
   {
+   "collapsible": 1,
    "fieldname": "section_break_16",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "label": "Kebutuhan Batu"
   },
   {
    "fieldname": "stones",
@@ -150,7 +153,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-07-05 15:50:59.869216",
+ "modified": "2023-07-26 11:14:39.148031",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "SPK Lilin",
