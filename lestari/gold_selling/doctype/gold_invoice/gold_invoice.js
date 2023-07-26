@@ -150,8 +150,8 @@ function hitung_pajak(frm){
 				pph_rate=0;
 			}
 		}
-		frm.doc.ppn=frm.doc.grand_total * frm.doc.tutupan * ppn_rate / 10000;
-		frm.doc.pph=frm.doc.grand_total * frm.doc.tutupan * pph_rate / 10000;
+		frm.doc.ppn=Math.floor(frm.doc.grand_total * frm.doc.tutupan * ppn_rate / 10000);
+		frm.doc.pph=Math.floor(frm.doc.grand_total * frm.doc.tutupan * pph_rate / 10000);
 		//frm.doc.total_tax_in_gold = (frm.doc.ppn+frm.doc.pph) / frm.doc.tutupan;
 		frm.doc.total_pajak=frm.doc.ppn+frm.doc.pph;
 		frm.doc.sisa_pajak=frm.doc.total_pajak;
