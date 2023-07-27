@@ -418,7 +418,7 @@ frappe.ui.form.on('Gold Payment', {
 			refresh_field("allocated_payment");
 			
 			refresh_total_and_charges(frm);
-			frappe.msgprint((frm.doc.unallocated_idr_payment/frm.doc.tutupan) + frm.doc.unallocated_payment);
+			frappe.msgprint("{} sisa".format((frm.doc.unallocated_idr_payment/frm.doc.tutupan) + frm.doc.unallocated_payment));
 			if((frm.doc.unallocated_idr_payment/frm.doc.tutupan) + frm.doc.unallocated_payment<=1/100){
 				writeoff_sisa(frm);
 			}
