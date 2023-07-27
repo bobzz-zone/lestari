@@ -418,8 +418,8 @@ frappe.ui.form.on('Gold Payment', {
 			refresh_field("allocated_payment");
 			
 			refresh_total_and_charges(frm);
-			if(frm.doc.unallocated_idr_payment<10000 && frm.doc.unallocated_payment==0){
-				jadikan_deposit(frm);
+			if((frm.doc.unallocated_idr_payment/frm.doc.tutupan) + frm.doc.unallocated_payment<=0.01){
+				writeoff_sisa(frm);
 			}
 			frappe.msgprint("Pembayaran Telah di Alokasikan");
 		}
