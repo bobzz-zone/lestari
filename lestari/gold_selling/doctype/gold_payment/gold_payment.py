@@ -32,6 +32,15 @@ class GoldPayment(StockController):
 					self.janji_bayar = row.janji_bayar
 			else:
 				frappe.throw("Janji Bayar Lebih dari 1")
+		total = self.total_idr_payment
+		for row in self.list_janji_bayar:
+			if total == 0 :
+				continue
+			if total>row.sisa_janji:
+				row.allocated_janji = row.sisa_janji
+			else:
+				row.allocated_janji = total
+			total=total-row.allocated_janji
 		if not self.warehouse:
 			self.warehouse = frappe.db.get_single_value('Gold Selling Settings', 'default_warehouse')
 
@@ -113,7 +122,7 @@ class GoldPayment(StockController):
 				janji=frappe.get_doc("Janji Bayar",self.janji_bayar)
 				if janji.status=="Pending":
 					if janji.sisa_janji<=self.total_idr_payment : 
-						frappe.db.sql("""update `tabJanji Bayar` set status="Lunas",total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_payment,self.janji_bayar))
+						frappe.db.sql("""update `tabJanji Bayar` set status="Lunas",total_terbayar=total_terbayar+sisa_janji , sisa_janji=0 where name = "{1}" """.format(self.janji_bayar))
 					else:
 						frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_payment,self.janji_bayar))
 	def on_cancel(self):
