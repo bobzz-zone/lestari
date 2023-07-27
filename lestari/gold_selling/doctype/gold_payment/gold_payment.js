@@ -56,7 +56,7 @@ function calculate_table_invoice_alo(frm,cdt,cdn){
 	//frappe.msgprint("invoice table reloaded");
 }
 function refresh_total_and_charges(frm){
-	frm.doc.total_extra_charges=frm.doc.write_off+ frm.doc.total_biaya_tambahan - frm.doc.bonus - frm.doc.discount_amount;
+	frm.doc.total_extra_charges=Math.floor((frm.doc.write_off+ frm.doc.total_biaya_tambahan - frm.doc.bonus - frm.doc.discount_amount)*1000)/1000;
 	refresh_field("total_extra_charges");
 	if (frm.doc.allocated_payment>0){
 		if (frm.doc.allocated_payment>frm.doc.total_extra_charges){
