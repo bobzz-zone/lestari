@@ -122,7 +122,7 @@ class GoldPayment(StockController):
 				janji=frappe.get_doc("Janji Bayar",self.janji_bayar)
 				if janji.status=="Pending":
 					if janji.sisa_janji<=self.total_idr_payment : 
-						frappe.db.sql("""update `tabJanji Bayar` set status="Lunas",total_terbayar=total_terbayar+sisa_janji , sisa_janji=0 where name = "{1}" """.format(self.janji_bayar))
+						frappe.db.sql("""update `tabJanji Bayar` set status="Lunas",total_terbayar=total_terbayar+sisa_janji , sisa_janji=0 where name = "{0}" """.format(self.janji_bayar))
 					else:
 						frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_payment,self.janji_bayar))
 	def on_cancel(self):
