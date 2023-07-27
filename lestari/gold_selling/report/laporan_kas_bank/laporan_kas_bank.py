@@ -109,7 +109,7 @@ def get_conditions(filters):
 		#conditions.append(" (gl.against = %(account)s or gl.account= %(account)s) ")
 		#conditions.append(" gl.against = %(account)s ")
 		#frappe.msgprint(""" gl.against LIKE "%{}%" """.format(filters.get("account")))
-		conditions.append(""" is_opening="No" and gl.against LIKE "%{}%" """.format(filters.get("account")))
+		conditions.append(""" is_opening="No" and gl.against LIKE "%{0}%" and gl.account != "{0}" """.format(filters.get("account")))
 #	if filters.against: 
 #		conditions.append("account = %(against)s")
 
