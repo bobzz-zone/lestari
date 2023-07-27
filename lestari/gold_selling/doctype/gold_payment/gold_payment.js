@@ -7,11 +7,13 @@ function run_writeoff_sisa(frm){
 	if(frm.doc.unallocated_payment>0){
 			frm.doc.write_off=frm.doc.write_off-frm.doc.unallocated_payment;
 			frm.doc.unallocated_payment=0;
+			refresh_field("write_off");
 			refresh_field("unallocated_payment");
 		}
 		if(frm.doc.unallocated_idr_payment>0){
 			frm.doc.write_off_idr=frm.doc.write_off_idr-frm.doc.unallocated_payment;
 			frm.doc.unallocated_idr_payment=0;
+			refresh_field("write_off_idr");
 			refresh_field("unallocated_idr_payment");
 		}
 		if (frm.doc.total_sisa_invoice>0.1){
@@ -22,7 +24,7 @@ function run_writeoff_sisa(frm){
 			refresh_field("total_sisa_invoice");
 		}
 		frm.doc.write_off_total=(frm.doc.write_off*frm.doc.tutupan)+frm.doc.write_off_idr;
-		refresh_field("write_off");
+		refresh_field("write_off_total");
 		refresh_total_and_charges(frm);
 }
 //tax allocated itu di pisah tp kalo un allocated based on mata uang...
