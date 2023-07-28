@@ -24,10 +24,11 @@ def get_items_from_rph_lilin(source_name, target_doc=None, args=None):
 		target.spk_ppic = source.get("no_spk")
 		target.item = source.get("produk_id")
 		target.qty = source.get("qty")
-		target.inject = frappe.db.get_value('SPK Lilin Item',{'no_spk':source.get("no_spk"),'produk':source.get("produk_id")},'inject')
-		target.rekap_lilin = frappe.db.get_value('SPK Lilin Item',{'no_spk':source.get("no_spk"),'produk':source.get("produk_id")},'parent')
-		target.stone_note = frappe.db.get_value('SPK Lilin Item',{'no_spk':source.get("no_spk"),'produk':source.get("produk_id")},'keterangan_batu')
-		target.resep = frappe.db.get_value('SPK Lilin Item',{'no_spk':source.get("no_spk"),'produk':source.get("produk_id")},'resep_mul_karet')
+		target.kadar = source.get("kadar")
+		# target.inject = frappe.db.get_value('SPK Lilin Item',{'no_spk':source.get("no_spk"),'produk':source.get("produk_id")},'inject')
+		# target.rekap_lilin = frappe.db.get_value('SPK Lilin Item',{'no_spk':source.get("no_spk"),'produk':source.get("produk_id")},'parent')
+		# target.stone_note = frappe.db.get_value('SPK Lilin Item',{'no_spk':source.get("no_spk"),'produk':source.get("produk_id")},'keterangan_batu')
+		# target.resep = frappe.db.get_value('SPK Lilin Item',{'no_spk':source.get("no_spk"),'produk':source.get("produk_id")},'resep_mul_karet')
 
 	def select_item(d):
 		filtered_items = args.get('filtered_children', [])
@@ -45,11 +46,11 @@ def get_items_from_rph_lilin(source_name, target_doc=None, args=None):
 		"RPH Lilin Detail": {
 			"doctype": "SPKO Inject Lilin Item",
 			"field_map": {
-				"name": "tabel_detail",
+				"name": "rph_lilin_detail",
 				"parent": "rph_lilin"
 			},"postprocess": update_item,
 			"condition": select_item
 		}
 	}, target_doc)
-
+	frappe.msgprint(str(doc))
 	return doc

@@ -160,13 +160,13 @@
    "fieldname": "items",
    "fieldtype": "Table",
    "label": "Items",
-   "options": "SPK Inject Lilin Item"
+   "options": "SPKO Inject Lilin Item"
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-07-26 15:11:17.771130",
+ "modified": "2023-07-27 15:36:46.485741",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "SPKO Inject Lilin",

@@ -1,0 +1,40 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-07-24 10:37:01.395488",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "spko",
+  "total_rusak"
+ ],
+ "fields": [
+  {
+   "fieldname": "spko",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "spko",
+   "options": "SPKO",
+   "reqd": 1
+  },
+  {
+   "fieldname": "total_rusak",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Total Rusak",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-07-28 10:40:50.769432",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Worklog spko list",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

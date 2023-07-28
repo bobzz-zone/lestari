@@ -15,24 +15,32 @@ frappe.ui.form.on('SPKO Inject Lilin', {
 	},
 	get_items_from_rph_lilin: function (frm) {
 		erpnext.utils.map_current_doc({
-		  // new frappe.ui.form.MultiSelectDialog({
-		  method: "lestari.lestari.doctype.spko_inject_lilin.spko_inject_lilin.get_items_from_rph_lilin",
-		  source_doctype: "RPH Lilin",
-		  target: frm,
-		  setters: {
-			kadar: me.frm.doc.kadar,
-			allow_child_item_selection: 1
-		  },
-		  add_filters_group: 1,
-		  size: "extra-large",
-		  get_query_filters: {
-			docstatus: 1,
-			// status: ["not in", ["Cancel"]],
-			// company: frm.doc.company,
-		  },
-		  allow_child_item_selection: true,
-		  child_fieldname: "tabel_detail",
-		  child_columns: ["no_spk", "kadar", "kategori", "sub_kategori", "product_id", "qty"],
-		});
+			// new frappe.ui.form.MultiSelectDialog({
+			method: "lestari.lestari.doctype.spko_inject_lilin.spko_inject_lilin.get_items_from_rph_lilin",
+			source_doctype: "RPH Lilin",
+			// doctype: "Form Order",
+			// doctype: "RPH Lilin",
+			target: frm,
+			setters: {
+			//   name: me.frm.doc.rph_lilin
+			},
+			add_filters_group: 1,
+			size: "extra-large",
+			get_query_filters: {
+			  docstatus: 1,
+			  // status: ["not in", ["Cancel"]],
+			  name: frm.doc.rph_lilin,
+			  kadar: frm.doc.kadar			  
+			},
+			allow_child_item_selection: true,
+			// child_fieldname: "items_valid",
+      		// child_columns: ["model", "item_name", "kadar", "kategori", "sub_kategori", "kategori_pohon", "qty_isi_pohon", "no_pohon", "qty"],
+			child_fieldname: "tabel_detail",
+			child_columns: [
+			"no_spk",
+			"kadar",
+			"kategori"	
+			],
+		  });
 	}
 });

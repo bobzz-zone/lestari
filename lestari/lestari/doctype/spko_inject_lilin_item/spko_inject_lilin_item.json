@@ -16,7 +16,8 @@
   "rekap_lilin",
   "stone_note",
   "resep",
-  "type_karet"
+  "type_karet",
+  "kadar"
  ],
  "fields": [
   {
@@ -102,15 +103,21 @@
    "fieldtype": "Data",
    "label": "TYPE KARET",
    "read_only": 1
+  },
+  {
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "label": "KADAR",
+   "options": "Data Logam"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-07-26 15:39:00.295672",
+ "modified": "2023-07-27 11:15:12.204731",
  "modified_by": "Administrator",
  "module": "Lestari",
- "name": "SPK Inject Lilin Item",
+ "name": "SPKO Inject Lilin Item",
  "owner": "Administrator",
  "permissions": [],
  "sort_field": "modified",
