@@ -16,8 +16,8 @@ frappe.ui.form.on("RPH Lilin", {
       frm.add_custom_button(__("Ambil SPK Produksi"), () => frm.events.get_items_from_spk_produksi(frm));
     }
   },
-  get_items_from_spk_produksi: function (frm) {
-    erpnext.utils.map_current_doc({
+  get_items_from_spk_produksi: async function (frm, dialog) {
+    await erpnext.utils.map_current_doc({
       method: "lestari.lestari.doctype.rph_lilin.rph_lilin.get_items_from_spk_produksi",
       source_doctype: "SPK Produksi",
       target: frm,
@@ -34,6 +34,7 @@ frappe.ui.form.on("RPH Lilin", {
       child_fieldname: "tabel_rencana_produksi",
       child_columns: ["produk_id", "kategori", "sub_kategori", "kadar", "qty"],
     });
+    console.log('test')
   },
 });
 // ($("element").data("bs.modal") || {})._isShown;

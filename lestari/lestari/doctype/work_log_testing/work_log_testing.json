@@ -15,14 +15,15 @@
   "waktu_mulai",
   "waktu_selesai",
   "column_break_11",
-  "keterangan_pause",
-  "reason",
   "durasi_section",
   "jam",
   "menit",
   "detik",
   "column_break_18",
   "total_detik",
+  "total_detik_working",
+  "total_detik_pause",
+  "total_rusak",
   "akumulasi_waktu_section",
   "jam_akumulasi",
   "menit_akumulasi",
@@ -78,17 +79,6 @@
   {
    "fieldname": "column_break_11",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "keterangan_pause",
-   "fieldtype": "Data",
-   "label": "Keterangan Pause",
-   "read_only": 1
-  },
-  {
-   "fieldname": "reason",
-   "fieldtype": "Small Text",
-   "label": "Reason"
   },
   {
    "fieldname": "durasi_section",
@@ -169,12 +159,27 @@
    "label": "List Spko",
    "options": "Worklog spko list",
    "reqd": 1
+  },
+  {
+   "fieldname": "total_detik_working",
+   "fieldtype": "Int",
+   "label": "Total Detik Working"
+  },
+  {
+   "fieldname": "total_detik_pause",
+   "fieldtype": "Int",
+   "label": "Total Detik Pause"
+  },
+  {
+   "fieldname": "total_rusak",
+   "fieldtype": "Int",
+   "label": "Total Rusak"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-07-24 10:48:30.926194",
+ "modified": "2023-07-31 09:00:10.068898",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Work log Testing",

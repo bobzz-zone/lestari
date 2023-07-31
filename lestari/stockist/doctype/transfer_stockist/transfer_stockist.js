@@ -186,47 +186,47 @@ function hitung(){
 //     }
     
 // }
-// function showColumns(frm, fields, table) {
-// 	let grid = frm.get_field(table).grid;
+function showColumns(frm, fields, table) {
+	let grid = frm.get_field(table).grid;
   
-// 	// Menampilkan kolom yang tersembunyi
-// 	for (let field of fields) {
-// 	  grid.fields_map[field].hidden = 0;
-// 	}
+	// Menampilkan kolom yang tersembunyi
+	for (let field of fields) {
+	  grid.fields_map[field].hidden = 0;
+	}
   
-// 	// Mengatur ulang kolom yang terlihat
-// 	grid.visible_columns = undefined;
-// 	grid.setup_visible_columns();
+	// Mengatur ulang kolom yang terlihat
+	grid.visible_columns = undefined;
+	grid.setup_visible_columns();
   
-// 	// Menghapus header row dan membuat ulang
-// 	grid.header_row.wrapper.remove();
-// 	delete grid.header_row;
-// 	grid.make_head();
+	// Menghapus header row dan membuat ulang
+	grid.header_row.wrapper.remove();
+	delete grid.header_row;
+	grid.make_head();
   
-// 	// Mengembalikan kolom-kolom yang dihapus pada setiap baris
-// 	for (let row of grid.grid_rows) {
-// 	  // Menghapus tombol open form
-// 	  if (row.open_form_button) {
-// 		row.open_form_button.parent().remove();
-// 		delete row.open_form_button;
-// 	  }
+	// Mengembalikan kolom-kolom yang dihapus pada setiap baris
+	for (let row of grid.grid_rows) {
+	  // Menghapus tombol open form
+	  if (row.open_form_button) {
+		row.open_form_button.parent().remove();
+		delete row.open_form_button;
+	  }
   
-// 	  // Mengembalikan kolom-kolom yang dihapus
-// 	  for (let field in row.columns) {
-// 		if (row.columns[field] === undefined) {
-// 		  row.columns[field] = frappe.ui.form.make_control({
-// 			df: grid.get_field(field),
-// 			parent: row.wrapper.find(`[data-fieldname="${field}"]`),
-// 			render_input: true,
-// 		  });
-// 		}
-// 	  }
+	  // Mengembalikan kolom-kolom yang dihapus
+	  for (let field in row.columns) {
+		if (row.columns[field] === undefined) {
+		  row.columns[field] = frappe.ui.form.make_control({
+			df: grid.get_field(field),
+			parent: row.wrapper.find(`[data-fieldname="${field}"]`),
+			render_input: true,
+		  });
+		}
+	  }
   
-// 	  // Mengembalikan array kolom dan merender ulang baris
-// 	  row.columns = row.make_columns();
-// 	  row.render_row();
-// 	}
-//   }
+	  // Mengembalikan array kolom dan merender ulang baris
+	  row.columns = row.make_columns();
+	  row.render_row();
+	}
+  }
   
 
 function removeColumns(frm, fields, table) {
@@ -275,7 +275,7 @@ await frappe.db.get_list('Item Group', {
 			}
 			list_kat.sort()
 		})
-		if(cur_frm.doc.transfer == "Transfer Stockist ke Barang Lama"){
+		if(cur_frm.doc.transfer == "Transfer Stockist ke Barang Lama" || cur_frm.doc.transfer == "Transfer Stockist ke PCB"){
 			list_kat.push('Pembayaran')
 			list_kat.sort()
 			console.log(list_kat)
@@ -383,7 +383,15 @@ frappe.ui.form.on('Transfer Stockist', {
 			var table1 = 'per_kadar'
 			removeColumns(frm, fields, table)
 			removeColumns(frm, fields1, table1)
+		}else{
+			var fields = ['jumlah']
+			var table = 'items'
+			var fields1 = ['total_qty']
+			var table1 = 'per_kadar'
+			showColumns(frm, fields, table)
+			showColumns(frm, fields1, table1)
 		}
+		
 	}
 });
 

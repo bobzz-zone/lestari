@@ -12,11 +12,13 @@ class KonfirmasiReturnSubkategori(Document):
     @frappe.whitelist()
     def get_konfirmasi(self):
         doc = frappe.get_doc("Konfirmasi Payment Return", self.no_konfirmasi)
+        terima_berat = 0
+        total_berat_input = 0
         if doc.detail_perhiasan:
             for row in doc.detail_perhiasan:
                 if row.is_out == 0 and row.is_confirm == 0:
-                    self.total_berat_input += row.terima_qty
-                    self.terima_berat += row.terima_qty
+                    total_berat_input += row.terima_qty
+                    terima_berat += row.terima_qty
                     baris_baru = {
 						'idx_konfirmasi': row.idx,
 						'item': row.item,
@@ -34,6 +36,8 @@ class KonfirmasiReturnSubkategori(Document):
                     frappe.msgprint("Konfirmasi Payment Return Sudah tidak ada yang bisa di Return")
         else:
             frappe.msgprint("Konfirmasi Payment Return Tidak ada Return Perhiasan")
+        self.terima_berat = terima_berat
+        self.total_berat_input = total_berat_input
 		# if doc.detail_rongsok:
 		# 	for row in doc.detail_rongsok:
 		# 		if row.is_out == 0 and row.is_confirm == 0:

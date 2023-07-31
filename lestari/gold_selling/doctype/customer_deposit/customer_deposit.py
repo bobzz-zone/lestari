@@ -144,6 +144,7 @@ class CustomerDeposit(StockController):
 		from erpnext.accounts.general_ledger import make_gl_entries, make_reverse_gl_entries
 		if not gl_entries:
 			gl_entries = self.get_gl_entries()
+			# frappe.msgprint(str(gl_entries))
 		
 		if gl_entries:
 			update_outstanding = "Yes"
@@ -226,7 +227,7 @@ class CustomerDeposit(StockController):
 			#1 untuk GL untuk piutang Gold
 			if self.total_gold_deposit>0 and self.deposit_type=="Emas":
 				piutang_gold = self.piutang_gold
-				frappe.msgprint(str(piutang_gold))
+				# frappe.msgprint(str(piutang_gold))
 				gl[piutang_gold]={
 											"posting_date":self.posting_date,
 											"account":piutang_gold,
@@ -250,7 +251,7 @@ class CustomerDeposit(StockController):
 											}
 				if self.deposit_payment==1:
 					depo_account = frappe.db.get_single_value('Gold Selling Settings', 'payment_deposit_coa')
-					frappe.msgprint(str(depo_account))
+					# frappe.msgprint(str(depo_account))
 					gl[depo_account]=self.gl_dict(cost_center,depo_account,self.total_gold_deposit*self.tutupan,0,fiscal_years)
 
 				else:
@@ -260,12 +261,13 @@ class CustomerDeposit(StockController):
 					for row in self.stock_deposit:
 						if row.in_supplier==1:
 							if row.supplier in supplier_list:
-								titip[row.supplier]=row.amount
-								supplier_list.append(row.supplier)
+								titip[row.supplier] += row.amount
 							else:
-								titip[row.supplier]=titip[row.supplier]+row.amount
+								titip[row.supplier] = row.amount
+								supplier_list.append(row.supplier)
 						else :
 							warehouse_value=warehouse_value+row.amount
+					# frappe.throw(str(titip))
 					if warehouse_value>0:
 						self.terima_barang=1
 						warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
@@ -273,7 +275,7 @@ class CustomerDeposit(StockController):
 					if len(supplier_list)>0:
 						uang_buat_beli_emas= frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
 						for sup in supplier_list:
-							gl[sup]=self.gl_dict_with_sup(cost_center,uang_buat_beli_emas,titip[sup],0,fiscal_years,sup)
+							gl[sup]=self.gl_dict_with_sup(cost_center,uang_buat_beli_emas,titip[sup]*self.tutupan,0,fiscal_years,sup)
 				# elif self.terima_barang==1:
 				# else:
 				# 	uang_buat_beli_emas= frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
@@ -310,8 +312,7 @@ class CustomerDeposit(StockController):
 						gl[account]['debit']=gl[account]['debit']+row.amount
 						gl[account]['debit_in_account_currency']=gl[account]['debit']
 					else:
-						gl[account]=self.gl_dict(cost_center,account,row.amount,0,fiscal_years)
-						
+						gl[account]=self.gl_dict(cost_center,account,row.amount,0,fiscal_years)				
 		else:
 			if self.deposit_type!="Emas":
 				frappe.throw("Conversion hanya bisa untuk Deposit Rupiah menjadi emas")
@@ -364,6 +365,7 @@ class CustomerDeposit(StockController):
 								"company":self.company,
 								"is_cancelled":0
 								}
+		# frappe.throw(str(gl))
 		gl_entries=[]
 		for row in gl:
 			gl_entries.append(frappe._dict(gl[row]))
