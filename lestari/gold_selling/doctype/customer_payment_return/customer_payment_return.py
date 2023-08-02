@@ -8,6 +8,8 @@ from erpnext.stock import get_warehouse_account_map
 from erpnext.accounts.utils import get_account_currency, get_fiscal_years, validate_fiscal_year
 from erpnext.controllers.stock_controller import StockController
 from erpnext.stock.stock_ledger import NegativeStockError, get_previous_sle, get_valuation_rate
+from frappe.utils import flt
+from frappe.utils import now_datetime ,now
 class CustomerPaymentReturn(StockController):
 	def validate(self):
 		# if self.saldo_awal == 0:
@@ -47,6 +49,12 @@ class CustomerPaymentReturn(StockController):
 			pass
 	def on_submit(self):
 		for row in self.items:
+			frappe.db.sql(
+				"""
+				UPDATE `tabStock Return Transfer Details` 
+				SET is_out = 1
+				WHERE name = "{}"
+				""".format(row.child_no))
 			row.valuation_rate = get_valuation_rate(
 					row.item,
 					self.warehouse,
@@ -75,20 +83,58 @@ class CustomerPaymentReturn(StockController):
 		self.repost_future_sle_and_gle()
 		
 	def on_cancel(self):
+		for row in self.items:
+			frappe.db.sql(
+				"""
+				UPDATE `tabStock Return Transfer Details` 
+				SET is_out = 0
+				WHERE name = "{}"
+				""".format(row.child_no))
 		self.flags.ignore_links=True
 		self.make_gl_entries_on_cancel()
 		self.update_stock_ledger()
 		self.repost_future_sle_and_gle()
 	@frappe.whitelist()
+	def get_stock_return(self):
+		stock_return = frappe.get_list("Stock Return Transfer", filters={
+			'type': 'Keluar',
+			'docstatus':1
+		})
+		total = 0
+		outstanding = 0
+		for row in stock_return:
+			doc = frappe.get_doc('Stock Return Transfer',row.name)
+			for col in doc.transfer_details:
+				if col.customer == self.customer and col.is_out == 0:
+					rate = get_gold_purchase_rate(col.item,self.customer,self.customer_group)
+					total += col.berat
+					amount = col.berat * flt(rate['nilai']) / 100
+					frappe.msgprint(total)
+					baris_baru = {
+						'item': col.item,
+						'qty':col.berat,
+						'rate':flt(rate['nilai']),
+						'amount':amount,
+						'no_document':row.name,
+						'child_no':col.name,
+						'voucher_type':col.voucher_type,
+						'voucher_no':col.voucher_no
+					}
+					outstanding += amount
+					self.append('items',baris_baru)
+		self.total = total
+		self.outstanding = outstanding
+
+	@frappe.whitelist()
 	def get_sales_bundle(self):
 		from lestari.gold_selling.doctype.gold_invoice.gold_invoice import get_gold_purchase_rate
-		sales_bundle = frappe.db.get_list("Stock Return Transfer", filters={
-			'sales_bundle': self.sales_bundle,
+		sales_partner = frappe.db.get_list("Stock Return Transfer", filters={
+			'sales_partner': self.sales_partner,
 			# 'customer': self.customer,
         	# 'status_pengembalian': 'Belum Diambil',
 			'docstatus':1
     	})
-		for row in sales_bundle:
+		for row in sales_partner:
 			# frappe.msgprint(str(row.name))
 			items = frappe.get_doc("Stock Return Transfer", row.name)
 			total = 0
@@ -107,6 +153,7 @@ class CustomerPaymentReturn(StockController):
 							'amount': col.berat*purchase_rate['nilai']/100,
 							'tutupan': frappe.db.get_value(str(col.voucher_type), col.voucher_no, ['tutupan']),
 							'no_document': row.name,
+							'child_no':col.name,
 							'voucher_type': col.voucher_type,
 							'voucher_no': col.voucher_no,
 						}
@@ -243,3 +290,14 @@ class CustomerPaymentReturn(StockController):
 				gl_entries.append(frappe._dict(gl[row]))
 			gl_entries = merge_similar_entries(gl_entries)
 			return gl_entries
+
+@frappe.whitelist(allow_guest=True)
+def get_gold_purchase_rate(item,customer,customer_group):
+	#check if customer has special rates
+	customer_rate=frappe.db.sql("""select nilai_tukar from `tabCustomer Rates` where customer="{}" and item="{}" and valid_from<="{}"  and type="Buying" order by valid_from desc """.format(customer,item,now_datetime()),as_list=1)
+	if customer_rate and customer_rate[0]:
+		return {"nilai":customer_rate[0][0]}
+	customer_group_rate=frappe.db.sql("""select nilai_tukar from `tabCustomer Group Rates` where customer_group="{}" and item="{}" and valid_from<="{}" and type="Buying"  order by valid_from desc """.format(customer_group,item,now_datetime()),as_list=1)
+	if customer_group_rate and customer_group_rate[0]:
+		return {"nilai":customer_group_rate[0][0]}
+	return {"nilai":0}

@@ -34,7 +34,7 @@ frappe.ui.form.on("RPH Lilin", {
       child_fieldname: "tabel_rencana_produksi",
       child_columns: ["produk_id", "kategori", "sub_kategori", "kadar", "qty"],
     });
-    console.log('test')
+   
   },
 });
 // ($("element").data("bs.modal") || {})._isShown;

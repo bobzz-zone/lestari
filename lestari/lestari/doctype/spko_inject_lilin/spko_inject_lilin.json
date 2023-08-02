@@ -27,8 +27,16 @@
   "employee",
   "column_break_23",
   "entry_date",
+  "section_break_22",
+  "item_button",
+  "column_break_24",
+  "karet_pilihan",
+  "column_break_26",
+  "item_direct_casting",
   "item_section",
-  "items"
+  "items",
+  "karet_pilihan_section",
+  "list_karet"
  ],
  "fields": [
   {
@@ -161,12 +169,53 @@
    "fieldtype": "Table",
    "label": "Items",
    "options": "SPKO Inject Lilin Item"
+  },
+  {
+   "fieldname": "section_break_22",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_24",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "karet_pilihan",
+   "fieldtype": "HTML",
+   "label": "Karet Pilihan",
+   "options": "<button class=\"btn btn-default btn-block\" style=\"margin-bottom: 10px;\">Karet Pilihan</button>"
+  },
+  {
+   "fieldname": "column_break_26",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "item_direct_casting",
+   "fieldtype": "HTML",
+   "label": "Item Direct Casting",
+   "options": "<button class=\"btn btn-default btn-block\" style=\"margin-bottom: 10px;\">Item Direct Casting</button>"
+  },
+  {
+   "fieldname": "karet_pilihan_section",
+   "fieldtype": "Section Break",
+   "label": "Karet Pilihan"
+  },
+  {
+   "fieldname": "list_karet",
+   "fieldtype": "Table",
+   "label": "List Karet",
+   "options": "SPKO Inject Lilin Karet"
+  },
+  {
+   "fieldname": "item_button",
+   "fieldtype": "HTML",
+   "label": "Item",
+   "options": "<button class=\"btn btn-default btn-block\" style=\"margin-bottom: 10px; background-color: #913030;\">Item</button>"
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-07-27 15:36:46.485741",
+ "modified": "2023-08-02 16:09:50.592356",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "SPKO Inject Lilin",

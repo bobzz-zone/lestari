@@ -20,13 +20,14 @@
   "posting_time",
   "due_date",
   "no_pembayaran",
+  "sales",
+  "warehouse",
   "return_detail_sb",
   "gold_payment",
-  "sales_bundle",
   "get_from_bundle",
   "column_break_15",
-  "warehouse",
   "section_break_17",
+  "get_stock_return",
   "items",
   "summary_sb",
   "total",
@@ -115,6 +116,7 @@
   {
    "fieldname": "return_detail_sb",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Return Detail"
   },
   {
@@ -123,12 +125,6 @@
    "hidden": 1,
    "label": "Gold Payment",
    "options": "Gold Payment"
-  },
-  {
-   "fieldname": "sales_bundle",
-   "fieldtype": "Link",
-   "label": "Sales Bundle",
-   "options": "Sales Stock Bundle"
   },
   {
    "fieldname": "get_from_bundle",
@@ -141,7 +137,7 @@
    "fieldtype": "Column Break"
   },
   {
-   "fetch_from": "sales_bundle.warehouse",
+   "fetch_from": "sales.warehouse",
    "fieldname": "warehouse",
    "fieldtype": "Link",
    "label": "Source Warehouse",
@@ -150,7 +146,8 @@
   },
   {
    "fieldname": "section_break_17",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "label": "Return Detail"
   },
   {
    "fieldname": "items",
@@ -204,8 +201,7 @@
   {
    "fieldname": "tutupan",
    "fieldtype": "Currency",
-   "label": "Tutupan",
-   "read_only": 1
+   "label": "Tutupan"
   },
   {
    "default": "Unpaid",
@@ -234,12 +230,24 @@
    "fieldname": "no_pembayaran",
    "fieldtype": "Data",
    "label": "No Pembayaran"
+  },
+  {
+   "fieldname": "sales",
+   "fieldtype": "Link",
+   "label": "Sales",
+   "options": "Sales Partner"
+  },
+  {
+   "fieldname": "get_stock_return",
+   "fieldtype": "Button",
+   "label": "Get Stock Return",
+   "options": "get_stock_return"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-07-21 13:26:31.003298",
+ "modified": "2023-08-01 11:34:03.628249",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Payment Return",
