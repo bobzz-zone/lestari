@@ -4,6 +4,15 @@
 frappe.ui.form.on('SPKO Inject Lilin', {
 	refresh: function(frm) {
 		frm.events.make_custom_buttons(frm);
+
+		$('div[data-fieldname="item_button"').on('click',function(){
+			frm.set_df_property('item_section', 'hidden', 0)
+			frm.set_df_property('karet_pilihan_section', 'hidden', 1)
+		})
+		$('div[data-fieldname="karet_pilihan"').on('click',function(){
+			frm.set_df_property('item_section', 'hidden', 1)
+			frm.set_df_property('karet_pilihan_section', 'hidden', 0)
+		})
 	},
 	make_custom_buttons: function (frm) {
 		// if (frm.doc.docstatus === 0) {
@@ -21,11 +30,7 @@ frappe.ui.form.on('SPKO Inject Lilin', {
 			cur_frm.refresh_field("operator");
 		})
 	},
-	item: function (frm){
-		frm.page.wrapper.find("item_button").on("click", function(evt){
-			frappe.msgprint('test')
-		})
-	},
+	
 	get_items_from_rph_lilin: async function (frm) {
 		var r = await erpnext.utils.map_current_doc({
 			// new frappe.ui.form.MultiSelectDialog({
