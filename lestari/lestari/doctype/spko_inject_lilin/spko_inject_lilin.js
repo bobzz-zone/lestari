@@ -24,10 +24,12 @@ frappe.ui.form.on('SPKO Inject Lilin', {
 	},
 	id_operator: function (frm){
 		frappe.db.get_value("Employee", { "id_employee": cur_frm.doc.id_operator, "department": "Lilin - LMS" }, ["name","employee_name"]).then(function (responseJSON) {
-			cur_frm.set_value("nama_operator", responseJSON.message.employee_name);
-			cur_frm.set_value("operator", responseJSON.message.name);
-			cur_frm.refresh_field("nama_operator");
-			cur_frm.refresh_field("operator");
+			if(responseJSON.message.employee_name){
+				cur_frm.set_value("nama_operator", responseJSON.message.employee_name);
+				cur_frm.set_value("operator", responseJSON.message.name);
+				cur_frm.refresh_field("nama_operator");
+				cur_frm.refresh_field("operator");
+			}
 		})
 	},
 	
