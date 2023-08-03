@@ -50,9 +50,10 @@ frappe.ui.form.on('Customer Deposit', {
 		});
 		frm.set_query("item","stock_deposit", function(doc, cdt, cdn) {
     			return {
-    				"filters": {
-    					"available_for_stock_payment":1
-    				}
+    				"filters": [
+    					["Item","available_for_stock_payment","=","1"],
+    					["Item","item_group","in","Perhiasan, Rongsok, Logam"],
+					]
     			};
 
     		});

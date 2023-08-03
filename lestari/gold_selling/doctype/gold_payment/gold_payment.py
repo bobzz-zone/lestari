@@ -321,8 +321,10 @@ class GoldPayment(StockController):
 		for row in list_srt:
 			doc = frappe.get_doc("Stock Return Transfer", row.name)
 			for col in doc.transfer_details:
-				if self.customer == col.customer or self.subcustomer == col.sub_customer:
+				if self.customer == col.customer or self.customer == col.sub_customer:
 					if col.is_out == 0:
+						# frappe.msgprint(row.name)
+						# frappe.msgprint(col.name)
 						# total24k = total24k + col.berat
 						baris_baru_item = {
 							'item':col.item,
@@ -333,6 +335,7 @@ class GoldPayment(StockController):
 							'no_doc': col.name
 						}
 						self.append("stock_return_transfer",baris_baru_item)
+				
 		# self.total_24k_return = total24k
 		#lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_idr_advance
 		#lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_gold_advance

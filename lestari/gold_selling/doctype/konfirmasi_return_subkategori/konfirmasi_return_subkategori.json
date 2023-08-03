@@ -101,6 +101,7 @@
    "fieldtype": "Section Break"
   },
   {
+   "allow_bulk_edit": 1,
    "fieldname": "items",
    "fieldtype": "Table",
    "label": "Items",
@@ -148,7 +149,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-06-19 12:50:45.520855",
+ "modified": "2023-07-31 14:06:54.337089",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Konfirmasi Return Subkategori",

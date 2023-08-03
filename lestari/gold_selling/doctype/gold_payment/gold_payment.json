@@ -59,16 +59,19 @@
   "charges_sb",
   "other_charges",
   "total_biaya_tambahan",
-  "additional_price_section",
+  "invoice_sb",
   "total_invoice",
+  "allocated_payment",
+  "tax_sb",
+  "allocated_idr_payment",
+  "total_pajak",
+  "additional_price_section",
   "total_extra_charges",
   "total_sisa_invoice",
-  "total_pajak",
   "column_break_36",
   "total_advance",
-  "allocated_idr_payment",
-  "allocated_payment",
   "unallocated_idr_payment",
+  "idr_converted",
   "unallocated_payment",
   "jadi_deposit",
   "auto_distribute",
@@ -135,7 +138,7 @@
   {
    "fieldname": "additional_price_section",
    "fieldtype": "Section Break",
-   "label": "Summary"
+   "label": "Summary Gold Payment"
   },
   {
    "default": "0",
@@ -523,12 +526,28 @@
    "fieldtype": "Currency",
    "label": "Write Off Total",
    "read_only": 1
+  },
+  {
+   "fieldname": "invoice_sb",
+   "fieldtype": "Section Break",
+   "label": "Invoice Summary"
+  },
+  {
+   "fieldname": "idr_converted",
+   "fieldtype": "Currency",
+   "label": "IDR Converted to Pay Invoice",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tax_sb",
+   "fieldtype": "Section Break",
+   "label": "Summary Tax"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-07-18 09:49:38.443635",
+ "modified": "2023-08-01 10:27:48.622560",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",
