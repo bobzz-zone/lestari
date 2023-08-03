@@ -16,8 +16,8 @@ frappe.ui.form.on("RPH Lilin", {
       frm.add_custom_button(__("Ambil SPK Produksi"), () => frm.events.get_items_from_spk_produksi(frm));
     }
   },
-  get_items_from_spk_produksi: function (frm) {
-    erpnext.utils.map_current_doc({
+  get_items_from_spk_produksi: async function (frm) {
+    var r = await erpnext.utils.map_current_doc({
       method: "lestari.lestari.doctype.rph_lilin.rph_lilin.get_items_from_spk_produksi",
       source_doctype: "SPK Produksi",
       target: frm,
@@ -34,8 +34,31 @@ frappe.ui.form.on("RPH Lilin", {
       child_fieldname: "tabel_rencana_produksi",
       child_columns: ["produk_id", "kategori", "sub_kategori", "kadar", "qty"],
     });
+    
+    // r.dialog.hide();
+    $(document).on("frappe.ui.Dialog:shown", function() {
+        // Your custom logic here, e.g., perform some action when the dialog is shown
+        if(!r.dialog.fields_dict['allow_child_item_selection'].get_value()){
+            r.dialog.fields_dict.allow_child_item_selection.$input.click()
+        }
+
+        if($(":input[data-fieldname='allow_child_item_selection']").is(':checked')){
+          setTimeout(function(){
+            // frappe.msgprint('test')
+            console.log(r.child_datatable)
+            $(":input[data-name='Kadar']").val('12K');
+            console.log(r.child_datatable.columnmanager.applyFilter(r.child_datatable.columnmanager.getAppliedFilters())) 
+          }, 2000)
+        }
+      });
+    
+    // console.log(r.filter_group);
+    // console.log(r.dialog.fields_dict);
+    
   },
 });
+
+
 // ($("element").data("bs.modal") || {})._isShown;
 // $(document).is(":visible", ".modal-dialog", function () {
 //   $(this).css("max-width", "800px");
