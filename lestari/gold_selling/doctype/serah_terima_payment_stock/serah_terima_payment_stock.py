@@ -61,3 +61,6 @@ class SerahTerimaPaymentStock(Document):
 			ste.append('items', baris_baru)
 		ste.flags.ignore_permissions = True
 		ste.save()
+	def on_cancel(self):
+		for col in self.details:
+			frappe.db.set_value("Stock Payment", col.child_id, "is_done", 0)

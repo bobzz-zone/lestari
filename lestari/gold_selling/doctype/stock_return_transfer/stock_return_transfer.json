@@ -15,7 +15,11 @@
   "sales",
   "warehouse",
   "section_break_7",
+  "customer",
   "get_details",
+  "column_break_11",
+  "sub_customer",
+  "section_break_13",
   "transfer_details",
   "amended_from"
  ],
@@ -31,6 +35,7 @@
    "fieldname": "no_doc",
    "fieldtype": "Link",
    "label": "No Doc",
+   "mandatory_depends_on": "eval:doc.type == \"Masuk\"",
    "options": "Stock Return Transfer"
   },
   {
@@ -49,8 +54,11 @@
    "fetch_from": "sales_bundle.sales",
    "fieldname": "sales",
    "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Sales",
-   "options": "Sales Partner"
+   "options": "Sales Partner",
+   "reqd": 1
   },
   {
    "fetch_from": "sales.warehouse",
@@ -81,19 +89,43 @@
   {
    "fieldname": "type",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Type",
-   "options": "\nMasuk\nKeluar"
+   "options": "\nMasuk\nKeluar",
+   "reqd": 1
   },
   {
    "fieldname": "get_details",
    "fieldtype": "Button",
    "label": "Get Details"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sub_customer",
+   "fieldtype": "Link",
+   "label": "Sub Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "section_break_13",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-18 02:40:45.970583",
+ "modified": "2023-08-04 16:11:50.604418",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Stock Return Transfer",

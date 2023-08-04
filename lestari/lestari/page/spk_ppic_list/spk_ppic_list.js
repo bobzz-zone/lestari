@@ -1,11 +1,11 @@
-frappe.pages['tf-salesman-dvx-repo'].on_page_load = function(wrapper) {
+frappe.pages['spk-ppic-list'].on_page_load = function(wrapper) {
 	new DevExtreme(wrapper)
 }
 DevExtreme = Class.extend({
 	init: function(wrapper){
 		this.page = frappe.ui.make_app_page({
 			parent: wrapper,
-			title: 'Transfer Salesman',
+			title: 'SPK PPIC',
 			single_column: true
 		});
 		this.make()
@@ -16,6 +16,7 @@ DevExtreme = Class.extend({
 		DevExpress.localization.locale(navigator.language);
 		let body = `<div class="dx-viewport">
 			<div id="dataGrid"></div>
+
 		</div>`;
 		$(frappe.render_template(body, this)).appendTo(this.page.main)
 		var employees =  await this.employees()
@@ -32,6 +33,7 @@ DevExtreme = Class.extend({
 			showBorders: true,
 			allowColumnReordering: true,
 			allowColumnResizing: true,
+			columnsAutoWidth: true,
 			columnAutoWidth: true,
 			scrolling: {
 				columnRenderingMode: 'virtual',
@@ -39,6 +41,14 @@ DevExtreme = Class.extend({
 			groupPanel: {
 				visible: true,
 			},
+			grouping:{
+				autoExpandAll: false
+			},
+			selection: {
+				mode: "multiple",
+				allowSelectAll: true,
+				selectAllMode: 'page' // or "multiple" | "none"
+			}, 
 			paging: {
 				pageSize: 25,
 			},
@@ -50,6 +60,9 @@ DevExtreme = Class.extend({
 			showNavigationButtons: true,
 			},
 			filterRow: { visible: true },
+			headerFilter: {
+				visible: true,
+			  },
         	searchPanel: { visible: true }, 
 			columnChooser: { enabled: true },
 			export: {
@@ -60,71 +73,56 @@ DevExtreme = Class.extend({
 				width: 50,
 				alignment: 'center',
 				caption: 'No.',
-			  },{
+			//   }],
+			// ,{
+			},{
 				dataField: 'name',
 				format: 'string',
 				alignment: 'left',
-				width: 110,
-				caption: 'No Doc'			   
-			  },{
+				// width: 110,
+				caption: 'No FM'			   
+			  }
+			  ,{
 				dataField: 'posting_date',
+				format: 'date',
+				alignment: 'right',
+				caption: 'Posting Date',
+				// width: 110,
+				
+			  },{
+				dataField: 'urut_fm',
 				format: 'string',
 				alignment: 'left',
-				width: 110,
-				caption: 'Posting Date'
+				// width: 110,
+				caption: 'Urut FM'			   
 			  },			   
-			  {
-				dataField: 'bundle',
-				format: 'string',
-				width: 150,
-				caption: 'Bundle'
-			  },
-			  {
-				dataField: 'type',
-				format: 'string',
-				width: 150,
-				caption: 'Type'
-			  },
-			  {
-				dataField: 'nama_stokist',
-				format: 'string',
-				width: 150,
-				caption: 'Stokist'
-			  },
-			  {
-				dataField: 'sales',
-				format: 'string',
-				width: 100,
-				caption: 'Sales'
-			  },
-			  {
-				dataField: 'warehouse',
-				format: 'string',
-				width: 100,
-				caption: 'Warehouse'
-			  },
-			  {
-				dataField: 'kategori',
-				format: 'string',
-				width: 100,
-				caption: 'Kategori'
-			  },
 			  {
 				dataField: 'sub_kategori',
 				format: 'string',
-				width: 100,
+				// width: 150,
 				caption: 'Sub Kategori'
+			  },
+			  {
+				dataField: 'model',
+				format: 'string',
+				// width: 150,
+				caption: 'No Model'
 			  },
 			  {
 				dataField: 'kadar',
 				format: 'string',
-				width: 100,
+				// width: 150,
 				caption: 'Kadar'
 			  },
 			  {
 				dataField: 'qty',
 				format: 'decimal',
-				caption: 'Per Qty'
+				caption: 'Qty'
+			  },
+			  {
+				dataField: 'berat',
+				format: 'decimal',
+				caption: 'Berat'
 			  },
 			  ],
 			summary: {
@@ -136,7 +134,7 @@ DevExtreme = Class.extend({
 					column: 'qty',
 					summaryType: 'sum',
 					displayFormat: 'Total: {0}',
-					showInGroupFooter: false,
+					showInGroupFooter: true,
 					alignByColumn: true,
 					valueFormat: {
 						type: 'fixedPoint',
@@ -147,7 +145,25 @@ DevExtreme = Class.extend({
 					},
 				  }],
 			  },
-			onExporting(e) {
+			  onSelectionChanged(selectedItems) {
+				const data = selectedItems.selectedRowsData;
+				if (data.length > 0) {
+				  $('#selected-items-container').text(
+					data
+					  .map((value) => `${value.FirstName} ${value.LastName}`)
+					  .join(', '),
+				  );
+				} else {
+				  $('#selected-items-container').text('Nobody has been selected');
+				}
+				if (!changedBySelectBox) {
+				  titleSelectBox.option('value', null);
+				}
+		  
+				changedBySelectBox = false;
+				clearSelectionButton.option('disabled', !data.length);
+			  },
+			  onExporting(e) {
 				const workbook = new ExcelJS.Workbook();
 				const worksheet = workbook.addWorksheet('Employees');
 		  
@@ -163,10 +179,11 @@ DevExtreme = Class.extend({
 				e.cancel = true;
 			  }
 		});
+		
 	},
 	employees: function(){
 		var data = frappe.call({
-			method: 'lestari.lestari.page.tf_salesman_dvx_repo.tf_salesman_dvx_repo.contoh_report',
+			method: 'lestari.lestari.page.spk_ppic_list.spk_ppic_list.contoh_report',
 			args: {
 				'doctype': 'Purchase Order',
 			}

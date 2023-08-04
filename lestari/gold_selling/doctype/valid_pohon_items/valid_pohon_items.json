@@ -14,7 +14,11 @@
   "kategori_pohon",
   "qty_isi_pohon",
   "no_pohon",
-  "qty"
+  "qty",
+  "berat_pcs",
+  "total_berat",
+  "total_inject",
+  "total_batu"
  ],
  "fields": [
   {
@@ -83,12 +87,32 @@
    "in_list_view": 1,
    "label": "Qty",
    "read_only": 1
+  },
+  {
+   "fieldname": "berat_pcs",
+   "fieldtype": "Float",
+   "label": "Berat Pcs"
+  },
+  {
+   "fieldname": "total_berat",
+   "fieldtype": "Float",
+   "label": "Total Berat"
+  },
+  {
+   "fieldname": "total_inject",
+   "fieldtype": "Int",
+   "label": "Total Inject"
+  },
+  {
+   "fieldname": "total_batu",
+   "fieldtype": "Int",
+   "label": "Total Batu"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-11-08 12:05:42.721995",
+ "modified": "2023-08-04 15:09:50.499045",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Valid Pohon Items",
