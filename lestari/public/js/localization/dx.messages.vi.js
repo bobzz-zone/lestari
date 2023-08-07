@@ -1,7 +1,7 @@
 /*!
 * DevExtreme (dx.messages.vi.js)
-* Version: 22.2.6
-* Build date: Tue Apr 18 2023
+* Version: 23.1.4
+* Build date: Fri Jul 14 2023
 *
 * Copyright (c) 2012 - 2023 Developer Express Inc. ALL RIGHTS RESERVED
 * Read about DevExtreme licensing here: https://js.devexpress.com/Licensing/
@@ -70,6 +70,12 @@
             "dxDateBox-simulatedDataPickerTitleDate": "L\u1ef1a ch\u1ecdn ng\xe0y",
             "dxDateBox-simulatedDataPickerTitleDateTime": "Ch\u1ecdn ng\xe0y v\xe0 gi\u1edd",
             "dxDateBox-validation-datetime": "Gi\xe1 tr\u1ecb ph\u1ea3i l\xe0 ng\xe0y ho\u1eb7c gi\u1edd",
+            "dxDateRangeBox-invalidStartDateMessage": "Start value must be a date",
+            "dxDateRangeBox-invalidEndDateMessage": "End value must be a date",
+            "dxDateRangeBox-startDateOutOfRangeMessage": "Start date is out of range",
+            "dxDateRangeBox-endDateOutOfRangeMessage": "End date is out of range",
+            "dxDateRangeBox-startDateLabel": "Ng\xe0y b\u1eaft \u0111\u1ea7u",
+            "dxDateRangeBox-endDateLabel": "Ng\xe0y k\u1ebft th\xfac",
             "dxFileUploader-selectFile": "Ch\u1ecdn t\u1eadp tin",
             "dxFileUploader-dropFile": "ho\u1eb7c Th\u1ea3 t\u1eadp tin v\xe0o \u0111\xe2y",
             "dxFileUploader-bytes": "byte",
@@ -92,6 +98,10 @@
             "dxForm-requiredMessage": "{0} l\xe0 b\u1eaft bu\u1ed9c",
             "dxNumberBox-invalidValueMessage": "Gi\xe1 tr\u1ecb ph\u1ea3i l\xe0 m\u1ed9t s\u1ed1",
             "dxNumberBox-noDataText": "Kh\xf4ng c\xf3 d\u1eef li\u1ec7u",
+            "dxDataGrid-emptyHeaderWithColumnChooserText": "Use {0} to display columns",
+            "dxDataGrid-emptyHeaderWithGroupPanelText": "Drag a column from the group panel here",
+            "dxDataGrid-emptyHeaderWithColumnChooserAndGroupPanelText": "Use {0} or drag a column from the group panel",
+            "dxDataGrid-emptyHeaderColumnChooserText": "column chooser",
             "dxDataGrid-columnChooserTitle": "Tr\xecnh ch\u1ecdn c\u1ed9t",
             "dxDataGrid-columnChooserEmptyText": "K\xe9o m\u1ed9t c\u1ed9t v\xe0o \u0111\xe2y \u0111\u1ec3 \u1ea9n n\xf3 \u0111i",
             "dxDataGrid-groupContinuesMessage": "Ti\u1ebfp t\u1ee5c \u1edf trang ti\u1ebfp theo",
@@ -124,6 +134,7 @@
             "dxDataGrid-filterRowOperationBetween": "Gi\u1eefa",
             "dxDataGrid-filterRowOperationBetweenStartText": "B\u1eaft \u0111\u1ea7u",
             "dxDataGrid-filterRowOperationBetweenEndText": "K\u1ebft th\xfac",
+            "dxDataGrid-ariaSearchBox": "Search box",
             "dxDataGrid-applyFilterText": "\xc1p d\u1ee5ng b\u1ed9 l\u1ecdc",
             "dxDataGrid-trueText": "\u0111\xfang",
             "dxDataGrid-falseText": "sai",
@@ -180,11 +191,14 @@
             "dxTreeList-editingAddRowToNode": "Th\xeam",
             "dxPager-infoText": "Trang {0} c\u1ee7a {1} ({2} m\u1ee5c)",
             "dxPager-pagesCountText": "c\u1ee7a",
+            "dxPager-pageSize": "Items per page: {0}",
             "dxPager-pageSizesAllText": "T\u1ea5t c\u1ea3",
             "dxPager-page": "Page {0}",
             "dxPager-prevPage": "Previous Page",
             "dxPager-nextPage": "Next Page",
             "dxPager-ariaLabel": "Page Navigation",
+            "dxPager-ariaPageSize": "Page size",
+            "dxPager-ariaPageNumber": "Page number",
             "dxPivotGrid-grandTotal": "T\u1ed5ng t\u1ea5t c\u1ea3",
             "dxPivotGrid-total": "{0} T\u1ed5ng",
             "dxPivotGrid-fieldChooserTitle": "Tr\xecnh l\u1ef1a ch\u1ecdn Tr\u01b0\u1eddng",
@@ -250,6 +264,7 @@
             "dxScheduler-moreAppointments": "{0} th\xeam",
             "dxCalendar-todayButtonText": "H\xf4m nay",
             "dxCalendar-ariaWidgetName": "L\u1ecbch",
+            "dxCalendar-ariaHotKeysInfo": "To navigate between views, press Control, and then Left Arrow or Right Arrow. To zoom in on a view, press Control, and then Down Arrow. To zoom out, press Control, and then Up Arrow.",
             "dxColorView-ariaRed": "\u0110\u1ecf",
             "dxColorView-ariaGreen": "Xanh l\xe1",
             "dxColorView-ariaBlue": "Xanh n\u01b0\u1edbc bi\u1ec3n",

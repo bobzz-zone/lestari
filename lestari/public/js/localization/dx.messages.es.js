@@ -1,7 +1,7 @@
 /*!
 * DevExtreme (dx.messages.es.js)
-* Version: 22.2.6
-* Build date: Tue Apr 18 2023
+* Version: 23.1.4
+* Build date: Fri Jul 14 2023
 *
 * Copyright (c) 2012 - 2023 Developer Express Inc. ALL RIGHTS RESERVED
 * Read about DevExtreme licensing here: https://js.devexpress.com/Licensing/
@@ -70,6 +70,12 @@
             "dxDateBox-simulatedDataPickerTitleDate": "Seleccione fecha",
             "dxDateBox-simulatedDataPickerTitleDateTime": "Seleccione fecha y hora",
             "dxDateBox-validation-datetime": "Valor debe ser una fecha u hora",
+            "dxDateRangeBox-invalidStartDateMessage": "Start value must be a date",
+            "dxDateRangeBox-invalidEndDateMessage": "End value must be a date",
+            "dxDateRangeBox-startDateOutOfRangeMessage": "Start date is out of range",
+            "dxDateRangeBox-endDateOutOfRangeMessage": "End date is out of range",
+            "dxDateRangeBox-startDateLabel": "Fecha inicial",
+            "dxDateRangeBox-endDateLabel": "Fecha final",
             "dxFileUploader-selectFile": "Seleccionar archivo",
             "dxFileUploader-dropFile": "o arrastre un archivo aqu\xed",
             "dxFileUploader-bytes": "bytes",
@@ -92,6 +98,10 @@
             "dxForm-requiredMessage": "{0} es obligatorio",
             "dxNumberBox-invalidValueMessage": "Valor debe ser un n\xfamero",
             "dxNumberBox-noDataText": "Sin datos",
+            "dxDataGrid-emptyHeaderWithColumnChooserText": "Use {0} to display columns",
+            "dxDataGrid-emptyHeaderWithGroupPanelText": "Drag a column from the group panel here",
+            "dxDataGrid-emptyHeaderWithColumnChooserAndGroupPanelText": "Use {0} or drag a column from the group panel",
+            "dxDataGrid-emptyHeaderColumnChooserText": "column chooser",
             "dxDataGrid-columnChooserTitle": "Selector de Columnas",
             "dxDataGrid-columnChooserEmptyText": "Arrastra una columna aqu\xed para ocultarla",
             "dxDataGrid-groupContinuesMessage": "Contin\xfaa en la p\xe1gina siguiente",
@@ -124,6 +134,7 @@
             "dxDataGrid-filterRowOperationBetween": "Entre",
             "dxDataGrid-filterRowOperationBetweenStartText": "Inicio",
             "dxDataGrid-filterRowOperationBetweenEndText": "Fin",
+            "dxDataGrid-ariaSearchBox": "Search box",
             "dxDataGrid-applyFilterText": "Filtrar",
             "dxDataGrid-trueText": "verdadero",
             "dxDataGrid-falseText": "falso",
@@ -180,11 +191,14 @@
             "dxTreeList-editingAddRowToNode": "A\xf1adir",
             "dxPager-infoText": "P\xe1gina {0} de {1} ({2} \xedtems)",
             "dxPager-pagesCountText": "de",
+            "dxPager-pageSize": "Items per page: {0}",
             "dxPager-pageSizesAllText": "Todos",
             "dxPager-page": "Page {0}",
             "dxPager-prevPage": "Previous Page",
             "dxPager-nextPage": "Next Page",
             "dxPager-ariaLabel": "Page Navigation",
+            "dxPager-ariaPageSize": "Page size",
+            "dxPager-ariaPageNumber": "Page number",
             "dxPivotGrid-grandTotal": "Gran Total",
             "dxPivotGrid-total": "{0} Total",
             "dxPivotGrid-fieldChooserTitle": "Selector de Campos",
@@ -250,6 +264,7 @@
             "dxScheduler-moreAppointments": "{0} m\xe1s",
             "dxCalendar-todayButtonText": "Hoy",
             "dxCalendar-ariaWidgetName": "Calendario",
+            "dxCalendar-ariaHotKeysInfo": "To navigate between views, press Control, and then Left Arrow or Right Arrow. To zoom in on a view, press Control, and then Down Arrow. To zoom out, press Control, and then Up Arrow.",
             "dxColorView-ariaRed": "Rojo",
             "dxColorView-ariaGreen": "Verde",
             "dxColorView-ariaBlue": "Azul",

@@ -1,7 +1,7 @@
 /*!
 * DevExtreme (dx.messages.cs.js)
-* Version: 22.2.6
-* Build date: Tue Apr 18 2023
+* Version: 23.1.4
+* Build date: Fri Jul 14 2023
 *
 * Copyright (c) 2012 - 2023 Developer Express Inc. ALL RIGHTS RESERVED
 * Read about DevExtreme licensing here: https://js.devexpress.com/Licensing/
@@ -70,6 +70,12 @@
             "dxDateBox-simulatedDataPickerTitleDate": "Vyberte datum",
             "dxDateBox-simulatedDataPickerTitleDateTime": "Vyberte datum a \u010das",
             "dxDateBox-validation-datetime": "Hodnota mus\xed b\xfdt datum nebo \u010das",
+            "dxDateRangeBox-invalidStartDateMessage": "Start value must be a date",
+            "dxDateRangeBox-invalidEndDateMessage": "End value must be a date",
+            "dxDateRangeBox-startDateOutOfRangeMessage": "Start date is out of range",
+            "dxDateRangeBox-endDateOutOfRangeMessage": "End date is out of range",
+            "dxDateRangeBox-startDateLabel": "Po\u010d\xe1te\u010dn\xed datum",
+            "dxDateRangeBox-endDateLabel": "Koncov\xe9 datum",
             "dxFileUploader-selectFile": "Vyberte soubor",
             "dxFileUploader-dropFile": "nebo p\u0159eneste soubor sem",
             "dxFileUploader-bytes": "byt\u016f",
@@ -92,6 +98,10 @@
             "dxForm-requiredMessage": "{0} je vy\u017eadov\xe1no",
             "dxNumberBox-invalidValueMessage": "Hodnota mus\xed b\xfdt \u010d\xedslo",
             "dxNumberBox-noDataText": "\u017d\xe1dn\xe1 data",
+            "dxDataGrid-emptyHeaderWithColumnChooserText": "Use {0} to display columns",
+            "dxDataGrid-emptyHeaderWithGroupPanelText": "Drag a column from the group panel here",
+            "dxDataGrid-emptyHeaderWithColumnChooserAndGroupPanelText": "Use {0} or drag a column from the group panel",
+            "dxDataGrid-emptyHeaderColumnChooserText": "column chooser",
             "dxDataGrid-columnChooserTitle": "V\xfdb\u011br sloupc\u016f",
             "dxDataGrid-columnChooserEmptyText": "P\u0159esu\u0148te sloupec zde pro skyt\xed",
             "dxDataGrid-groupContinuesMessage": "Pokra\u010dovat na dal\u0161\xed stran\u011b",
@@ -124,6 +134,7 @@
             "dxDataGrid-filterRowOperationBetween": "Mezi",
             "dxDataGrid-filterRowOperationBetweenStartText": "Za\u010d\xedn\xe1",
             "dxDataGrid-filterRowOperationBetweenEndText": "Kon\u010d\xed",
+            "dxDataGrid-ariaSearchBox": "Search box",
             "dxDataGrid-applyFilterText": "Pou\u017e\xedt filtr",
             "dxDataGrid-trueText": "Plat\xed",
             "dxDataGrid-falseText": "Neplat\xed",
@@ -180,11 +191,14 @@
             "dxTreeList-editingAddRowToNode": "P\u0159idat",
             "dxPager-infoText": "Strana {0} ze {1} ({2} polo\u017eek)",
             "dxPager-pagesCountText": "ze",
+            "dxPager-pageSize": "Items per page: {0}",
             "dxPager-pageSizesAllText": "V\u0161e",
             "dxPager-page": "Page {0}",
             "dxPager-prevPage": "Previous Page",
             "dxPager-nextPage": "Next Page",
             "dxPager-ariaLabel": "Page Navigation",
+            "dxPager-ariaPageSize": "Page size",
+            "dxPager-ariaPageNumber": "Page number",
             "dxPivotGrid-grandTotal": "Celkem",
             "dxPivotGrid-total": "{0} Celkem",
             "dxPivotGrid-fieldChooserTitle": "V\xfdb\u011br pole",
@@ -250,6 +264,7 @@
             "dxScheduler-moreAppointments": "{0} nav\xedc",
             "dxCalendar-todayButtonText": "Dnes",
             "dxCalendar-ariaWidgetName": "Kalend\xe1\u0159",
+            "dxCalendar-ariaHotKeysInfo": "To navigate between views, press Control, and then Left Arrow or Right Arrow. To zoom in on a view, press Control, and then Down Arrow. To zoom out, press Control, and then Up Arrow.",
             "dxColorView-ariaRed": "\u010cerven\xe1",
             "dxColorView-ariaGreen": "Zelen\xe1",
             "dxColorView-ariaBlue": "Modr\xe1",

@@ -1,7 +1,7 @@
 /*!
 * DevExtreme (dx.messages.ja.js)
-* Version: 22.2.6
-* Build date: Tue Apr 18 2023
+* Version: 23.1.4
+* Build date: Fri Jul 14 2023
 *
 * Copyright (c) 2012 - 2023 Developer Express Inc. ALL RIGHTS RESERVED
 * Read about DevExtreme licensing here: https://js.devexpress.com/Licensing/
@@ -70,6 +70,12 @@
             "dxDateBox-simulatedDataPickerTitleDate": "\u65e5\u4ed8\u3092\u9078\u629e\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
             "dxDateBox-simulatedDataPickerTitleDateTime": "\u65e5\u4ed8\u3068\u6642\u523b\u3092\u9078\u629e\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
             "dxDateBox-validation-datetime": "\u65e5\u4ed8\u307e\u305f\u306f\u6642\u523b\u3092\u6307\u5b9a\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+            "dxDateRangeBox-invalidStartDateMessage": "Start value must be a date",
+            "dxDateRangeBox-invalidEndDateMessage": "End value must be a date",
+            "dxDateRangeBox-startDateOutOfRangeMessage": "Start date is out of range",
+            "dxDateRangeBox-endDateOutOfRangeMessage": "End date is out of range",
+            "dxDateRangeBox-startDateLabel": "\u958b\u59cb\u6642\u523b",
+            "dxDateRangeBox-endDateLabel": "\u7d42\u4e86\u6642\u523b",
             "dxFileUploader-selectFile": "\u30d5\u30a1\u30a4\u30eb\u3092\u9078\u629e",
             "dxFileUploader-dropFile": "\u307e\u305f\u306f\u30d5\u30a1\u30a4\u30eb\u3092\u3053\u3061\u3089\u306b\u30c9\u30ed\u30c3\u30d7\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
             "dxFileUploader-bytes": "\u30d0\u30a4\u30c8",
@@ -92,6 +98,10 @@
             "dxForm-requiredMessage": "{0} \u306f\u5fc5\u9808\u30d5\u30a3\u30fc\u30eb\u30c9\u3067\u3059",
             "dxNumberBox-invalidValueMessage": "\u6570\u5024\u3092\u6307\u5b9a\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
             "dxNumberBox-noDataText": "\u30c7\u30fc\u30bf\u304c\u3042\u308a\u307e\u305b\u3093",
+            "dxDataGrid-emptyHeaderWithColumnChooserText": "{0} \u3092\u4f7f\u7528\u3057\u3066\u5217\u3092\u8868\u793a\u3057\u3066\u304f\u3060\u3055\u3044",
+            "dxDataGrid-emptyHeaderWithGroupPanelText": "\u30b0\u30eb\u30fc\u30d7\u30d1\u30cd\u30eb\u304b\u3089\u3053\u3053\u306b\u5217\u3092\u30c9\u30e9\u30c3\u30b0\u3057\u3066\u304f\u3060\u3055\u3044",
+            "dxDataGrid-emptyHeaderWithColumnChooserAndGroupPanelText": "{0} \u3092\u4f7f\u7528\u3059\u308b\u304b\u3001\u30b0\u30eb\u30fc\u30d7 \u30d1\u30cd\u30eb\u304b\u3089\u5217\u3092\u30c9\u30e9\u30c3\u30b0\u3057\u3066\u304f\u3060\u3055\u3044",
+            "dxDataGrid-emptyHeaderColumnChooserText": "\u5217\u306e\u9078\u629e",
             "dxDataGrid-columnChooserTitle": "\u5217\u306e\u9078\u629e",
             "dxDataGrid-columnChooserEmptyText": "\u96a0\u3057\u305f\u3044\u5217\u306e\u30d8\u30c3\u30c0\u30fc\u3092\u3053\u3053\u306b\u30c9\u30e9\u30c3\u30b0\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
             "dxDataGrid-groupContinuesMessage": "\u6b21\u30da\u30fc\u30b8\u306b\u7d9a\u304f",
@@ -124,6 +134,7 @@
             "dxDataGrid-filterRowOperationBetween": "\uff5e\u304b\u3089\uff5e\u306e\u9593",
             "dxDataGrid-filterRowOperationBetweenStartText": "\u958b\u59cb\u5024",
             "dxDataGrid-filterRowOperationBetweenEndText": "\u7d42\u4e86\u5024",
+            "dxDataGrid-ariaSearchBox": "Search box",
             "dxDataGrid-applyFilterText": "\u30d5\u30a3\u30eb\u30bf\u30fc\u3092\u9069\u7528",
             "dxDataGrid-trueText": "true",
             "dxDataGrid-falseText": "false",
@@ -165,7 +176,7 @@
             "dxDataGrid-ariaFilterCell": "\u30d5\u30a3\u30eb\u30bf\u30fc \u30bb\u30eb",
             "dxDataGrid-ariaCollapse": "\u6298\u308a\u305f\u305f\u3080",
             "dxDataGrid-ariaExpand": "\u5c55\u958b",
-            "dxDataGrid-ariaDataGrid": "\u30c7\u30fc\u30bf \u30b0\u30ea\u30c3\u30c9",
+            "dxDataGrid-ariaDataGrid": "{0} \u884c\u3068 {1} \u5217\u306e\u30c7\u30fc\u30bf \u30b0\u30ea\u30c3\u30c9",
             "dxDataGrid-ariaSearchInGrid": "\u30c7\u30fc\u30bf \u30b0\u30ea\u30c3\u30c9\u5185\u3067\u691c\u7d22",
             "dxDataGrid-ariaSelectAll": "\u3059\u3079\u3066\u3092\u9078\u629e",
             "dxDataGrid-ariaSelectRow": "\u884c\u306e\u9078\u629e",
@@ -186,6 +197,8 @@
             "dxPager-prevPage": "\u524d\u306e\u30da\u30fc\u30b8",
             "dxPager-nextPage": "\u6b21\u306e\u30da\u30fc\u30b8",
             "dxPager-ariaLabel": "\u30da\u30fc\u30b8 \u30ca\u30d3\u30b2\u30fc\u30b7\u30e7\u30f3",
+            "dxPager-ariaPageSize": "\u30da\u30fc\u30b8 \u30b5\u30a4\u30ba",
+            "dxPager-ariaPageNumber": "\u30da\u30fc\u30b8\u756a\u53f7",
             "dxPivotGrid-grandTotal": "\u7dcf\u8a08",
             "dxPivotGrid-total": "{0} \u5408\u8a08",
             "dxPivotGrid-fieldChooserTitle": "\u30d5\u30a3\u30fc\u30eb\u30c9\u306e\u9078\u629e",
@@ -251,6 +264,7 @@
             "dxScheduler-moreAppointments": "\u305d\u306e\u4ed6 {0} \u3064\u9078\u629e",
             "dxCalendar-todayButtonText": "\u4eca\u65e5",
             "dxCalendar-ariaWidgetName": "\u30ab\u30ec\u30f3\u30c0\u30fc",
+            "dxCalendar-ariaHotKeysInfo": "To navigate between views, press Control, and then Left Arrow or Right Arrow. To zoom in on a view, press Control, and then Down Arrow. To zoom out, press Control, and then Up Arrow.",
             "dxColorView-ariaRed": "\u8d64",
             "dxColorView-ariaGreen": "\u7dd1",
             "dxColorView-ariaBlue": "\u9752",

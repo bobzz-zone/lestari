@@ -4,11 +4,41 @@
 from __future__ import unicode_literals
 import frappe
 from frappe.utils import *
+import json
+
+@frappe.whitelist()
+def make_spk_ppic(data):
+    for row in json.loads(data):
+        doc = frappe.get_doc("Form Order", row)
+        new_doc = frappe.new_doc("SPK Produksi")
+        new_doc.idworksuggestion = doc.idworksuggestion
+        new_doc.employee_id = frappe.db.get_value("Employee",{"user_id":frappe.session.user},"name")
+        for col in doc.items_valid:
+            baris_baru = {
+                'form_order': doc.name,
+                'tanggal_order': doc.posting_date,
+                'so_type': doc.type,
+                'kadar': col.kadar,
+                'kategori': col.kategori,
+                'sub_kategori': col.sub_kategori,
+                'produk_id': col.model,
+                'qty': col.qty,
+                'qty_isi_pohon': col.qty_isi_pohon,
+                'target_berat': col.total_berat,
+                'keterangan_variasi': col.keterangan_variasi,
+                'keternagan_batu': col.keterangan_batu
+            }
+            new_doc.append('tabel_rencana_produksi', baris_baru)
+        new_doc.flags.ignore_permissions = True
+        new_doc.save()
+        new_doc.submit()
+        
+        frappe.msgprint(str(new_doc))
 
 @frappe.whitelist()
 def contoh_report():
     fm = []
-    list_doc = frappe.get_list("Form Order", limit=1000)
+    list_doc = frappe.get_list("Form Order", limit = 5000)
     no = 0
     for row in list_doc:
         doc = frappe.get_doc("Form Order", row)
@@ -16,7 +46,8 @@ def contoh_report():
             no+=1
             baris_baris = {
                 'no' : no,
-                    'name' : str(doc.idworksuggestion),
+                    'name' : str(doc.name),
+                    'form_order' : str(doc.idworksuggestion),
                     'urut_fm' : str(col.idx),
                     'model' : col.model,
                     'qty' : col.qty,

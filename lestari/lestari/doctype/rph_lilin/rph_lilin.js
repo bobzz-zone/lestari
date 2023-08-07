@@ -17,13 +17,14 @@ frappe.ui.form.on("RPH Lilin", {
     }
  },
 get_items_from_spk_produksi: async function (frm, dialog) {
-    await erpnext.utils.map_current_doc({
+   var r =  await erpnext.utils.map_current_doc({
 
       method: "lestari.lestari.doctype.rph_lilin.rph_lilin.get_items_from_spk_produksi",
       source_doctype: "SPK Produksi",
       target: frm,
       setters: {
         area: undefined,
+        tanggal_spk: undefined,
       },
       size: "extra-large",
       get_query_filters: {
@@ -44,10 +45,7 @@ get_items_from_spk_produksi: async function (frm, dialog) {
 
         if($(":input[data-fieldname='allow_child_item_selection']").is(':checked')){
           setTimeout(function(){
-            // frappe.msgprint('test')
-            console.log(r.child_datatable)
-            $(":input[data-name='Kadar']").val('12K');
-            console.log(r.child_datatable.columnmanager.applyFilter(r.child_datatable.columnmanager.getAppliedFilters())) 
+            r.child_datatable.columnmanager.applyFilter(r.child_datatable.columnmanager.getAppliedFilters())
           }, 2000)
         }
       });

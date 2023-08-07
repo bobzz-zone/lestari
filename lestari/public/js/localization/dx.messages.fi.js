@@ -1,7 +1,7 @@
 /*!
 * DevExtreme (dx.messages.fi.js)
-* Version: 22.2.6
-* Build date: Tue Apr 18 2023
+* Version: 23.1.4
+* Build date: Fri Jul 14 2023
 *
 * Copyright (c) 2012 - 2023 Developer Express Inc. ALL RIGHTS RESERVED
 * Read about DevExtreme licensing here: https://js.devexpress.com/Licensing/
@@ -70,6 +70,12 @@
             "dxDateBox-simulatedDataPickerTitleDate": "Valitse p\xe4iv\xe4m\xe4\xe4r\xe4",
             "dxDateBox-simulatedDataPickerTitleDateTime": "Valitse p\xe4iv\xe4m\xe4\xe4r\xe4 ja kellonaika",
             "dxDateBox-validation-datetime": "Arvon on oltava p\xe4iv\xe4ys tai aika",
+            "dxDateRangeBox-invalidStartDateMessage": "Start value must be a date",
+            "dxDateRangeBox-invalidEndDateMessage": "End value must be a date",
+            "dxDateRangeBox-startDateOutOfRangeMessage": "Start date is out of range",
+            "dxDateRangeBox-endDateOutOfRangeMessage": "End date is out of range",
+            "dxDateRangeBox-startDateLabel": "Alkamisp\xe4iv\xe4",
+            "dxDateRangeBox-endDateLabel": "P\xe4\xe4ttymisp\xe4iv\xe4",
             "dxFileUploader-selectFile": "Valitse tiedosto",
             "dxFileUploader-dropFile": "tai ved\xe4 ja pudota tiedosto t\xe4h\xe4n",
             "dxFileUploader-bytes": "tavua",
@@ -92,6 +98,10 @@
             "dxForm-requiredMessage": "{0} on pakollinen",
             "dxNumberBox-invalidValueMessage": "Arvon on oltava numero",
             "dxNumberBox-noDataText": "Ei dataa",
+            "dxDataGrid-emptyHeaderWithColumnChooserText": "Use {0} to display columns",
+            "dxDataGrid-emptyHeaderWithGroupPanelText": "Drag a column from the group panel here",
+            "dxDataGrid-emptyHeaderWithColumnChooserAndGroupPanelText": "Use {0} or drag a column from the group panel",
+            "dxDataGrid-emptyHeaderColumnChooserText": "column chooser",
             "dxDataGrid-columnChooserTitle": "Sarakkeenvalitsin",
             "dxDataGrid-columnChooserEmptyText": "Ved\xe4 sarake t\xe4\xe4ll\xe4 piilottaa sen",
             "dxDataGrid-groupContinuesMessage": "Jatkuu seuraavalla sivulla",
@@ -124,6 +134,7 @@
             "dxDataGrid-filterRowOperationBetween": "V\xe4lill\xe4",
             "dxDataGrid-filterRowOperationBetweenStartText": "Alkaa",
             "dxDataGrid-filterRowOperationBetweenEndText": "Loppu",
+            "dxDataGrid-ariaSearchBox": "Search box",
             "dxDataGrid-applyFilterText": "K\xe4yt\xe4 suodatinta",
             "dxDataGrid-trueText": "tosi",
             "dxDataGrid-falseText": "ep\xe4tosi",
@@ -180,11 +191,14 @@
             "dxTreeList-editingAddRowToNode": "Lis\xe4\xe4",
             "dxPager-infoText": "Sivu {0}/{1} ({2} kohdetta)",
             "dxPager-pagesCountText": "/",
+            "dxPager-pageSize": "Items per page: {0}",
             "dxPager-pageSizesAllText": "Kaikki",
             "dxPager-page": "Page {0}",
             "dxPager-prevPage": "Previous Page",
             "dxPager-nextPage": "Next Page",
             "dxPager-ariaLabel": "Page Navigation",
+            "dxPager-ariaPageSize": "Page size",
+            "dxPager-ariaPageNumber": "Page number",
             "dxPivotGrid-grandTotal": "Loppusumma",
             "dxPivotGrid-total": "{0} Summa",
             "dxPivotGrid-fieldChooserTitle": "Kent\xe4n valitseminen",
@@ -250,6 +264,7 @@
             "dxScheduler-moreAppointments": "{0} lis\xe4\xe4",
             "dxCalendar-todayButtonText": "T\xe4n\xe4\xe4n",
             "dxCalendar-ariaWidgetName": "Kalenteri",
+            "dxCalendar-ariaHotKeysInfo": "To navigate between views, press Control, and then Left Arrow or Right Arrow. To zoom in on a view, press Control, and then Down Arrow. To zoom out, press Control, and then Up Arrow.",
             "dxColorView-ariaRed": "Punainen",
             "dxColorView-ariaGreen": "Vihre\xe4",
             "dxColorView-ariaBlue": "Sininen",

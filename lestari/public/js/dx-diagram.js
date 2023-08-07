@@ -1,7 +1,7 @@
 /*!
  * DevExpress Diagram (dx-diagram)
- * Version: 2.1.72
- * Build date: Wed Mar 01 2023
+ * Version: 2.1.75
+ * Build date: Tue May 02 2023
  * 
  * Copyright (c) 2012 - 2023 Developer Express Inc. ALL RIGHTS RESERVED
  * Read about DevExpress licensing here: https://www.devexpress.com/Support/EULAs
@@ -382,10 +382,10 @@ var point_1 = __webpack_require__(0);
 var rectangle_1 = __webpack_require__(13);
 var search_1 = __webpack_require__(41);
 var metrics_1 = __webpack_require__(35);
-var math_1 = __webpack_require__(31);
+var math_1 = __webpack_require__(24);
 var vector_1 = __webpack_require__(60);
 var segment_1 = __webpack_require__(33);
-var Style_1 = __webpack_require__(26);
+var Style_1 = __webpack_require__(27);
 var browser_1 = __webpack_require__(18);
 var evt_1 = __webpack_require__(65);
 var LineEquation = (function () {
@@ -1165,7 +1165,7 @@ var point_1 = __webpack_require__(0);
 var rectangle_1 = __webpack_require__(13);
 var size_1 = __webpack_require__(2);
 var vector_1 = __webpack_require__(60);
-var math_1 = __webpack_require__(31);
+var math_1 = __webpack_require__(24);
 var Enums_1 = __webpack_require__(47);
 var AddConnectionHistoryItem_1 = __webpack_require__(48);
 var AddConnectorHistoryItem_1 = __webpack_require__(66);
@@ -1196,7 +1196,7 @@ var Structures_1 = __webpack_require__(38);
 var Utils_1 = __webpack_require__(3);
 var Connector_1 = __webpack_require__(6);
 var ConnectorProperties_1 = __webpack_require__(32);
-var ConnectorRenderPoint_1 = __webpack_require__(29);
+var ConnectorRenderPoint_1 = __webpack_require__(30);
 var ConnectorRenderPointsContext_1 = __webpack_require__(85);
 var Shape_1 = __webpack_require__(14);
 var ModelUtils = (function () {
@@ -2123,7 +2123,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PathPrimitiveClosePathCommand = exports.PathPrimitiveArcToCommand = exports.PathPrimitiveQuadraticCurveToCommand = exports.PathPrimitiveCubicCurveToCommand = exports.PathPrimitiveLineToCommand = exports.PathPrimitiveMoveToCommand = exports.PathPrimitiveCommand = exports.PathPrimitive = void 0;
 var RenderHelper_1 = __webpack_require__(15);
-var Primitive_1 = __webpack_require__(24);
+var Primitive_1 = __webpack_require__(25);
 var PrimitiveObject_1 = __webpack_require__(109);
 var PathPrimitive = (function (_super) {
     __extends(PathPrimitive, _super);
@@ -2292,7 +2292,7 @@ var ITextMeasurer_1 = __webpack_require__(43);
 var PathPrimitive_1 = __webpack_require__(5);
 var TextPrimitive_1 = __webpack_require__(63);
 var Utils_1 = __webpack_require__(17);
-var Settings_1 = __webpack_require__(28);
+var Settings_1 = __webpack_require__(29);
 var Utils_2 = __webpack_require__(3);
 var DiagramItem_1 = __webpack_require__(9);
 var ModelUtils_1 = __webpack_require__(4);
@@ -2531,7 +2531,7 @@ var Connector = (function (_super) {
     Connector.prototype.invalidateRenderPoints = function () {
         this.shouldInvalidateRenderPoints = true;
     };
-    Connector.prototype.createPrimitives = function () {
+    Connector.prototype.createPrimitives = function (instanceId) {
         var result = [];
         var points = this.getRenderPoints();
         var path = new PathPrimitive_1.PathPrimitive(points.map(function (pt, index) {
@@ -2539,7 +2539,7 @@ var Connector = (function (_super) {
         }), this.style);
         result.push(path);
         result = result.concat(this.createLineEndingPrimitives(points, path));
-        result = result.concat(this.createTextPrimitives());
+        result = result.concat(this.createTextPrimitives(instanceId));
         return result;
     };
     Connector.prototype.createLineEndingPrimitives = function (points, connectorPath) {
@@ -2586,7 +2586,7 @@ var Connector = (function (_super) {
         }), null, "selector"));
         return result;
     };
-    Connector.prototype.createTextPrimitives = function () {
+    Connector.prototype.createTextPrimitives = function (instanceId) {
         var _this = this;
         if (!this.enableText)
             return [];
@@ -2596,7 +2596,7 @@ var Connector = (function (_super) {
             if (text && text !== "") {
                 var pt = _this.getTextPoint(textObj.position);
                 result = result.concat([
-                    new TextPrimitive_1.TextPrimitive(pt.x, pt.y, text, ITextMeasurer_1.TextOwner.Connector, undefined, undefined, undefined, _this.styleText, true, null, CanvasManagerBase_1.PAGE_BG_TEXTFLOOR_FILTER_ID, undefined, function (el) {
+                    new TextPrimitive_1.TextPrimitive(pt.x, pt.y, text, ITextMeasurer_1.TextOwner.Connector, undefined, undefined, undefined, _this.styleText, true, null, CanvasManagerBase_1.PAGE_BG_TEXTFLOOR_FILTER_IDPREFIX + instanceId, undefined, function (el) {
                         Utils_1.RenderUtils.setElementEventData(el, Event_1.MouseEventElementType.ConnectorText, _this.key, textObj.position);
                     })
                 ]);
@@ -2819,7 +2819,7 @@ var ShapeDescription = (function () {
     ShapeDescription.prototype.allowResizeVertically = function (_shape) {
         return true;
     };
-    ShapeDescription.prototype.createPrimitives = function (shape, forToolbox) {
+    ShapeDescription.prototype.createPrimitives = function (shape, instanceId, forToolbox) {
         var primitives = [];
         primitives = primitives.concat(this.createShapePrimitives(shape, forToolbox));
         if (this.enableImage)
@@ -2948,7 +2948,7 @@ exports.DiagramItem = exports.DEFAULT_ZINDEX = exports.ConnectionPointSide = voi
 var rectangle_1 = __webpack_require__(13);
 var metrics_1 = __webpack_require__(35);
 var Utils_1 = __webpack_require__(3);
-var Style_1 = __webpack_require__(26);
+var Style_1 = __webpack_require__(27);
 var ConnectionPointSide;
 (function (ConnectionPointSide) {
     ConnectionPointSide[ConnectionPointSide["Undefined"] = -1] = "Undefined";
@@ -3166,7 +3166,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DiagramClipboardEvent = exports.DiagramKeyboardEvent = exports.DiagramContextMenuEvent = exports.DiagramWheelEvent = exports.DiagramMouseEvent = exports.DiagramMouseEventBase = exports.DiagramMouseEventTouch = exports.DiagramFocusEvent = exports.DiagramEvent = exports.ResizeEventSource = exports.MouseEventSource = exports.MouseEventElementType = exports.MouseButton = void 0;
-var key_1 = __webpack_require__(25);
+var key_1 = __webpack_require__(26);
 var MouseButton;
 (function (MouseButton) {
     MouseButton[MouseButton["None"] = 0] = "None";
@@ -3884,8 +3884,8 @@ var Shape = (function (_super) {
         return typeof (this.description.maxHeight) === "number" ? this.description.maxHeight :
             typeof (settingsMaxHeight) === "number" ? settingsMaxHeight : undefined;
     };
-    Shape.prototype.createPrimitives = function () {
-        return this.description.createPrimitives(this);
+    Shape.prototype.createPrimitives = function (instanceId) {
+        return this.description.createPrimitives(this, instanceId);
     };
     Shape.prototype.createSelectorPrimitives = function () {
         return this.description.createSelectorPrimitives(this);
@@ -4210,7 +4210,7 @@ var DiagramModelOperation;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.raiseEvent = exports.RenderUtils = void 0;
 var Event_1 = __webpack_require__(11);
-var math_1 = __webpack_require__(31);
+var math_1 = __webpack_require__(24);
 var RenderUtils = (function () {
     function RenderUtils() {
     }
@@ -4678,7 +4678,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RectanglePrimitive = void 0;
 var RenderHelper_1 = __webpack_require__(15);
-var Primitive_1 = __webpack_require__(24);
+var Primitive_1 = __webpack_require__(25);
 var RectanglePrimitive = (function (_super) {
     __extends(RectanglePrimitive, _super);
     function RectanglePrimitive(x, y, width, height, style, className, clipPathId, onApplyProperties) {
@@ -4917,6 +4917,66 @@ exports.PermissionRequestEventArgs = PermissionRequestEventArgs;
 
 "use strict";
 
+Object.defineProperty(exports, "__esModule", { value: true });
+var list_1 = __webpack_require__(105);
+var MathUtils = (function () {
+    function MathUtils() {
+    }
+    MathUtils.round = function (value, digits) {
+        if (digits === void 0) { digits = 0; }
+        var factor = MathUtils.powFactor[digits];
+        return Math.round(value * factor) / factor;
+    };
+    MathUtils.numberCloseTo = function (num, to, accuracy) {
+        if (accuracy === void 0) { accuracy = 0.00001; }
+        return Math.abs(num - to) < accuracy;
+    };
+    MathUtils.restrictValue = function (val, minVal, maxVal) {
+        if (maxVal < minVal)
+            maxVal = minVal;
+        if (val > maxVal)
+            return maxVal;
+        else if (val < minVal)
+            return minVal;
+        return val;
+    };
+    MathUtils.getRandomInt = function (min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    };
+    MathUtils.generateGuid = function () {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0;
+            var v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    };
+    MathUtils.powFactor = list_1.ListUtils.initByCallback(20, function (ind) { return Math.pow(10, ind); });
+    MathUtils.somePrimes = [1009, 1013,
+        1019, 1021, 1031, 1033, 1039, 1049, 1051, 1061, 1063, 1069,
+        1087, 1091, 1093, 1097, 1103, 1109, 1117, 1123, 1129, 1151,
+        1153, 1163, 1171, 1181, 1187, 1193, 1201, 1213, 1217, 1223,
+        1229, 1231, 1237, 1249, 1259, 1277, 1279, 1283, 1289, 1291,
+        1297, 1301, 1303, 1307, 1319, 1321, 1327, 1361, 1367, 1373,
+        1381, 1399, 1409, 1423, 1427, 1429, 1433, 1439, 1447, 1451,
+        1453, 1459, 1471, 1481, 1483, 1487, 1489, 1493, 1499, 1511,
+        1523, 1531, 1543, 1549, 1553, 1559, 1567, 1571, 1579, 1583,
+        1597, 1601, 1607, 1609, 1613, 1619, 1621, 1627, 1637, 1657,
+        1663, 1667, 1669, 1693, 1697, 1699, 1709, 1721, 1723, 1733,
+        1741, 1747, 1753, 1759, 1777, 1783, 1787, 1789, 1801, 1811,
+        1823, 1831, 1847, 1861, 1867, 1871, 1873, 1877, 1879, 1889,
+        1901, 1907, 1913, 1931, 1933, 1949, 1951, 1973, 1979, 1987,
+        1993, 1997, 1999, 2003];
+    return MathUtils;
+}());
+exports.MathUtils = MathUtils;
+
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -4994,7 +5054,7 @@ exports.SvgPrimitive = SvgPrimitive;
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5274,7 +5334,7 @@ var KeyCode;
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5495,7 +5555,7 @@ exports.EmptyStyle = EmptyStyle;
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5503,7 +5563,7 @@ exports.EmptyStyle = EmptyStyle;
 Object.defineProperty(exports, "__esModule", { value: true });
 var browser_1 = __webpack_require__(18);
 var common_1 = __webpack_require__(50);
-var math_1 = __webpack_require__(31);
+var math_1 = __webpack_require__(24);
 var string_1 = __webpack_require__(49);
 var DomUtils = (function () {
     function DomUtils() {
@@ -5988,7 +6048,7 @@ function getAbsoluteScrollOffset_OperaFF(curEl, isX) {
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6254,7 +6314,7 @@ var ConnectorRoutingMode;
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6304,7 +6364,7 @@ exports.ConnectorRenderPoint = ConnectorRenderPoint;
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6319,66 +6379,6 @@ var ShapeParameterPoint = (function () {
     return ShapeParameterPoint;
 }());
 exports.ShapeParameterPoint = ShapeParameterPoint;
-
-
-/***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var list_1 = __webpack_require__(105);
-var MathUtils = (function () {
-    function MathUtils() {
-    }
-    MathUtils.round = function (value, digits) {
-        if (digits === void 0) { digits = 0; }
-        var factor = MathUtils.powFactor[digits];
-        return Math.round(value * factor) / factor;
-    };
-    MathUtils.numberCloseTo = function (num, to, accuracy) {
-        if (accuracy === void 0) { accuracy = 0.00001; }
-        return Math.abs(num - to) < accuracy;
-    };
-    MathUtils.restrictValue = function (val, minVal, maxVal) {
-        if (maxVal < minVal)
-            maxVal = minVal;
-        if (val > maxVal)
-            return maxVal;
-        else if (val < minVal)
-            return minVal;
-        return val;
-    };
-    MathUtils.getRandomInt = function (min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    };
-    MathUtils.generateGuid = function () {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            var r = Math.random() * 16 | 0;
-            var v = c === 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
-    };
-    MathUtils.powFactor = list_1.ListUtils.initByCallback(20, function (ind) { return Math.pow(10, ind); });
-    MathUtils.somePrimes = [1009, 1013,
-        1019, 1021, 1031, 1033, 1039, 1049, 1051, 1061, 1063, 1069,
-        1087, 1091, 1093, 1097, 1103, 1109, 1117, 1123, 1129, 1151,
-        1153, 1163, 1171, 1181, 1187, 1193, 1201, 1213, 1217, 1223,
-        1229, 1231, 1237, 1249, 1259, 1277, 1279, 1283, 1289, 1291,
-        1297, 1301, 1303, 1307, 1319, 1321, 1327, 1361, 1367, 1373,
-        1381, 1399, 1409, 1423, 1427, 1429, 1433, 1439, 1447, 1451,
-        1453, 1459, 1471, 1481, 1483, 1487, 1489, 1493, 1499, 1511,
-        1523, 1531, 1543, 1549, 1553, 1559, 1567, 1571, 1579, 1583,
-        1597, 1601, 1607, 1609, 1613, 1619, 1621, 1627, 1637, 1657,
-        1663, 1667, 1669, 1693, 1697, 1699, 1709, 1721, 1723, 1733,
-        1741, 1747, 1753, 1759, 1777, 1783, 1787, 1789, 1801, 1811,
-        1823, 1831, 1847, 1861, 1867, 1871, 1873, 1877, 1879, 1889,
-        1901, 1907, 1913, 1931, 1933, 1949, 1951, 1973, 1979, 1987,
-        1993, 1997, 1999, 2003];
-    return MathUtils;
-}());
-exports.MathUtils = MathUtils;
 
 
 /***/ }),
@@ -6459,7 +6459,7 @@ exports.ConnectorProperties = ConnectorProperties;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var math_1 = __webpack_require__(31);
+var math_1 = __webpack_require__(24);
 var metrics_1 = __webpack_require__(35);
 var point_1 = __webpack_require__(0);
 var rectangle_1 = __webpack_require__(13);
@@ -6878,7 +6878,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GroupPrimitive = void 0;
 var RenderHelper_1 = __webpack_require__(15);
-var Primitive_1 = __webpack_require__(24);
+var Primitive_1 = __webpack_require__(25);
 var GroupPrimitive = (function (_super) {
     __extends(GroupPrimitive, _super);
     function GroupPrimitive(children, className, zIndex, clipPathId, onApplyProperties, onBeforeDispose) {
@@ -6927,7 +6927,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MouseHandlerCancellableState = exports.MouseHandlerStateBase = void 0;
-var key_1 = __webpack_require__(25);
+var key_1 = __webpack_require__(26);
 var MouseHandlerStateBase = (function () {
     function MouseHandlerStateBase(handler) {
         this.handler = handler;
@@ -7050,13 +7050,14 @@ exports.SearchUtils = SearchUtils;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CanvasManagerBase = exports.PAGE_BG_TEXTFLOOR_FILTER_ID = void 0;
+exports.CanvasManagerBase = exports.PAGE_BG_TEXTFLOOR_FILTER_IDPREFIX = void 0;
 var TextFilterPrimitive_1 = __webpack_require__(172);
 var unit_converter_1 = __webpack_require__(12);
-exports.PAGE_BG_TEXTFLOOR_FILTER_ID = "page-text-flood";
+exports.PAGE_BG_TEXTFLOOR_FILTER_IDPREFIX = "page-text-flood";
 var CanvasManagerBase = (function () {
-    function CanvasManagerBase(actualZoom, dom) {
+    function CanvasManagerBase(actualZoom, dom, instanceId) {
         this.elements = {};
+        this.instanceId = instanceId;
         this.actualZoom = actualZoom;
         this.dom = dom;
     }
@@ -7082,8 +7083,8 @@ var CanvasManagerBase = (function () {
         this.changePrimitiveElement(primitive, element);
         return element;
     };
-    CanvasManagerBase.prototype.createTextFloodFilter = function (key, parent, pageColor) {
-        this.getOrCreateElement(key, new TextFilterPrimitive_1.TextFloodFilterPrimitive(exports.PAGE_BG_TEXTFLOOR_FILTER_ID, pageColor), parent);
+    CanvasManagerBase.prototype.createTextFloodFilter = function (instanceId, key, parent, pageColor) {
+        this.getOrCreateElement(key, new TextFilterPrimitive_1.TextFloodFilterPrimitive(exports.PAGE_BG_TEXTFLOOR_FILTER_IDPREFIX + instanceId, pageColor), parent);
     };
     CanvasManagerBase.prototype.getAbsoluteSize = function (modelSize) {
         return modelSize
@@ -7120,7 +7121,7 @@ var TextOwner;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Data = exports.SetAbsoluteY = exports.SetAbsoluteX = void 0;
-var dom_1 = __webpack_require__(27);
+var dom_1 = __webpack_require__(28);
 var common_1 = __webpack_require__(50);
 function IsNumber(str) {
     return !isNaN(parseFloat(str)) && isFinite(str);
@@ -8380,7 +8381,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EllipsePrimitive = void 0;
 var RenderHelper_1 = __webpack_require__(15);
-var Primitive_1 = __webpack_require__(24);
+var Primitive_1 = __webpack_require__(25);
 var EllipsePrimitive = (function (_super) {
     __extends(EllipsePrimitive, _super);
     function EllipsePrimitive(cx, cy, rx, ry, style, className, onApplyProperties) {
@@ -8429,7 +8430,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ClipPathPrimitive = void 0;
 var RenderHelper_1 = __webpack_require__(15);
-var Primitive_1 = __webpack_require__(24);
+var Primitive_1 = __webpack_require__(25);
 var ClipPathPrimitive = (function (_super) {
     __extends(ClipPathPrimitive, _super);
     function ClipPathPrimitive(id, children) {
@@ -8515,7 +8516,7 @@ var unit_converter_1 = __webpack_require__(12);
 Object.defineProperty(exports, "UnitConverter", { enumerable: true, get: function () { return unit_converter_1.UnitConverter; } });
 var browser_1 = __webpack_require__(18);
 Object.defineProperty(exports, "Browser", { enumerable: true, get: function () { return browser_1.Browser; } });
-var Settings_1 = __webpack_require__(28);
+var Settings_1 = __webpack_require__(29);
 Object.defineProperty(exports, "AutoZoomMode", { enumerable: true, get: function () { return Settings_1.AutoZoomMode; } });
 var DataLayoutParameters_1 = __webpack_require__(103);
 Object.defineProperty(exports, "DataLayoutType", { enumerable: true, get: function () { return DataLayoutParameters_1.DataLayoutType; } });
@@ -9300,7 +9301,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TextPrimitive270degRenderHelper = exports.TextPrimitive180degRenderHelper = exports.TextPrimitive90degRenderHelper = exports.TextPrimitiveRenderHelper = exports.TextPrimitive = exports.TextAngle = void 0;
 var unit_converter_1 = __webpack_require__(12);
 var RenderHelper_1 = __webpack_require__(15);
-var Primitive_1 = __webpack_require__(24);
+var Primitive_1 = __webpack_require__(25);
 var Utils_1 = __webpack_require__(17);
 var TextUtils_1 = __webpack_require__(64);
 var TextAngle;
@@ -9746,7 +9747,7 @@ exports.getLineHeight = getLineHeight;
 Object.defineProperty(exports, "__esModule", { value: true });
 var browser_1 = __webpack_require__(18);
 var common_1 = __webpack_require__(50);
-var dom_1 = __webpack_require__(27);
+var dom_1 = __webpack_require__(28);
 var touch_1 = __webpack_require__(176);
 var EvtUtils = (function () {
     function EvtUtils() {
@@ -10349,7 +10350,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ToggleStyleTextPropertyCommand = void 0;
 var StylePropertyCommandBase_1 = __webpack_require__(134);
 var ChangeStyleTextHistoryItem_1 = __webpack_require__(70);
-var Style_1 = __webpack_require__(26);
+var Style_1 = __webpack_require__(27);
 var ToggleStyleTextPropertyCommand = (function (_super) {
     __extends(ToggleStyleTextPropertyCommand, _super);
     function ToggleStyleTextPropertyCommand() {
@@ -10406,7 +10407,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChangeStylePropertyCommand = void 0;
 var ChangeStylePropertyCommandBase_1 = __webpack_require__(135);
 var ChangeStyleHistoryItem_1 = __webpack_require__(89);
-var Style_1 = __webpack_require__(26);
+var Style_1 = __webpack_require__(27);
 var ChangeStylePropertyCommand = (function (_super) {
     __extends(ChangeStylePropertyCommand, _super);
     function ChangeStylePropertyCommand() {
@@ -10579,15 +10580,15 @@ var GroupPrimitive_1 = __webpack_require__(39);
 var Utils_1 = __webpack_require__(17);
 var Shape_1 = __webpack_require__(14);
 var Connector_1 = __webpack_require__(6);
-var dom_1 = __webpack_require__(27);
+var dom_1 = __webpack_require__(28);
 var CanvasManager_1 = __webpack_require__(140);
 var ModelUtils_1 = __webpack_require__(4);
 exports.NOT_VALID_CSSCLASS = "not-valid";
 exports.CONNECTOR_CAN_MOVE = "can-move";
 var CanvasItemsManager = (function (_super) {
     __extends(CanvasItemsManager, _super);
-    function CanvasItemsManager(viewElement, zoomLevel, dom) {
-        var _this = _super.call(this, zoomLevel, dom) || this;
+    function CanvasItemsManager(viewElement, zoomLevel, dom, instanceId) {
+        var _this = _super.call(this, zoomLevel, dom, instanceId) || this;
         _this.itemSelectorGroupContainers = {};
         _this.itemSelectorElements = {};
         _this.itemGroupContainers = {};
@@ -10694,9 +10695,9 @@ var CanvasItemsManager = (function (_super) {
             delete this.selectorPrimitives[item.key];
         }
     };
-    CanvasItemsManager.prototype.getPrimitives = function (item) {
+    CanvasItemsManager.prototype.getPrimitives = function (item, instanceId) {
         if (!this.primitives[item.key])
-            this.primitives[item.key] = item.createPrimitives();
+            this.primitives[item.key] = item.createPrimitives(instanceId);
         return this.primitives[item.key];
     };
     CanvasItemsManager.prototype.getSelectorPrimitives = function (item) {
@@ -10725,7 +10726,7 @@ var CanvasItemsManager = (function (_super) {
         switch (type) {
             case ModelChange_1.ItemChangeType.Create:
                 this.itemSelectorElements[key] = this.createItemElements(key, this.getSelectorPrimitives(shape), itemSelectorParent, this.getShapeSelectorClassName(shape), Event_1.MouseEventElementType.Shape);
-                this.itemElements[key] = this.createItemElements(key, this.getPrimitives(shape), itemParent, itemClassName, Event_1.MouseEventElementType.Shape);
+                this.itemElements[key] = this.createItemElements(key, this.getPrimitives(shape, this.instanceId), itemParent, itemClassName, Event_1.MouseEventElementType.Shape);
                 if (shape.enableChildren) {
                     this.itemChildElements[key] = this.createItemElements(key, [], itemParent, "container-children", Event_1.MouseEventElementType.Undefined);
                     this.changeItemChildrenVisibility(this.itemChildElements[key], shape.expanded);
@@ -10733,7 +10734,7 @@ var CanvasItemsManager = (function (_super) {
                 break;
             case ModelChange_1.ItemChangeType.Remove:
                 this.removeItemCustomContent(this.itemSelectorElements[key], this.getSelectorPrimitives(shape));
-                this.removeItemCustomContent(this.itemElements[key], this.getPrimitives(shape));
+                this.removeItemCustomContent(this.itemElements[key], this.getPrimitives(shape, this.instanceId));
                 this.invalidatePrimitives(shape);
                 this.removeItemElements(this.itemSelectorElements[key]);
                 delete this.itemSelectorElements[key];
@@ -10752,12 +10753,12 @@ var CanvasItemsManager = (function (_super) {
                 if (type !== ModelChange_1.ItemChangeType.Update) {
                     if (type === ModelChange_1.ItemChangeType.UpdateStructure) {
                         this.removeItemCustomContent(this.itemSelectorElements[key], this.getSelectorPrimitives(shape));
-                        this.removeItemCustomContent(this.itemElements[key], this.getPrimitives(shape));
+                        this.removeItemCustomContent(this.itemElements[key], this.getPrimitives(shape, this.instanceId));
                     }
                     this.invalidatePrimitives(shape);
                 }
                 this.changeItemElements(this.getSelectorPrimitives(shape), this.itemSelectorElements[key], type === ModelChange_1.ItemChangeType.UpdateStructure);
-                this.changeItemElements(this.getPrimitives(shape), this.itemElements[key], type === ModelChange_1.ItemChangeType.UpdateStructure);
+                this.changeItemElements(this.getPrimitives(shape, this.instanceId), this.itemElements[key], type === ModelChange_1.ItemChangeType.UpdateStructure);
                 this.changeItemClassName(this.itemElements[key], itemClassName);
                 if (this.itemChildElements[key])
                     this.changeItemChildrenVisibility(this.itemChildElements[key], shape.expanded);
@@ -10789,11 +10790,11 @@ var CanvasItemsManager = (function (_super) {
         switch (type) {
             case ModelChange_1.ItemChangeType.Create:
                 this.itemSelectorElements[key] = this.createItemElements(key, this.getSelectorPrimitives(connector), itemSelectorParent, this.getConnectorSelectorClassName(connector), Event_1.MouseEventElementType.Connector);
-                this.itemElements[key] = this.createItemElements(key, this.getPrimitives(connector), itemParent, className, Event_1.MouseEventElementType.Connector);
+                this.itemElements[key] = this.createItemElements(key, this.getPrimitives(connector, this.instanceId), itemParent, className, Event_1.MouseEventElementType.Connector);
                 break;
             case ModelChange_1.ItemChangeType.Remove:
                 this.removeItemCustomContent(this.itemSelectorElements[key], this.getSelectorPrimitives(connector));
-                this.removeItemCustomContent(this.itemElements[key], this.getPrimitives(connector));
+                this.removeItemCustomContent(this.itemElements[key], this.getPrimitives(connector, this.instanceId));
                 this.invalidatePrimitives(connector);
                 this.removeItemElements(this.itemSelectorElements[key]);
                 delete this.itemSelectorElements[key];
@@ -10806,13 +10807,13 @@ var CanvasItemsManager = (function (_super) {
                 if (type !== ModelChange_1.ItemChangeType.Update) {
                     if (type === ModelChange_1.ItemChangeType.UpdateStructure) {
                         this.removeItemCustomContent(this.itemSelectorElements[key], this.getSelectorPrimitives(connector));
-                        this.removeItemCustomContent(this.itemElements[key], this.getPrimitives(connector));
+                        this.removeItemCustomContent(this.itemElements[key], this.getPrimitives(connector, this.instanceId));
                     }
                     this.invalidatePrimitives(connector);
                 }
                 this.changeItemElements(this.getSelectorPrimitives(connector), this.itemSelectorElements[key], type === ModelChange_1.ItemChangeType.UpdateStructure);
                 this.changeItemClassName(this.itemSelectorElements[key], this.getConnectorSelectorClassName(connector));
-                this.changeItemElements(this.getPrimitives(connector), this.itemElements[key], type === ModelChange_1.ItemChangeType.UpdateStructure);
+                this.changeItemElements(this.getPrimitives(connector, this.instanceId), this.itemElements[key], type === ModelChange_1.ItemChangeType.UpdateStructure);
                 this.changeItemClassName(this.itemElements[key], className);
                 if (itemSelectorParent !== (this.itemSelectorElements[key] && this.itemSelectorElements[key].parentNode))
                     this.moveItemElements(itemSelectorParent, this.itemSelectorElements[key]);
@@ -11842,7 +11843,7 @@ var ChangeTextAlignCommand_1 = __webpack_require__(247);
 var ChangeConnectorLineEndingCommand_1 = __webpack_require__(248);
 var ChangeConnectorLineOptionCommand_1 = __webpack_require__(249);
 var SelectAllCommand_1 = __webpack_require__(250);
-var key_1 = __webpack_require__(25);
+var key_1 = __webpack_require__(26);
 var AutoLayoutTreeVerticalCommand_1 = __webpack_require__(137);
 var ChangeSnapToGridCommand_1 = __webpack_require__(253);
 var ChangeGridSizeCommand_1 = __webpack_require__(254);
@@ -13044,7 +13045,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChangeStyleTextPropertyCommand = void 0;
 var ChangeStylePropertyCommandBase_1 = __webpack_require__(135);
 var ChangeStyleTextHistoryItem_1 = __webpack_require__(70);
-var Style_1 = __webpack_require__(26);
+var Style_1 = __webpack_require__(27);
 var ChangeStyleTextPropertyCommand = (function (_super) {
     __extends(ChangeStyleTextPropertyCommand, _super);
     function ChangeStyleTextPropertyCommand() {
@@ -13307,11 +13308,11 @@ var ExportImageCommand = (function (_super) {
     ExportImageCommand.prototype.getExportManager = function () {
         var measurer = this.getOrCreateMeasurer();
         var itemsManager = (this.control.render && this.control.render.items) || this.createItemsManager(measurer);
-        return this.exportManager || (this.exportManager = new CanvasExportManager_1.CanvasExportManager(itemsManager.itemsContainer, measurer));
+        return this.exportManager || (this.exportManager = new CanvasExportManager_1.CanvasExportManager(itemsManager.itemsContainer, measurer, this.control.instanceId));
     };
     ExportImageCommand.prototype.createItemsManager = function (measurer) {
         this.svgElement = RenderHelper_1.RenderHelper.createSvgElement(document.body, true);
-        var canvasManager = new CanvasItemsManager_1.CanvasItemsManager(this.svgElement, 1, new DOMManipulator_1.ExportDOMManipulator(measurer));
+        var canvasManager = new CanvasItemsManager_1.CanvasItemsManager(this.svgElement, 1, new DOMManipulator_1.ExportDOMManipulator(measurer), this.control.instanceId);
         this.control.modelManipulator.onModelChanged.add(canvasManager);
         this.control.modelManipulator.commitItemsCreateChanges();
         return canvasManager;
@@ -14268,7 +14269,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FilterPrimitive = void 0;
 var RenderHelper_1 = __webpack_require__(15);
-var Primitive_1 = __webpack_require__(24);
+var Primitive_1 = __webpack_require__(25);
 var FilterPrimitive = (function (_super) {
     __extends(FilterPrimitive, _super);
     function FilterPrimitive(id, x, y, width, height) {
@@ -15635,7 +15636,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ImagePrimitive = void 0;
 var RenderHelper_1 = __webpack_require__(15);
-var Primitive_1 = __webpack_require__(24);
+var Primitive_1 = __webpack_require__(25);
 var ImagePrimitive = (function (_super) {
     __extends(ImagePrimitive, _super);
     function ImagePrimitive(x, y, width, height, url, preserveAspectRatio, style, className) {
@@ -17782,7 +17783,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MouseHandlerDragDiagramItemStateBase = exports.DraggingConnector = void 0;
 var vector_1 = __webpack_require__(60);
 var ChangeConnectorPointsHistoryItem_1 = __webpack_require__(86);
-var ConnectorRenderPoint_1 = __webpack_require__(29);
+var ConnectorRenderPoint_1 = __webpack_require__(30);
 var ConnectorRenderPointsContext_1 = __webpack_require__(85);
 var ModelUtils_1 = __webpack_require__(4);
 var ModelOperationSettings_1 = __webpack_require__(16);
@@ -18166,7 +18167,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ContextMenuHandler = void 0;
 var Utils_1 = __webpack_require__(3);
 var Event_1 = __webpack_require__(11);
-var key_1 = __webpack_require__(25);
+var key_1 = __webpack_require__(26);
 var batch_updatable_1 = __webpack_require__(81);
 var browser_1 = __webpack_require__(18);
 var ContextMenuHandler = (function (_super) {
@@ -18703,15 +18704,15 @@ var RectaglePrimitive_1 = __webpack_require__(21);
 var PathPrimitive_1 = __webpack_require__(5);
 var TextPrimitive_1 = __webpack_require__(63);
 var EllipsePrimitive_1 = __webpack_require__(55);
-var Style_1 = __webpack_require__(26);
+var Style_1 = __webpack_require__(27);
 var unit_converter_1 = __webpack_require__(12);
 var ITextMeasurer_1 = __webpack_require__(43);
 var browser_1 = __webpack_require__(18);
-var dom_1 = __webpack_require__(27);
+var dom_1 = __webpack_require__(28);
 var CanvasItemsManager_1 = __webpack_require__(78);
 var CanvasManager_1 = __webpack_require__(140);
 var metrics_1 = __webpack_require__(35);
-var math_1 = __webpack_require__(31);
+var math_1 = __webpack_require__(24);
 var ModelUtils_1 = __webpack_require__(4);
 var MULTIPLE_SELECTION_KEY = "-1";
 exports.SELECTION_ELEMENT_CLASSNAMES = {
@@ -18736,8 +18737,8 @@ exports.SELECTION_ELEMENT_CLASSNAMES = {
 exports.ACTIVE_SELECTION_CSSCLASS = "dxdi-active-selection";
 var CanvasSelectionManager = (function (_super) {
     __extends(CanvasSelectionManager, _super);
-    function CanvasSelectionManager(parent, zoomLevel, readOnly, dom) {
-        var _this = _super.call(this, zoomLevel, dom) || this;
+    function CanvasSelectionManager(parent, zoomLevel, readOnly, dom, instanceId) {
+        var _this = _super.call(this, zoomLevel, dom, instanceId) || this;
         _this.readOnly = readOnly;
         _this.connectionPointElements = [];
         _this.extensionLineElements = [];
@@ -18924,7 +18925,7 @@ var CanvasSelectionManager = (function (_super) {
                 new PathPrimitive_1.PathPrimitiveMoveToCommand(x2_1, y2_1),
                 new PathPrimitive_1.PathPrimitiveLineToCommand(x2_2, y2_2)
             ], Style_1.StrokeStyle.default1pxInstance),
-            new TextPrimitive_1.TextPrimitive((endPoint.x + startPoint.x) / 2, (endPoint.y + startPoint.y) / 2, text, ITextMeasurer_1.TextOwner.ExtensionLine, undefined, undefined, undefined, null, undefined, null, CanvasManagerBase_1.PAGE_BG_TEXTFLOOR_FILTER_ID)
+            new TextPrimitive_1.TextPrimitive((endPoint.x + startPoint.x) / 2, (endPoint.y + startPoint.y) / 2, text, ITextMeasurer_1.TextOwner.ExtensionLine, undefined, undefined, undefined, null, undefined, null, CanvasManagerBase_1.PAGE_BG_TEXTFLOOR_FILTER_IDPREFIX + this.instanceId)
         ];
         var primitive = new GroupPrimitive_1.GroupPrimitive(children, className);
         var ellEl = this.getExtensionLineElement(primitive, index);
@@ -19609,7 +19610,7 @@ var Utils_1 = __webpack_require__(3);
 var point_1 = __webpack_require__(0);
 var evt_1 = __webpack_require__(65);
 var Data_1 = __webpack_require__(44);
-var dom_1 = __webpack_require__(27);
+var dom_1 = __webpack_require__(28);
 var browser_1 = __webpack_require__(18);
 var RenderHelper_1 = __webpack_require__(15);
 var CanvasItemsManager_1 = __webpack_require__(78);
@@ -19902,7 +19903,7 @@ exports.DiagramDraggingEvent = DiagramDraggingEvent;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RightAngleConnectorRoutingMathOperations = void 0;
 var segment_1 = __webpack_require__(33);
-var math_1 = __webpack_require__(31);
+var math_1 = __webpack_require__(24);
 var AStarMetrics_1 = __webpack_require__(161);
 var Utils_1 = __webpack_require__(3);
 var DiagramItem_1 = __webpack_require__(9);
@@ -21151,7 +21152,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConnectorPointsCalculator = void 0;
 var ConnectorPointsCalculatorBase_1 = __webpack_require__(111);
-var ConnectorRenderPoint_1 = __webpack_require__(29);
+var ConnectorRenderPoint_1 = __webpack_require__(30);
 var ConnectorPointsCalculator = (function (_super) {
     __extends(ConnectorPointsCalculator, _super);
     function ConnectorPointsCalculator() {
@@ -21194,7 +21195,7 @@ var ConnectorPointsOrthogonalSouthSideCalculator_1 = __webpack_require__(182);
 var ConnectorPointsOrthogonalNorthSideCalculator_1 = __webpack_require__(183);
 var ConnectorPointsOrthogonalEastSideCalculator_1 = __webpack_require__(184);
 var ConnectorPointsOrthogonalWestSideCalculator_1 = __webpack_require__(185);
-var ConnectorRenderPoint_1 = __webpack_require__(29);
+var ConnectorRenderPoint_1 = __webpack_require__(30);
 var ModelUtils_1 = __webpack_require__(4);
 var ConnectorPointsOrthogonalCalculator = (function (_super) {
     __extends(ConnectorPointsOrthogonalCalculator, _super);
@@ -21375,7 +21376,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConnectorPointsOrthogonalUndefinedSideCalculator = void 0;
 var ConnectorPointsOrthogonalSideCalculatorBase_1 = __webpack_require__(52);
-var ConnectorRenderPoint_1 = __webpack_require__(29);
+var ConnectorRenderPoint_1 = __webpack_require__(30);
 var ConnectorPointsOrthogonalUndefinedSideCalculator = (function (_super) {
     __extends(ConnectorPointsOrthogonalUndefinedSideCalculator, _super);
     function ConnectorPointsOrthogonalUndefinedSideCalculator(parent) {
@@ -21465,7 +21466,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConnectorPointsOrthogonalSouthSideCalculator = void 0;
 var DiagramItem_1 = __webpack_require__(9);
 var ConnectorPointsOrthogonalSideCalculatorBase_1 = __webpack_require__(52);
-var ConnectorRenderPoint_1 = __webpack_require__(29);
+var ConnectorRenderPoint_1 = __webpack_require__(30);
 var ConnectorPointsOrthogonalSouthSideCalculator = (function (_super) {
     __extends(ConnectorPointsOrthogonalSouthSideCalculator, _super);
     function ConnectorPointsOrthogonalSouthSideCalculator(parent) {
@@ -21660,7 +21661,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConnectorPointsOrthogonalNorthSideCalculator = void 0;
 var DiagramItem_1 = __webpack_require__(9);
 var ConnectorPointsOrthogonalSideCalculatorBase_1 = __webpack_require__(52);
-var ConnectorRenderPoint_1 = __webpack_require__(29);
+var ConnectorRenderPoint_1 = __webpack_require__(30);
 var ConnectorPointsOrthogonalNorthSideCalculator = (function (_super) {
     __extends(ConnectorPointsOrthogonalNorthSideCalculator, _super);
     function ConnectorPointsOrthogonalNorthSideCalculator(parent) {
@@ -21855,7 +21856,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConnectorPointsOrthogonalEastSideCalculator = void 0;
 var DiagramItem_1 = __webpack_require__(9);
 var ConnectorPointsOrthogonalSideCalculatorBase_1 = __webpack_require__(52);
-var ConnectorRenderPoint_1 = __webpack_require__(29);
+var ConnectorRenderPoint_1 = __webpack_require__(30);
 var ConnectorPointsOrthogonalEastSideCalculator = (function (_super) {
     __extends(ConnectorPointsOrthogonalEastSideCalculator, _super);
     function ConnectorPointsOrthogonalEastSideCalculator(parent) {
@@ -22050,7 +22051,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConnectorPointsOrthogonalWestSideCalculator = void 0;
 var DiagramItem_1 = __webpack_require__(9);
 var ConnectorPointsOrthogonalSideCalculatorBase_1 = __webpack_require__(52);
-var ConnectorRenderPoint_1 = __webpack_require__(29);
+var ConnectorRenderPoint_1 = __webpack_require__(30);
 var ConnectorPointsOrthogonalWestSideCalculator = (function (_super) {
     __extends(ConnectorPointsOrthogonalWestSideCalculator, _super);
     function ConnectorPointsOrthogonalWestSideCalculator(parent) {
@@ -23457,7 +23458,7 @@ exports.PredefinedProcessShapeDescription = exports.PredefinedProcessEdgeParamet
 var RectangleShapeDescription_1 = __webpack_require__(19);
 var ShapeTypes_1 = __webpack_require__(1);
 var ShapeParameters_1 = __webpack_require__(37);
-var ShapeParameterPoint_1 = __webpack_require__(30);
+var ShapeParameterPoint_1 = __webpack_require__(31);
 var point_1 = __webpack_require__(0);
 var PathPrimitive_1 = __webpack_require__(5);
 exports.PredefinedProcessEdgeParameterName = "e";
@@ -23539,7 +23540,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ArrowUpDownShapeDescription = void 0;
 var PathPrimitive_1 = __webpack_require__(5);
-var ShapeParameterPoint_1 = __webpack_require__(30);
+var ShapeParameterPoint_1 = __webpack_require__(31);
 var point_1 = __webpack_require__(0);
 var ArrowVerticalShapeDescription_1 = __webpack_require__(92);
 var ShapeTypes_1 = __webpack_require__(1);
@@ -23621,7 +23622,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ArrowRightShapeDescription = void 0;
 var PathPrimitive_1 = __webpack_require__(5);
 var ArrowHorizontalShapeDescription_1 = __webpack_require__(93);
-var ShapeParameterPoint_1 = __webpack_require__(30);
+var ShapeParameterPoint_1 = __webpack_require__(31);
 var point_1 = __webpack_require__(0);
 var ShapeTypes_1 = __webpack_require__(1);
 var DiagramItem_1 = __webpack_require__(9);
@@ -23708,7 +23709,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ArrowUpShapeDescription = void 0;
 var PathPrimitive_1 = __webpack_require__(5);
-var ShapeParameterPoint_1 = __webpack_require__(30);
+var ShapeParameterPoint_1 = __webpack_require__(31);
 var point_1 = __webpack_require__(0);
 var ArrowVerticalShapeDescription_1 = __webpack_require__(92);
 var ShapeTypes_1 = __webpack_require__(1);
@@ -23798,7 +23799,7 @@ exports.CrossShapeDescription = exports.CrossVerticalWidthParameterName = export
 var ShapeDescription_1 = __webpack_require__(7);
 var point_1 = __webpack_require__(0);
 var ShapeParameters_1 = __webpack_require__(37);
-var ShapeParameterPoint_1 = __webpack_require__(30);
+var ShapeParameterPoint_1 = __webpack_require__(31);
 var PathPrimitive_1 = __webpack_require__(5);
 var ShapeTypes_1 = __webpack_require__(1);
 exports.CrossHorizontalWidthParameterName = "chw";
@@ -24059,7 +24060,7 @@ var PathPrimitive_1 = __webpack_require__(5);
 var ShapeTypes_1 = __webpack_require__(1);
 var PentagonShapeDescription_1 = __webpack_require__(122);
 var ShapeParameters_1 = __webpack_require__(37);
-var ShapeParameterPoint_1 = __webpack_require__(30);
+var ShapeParameterPoint_1 = __webpack_require__(31);
 var point_1 = __webpack_require__(0);
 var DiagramItem_1 = __webpack_require__(9);
 exports.StarConvexParameterName = "sc";
@@ -24212,7 +24213,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ArrowDownShapeDescription = void 0;
 var PathPrimitive_1 = __webpack_require__(5);
-var ShapeParameterPoint_1 = __webpack_require__(30);
+var ShapeParameterPoint_1 = __webpack_require__(31);
 var point_1 = __webpack_require__(0);
 var ArrowVerticalShapeDescription_1 = __webpack_require__(92);
 var ShapeTypes_1 = __webpack_require__(1);
@@ -24301,7 +24302,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ArrowLeftRightShapeDescription = void 0;
 var PathPrimitive_1 = __webpack_require__(5);
 var ArrowHorizontalShapeDescription_1 = __webpack_require__(93);
-var ShapeParameterPoint_1 = __webpack_require__(30);
+var ShapeParameterPoint_1 = __webpack_require__(31);
 var point_1 = __webpack_require__(0);
 var ShapeTypes_1 = __webpack_require__(1);
 var ArrowLeftRightShapeDescription = (function (_super) {
@@ -24382,7 +24383,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ArrowLeftShapeDescription = void 0;
 var PathPrimitive_1 = __webpack_require__(5);
 var ArrowHorizontalShapeDescription_1 = __webpack_require__(93);
-var ShapeParameterPoint_1 = __webpack_require__(30);
+var ShapeParameterPoint_1 = __webpack_require__(31);
 var point_1 = __webpack_require__(0);
 var ShapeTypes_1 = __webpack_require__(1);
 var DiagramItem_1 = __webpack_require__(9);
@@ -24764,7 +24765,7 @@ exports.InternalStorageShapeDescription = exports.InternalStorageVerticalEdgePar
 var RectangleShapeDescription_1 = __webpack_require__(19);
 var ShapeTypes_1 = __webpack_require__(1);
 var ShapeParameters_1 = __webpack_require__(37);
-var ShapeParameterPoint_1 = __webpack_require__(30);
+var ShapeParameterPoint_1 = __webpack_require__(31);
 var point_1 = __webpack_require__(0);
 var PathPrimitive_1 = __webpack_require__(5);
 exports.InternalStorageHorizontalEdgeParameterName = "he";
@@ -25437,7 +25438,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SvgElementPrimitive = void 0;
 var RenderHelper_1 = __webpack_require__(15);
-var Primitive_1 = __webpack_require__(24);
+var Primitive_1 = __webpack_require__(25);
 var SvgElementPrimitive = (function (_super) {
     __extends(SvgElementPrimitive, _super);
     function SvgElementPrimitive(x, y, width, height, createContent, destroyContent, data, className, onApplyProperties) {
@@ -26964,8 +26965,8 @@ var color_1 = __webpack_require__(22);
 var EXPORT_IMAGE_QUALITY = 1;
 var CanvasExportManager = (function (_super) {
     __extends(CanvasExportManager, _super);
-    function CanvasExportManager(itemsContainer, measurer) {
-        var _this = _super.call(this, 1, new DOMManipulator_1.ExportDOMManipulator(measurer)) || this;
+    function CanvasExportManager(itemsContainer, measurer, instanceId) {
+        var _this = _super.call(this, 1, new DOMManipulator_1.ExportDOMManipulator(measurer), instanceId) || this;
         _this.itemsContainer = itemsContainer;
         return _this;
     }
@@ -26974,7 +26975,7 @@ var CanvasExportManager = (function (_super) {
         var modelAbsSize = modelSize.clone().applyConverter(unit_converter_1.UnitConverter.twipsToPixelsF).clone().applyConverter(Math.ceil);
         Utils_1.RenderUtils.updateSvgElementSize(svgEl, modelAbsSize.width, modelAbsSize.height, true);
         svgEl.style.backgroundColor = color_1.ColorUtils.colorToHash(pageColor);
-        this.createTextFloodFilter(undefined, svgEl, pageColor);
+        this.createTextFloodFilter(this.instanceId, undefined, svgEl, pageColor);
         var exportCssRules = !exportAsInline && !browser_1.Browser.IE && this.getExportCssRules();
         if (exportCssRules) {
             var style = document.createElementNS(RenderHelper_1.svgNS, "style");
@@ -28180,7 +28181,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ToggleAutoZoomCommand = exports.ToggleAutoZoomToWidthCommand = exports.ToggleAutoZoomToContentCommand = exports.SwitchAutoZoomCommand = exports.FitToWidthCommand = exports.FitToScreenCommand = exports.ChangeZoomLevelItemsCommand = exports.ChangeZoomLevelTo200Command = exports.ChangeZoomLevelTo150Command = exports.ChangeZoomLevelTo125Command = exports.ChangeZoomLevelTo100Command = exports.ChangeZoomLevelTo75Command = exports.ChangeZoomLevelTo50Command = exports.ChangeZoomLevelTo25Command = exports.ChangeZoomLevelInPercentageCommand = exports.ChangeZoomLevelCommand = void 0;
 var SimpleCommandBase_1 = __webpack_require__(10);
-var Settings_1 = __webpack_require__(28);
+var Settings_1 = __webpack_require__(29);
 var ChangeZoomLevelCommand = (function (_super) {
     __extends(ChangeZoomLevelCommand, _super);
     function ChangeZoomLevelCommand() {
@@ -29163,6 +29164,8 @@ var PasteSelectionInPositionCommand = (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     PasteSelectionInPositionCommand.prototype.getEventPositionOffset = function (items, evtPosition) {
+        if (!evtPosition)
+            return point_1.Point.zero();
         var selectionPos = items.reduce(function (min, i) {
             return {
                 x: Math.min(min.x, i instanceof Shape_1.Shape ? i.position.x : i instanceof Connector_1.Connector ? i.getMinX() : Number.MAX_VALUE),
@@ -29789,7 +29792,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChangeConnectorRoutingModeCommand = void 0;
 var SimpleCommandBase_1 = __webpack_require__(10);
-var Settings_1 = __webpack_require__(28);
+var Settings_1 = __webpack_require__(29);
 var ChangeConnectorRoutingModeCommand = (function (_super) {
     __extends(ChangeConnectorRoutingModeCommand, _super);
     function ChangeConnectorRoutingModeCommand() {
@@ -29827,7 +29830,7 @@ var BarManager_1 = __webpack_require__(336);
 var RenderManager_1 = __webpack_require__(337);
 var ShapeDescriptionManager_1 = __webpack_require__(91);
 var DocumentDataSource_1 = __webpack_require__(345);
-var Settings_1 = __webpack_require__(28);
+var Settings_1 = __webpack_require__(29);
 var ModelOperationSettings_1 = __webpack_require__(16);
 var ViewController_1 = __webpack_require__(349);
 var ModelUtils_1 = __webpack_require__(4);
@@ -29843,6 +29846,7 @@ var DataLayoutParameters_1 = __webpack_require__(103);
 var ReloadContentParameters_1 = __webpack_require__(379);
 var Utils_2 = __webpack_require__(17);
 var _1 = __webpack_require__(58);
+var math_1 = __webpack_require__(24);
 var DiagramControl = (function () {
     function DiagramControl() {
         this.updateLockCount = 0;
@@ -29850,6 +29854,7 @@ var DiagramControl = (function () {
         this.reloadContentNeeded = false;
         this.reloadContentParameters = new ReloadContentParameters_1.ReloadContentParameters();
         this.reloadContentByExternalChangesParameters = new ReloadContentParameters_1.ReloadContentParameters();
+        this.instanceId = math_1.MathUtils.generateGuid();
         this.settings = new Settings_1.DiagramSettings();
         this.shapeDescriptionManager = new ShapeDescriptionManager_1.ShapeDescriptionManager();
         this.shapeDescriptionManager.onShapeDecriptionChanged.add(this);
@@ -29939,7 +29944,7 @@ var DiagramControl = (function () {
                 zoomLevel: this.settings.zoomLevel,
                 autoZoom: this.settings.autoZoom,
                 rectangle: this.model.getRectangle(true)
-            }, scrollView, focusElementsParent);
+            }, this.instanceId, scrollView, focusElementsParent);
             this.settings.onZoomChanged.add(this.render.view);
             this.settings.onViewChanged.add(this.render.page);
             this.settings.onViewChanged.add(this.render.view);
@@ -29971,7 +29976,7 @@ var DiagramControl = (function () {
         }
     };
     DiagramControl.prototype.createToolbox = function (parent, renderAsText, shapes, options) {
-        var toolbox = this.toolboxManager.create(parent, this.settings.readOnly, true, renderAsText, shapes, this.getToolboxAllowedShapeTypes.bind(this), options);
+        var toolbox = this.toolboxManager.create(parent, this.settings.readOnly, true, renderAsText, shapes, this.getToolboxAllowedShapeTypes.bind(this), this.instanceId, options);
         this.settings.onReadOnlyChanged.add(toolbox);
         toolbox.onDragOperation.add(this);
         toolbox.onDragOperation.add(this.apiController);
@@ -29979,7 +29984,7 @@ var DiagramControl = (function () {
     };
     DiagramControl.prototype.createContextToolbox = function (parent, renderAsText, shapes, options, onClick) {
         this.cleanContextToolbox();
-        this.contextToolbox = this.toolboxManager.create(parent, this.settings.readOnly, false, renderAsText, shapes, this.getToolboxAllowedShapeTypes.bind(this), options);
+        this.contextToolbox = this.toolboxManager.create(parent, this.settings.readOnly, false, renderAsText, shapes, this.getToolboxAllowedShapeTypes.bind(this), this.instanceId, options);
         this.contextToolbox.onClickOperation.add(this);
         this.contextToolboxOnClick = onClick;
     };
@@ -30856,7 +30861,7 @@ var VisualizersManager_1 = __webpack_require__(155);
 var VisualizersTouchManager_1 = __webpack_require__(330);
 var ContextToolboxHandler_1 = __webpack_require__(331);
 var browser_1 = __webpack_require__(18);
-var key_1 = __webpack_require__(25);
+var key_1 = __webpack_require__(26);
 var EventManager = (function () {
     function EventManager(control) {
         this.onMouseOperation = new Utils_1.EventDispatcher();
@@ -31083,7 +31088,7 @@ var ModelUtils_1 = __webpack_require__(4);
 var MouseHandlerDefaultReadOnlyTouchState_1 = __webpack_require__(321);
 var MouseHandlerDefaultReadOnlyState_1 = __webpack_require__(152);
 var MouseHandlerDefaultTouchState_1 = __webpack_require__(322);
-var key_1 = __webpack_require__(25);
+var key_1 = __webpack_require__(26);
 var Utils_1 = __webpack_require__(3);
 var MouseHandler = (function () {
     function MouseHandler(history, selection, model, eventManager, readOnly, view, visualizerManager, contextToolboxHandler, shapeDescriptionManager, settings, permissionsProvider) {
@@ -32708,7 +32713,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MouseHandlerZoomOnWheelState = void 0;
 var MouseHandlerStateBase_1 = __webpack_require__(40);
 var Event_1 = __webpack_require__(11);
-var Settings_1 = __webpack_require__(28);
+var Settings_1 = __webpack_require__(29);
 var MouseHandlerZoomOnWheelState = (function (_super) {
     __extends(MouseHandlerZoomOnWheelState, _super);
     function MouseHandlerZoomOnWheelState(handler, settings, view) {
@@ -32781,7 +32786,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MouseHandlerZoomOnPinchState = void 0;
-var Settings_1 = __webpack_require__(28);
+var Settings_1 = __webpack_require__(29);
 var point_1 = __webpack_require__(0);
 var MouseHandlerScrollingState_1 = __webpack_require__(150);
 var metrics_1 = __webpack_require__(35);
@@ -33067,7 +33072,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TextInputHandler = void 0;
 var ChangeShapeTextHistoryItem_1 = __webpack_require__(153);
 var Event_1 = __webpack_require__(11);
-var key_1 = __webpack_require__(25);
+var key_1 = __webpack_require__(26);
 var Shape_1 = __webpack_require__(14);
 var Connector_1 = __webpack_require__(6);
 var ChangeConnectorTextHistoryItem_1 = __webpack_require__(69);
@@ -33633,7 +33638,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ContextToolboxHandler = void 0;
 var Event_1 = __webpack_require__(11);
 var Utils_1 = __webpack_require__(3);
-var key_1 = __webpack_require__(25);
+var key_1 = __webpack_require__(26);
 var browser_1 = __webpack_require__(18);
 var ContextToolboxHandler = (function () {
     function ContextToolboxHandler() {
@@ -33909,7 +33914,7 @@ exports.InputPosition = InputPosition;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.InputPositionProperties = void 0;
 var ConnectorProperties_1 = __webpack_require__(32);
-var Style_1 = __webpack_require__(26);
+var Style_1 = __webpack_require__(27);
 var InputPositionProperties = (function () {
     function InputPositionProperties(selection, baseProperties, disableMergingStyles) {
         this.selection = selection;
@@ -34293,14 +34298,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RenderManager = exports.DBL_CLICK_TIMEOUT = exports.LONG_TOUCH_TIMEOUT = void 0;
 var Event_1 = __webpack_require__(11);
 var evt_1 = __webpack_require__(65);
-var dom_1 = __webpack_require__(27);
+var dom_1 = __webpack_require__(28);
 var point_1 = __webpack_require__(0);
-var key_1 = __webpack_require__(25);
+var key_1 = __webpack_require__(26);
 var browser_1 = __webpack_require__(18);
 var Utils_1 = __webpack_require__(17);
 var CanvasItemsManager_1 = __webpack_require__(78);
 var ScrollView_1 = __webpack_require__(338);
-var Settings_1 = __webpack_require__(28);
+var Settings_1 = __webpack_require__(29);
 var InputManager_1 = __webpack_require__(339);
 var CanvasPageManager_1 = __webpack_require__(340);
 var CanvasViewManager_1 = __webpack_require__(342);
@@ -34315,7 +34320,7 @@ var TOUCH_ACTION_CSSCLASS = "dxdi-touch-action";
 exports.LONG_TOUCH_TIMEOUT = 500;
 exports.DBL_CLICK_TIMEOUT = 500;
 var RenderManager = (function () {
-    function RenderManager(parent, events, measurer, settings, scrollView, focusElementsParent) {
+    function RenderManager(parent, events, measurer, settings, instanceId, scrollView, focusElementsParent) {
         this.moveLocked = false;
         this.lockMouseMoveTimer = -1;
         this.lastClickElement = undefined;
@@ -34324,14 +34329,15 @@ var RenderManager = (function () {
         this.pointers = {};
         var mainElement = RenderHelper_1.RenderHelper.createMainElement(parent);
         var svgElement = RenderHelper_1.RenderHelper.createSvgElement(mainElement);
+        this.instanceId = instanceId;
         this.scroll = scrollView || new ScrollView_1.NativeScrollView(parent);
         this.measurer = measurer;
         this.dom = new DOMManipulator_1.DOMManipulator(this.measurer);
-        this.view = new CanvasViewManager_1.CanvasViewManager(this.scroll, svgElement, settings.modelSize, settings.zoomLevel, settings.autoZoom, settings.simpleView, settings.rectangle, this.dom);
+        this.view = new CanvasViewManager_1.CanvasViewManager(this.scroll, svgElement, settings.modelSize, settings.zoomLevel, settings.autoZoom, settings.simpleView, settings.rectangle, this.dom, this.instanceId);
         this.input = new InputManager_1.InputManager(mainElement, this.view, events, this.measurer, settings.zoomLevel, focusElementsParent);
-        this.items = new CanvasItemsManager_1.CanvasItemsManager(this.view.canvasElement, settings.zoomLevel, this.dom);
-        this.page = new CanvasPageManager_1.CanvasPageManager(this.view.pageElement, settings, this.dom);
-        this.selection = new CanvasSelectionManager_1.CanvasSelectionManager(this.view.canvasElement, settings.zoomLevel, settings.readOnly, this.dom);
+        this.items = new CanvasItemsManager_1.CanvasItemsManager(this.view.canvasElement, settings.zoomLevel, this.dom, this.instanceId);
+        this.page = new CanvasPageManager_1.CanvasPageManager(this.view.pageElement, settings, this.dom, this.instanceId);
+        this.selection = new CanvasSelectionManager_1.CanvasSelectionManager(this.view.canvasElement, settings.zoomLevel, settings.readOnly, this.dom, this.instanceId);
         this.contextMenuEnabled = settings.contextMenuEnabled;
         this.view.onViewChanged.add(this.page);
         this.view.onViewChanged.add(this.items);
@@ -34808,7 +34814,7 @@ exports.NativeScrollView = void 0;
 var Utils_1 = __webpack_require__(3);
 var size_1 = __webpack_require__(2);
 var point_1 = __webpack_require__(0);
-var dom_1 = __webpack_require__(27);
+var dom_1 = __webpack_require__(28);
 var RenderHelper_1 = __webpack_require__(15);
 var NativeScrollView = (function () {
     function NativeScrollView(mainElement) {
@@ -34867,8 +34873,8 @@ exports.NativeScrollView = NativeScrollView;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.InputManager = void 0;
-var key_1 = __webpack_require__(25);
-var dom_1 = __webpack_require__(27);
+var key_1 = __webpack_require__(26);
+var dom_1 = __webpack_require__(28);
 var Utils_1 = __webpack_require__(17);
 var Event_1 = __webpack_require__(11);
 var Shape_1 = __webpack_require__(14);
@@ -35208,7 +35214,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CanvasPageManager = void 0;
-var Style_1 = __webpack_require__(26);
+var Style_1 = __webpack_require__(27);
 var RectaglePrimitive_1 = __webpack_require__(21);
 var PathPrimitive_1 = __webpack_require__(5);
 var PatternPrimitive_1 = __webpack_require__(341);
@@ -35222,8 +35228,8 @@ var unit_converter_1 = __webpack_require__(12);
 var GRID_PAGES_LINEWIDTH = 2;
 var CanvasPageManager = (function (_super) {
     __extends(CanvasPageManager, _super);
-    function CanvasPageManager(parent, settings, dom) {
-        var _this = _super.call(this, settings.zoomLevel, dom) || this;
+    function CanvasPageManager(parent, settings, dom, instanceId) {
+        var _this = _super.call(this, settings.zoomLevel, dom, instanceId) || this;
         _this.snapPoint = new point_1.Point(0, 0);
         _this.gridPatternId = Utils_1.RenderUtils.generateSvgElementId("gridPattern");
         _this.pagesGridPatternId = Utils_1.RenderUtils.generateSvgElementId("pagesGridPattern");
@@ -35249,7 +35255,7 @@ var CanvasPageManager = (function (_super) {
         var style = new Style_1.Style();
         style["fill"] = color_1.ColorUtils.colorToHash(color);
         this.getOrCreateElement("page-bg", new RectaglePrimitive_1.RectanglePrimitive(0, 0, "100%", "100%", style, "page"), this.backgroundContainer);
-        this.createTextFloodFilter("page-bg-textflood-filter", this.backgroundContainer, color);
+        this.createTextFloodFilter(this.instanceId, "page-bg-textflood-filter", this.backgroundContainer, color);
     };
     CanvasPageManager.prototype.redrawGrid = function () {
         this.updateGridElements();
@@ -35410,7 +35416,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PatternPrimitive = void 0;
 var RenderHelper_1 = __webpack_require__(15);
-var Primitive_1 = __webpack_require__(24);
+var Primitive_1 = __webpack_require__(25);
 var PatternPrimitive = (function (_super) {
     __extends(PatternPrimitive, _super);
     function PatternPrimitive(id, children, x, y, width, height, style) {
@@ -35464,7 +35470,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CanvasViewManager = exports.CROP_OFFSET = exports.CANVAS_SCROLL_PADDING = exports.CANVAS_MIN_PADDING = void 0;
 var CanvasManagerBase_1 = __webpack_require__(42);
-var Settings_1 = __webpack_require__(28);
+var Settings_1 = __webpack_require__(29);
 var Utils_1 = __webpack_require__(3);
 var offsets_1 = __webpack_require__(87);
 var size_1 = __webpack_require__(2);
@@ -35474,8 +35480,8 @@ var ClipPathPrimitive_1 = __webpack_require__(56);
 var RectaglePrimitive_1 = __webpack_require__(21);
 var Utils_2 = __webpack_require__(17);
 var ShadowFilterPrimitive_1 = __webpack_require__(343);
-var Style_1 = __webpack_require__(26);
-var dom_1 = __webpack_require__(27);
+var Style_1 = __webpack_require__(27);
+var dom_1 = __webpack_require__(28);
 var unit_converter_1 = __webpack_require__(12);
 exports.CANVAS_MIN_PADDING = 8;
 exports.CANVAS_SCROLL_PADDING = 18;
@@ -35484,8 +35490,8 @@ var DRAG_SCROLL_CSSCLASS = "dxdi-drag-scroll";
 var DRAG_ITEM_CSSCLASS = "dxdi-drag-item";
 var CanvasViewManager = (function (_super) {
     __extends(CanvasViewManager, _super);
-    function CanvasViewManager(scrollView, svgElement, modelSize, fixedZoomLevel, autoZoom, simpleView, rectangle, dom) {
-        var _this = _super.call(this, fixedZoomLevel, dom) || this;
+    function CanvasViewManager(scrollView, svgElement, modelSize, fixedZoomLevel, autoZoom, simpleView, rectangle, dom, instanceId) {
+        var _this = _super.call(this, fixedZoomLevel, dom, instanceId) || this;
         _this.svgElement = svgElement;
         _this.paddings = new offsets_1.Offsets(0, 0, 0, 0);
         _this.scroll = new point_1.Point(0, 0);
@@ -36045,7 +36051,7 @@ exports.ShadowFilterPrimitive = ShadowFilterPrimitive;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AutoScrollController = void 0;
 var RenderHelper_1 = __webpack_require__(15);
-var dom_1 = __webpack_require__(27);
+var dom_1 = __webpack_require__(28);
 var size_1 = __webpack_require__(2);
 var Utils_1 = __webpack_require__(3);
 var SCROLL_EDGE = 40;
@@ -36199,7 +36205,7 @@ var ModelUtils_1 = __webpack_require__(4);
 var Data_1 = __webpack_require__(44);
 var Utils_1 = __webpack_require__(3);
 var string_1 = __webpack_require__(49);
-var math_1 = __webpack_require__(31);
+var math_1 = __webpack_require__(24);
 var UpdateNodeKeyRelatedObjectsStackItem = (function () {
     function UpdateNodeKeyRelatedObjectsStackItem(shape, nodeObj) {
         this.shape = shape;
@@ -37931,18 +37937,18 @@ exports.ToolboxManager = void 0;
 var TextToolbox_1 = __webpack_require__(351);
 var IconToolbox_1 = __webpack_require__(352);
 var TextMeasurer_1 = __webpack_require__(79);
-var math_1 = __webpack_require__(31);
+var math_1 = __webpack_require__(24);
 var ToolboxManager = (function () {
     function ToolboxManager(shapeDescriptionManager) {
         this.shapeDescriptionManager = shapeDescriptionManager;
         this.toolboxes = [];
         this.measurers = {};
     }
-    ToolboxManager.prototype.create = function (parent, readOnly, allowDragging, renderAsText, shapes, getAllowedShapeTypes, options) {
+    ToolboxManager.prototype.create = function (parent, readOnly, allowDragging, renderAsText, shapes, getAllowedShapeTypes, instanceId, options) {
         var shapeTypes = Array.isArray(shapes) ? shapes : this.shapeDescriptionManager.getTypesByCategory(shapes);
         var toolbox = renderAsText ?
             new TextToolbox_1.TextToolbox(parent, readOnly, allowDragging, this.shapeDescriptionManager, shapeTypes, getAllowedShapeTypes) :
-            new IconToolbox_1.IconToolbox(parent, readOnly, allowDragging, this.shapeDescriptionManager, shapeTypes, getAllowedShapeTypes, options, this.getOrCreateMeasurer(parent));
+            new IconToolbox_1.IconToolbox(parent, readOnly, allowDragging, this.shapeDescriptionManager, shapeTypes, getAllowedShapeTypes, options, this.getOrCreateMeasurer(parent), instanceId);
         toolbox.render();
         this.toolboxes.push(toolbox);
         return toolbox;
@@ -38078,7 +38084,7 @@ var Shape_1 = __webpack_require__(14);
 var unit_converter_1 = __webpack_require__(12);
 var point_1 = __webpack_require__(0);
 var TextShapeDescription_1 = __webpack_require__(121);
-var Style_1 = __webpack_require__(26);
+var Style_1 = __webpack_require__(27);
 var CustomShapeDescription_1 = __webpack_require__(126);
 var RectaglePrimitive_1 = __webpack_require__(21);
 var DEFAULT_SHAPE_ICON_SIZE = 32;
@@ -38086,10 +38092,11 @@ var SHRINK_TEXT_SHAPE_ICON_SIZE = 26;
 var SHRINKED_TEXT = "T";
 var IconToolbox = (function (_super) {
     __extends(IconToolbox, _super);
-    function IconToolbox(parent, readonly, allowDragging, shapeDescriptionManager, shapeTypes, getAllowedShapeTypes, options, measurer) {
+    function IconToolbox(parent, readonly, allowDragging, shapeDescriptionManager, shapeTypes, getAllowedShapeTypes, options, measurer, instanceId) {
         var _this = _super.call(this, parent, readonly, allowDragging, shapeDescriptionManager, shapeTypes, getAllowedShapeTypes) || this;
         _this.options = options;
         _this.measurer = measurer;
+        _this.instanceId = instanceId;
         return _this;
     }
     IconToolbox.prototype.createElements = function (element, shapeTypes) {
@@ -38139,7 +38146,7 @@ var IconToolbox = (function (_super) {
     };
     IconToolbox.prototype.drawShape = function (parent, shape) {
         var _this = this;
-        var primitives = shape.description.createPrimitives(shape, true);
+        var primitives = shape.description.createPrimitives(shape, this.instanceId, true);
         var gEl = document.createElementNS(RenderHelper_1.svgNS, "g");
         gEl.setAttribute("data-tb-type", shape.description.key.toString());
         gEl.setAttribute("class", "toolbox-item");
@@ -39537,7 +39544,7 @@ exports.MoveShapeEventArgs = MoveShapeEventArgs;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConnectorRoutingModel = exports.ConnectorRoutingPenaltyDescription = void 0;
-var Settings_1 = __webpack_require__(28);
+var Settings_1 = __webpack_require__(29);
 var Shape_1 = __webpack_require__(14);
 var Connector_1 = __webpack_require__(6);
 var ConnectorProperties_1 = __webpack_require__(32);
@@ -39604,7 +39611,7 @@ exports.ConnectorRoutingModel = ConnectorRoutingModel;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RightAngleConnectorRoutingStrategy = void 0;
 var segment_1 = __webpack_require__(33);
-var ConnectorRenderPoint_1 = __webpack_require__(29);
+var ConnectorRenderPoint_1 = __webpack_require__(30);
 var RightAngleConnectorRoutingContext_1 = __webpack_require__(370);
 var ModelUtils_1 = __webpack_require__(4);
 var RightAngleConnectorRoutingStrategy = (function () {

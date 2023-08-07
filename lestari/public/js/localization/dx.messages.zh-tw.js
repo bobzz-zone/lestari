@@ -1,7 +1,7 @@
 /*!
 * DevExtreme (dx.messages.zh-tw.js)
-* Version: 22.2.6
-* Build date: Tue Apr 18 2023
+* Version: 23.1.4
+* Build date: Fri Jul 14 2023
 *
 * Copyright (c) 2012 - 2023 Developer Express Inc. ALL RIGHTS RESERVED
 * Read about DevExtreme licensing here: https://js.devexpress.com/Licensing/
@@ -70,6 +70,12 @@
             "dxDateBox-simulatedDataPickerTitleDate": "\u9078\u64c7\u65e5\u671f",
             "dxDateBox-simulatedDataPickerTitleDateTime": "\u9078\u64c7\u65e5\u671f\u548c\u6642\u9593",
             "dxDateBox-validation-datetime": "\u503c\u5fc5\u9808\u662f\u65e5\u671f\u6216\u6642\u9593",
+            "dxDateRangeBox-invalidStartDateMessage": "Start value must be a date",
+            "dxDateRangeBox-invalidEndDateMessage": "End value must be a date",
+            "dxDateRangeBox-startDateOutOfRangeMessage": "Start date is out of range",
+            "dxDateRangeBox-endDateOutOfRangeMessage": "End date is out of range",
+            "dxDateRangeBox-startDateLabel": "\u958b\u59cb\u65e5\u671f",
+            "dxDateRangeBox-endDateLabel": "\u7d50\u675f\u65e5\u671f",
             "dxFileUploader-selectFile": "\u9078\u64c7\u6587\u4ef6",
             "dxFileUploader-dropFile": "\u6216\u8005\u628a\u6587\u4ef6\u653e\u5728\u6b64\u8655",
             "dxFileUploader-bytes": "bytes",
@@ -92,6 +98,10 @@
             "dxForm-requiredMessage": "{0} \u662f\u5fc5\u9808\u7684",
             "dxNumberBox-invalidValueMessage": "\u503c\u5fc5\u9808\u662f\u4e00\u500b\u6578\u5b57",
             "dxNumberBox-noDataText": "\u7121\u8cc7\u6599",
+            "dxDataGrid-emptyHeaderWithColumnChooserText": "Use {0} to display columns",
+            "dxDataGrid-emptyHeaderWithGroupPanelText": "Drag a column from the group panel here",
+            "dxDataGrid-emptyHeaderWithColumnChooserAndGroupPanelText": "Use {0} or drag a column from the group panel",
+            "dxDataGrid-emptyHeaderColumnChooserText": "column chooser",
             "dxDataGrid-columnChooserTitle": "\u6b04\u9078\u64c7\u5668",
             "dxDataGrid-columnChooserEmptyText": "\u5728\u9019\u88e1\u62d6\u52d5\u4e00\u5217\u96b1\u85cf\u5b83",
             "dxDataGrid-groupContinuesMessage": "\u4e0b\u4e00\u9801\u63a5\u7e8c",
@@ -124,6 +134,7 @@
             "dxDataGrid-filterRowOperationBetween": "\u4e4b\u9593",
             "dxDataGrid-filterRowOperationBetweenStartText": "\u958b\u59cb",
             "dxDataGrid-filterRowOperationBetweenEndText": "\u7d50\u675f",
+            "dxDataGrid-ariaSearchBox": "Search box",
             "dxDataGrid-applyFilterText": "\u61c9\u7528\u904e\u6ffe\u5668",
             "dxDataGrid-trueText": "\u771f",
             "dxDataGrid-falseText": "\u5047",
@@ -180,11 +191,14 @@
             "dxTreeList-editingAddRowToNode": "\u6dfb\u52a0",
             "dxPager-infoText": "\u7b2c{0}\u9801,\u5171{1}\u9801 ({2} \u500b\u9805\u76ee)",
             "dxPager-pagesCountText": "\u5230",
+            "dxPager-pageSize": "Items per page: {0}",
             "dxPager-pageSizesAllText": "\u5168\u90e8",
             "dxPager-page": "Page {0}",
             "dxPager-prevPage": "Previous Page",
             "dxPager-nextPage": "Next Page",
             "dxPager-ariaLabel": "Page Navigation",
+            "dxPager-ariaPageSize": "Page size",
+            "dxPager-ariaPageNumber": "Page number",
             "dxPivotGrid-grandTotal": "\u5408\u8a08",
             "dxPivotGrid-total": "{0} \u7e3d\u8a08",
             "dxPivotGrid-fieldChooserTitle": "\u6b04\u4f4d\u9078\u64c7\u5668",
@@ -250,6 +264,7 @@
             "dxScheduler-moreAppointments": "{0} \u66f4\u591a",
             "dxCalendar-todayButtonText": "\u4eca\u5929",
             "dxCalendar-ariaWidgetName": "\u65e5\u66c6",
+            "dxCalendar-ariaHotKeysInfo": "To navigate between views, press Control, and then Left Arrow or Right Arrow. To zoom in on a view, press Control, and then Down Arrow. To zoom out, press Control, and then Up Arrow.",
             "dxColorView-ariaRed": "\u7d05\u8272",
             "dxColorView-ariaGreen": "\u7da0\u8272",
             "dxColorView-ariaBlue": "\u85cd\u8272",

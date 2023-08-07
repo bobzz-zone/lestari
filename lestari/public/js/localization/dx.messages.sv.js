@@ -1,7 +1,7 @@
 /*!
 * DevExtreme (dx.messages.sv.js)
-* Version: 22.2.6
-* Build date: Tue Apr 18 2023
+* Version: 23.1.4
+* Build date: Fri Jul 14 2023
 *
 * Copyright (c) 2012 - 2023 Developer Express Inc. ALL RIGHTS RESERVED
 * Read about DevExtreme licensing here: https://js.devexpress.com/Licensing/
@@ -70,6 +70,12 @@
             "dxDateBox-simulatedDataPickerTitleDate": "V\xe4lj datum",
             "dxDateBox-simulatedDataPickerTitleDateTime": "V\xe4lj datum och tid",
             "dxDateBox-validation-datetime": "V\xe4rdet m\xe5ste vara ett datum eller en tid",
+            "dxDateRangeBox-invalidStartDateMessage": "Start value must be a date",
+            "dxDateRangeBox-invalidEndDateMessage": "End value must be a date",
+            "dxDateRangeBox-startDateOutOfRangeMessage": "Start date is out of range",
+            "dxDateRangeBox-endDateOutOfRangeMessage": "End date is out of range",
+            "dxDateRangeBox-startDateLabel": "Startdatum",
+            "dxDateRangeBox-endDateLabel": "Slutdatum",
             "dxFileUploader-selectFile": "V\xe4lj fil",
             "dxFileUploader-dropFile": "eller sl\xe4pp filen h\xe4r",
             "dxFileUploader-bytes": "byte",
@@ -92,6 +98,10 @@
             "dxForm-requiredMessage": "{0} \xe4r n\xf6dv\xe4ndigt",
             "dxNumberBox-invalidValueMessage": "V\xe4rdet m\xe5ste vara ett nummer",
             "dxNumberBox-noDataText": "Inget data",
+            "dxDataGrid-emptyHeaderWithColumnChooserText": "Use {0} to display columns",
+            "dxDataGrid-emptyHeaderWithGroupPanelText": "Drag a column from the group panel here",
+            "dxDataGrid-emptyHeaderWithColumnChooserAndGroupPanelText": "Use {0} or drag a column from the group panel",
+            "dxDataGrid-emptyHeaderColumnChooserText": "column chooser",
             "dxDataGrid-columnChooserTitle": "Kolumnv\xe4ljare",
             "dxDataGrid-columnChooserEmptyText": "Dra en kolumn hit f\xf6r att d\xf6lja den",
             "dxDataGrid-groupContinuesMessage": "Forts\xe4tter p\xe5 n\xe4sta sida",
@@ -124,6 +134,7 @@
             "dxDataGrid-filterRowOperationBetween": "Mellan",
             "dxDataGrid-filterRowOperationBetweenStartText": "Start",
             "dxDataGrid-filterRowOperationBetweenEndText": "Slut",
+            "dxDataGrid-ariaSearchBox": "Search box",
             "dxDataGrid-applyFilterText": "Anv\xe4nd filter",
             "dxDataGrid-trueText": "sant",
             "dxDataGrid-falseText": "falskt",
@@ -180,11 +191,14 @@
             "dxTreeList-editingAddRowToNode": "L\xe4gg till",
             "dxPager-infoText": "Sida {0} av {1} ({2} uppgifter)",
             "dxPager-pagesCountText": "av",
+            "dxPager-pageSize": "Items per page: {0}",
             "dxPager-pageSizesAllText": "Allt",
             "dxPager-page": "Page {0}",
             "dxPager-prevPage": "Previous Page",
             "dxPager-nextPage": "Next Page",
             "dxPager-ariaLabel": "Page Navigation",
+            "dxPager-ariaPageSize": "Page size",
+            "dxPager-ariaPageNumber": "Page number",
             "dxPivotGrid-grandTotal": "Totalsumma",
             "dxPivotGrid-total": "{0} Summa",
             "dxPivotGrid-fieldChooserTitle": "F\xe4ltv\xe4ljare",
@@ -250,6 +264,7 @@
             "dxScheduler-moreAppointments": "{0} mer",
             "dxCalendar-todayButtonText": "I dag",
             "dxCalendar-ariaWidgetName": "Kalender",
+            "dxCalendar-ariaHotKeysInfo": "To navigate between views, press Control, and then Left Arrow or Right Arrow. To zoom in on a view, press Control, and then Down Arrow. To zoom out, press Control, and then Up Arrow.",
             "dxColorView-ariaRed": "R\xf6d",
             "dxColorView-ariaGreen": "Gr\xf6n",
             "dxColorView-ariaBlue": "Bl\xe5",

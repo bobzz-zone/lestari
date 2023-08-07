@@ -8,11 +8,20 @@ DevExtreme = Class.extend({
 			title: 'SPK PPIC',
 			single_column: true
 		});
+		this.list_spk = []
+		// this.page.add_inner_button('Update Posts', () => update_posts())
+		// this.page.change_inner_button_type('Update Posts', null, 'primary');
+		this.page.set_primary_action('Buat SPK PPIC', () => this.submit(), { icon: 'add', size: 'sm'})
+		// this.page.set_secondary_action(
+		// 	__('Buat SPK Produksi'),
+		// 	() => this.show_user_search_dialog(),
+		// 	{ icon: 'add', size: 'sm'}
+		// );
 		this.make()
 	},
 	// make page
 	make: async function(){
-		let me = $(this);
+		let me = this
 		DevExpress.localization.locale(navigator.language);
 		let body = `<div class="dx-viewport">
 			<div id="dataGrid"></div>
@@ -25,22 +34,35 @@ DevExtreme = Class.extend({
 		// 	currency: "",
 		// 	useGrouping: true
 		//   });
-		console.log(employees)		
+		// console.log(employees)		
 		// DevExpress.localization.locale('id');
 		$("#dataGrid").dxDataGrid({
 			dataSource: employees.message,
         	keyExpr: 'name',
 			showBorders: true,
+			height: 470,
 			allowColumnReordering: true,
 			allowColumnResizing: true,
-			columnsAutoWidth: true,
 			columnAutoWidth: true,
+			columnFixing: {
+                enabled: true,
+                 fixedPosition: "top"
+            },
 			scrolling: {
 				columnRenderingMode: 'virtual',
+				// mode: 'infinite'
 			  },
 			groupPanel: {
 				visible: true,
 			},
+			 pager: {
+                allowedPageSizes: [25, 50, 100],
+                showPageSizeSelector: true,
+                showNavigationButtons: true
+            },
+            paging: {
+                pageSize: 25,
+            },
 			grouping:{
 				autoExpandAll: false
 			},
@@ -49,16 +71,6 @@ DevExtreme = Class.extend({
 				allowSelectAll: true,
 				selectAllMode: 'page' // or "multiple" | "none"
 			}, 
-			paging: {
-				pageSize: 25,
-			},
-			pager: {
-			visible: true,
-			allowedPageSizes: [25, 50, 100, 'all'],
-			showPageSizeSelector: true,
-			showInfo: true,
-			showNavigationButtons: true,
-			},
 			filterRow: { visible: true },
 			headerFilter: {
 				visible: true,
@@ -73,10 +85,11 @@ DevExtreme = Class.extend({
 				width: 50,
 				alignment: 'center',
 				caption: 'No.',
+				allowHeaderFiltering: false,
 			//   }],
 			// ,{
 			},{
-				dataField: 'name',
+				dataField: 'form_order',
 				format: 'string',
 				alignment: 'left',
 				// width: 110,
@@ -94,7 +107,8 @@ DevExtreme = Class.extend({
 				format: 'string',
 				alignment: 'left',
 				// width: 110,
-				caption: 'Urut FM'			   
+				caption: 'Urut FM',
+				allowHeaderFiltering: false,			   
 			  },			   
 			  {
 				dataField: 'sub_kategori',
@@ -117,51 +131,48 @@ DevExtreme = Class.extend({
 			  {
 				dataField: 'qty',
 				format: 'decimal',
-				caption: 'Qty'
+				caption: 'Qty',
+				allowHeaderFiltering: false,
 			  },
 			  {
 				dataField: 'berat',
 				format: 'decimal',
-				caption: 'Berat'
+				caption: 'Berat',
+				allowHeaderFiltering: false,
 			  },
 			  ],
-			summary: {
-				groupItems: [{
-					column: 'no',
-					summaryType: 'count',
-					displayFormat: '{0} orders',
-				  }, {
-					column: 'qty',
-					summaryType: 'sum',
-					displayFormat: 'Total: {0}',
-					showInGroupFooter: true,
-					alignByColumn: true,
-					valueFormat: {
-						type: 'fixedPoint',
-						precision: 2,
-						thousandsSeparator: ',',
-						currencySymbol: '',
-						useGrouping: true,
-					},
-				  }],
+			  onSelectionChanged(e) {
+				e.component.refresh(true);
+				if(e.currentSelectedRowKeys[0] != null){	
+					me.list_spk.push(e.currentSelectedRowKeys[0])
+				}
+				if(e.currentDeselectedRowKeys[0] != null){
+					me.list_spk = me.list_spk.filter(data => data != e.currentDeselectedRowKeys[0])
+				}
+				console.log(e)
+				console.log(me.list_spk)
 			  },
-			  onSelectionChanged(selectedItems) {
-				const data = selectedItems.selectedRowsData;
-				if (data.length > 0) {
-				  $('#selected-items-container').text(
-					data
-					  .map((value) => `${value.FirstName} ${value.LastName}`)
-					  .join(', '),
-				  );
-				} else {
-				  $('#selected-items-container').text('Nobody has been selected');
-				}
-				if (!changedBySelectBox) {
-				  titleSelectBox.option('value', null);
-				}
-		  
-				changedBySelectBox = false;
-				clearSelectionButton.option('disabled', !data.length);
+			  summary: {
+				totalItems: [{
+				  name: 'SelectedRowsSummary',
+				  showInColumn: 'qty',
+				  displayFormat: 'Qty: {0}',
+				  summaryType: 'custom',
+				},
+				],
+				calculateCustomSummary(options) {
+					
+				  if (options.name === 'SelectedRowsSummary') {
+					if (options.summaryProcess === 'start') {
+					  options.totalValue = 0;
+					}
+					if (options.summaryProcess === 'calculate') {
+					  if (options.component.isRowSelected(options.value.name)) {
+						options.totalValue += options.value.qty;
+					  }
+					}
+				  }
+				},
 			  },
 			  onExporting(e) {
 				const workbook = new ExcelJS.Workbook();
@@ -177,7 +188,22 @@ DevExtreme = Class.extend({
 				  });
 				});
 				e.cancel = true;
-			  }
+			},
+			// onSelectionChanged(selectedItems) {
+            //     const data = selectedItems.selectedRowsData;
+            //     if (data.length > 0) {
+            //         // $('#selected-items-container').val(
+            //         // data
+            //         //     .map((value) => `${value.linkPopup}`)
+            //         //     .join(', '),
+            //         // );
+			// 		console.log(data)
+            //     } else {
+            //         $('#selected-items-container').val('NULL');
+                    
+            //     }
+       
+            // },
 		});
 		
 	},
@@ -191,5 +217,13 @@ DevExtreme = Class.extend({
 
 		return data
 	},
-
+	submit: function(){
+		console.log(this.list_spk)
+		frappe.call({
+			method: 'lestari.lestari.page.spk_ppic_list.spk_ppic_list.make_spk_ppic',
+			args: {
+				'data': this.list_spk
+			}
+		})
+	}
 })

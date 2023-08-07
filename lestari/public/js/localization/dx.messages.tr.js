@@ -1,7 +1,7 @@
 /*!
 * DevExtreme (dx.messages.tr.js)
-* Version: 22.2.6
-* Build date: Tue Apr 18 2023
+* Version: 23.1.4
+* Build date: Fri Jul 14 2023
 *
 * Copyright (c) 2012 - 2023 Developer Express Inc. ALL RIGHTS RESERVED
 * Read about DevExtreme licensing here: https://js.devexpress.com/Licensing/
@@ -70,6 +70,12 @@
             "dxDateBox-simulatedDataPickerTitleDate": "Tarih se\xe7",
             "dxDateBox-simulatedDataPickerTitleDateTime": "Tarih ve saati se\xe7in",
             "dxDateBox-validation-datetime": "De\u011fer bir tarih veya saat olmal\u0131d\u0131r",
+            "dxDateRangeBox-invalidStartDateMessage": "Start value must be a date",
+            "dxDateRangeBox-invalidEndDateMessage": "End value must be a date",
+            "dxDateRangeBox-startDateOutOfRangeMessage": "Start date is out of range",
+            "dxDateRangeBox-endDateOutOfRangeMessage": "End date is out of range",
+            "dxDateRangeBox-startDateLabel": "Ba\u015flang\u0131\xe7 Tarihi",
+            "dxDateRangeBox-endDateLabel": "Biti\u015f Tarihi",
             "dxFileUploader-selectFile": "Dosya se\xe7",
             "dxFileUploader-dropFile": "veya Dosyay\u0131 buraya b\u0131rak\u0131n",
             "dxFileUploader-bytes": "bytes",
@@ -92,6 +98,10 @@
             "dxForm-requiredMessage": "{0} gerekli",
             "dxNumberBox-invalidValueMessage": "De\u011fer bir say\u0131 olmal\u0131",
             "dxNumberBox-noDataText": "Veri yok",
+            "dxDataGrid-emptyHeaderWithColumnChooserText": "Use {0} to display columns",
+            "dxDataGrid-emptyHeaderWithGroupPanelText": "Drag a column from the group panel here",
+            "dxDataGrid-emptyHeaderWithColumnChooserAndGroupPanelText": "Use {0} or drag a column from the group panel",
+            "dxDataGrid-emptyHeaderColumnChooserText": "column chooser",
             "dxDataGrid-columnChooserTitle": "S\xfctun Se\xe7ici",
             "dxDataGrid-columnChooserEmptyText": "S\xfctunu gizlemek i\xe7in buraya s\xfcr\xfckleyin",
             "dxDataGrid-groupContinuesMessage": "Bir sonraki sayfada devam ediyor",
@@ -124,6 +134,7 @@
             "dxDataGrid-filterRowOperationBetween": "Aras\u0131nda",
             "dxDataGrid-filterRowOperationBetweenStartText": "Ba\u015fla",
             "dxDataGrid-filterRowOperationBetweenEndText": "Biti\u015f",
+            "dxDataGrid-ariaSearchBox": "Search box",
             "dxDataGrid-applyFilterText": "Filtre uygula",
             "dxDataGrid-trueText": "evet",
             "dxDataGrid-falseText": "hay\u0131r",
@@ -180,11 +191,14 @@
             "dxTreeList-editingAddRowToNode": "Ekle",
             "dxPager-infoText": "Sayfa {0} / {1} ({2} veri)",
             "dxPager-pagesCountText": "aras\u0131nda",
+            "dxPager-pageSize": "Items per page: {0}",
             "dxPager-pageSizesAllText": "T\xfcm\xfc",
             "dxPager-page": "Page {0}",
             "dxPager-prevPage": "Previous Page",
             "dxPager-nextPage": "Next Page",
             "dxPager-ariaLabel": "Page Navigation",
+            "dxPager-ariaPageSize": "Page size",
+            "dxPager-ariaPageNumber": "Page number",
             "dxPivotGrid-grandTotal": "Genel Toplam",
             "dxPivotGrid-total": "{0} Toplam",
             "dxPivotGrid-fieldChooserTitle": "Alan Se\xe7ici",
@@ -250,6 +264,7 @@
             "dxScheduler-moreAppointments": "{0} daha",
             "dxCalendar-todayButtonText": "Bug\xfcn",
             "dxCalendar-ariaWidgetName": "Takvim",
+            "dxCalendar-ariaHotKeysInfo": "To navigate between views, press Control, and then Left Arrow or Right Arrow. To zoom in on a view, press Control, and then Down Arrow. To zoom out, press Control, and then Up Arrow.",
             "dxColorView-ariaRed": "K\u0131rm\u0131z\u0131",
             "dxColorView-ariaGreen": "Ye\u015fil",
             "dxColorView-ariaBlue": "Mavi",

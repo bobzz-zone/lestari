@@ -1,7 +1,7 @@
 /*!
 * DevExtreme (dx.messages.ro.js)
-* Version: 22.2.6
-* Build date: Tue Apr 18 2023
+* Version: 23.1.4
+* Build date: Fri Jul 14 2023
 *
 * Copyright (c) 2012 - 2023 Developer Express Inc. ALL RIGHTS RESERVED
 * Read about DevExtreme licensing here: https://js.devexpress.com/Licensing/
@@ -70,6 +70,12 @@
             "dxDateBox-simulatedDataPickerTitleDate": "Selecteaz\u0103 data",
             "dxDateBox-simulatedDataPickerTitleDateTime": "Selecteaz\u0103 data \u0219i timpul",
             "dxDateBox-validation-datetime": "Valoarea trebuie s\u0103 fie o dat\u0103 sau timp",
+            "dxDateRangeBox-invalidStartDateMessage": "Start value must be a date",
+            "dxDateRangeBox-invalidEndDateMessage": "End value must be a date",
+            "dxDateRangeBox-startDateOutOfRangeMessage": "Start date is out of range",
+            "dxDateRangeBox-endDateOutOfRangeMessage": "End date is out of range",
+            "dxDateRangeBox-startDateLabel": "Data de \xeenceput",
+            "dxDateRangeBox-endDateLabel": "Data de \xeencheiere",
             "dxFileUploader-selectFile": "Selecteaz\u0103 fi\u0219ierul",
             "dxFileUploader-dropFile": "sau plasa\u021bi fi\u0219ierul aici",
             "dxFileUploader-bytes": "bytes",
@@ -92,6 +98,10 @@
             "dxForm-requiredMessage": "{0} este obligatoriu",
             "dxNumberBox-invalidValueMessage": "Valoarea trebuie sa fie un numr\u0103",
             "dxNumberBox-noDataText": "Nu exist\u0103 date",
+            "dxDataGrid-emptyHeaderWithColumnChooserText": "Use {0} to display columns",
+            "dxDataGrid-emptyHeaderWithGroupPanelText": "Drag a column from the group panel here",
+            "dxDataGrid-emptyHeaderWithColumnChooserAndGroupPanelText": "Use {0} or drag a column from the group panel",
+            "dxDataGrid-emptyHeaderColumnChooserText": "column chooser",
             "dxDataGrid-columnChooserTitle": "Alege coloana",
             "dxDataGrid-columnChooserEmptyText": "Trage coloana aici pentru a o ascunde",
             "dxDataGrid-groupContinuesMessage": "Continu\u0103 pe pagina urmatoare",
@@ -124,6 +134,7 @@
             "dxDataGrid-filterRowOperationBetween": "\xcentre",
             "dxDataGrid-filterRowOperationBetweenStartText": "\xcencepe",
             "dxDataGrid-filterRowOperationBetweenEndText": "Sf\xe2r\u0219it",
+            "dxDataGrid-ariaSearchBox": "Search box",
             "dxDataGrid-applyFilterText": "Aplica filtre",
             "dxDataGrid-trueText": "adev\u0103rat",
             "dxDataGrid-falseText": "fals",
@@ -180,11 +191,14 @@
             "dxTreeList-editingAddRowToNode": "Adaug\u0103",
             "dxPager-infoText": "Pagina {0} de {1} ({2} obiecte)",
             "dxPager-pagesCountText": "de",
+            "dxPager-pageSize": "Items per page: {0}",
             "dxPager-pageSizesAllText": "Tot",
             "dxPager-page": "Page {0}",
             "dxPager-prevPage": "Previous Page",
             "dxPager-nextPage": "Next Page",
             "dxPager-ariaLabel": "Page Navigation",
+            "dxPager-ariaPageSize": "Page size",
+            "dxPager-ariaPageNumber": "Page number",
             "dxPivotGrid-grandTotal": "Total general",
             "dxPivotGrid-total": "{0} Total",
             "dxPivotGrid-fieldChooserTitle": "Selector de C\xe2mp",
@@ -250,6 +264,7 @@
             "dxScheduler-moreAppointments": "{0} mai mult",
             "dxCalendar-todayButtonText": "Ast\u0103zi",
             "dxCalendar-ariaWidgetName": "Calendar",
+            "dxCalendar-ariaHotKeysInfo": "To navigate between views, press Control, and then Left Arrow or Right Arrow. To zoom in on a view, press Control, and then Down Arrow. To zoom out, press Control, and then Up Arrow.",
             "dxColorView-ariaRed": "Ro\u0219u",
             "dxColorView-ariaGreen": "Verde",
             "dxColorView-ariaBlue": "Albastru",
