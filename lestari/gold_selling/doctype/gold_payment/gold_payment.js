@@ -38,6 +38,7 @@ function calculate_table_invoice(frm,cdt,cdn){
 	$.each(frm.doc.customer_return,  function(i,  g) {
 		total=total+g.outstanding;
 	});
+	frappe.msgprint("Nilai Pajak Seharusnya "+total_pajak)
 	frm.doc.total_pajak=total_pajak;
 	frm.doc.total_invoice=total;
 	refresh_field("total_pajak");
