@@ -33,7 +33,7 @@ function calculate_table_invoice(frm,cdt,cdn){
 	var total_pajak=0;
 	$.each(frm.doc.invoice_table,  function(i,  g) {
 		total=total+g.outstanding;
-		total_pajak=g.outstanding_tax;
+		total_pajak=g.outstanding_tax+total_pajak;
 	});
 	$.each(frm.doc.customer_return,  function(i,  g) {
 		total=total+g.outstanding;
