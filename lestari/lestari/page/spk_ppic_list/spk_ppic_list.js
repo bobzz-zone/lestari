@@ -12,6 +12,15 @@ DevExtreme = Class.extend({
 		// this.page.add_inner_button('Update Posts', () => update_posts())
 		// this.page.change_inner_button_type('Update Posts', null, 'primary');
 		this.page.set_primary_action('Buat SPK PPIC', () => this.submit(), { icon: 'add', size: 'sm'})
+		const hasil_pilih = `
+			<div class="hasiltimbangan" style="font-weight:bold;margin:0px 13px 0px 2px;
+				color:#f9fafa;font-size:18px;display:inline-block;vertical-align:text-bottom;>
+				<span class="label_qty">Qty</span>
+				<span class="colon">:</span>
+				<span class="qty_real">0</span>
+			</div>`;
+	
+		this.page.add_inner_message(hasil_pilih);
 		// this.page.set_secondary_action(
 		// 	__('Buat SPK Produksi'),
 		// 	() => this.show_user_search_dialog(),
@@ -34,15 +43,18 @@ DevExtreme = Class.extend({
 		// 	currency: "",
 		// 	useGrouping: true
 		//   });
-		// console.log(employees)		
+		console.log(employees)		
 		// DevExpress.localization.locale('id');
 		$("#dataGrid").dxDataGrid({
 			dataSource: employees.message,
         	keyExpr: 'name',
 			showBorders: true,
-			height: 470,
+			height: '30%',
 			allowColumnReordering: true,
 			allowColumnResizing: true,
+			loadPanel:{
+				enabled:true
+			},
 			columnAutoWidth: true,
 			columnFixing: {
                 enabled: true,
@@ -56,7 +68,7 @@ DevExtreme = Class.extend({
 				visible: true,
 			},
 			 pager: {
-                allowedPageSizes: [25, 50, 100],
+                allowedPageSizes: [10, 25, 50, 100],
                 showPageSizeSelector: true,
                 showNavigationButtons: true
             },
@@ -90,21 +102,23 @@ DevExtreme = Class.extend({
 			// ,{
 			},{
 				dataField: 'form_order',
-				format: 'string',
+				dataType: 'string',
 				alignment: 'left',
 				// width: 110,
 				caption: 'No FM'			   
 			  }
 			  ,{
 				dataField: 'posting_date',
-				format: 'date',
-				alignment: 'right',
+				sortIndex: 0,
+                sortOrder: "asc",
+				dataType: 'date',
+				format: 'dd-MM-yyyy',
 				caption: 'Posting Date',
 				// width: 110,
 				
 			  },{
 				dataField: 'urut_fm',
-				format: 'string',
+				dataType: 'string',
 				alignment: 'left',
 				// width: 110,
 				caption: 'Urut FM',
@@ -112,31 +126,31 @@ DevExtreme = Class.extend({
 			  },			   
 			  {
 				dataField: 'sub_kategori',
-				format: 'string',
+				dataType: 'string',
 				// width: 150,
 				caption: 'Sub Kategori'
 			  },
 			  {
 				dataField: 'model',
-				format: 'string',
+				dataType: 'string',
 				// width: 150,
 				caption: 'No Model'
 			  },
 			  {
 				dataField: 'kadar',
-				format: 'string',
+				dataType: 'string',
 				// width: 150,
 				caption: 'Kadar'
 			  },
 			  {
 				dataField: 'qty',
-				format: 'decimal',
+				dataType: 'number',
 				caption: 'Qty',
 				allowHeaderFiltering: false,
 			  },
 			  {
 				dataField: 'berat',
-				format: 'decimal',
+				dataType: 'number',
 				caption: 'Berat',
 				allowHeaderFiltering: false,
 			  },
@@ -150,7 +164,7 @@ DevExtreme = Class.extend({
 					me.list_spk = me.list_spk.filter(data => data != e.currentDeselectedRowKeys[0])
 				}
 				console.log(e)
-				console.log(me.list_spk)
+				// console.log(me.list_spk)
 			  },
 			  summary: {
 				totalItems: [{
@@ -171,6 +185,7 @@ DevExtreme = Class.extend({
 						options.totalValue += options.value.qty;
 					  }
 					}
+					$(".qty_real").text(options.totalValue)
 				  }
 				},
 			  },

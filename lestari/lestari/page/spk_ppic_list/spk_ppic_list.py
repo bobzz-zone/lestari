@@ -38,7 +38,7 @@ def make_spk_ppic(data):
 @frappe.whitelist()
 def contoh_report():
     fm = []
-    list_doc = frappe.get_list("Form Order", limit = 5000)
+    list_doc = frappe.get_list("Form Order", limit = 100)
     no = 0
     for row in list_doc:
         doc = frappe.get_doc("Form Order", row)
@@ -52,8 +52,8 @@ def contoh_report():
                     'model' : col.model,
                     'qty' : col.qty,
                     'berat' : 0,
-                    'posting_date' : frappe.format(doc.posting_date,{'fieldtype':'Date'}),
-                    # 'posting_date' : frappe.date.datetime(doc.posting_date,"M/d/yyyy"),
+                    # 'posting_date' : frappe.format(doc.posting_date,{'fieldtype':'Date'}),
+                    'posting_date' : getdate(doc.posting_date,"M/d/yyyy"),
                     'kadar' : doc.kadar,
                     'kategori' : doc.kategori,
                     'sub_kategori' : doc.sub_kategori,
