@@ -463,6 +463,7 @@ frappe.ui.form.on('Gold Payment', {
 			doc: frm.doc,
 			callback: function (r){
 				frm.refresh();
+				calculate_table_invoice(cur_frm);
 				reset_allocated(cur_frm);
 				// setTimeout(function() {
 				// 	// Check if the button was clicked and disable it
