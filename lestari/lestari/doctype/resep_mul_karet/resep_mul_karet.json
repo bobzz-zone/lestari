@@ -42,7 +42,7 @@
    "fieldname": "batu",
    "fieldtype": "Table",
    "label": "Batu",
-   "options": "Resep Investment Lilin Batu"
+   "options": "Resep Mul Karet Batu"
   },
   {
    "fieldname": "tipe_mule",
@@ -84,7 +84,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-07-05 10:01:35.450470",
+ "modified": "2023-08-15 14:57:41.339965",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Resep Mul Karet",

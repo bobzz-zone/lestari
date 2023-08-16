@@ -33,7 +33,7 @@ function calculate_table_invoice(frm,cdt,cdn){
 	var total_pajak=0;
 	$.each(frm.doc.invoice_table,  function(i,  g) {
 		total=total+g.outstanding;
-		total_pajak=g.outstanding_tax;
+		total_pajak=g.outstanding_tax+total_pajak;
 	});
 	$.each(frm.doc.customer_return,  function(i,  g) {
 		total=total+g.outstanding;
@@ -462,6 +462,7 @@ frappe.ui.form.on('Gold Payment', {
 			doc: frm.doc,
 			callback: function (r){
 				frm.refresh();
+				calculate_table_invoice(cur_frm);
 				reset_allocated(cur_frm);
 				// setTimeout(function() {
 				// 	// Check if the button was clicked and disable it

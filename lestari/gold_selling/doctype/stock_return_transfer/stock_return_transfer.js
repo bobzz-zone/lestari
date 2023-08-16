@@ -17,5 +17,11 @@ frappe.ui.form.on('Stock Return Transfer', {
 				frm.refresh();	
 			}
 		})
+	},
+	sub_customer: function(frm){
+		frappe.db.get_value("Customer", cur_frm.doc.sub_customer, ["parent_customer"]).then((responseJSON)=>{
+			frm.set_value("customer", responseJSON.message.parent_customer)
+			frm.refresh_field("customer")
+		})
 	}
 });
