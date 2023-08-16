@@ -7,8 +7,8 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "batch_work_log",
   "operation",
+  "is_batch",
   "employee",
   "employee_id",
   "employee_name",
@@ -35,12 +35,6 @@
  ],
  "fields": [
   {
-   "fieldname": "batch_work_log",
-   "fieldtype": "Link",
-   "label": "Batch Work Log",
-   "options": "Batch Work Log"
-  },
-  {
    "fieldname": "operation",
    "fieldtype": "Link",
    "label": "Operation",
@@ -55,7 +49,7 @@
   {
    "fetch_from": "employee.id_employee",
    "fieldname": "employee_id",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Employee ID",
    "read_only": 1
   },
@@ -174,12 +168,18 @@
    "fieldname": "total_rusak",
    "fieldtype": "Int",
    "label": "Total Rusak"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_batch",
+   "fieldtype": "Check",
+   "label": "Is Batch"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-07-31 09:00:10.068898",
+ "modified": "2023-08-16 12:54:33.372808",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Work log Testing",

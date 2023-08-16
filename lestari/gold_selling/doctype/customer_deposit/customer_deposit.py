@@ -46,7 +46,9 @@ class CustomerDeposit(StockController):
 						frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_deposit,self.janji_bayar))
 		if self.list_janji_bayar and self.total_idr_deposit>0:
 			for row in self.list_janji_bayar:
-				deposit = row.allocated_janji #5,938,340,461.00
+				deposit = self.total_idr_deposit #5,938,340,461.00
+				frappe.msgprint(row.janji_bayar)
+				frappe.msgprint(deposit)
 				if deposit > 0:
 					janji=frappe.get_doc("Janji Bayar",row.janji_bayar)
 					if janji.status=="Pending":

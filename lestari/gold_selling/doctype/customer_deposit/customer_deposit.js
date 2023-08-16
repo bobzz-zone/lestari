@@ -164,9 +164,9 @@ frappe.ui.form.on('Stock Payment', {
 		var d=locals[cdt][cdn];
 		if(!d.item){return;}
 		frappe.call({
-                method: "lestari.gold_selling.doctype.gold_invoice.gold_invoice.get_gold_purchase_rate",
-                args:{"item":d.item,"customer":frm.doc.customer,"customer_group":frm.doc.customer_group},
-                callback: function (r){
+			method: "lestari.gold_selling.doctype.gold_invoice.gold_invoice.get_gold_purchase_rate",
+			args:{"item":d.item,"customer":frm.doc.customer,"customer_group":frm.doc.customer_group},
+			callback: function (r){
                     frappe.model.set_value(cdt, cdn,"rate",r.message.nilai);
                     frappe.model.set_value(cdt, cdn,"amount",parseFloat(r.message.nilai)*d.qty/100);
                 	var total=0;
@@ -177,9 +177,13 @@ frappe.ui.form.on('Stock Payment', {
 				    frm.doc.gold_left=total;
 				    refresh_field("total_gold_deposit");
 				    refresh_field("gold_left");
-                	}
+				}
                 });
-		
+				
+	},
+	stock_deposit_remove:function(frm,cdt,cdn) {
+		var d=locals[cdt][cdn];
+		calculate(frm,cdt,cdn)
 	},
 	qty:function(frm,cdt,cdn) {
 	    var d=locals[cdt][cdn];
