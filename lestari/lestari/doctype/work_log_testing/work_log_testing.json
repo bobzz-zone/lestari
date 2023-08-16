@@ -1,0 +1,225 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:WL-{#####}",
+ "creation": "2023-07-18 12:20:32.821050",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "operation",
+  "is_batch",
+  "employee",
+  "employee_id",
+  "employee_name",
+  "column_break_6",
+  "waktu_mulai",
+  "waktu_selesai",
+  "column_break_11",
+  "durasi_section",
+  "jam",
+  "menit",
+  "detik",
+  "column_break_18",
+  "total_detik",
+  "total_detik_working",
+  "total_detik_pause",
+  "total_rusak",
+  "akumulasi_waktu_section",
+  "jam_akumulasi",
+  "menit_akumulasi",
+  "detik_akumulasi",
+  "uuid",
+  "list_pause",
+  "amended_from",
+  "list_spko"
+ ],
+ "fields": [
+  {
+   "fieldname": "operation",
+   "fieldtype": "Link",
+   "label": "Operation",
+   "options": "Operation"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee"
+  },
+  {
+   "fetch_from": "employee.id_employee",
+   "fieldname": "employee_id",
+   "fieldtype": "Int",
+   "label": "Employee ID",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "waktu_mulai",
+   "fieldtype": "Datetime",
+   "label": "Waktu mulai"
+  },
+  {
+   "fieldname": "waktu_selesai",
+   "fieldtype": "Datetime",
+   "label": "Waktu selesai"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "durasi_section",
+   "fieldtype": "Section Break",
+   "label": "Durasi"
+  },
+  {
+   "fieldname": "jam",
+   "fieldtype": "Int",
+   "label": "Jam"
+  },
+  {
+   "fieldname": "menit",
+   "fieldtype": "Int",
+   "label": "Menit"
+  },
+  {
+   "fieldname": "detik",
+   "fieldtype": "Int",
+   "label": "Detik"
+  },
+  {
+   "fieldname": "column_break_18",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_detik",
+   "fieldtype": "Int",
+   "label": "Total Detik"
+  },
+  {
+   "fieldname": "akumulasi_waktu_section",
+   "fieldtype": "Section Break",
+   "label": "Akumulasi Waktu"
+  },
+  {
+   "fieldname": "jam_akumulasi",
+   "fieldtype": "Int",
+   "label": "Jam Akumulasi",
+   "read_only": 1
+  },
+  {
+   "fieldname": "menit_akumulasi",
+   "fieldtype": "Int",
+   "label": "Menit Akumulasi",
+   "read_only": 1
+  },
+  {
+   "fieldname": "detik_akumulasi",
+   "fieldtype": "Int",
+   "label": "Detik Akumulasi",
+   "read_only": 1
+  },
+  {
+   "fieldname": "uuid",
+   "fieldtype": "Data",
+   "label": "UUID",
+   "unique": 1
+  },
+  {
+   "fieldname": "list_pause",
+   "fieldtype": "Table",
+   "label": "List Pause",
+   "options": "Worklog Pause List"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Work log Testing",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "list_spko",
+   "fieldtype": "Table",
+   "label": "List Spko",
+   "options": "Worklog spko list",
+   "reqd": 1
+  },
+  {
+   "fieldname": "total_detik_working",
+   "fieldtype": "Int",
+   "label": "Total Detik Working"
+  },
+  {
+   "fieldname": "total_detik_pause",
+   "fieldtype": "Int",
+   "label": "Total Detik Pause"
+  },
+  {
+   "fieldname": "total_rusak",
+   "fieldtype": "Int",
+   "label": "Total Rusak"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_batch",
+   "fieldtype": "Check",
+   "label": "Is Batch"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-08-16 16:10:03.614066",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Work log Testing",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Employee",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
