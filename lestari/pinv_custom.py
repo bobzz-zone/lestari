@@ -24,3 +24,18 @@ def submit(doc,method):
 	frappe.db.sql("""update `tabStock Payment` set reference_type='Purchase Invoice' , reference_name='{}' where parent in ("{}")""".format(doc.name,gabungan),as_list=1)
 	frappe.db.sql("""update `tabGL Entry` set against_voucher_type="Purchase Invoice" , against_voucher="{}" where name in ("{}") """.format(doc.name,gle_str),as_list=1)
 def cancel(doc,method):
+	deposit=[]
+	payment=[]
+	gle=[]
+	for row in doc.advances:
+		gle.append(row.reference_row)
+		if row.reference_type =="Gold Payment":
+			payment.append(row.reference_name)
+		elif row.reference_type =="Customer Deposit":
+			deposit.append(row.reference_name)
+	deposit_str= '","'.join(deposit)
+	payment_str= '","'.join(payment)
+	gle_str = '","'.join(gle)
+	gabungan = """{}","{}""".format(deposit_str,payment_str)
+	frappe.db.sql("""update `tabStock Payment` set reference_type='' , reference_name='' where parent in ("{}")""".format(gabungan),as_list=1)
+	frappe.db.sql("""update `tabGL Entry` set against_voucher_type="" , against_voucher="" where name in ("{}") """.format(gle_str),as_list=1)
