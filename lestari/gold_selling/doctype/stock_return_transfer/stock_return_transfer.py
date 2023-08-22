@@ -10,9 +10,9 @@ class StockReturnTransfer(Document):
 		# frappe.msgprint(self.type)
 		if self.type == "Keluar":
 			if self.customer:
-				list_kpr = frappe.db.get_list("Konfirmasi Payment Return",filters={'customer':self.customer,'sales':self.sales, 'docstatus':1})
+				list_kpr = frappe.db.get_list("Konfirmasi Payment Return",filters={'customer':self.customer,'docstatus':1})
 			else:
-				list_kpr = frappe.db.get_list("Konfirmasi Payment Return",filters={'sales':self.sales, 'docstatus':1})
+				list_kpr = frappe.db.get_list("Konfirmasi Payment Return",filters={'docstatus':1})
 			for row in list_kpr:
 				# frappe.msgprint(str(row))
 				doc = frappe.get_doc("Konfirmasi Payment Return", row)

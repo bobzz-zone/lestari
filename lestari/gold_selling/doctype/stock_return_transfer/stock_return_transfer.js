@@ -2,9 +2,15 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Stock Return Transfer', {
-	// refresh: function(frm) {
-
-	// }
+	refresh: function(frm) {
+		frm.set_query("sub_customer", function (doc) {
+			return {
+			filters: {
+				parent_customer: ["!=",""],
+			},
+			};
+		});
+	},
 	get_details: function(frm){
 		if(cur_frm.doc.transfer_details){
 				cur_frm.clear_table("transfer_details")

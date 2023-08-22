@@ -19,7 +19,7 @@ frappe.ui.form.on('Janji Bayar', {
 		frm.set_query("gold_invoice", function(){
 			return {
 				"filters": [
-					["Gold Invoice", "customer", "=", cur_frm.doc.customer],
+					// ["Gold Invoice", "customer", "=", cur_frm.doc.customer],
 					["Gold Invoice", "outstanding", ">", 0.000]
 				]
 			}
