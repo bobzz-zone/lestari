@@ -132,6 +132,7 @@ frappe.ui.form.on("Gold Invoice", {
 		frm.doc.total_idr_in_gold = idr / frm.doc.tutupan;
 		frm.doc.total_advance = frm.doc.total_gold + frm.doc.total_idr_in_gold;
 		frm.doc.outstanding = frm.doc.grand_total - frm.doc.total_advance;
+		hitung_pajak(frm);
 		refresh_field("outstanding");
 		refresh_field("total_idr_in_gold");
 		refresh_field("total_advance");
