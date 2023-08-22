@@ -431,7 +431,7 @@ frappe.ui.form.on('Transfer Stockist Item', {
 	sub_kategori: function (doc,cdt, cdn){
 		var d = locals[cdt][cdn];
 		if(d.kadar != null){
-		frappe.call({
+		frm.call({
 			method: 'lestari.stockist.doctype.update_bundle_stock.update_bundle_stock.get_sub_item',
 			args: {
 				'kadar': d.kadar,

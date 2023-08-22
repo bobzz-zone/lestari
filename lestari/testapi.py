@@ -7,6 +7,13 @@ import json
 #     # response.final_product = "?"
 #     # response.type_mul =
 #     return response
+def fix_mr():
+	frappe.db.sql("update `tabMaterial Request Item` set ordered_qty=0 where docstatus=0")
+	data = frappe.db.sql("select name from `tabMaterial Request` where docstatus=1 and material_request_type='Purchase'",as_list=1)
+	for row in data:
+		mr = frappe.get_doc("Material Request",row[0])
+		mr.update_completed_qty()
+		frappe.db.commit()
 def test_patch():
     list_gp = frappe.db.sql("select name from `tabGold Payment` where docstatus=1",as_list=1)
     for row in list_gp:

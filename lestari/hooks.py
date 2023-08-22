@@ -115,6 +115,10 @@ doc_events = {
 	# "Proses Pohonan Lilin":{
 	# 	"validate": "lestari.lestari.doctype.proses_pohona_lilin.proses_pohonan_lilin.validate"
 	# }
+	"Purchase Invoice":{
+		"before_submit":"lestari.pinv_custom.submit",
+		"before_cancel":"lestari.pinv_custom.cancel"
+	}
 }
 jenv = {
 	'filters':[

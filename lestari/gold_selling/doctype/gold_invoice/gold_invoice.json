@@ -428,7 +428,7 @@
   },
   {
    "default": "0",
-   "depends_on": "tax_status==\"Tax\";\nis_skb===0;",
+   "depends_on": "tax_status==\"Tax\";",
    "description": "jika di centang maka akan kena PPN 1,65%",
    "fieldname": "non_pph",
    "fieldtype": "Check",
@@ -475,7 +475,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-07-11 13:33:31.827041",
+ "modified": "2023-08-22 15:18:04.017490",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",
