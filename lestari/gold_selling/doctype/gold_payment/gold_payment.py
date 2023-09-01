@@ -561,6 +561,8 @@ class GoldPayment(StockController):
 		#sisa= self.allocated_payment
 		credit=0
 		debit=0
+		total_piutang_idr=0
+		total_piutang_gold=0
 		for row in self.invoice_table:
 			if row.tax_allocated>0:
 				gl_piutang_idr.append({
@@ -586,6 +588,7 @@ class GoldPayment(StockController):
 					"company":self.company,
 					"is_cancelled":0
 				})
+				total_piutang_idr=total_piutang_idr+row.tax_allocated
 			# if sisa>0 and row.allocated>0:
 			if row.allocated>0:
 				# payment=row.allocated
@@ -616,6 +619,7 @@ class GoldPayment(StockController):
 					"company":self.company,
 					"is_cancelled":0
 				})
+				total_piutang_gold=total_piutang_gold+(row.allocated*row.tutupan)
 		#		credit=credit+(payment*row.tutupan)
 				if row.tutupan!=self.tutupan:
 					nilai_selisih_kurs=nilai_selisih_kurs+((self.tutupan-row.tutupan)*row.allocated)
@@ -820,6 +824,13 @@ class GoldPayment(StockController):
 						gl[account]=self.gl_dict(cost_center,account,row.amount,0,fiscal_years)
 					else:
 						gl[account]=self.gl_dict(cost_center,account,0,-1*row.amount,fiscal_years)
+				if total_piutang_idr>0 and total_piutang_gold==0:
+					gl[account]['against']=piutang_idr
+				else:
+				#elif total_piutang_idr==0 and total_piutang_gold>0:
+					gl[account]['against']=piutang_gold
+				#else:
+				#	gl[account]['against']="{},{}".format(piutang_gold , piutang_idr)
 		#roundoff=0
 		for row in gl:
 			roundoff=roundoff+gl[row]['debit']-gl[row]['credit']
