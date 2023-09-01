@@ -527,6 +527,18 @@ class GoldPayment(StockController):
 										"company":self.company,
 										"is_cancelled":0
 										}
+	def update_against(self):
+		if self.total_idr_payment>0:
+			#journal IDR nya aja
+			account_list_idr=""
+			for row in self.idr_payment:
+				account=get_bank_cash_account(row.mode_of_payment,self.company)["account"]
+				if account not in account_list_idr:
+					if account_list_idr=="":
+						account_list_idr=account
+					else:
+						account_list_idr="{},{}".format(account_list_idr,account)
+			frappe.db.sql("""update `tabGL Entry` set against="{}" where voucher="{}" and account = "110.401.000 - Piutang Dagang - LMS" """.format(account_list_idr,self.name))
 	def get_gl_entries(self, warehouse_account=None):
 		from erpnext.accounts.general_ledger import merge_similar_entries
 		#GL  Generate
