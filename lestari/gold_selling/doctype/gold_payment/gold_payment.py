@@ -561,8 +561,33 @@ class GoldPayment(StockController):
 		#sisa= self.allocated_payment
 		credit=0
 		debit=0
-		total_piutang_idr=0
-		total_piutang_gold=0
+		#untuk payment IDR
+		account_list_idr=""
+		if self.total_idr_payment>0:
+			#journal IDR nya aja
+			for row in self.idr_payment:
+				account=get_bank_cash_account(row.mode_of_payment,self.company)["account"]
+				if account in gl:
+					if  row.amount >0:
+						gl[account]['debit']=gl[account]['debit']+row.amount
+						gl[account]['debit_in_account_currency']=gl[account]['debit']
+					else:
+						gl[account]['credit']=gl[account]['credit']-row.amount
+						gl[account]['credit_in_account_currency']=gl[account]['credit']
+				else:
+					if row.amount >0:
+						gl[account]=self.gl_dict(cost_center,account,row.amount,0,fiscal_years)
+					else:
+						gl[account]=self.gl_dict(cost_center,account,0,-1*row.amount,fiscal_years)
+					if account_list_idr=="":
+						account_list_idr=account
+					else:
+						account_list_idr="{},{}".format(account_list_idr,account)
+					if self.total_pajak:
+						gl[account]['against']=piutang_idr
+					else:
+						gl[account]['against']=piutang_gold
+				
 		for row in self.invoice_table:
 			if row.tax_allocated>0:
 				gl_piutang_idr.append({
@@ -577,6 +602,7 @@ class GoldPayment(StockController):
 					"debit_in_account_currency":0,
 					"credit_in_account_currency":row.tax_allocated,
 					#"against":"4110.000 - Penjualan - L",
+					"against":account_list_idr,
 					"voucher_type":"Gold Payment",
 					"against_voucher_type":"Gold Invoice",
 					"against_voucher":row.gold_invoice,
@@ -608,6 +634,7 @@ class GoldPayment(StockController):
 					"debit_in_account_currency":0,
 					"credit_in_account_currency":row.allocated,
 					#"against":"4110.000 - Penjualan - L",
+					"against":account_list_idr,
 					"voucher_type":"Gold Payment",
 					"against_voucher_type":"Gold Invoice",
 					"against_voucher":row.gold_invoice,
@@ -807,30 +834,7 @@ class GoldPayment(StockController):
 				uang_buat_beli_emas= frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
 				for sup in supplier_list:
 					gl[sup]=self.gl_dict_with_sup(cost_center,uang_buat_beli_emas,titip[sup],0,fiscal_years,sup)
-		#untuk payment IDR
-		if self.total_idr_payment>0:
-			#journal IDR nya aja
-			for row in self.idr_payment:
-				account=get_bank_cash_account(row.mode_of_payment,self.company)["account"]
-				if account in gl:
-					if  row.amount >0:
-						gl[account]['debit']=gl[account]['debit']+row.amount
-						gl[account]['debit_in_account_currency']=gl[account]['debit']
-					else:
-						gl[account]['credit']=gl[account]['credit']-row.amount
-						gl[account]['credit_in_account_currency']=gl[account]['credit']
-				else:
-					if row.amount >0:
-						gl[account]=self.gl_dict(cost_center,account,row.amount,0,fiscal_years)
-					else:
-						gl[account]=self.gl_dict(cost_center,account,0,-1*row.amount,fiscal_years)
-				if total_piutang_idr>0 and total_piutang_gold==0:
-					gl[account]['against']=piutang_idr
-				else:
-				#elif total_piutang_idr==0 and total_piutang_gold>0:
-					gl[account]['against']=piutang_gold
-				#else:
-				#	gl[account]['against']="{},{}".format(piutang_gold , piutang_idr)
+		
 		#roundoff=0
 		for row in gl:
 			roundoff=roundoff+gl[row]['debit']-gl[row]['credit']
