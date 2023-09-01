@@ -297,7 +297,12 @@ frappe.ui.form.on('Transfer Stockist', {
 	},
 	onload:function(frm){
 		frm.trigger('get_connect')
-
+		cur_frm.set_value("total_berat",0)
+		cur_frm.clear_table("items")
+		cur_frm.clear_table("per_kadar")
+		cur_frm.refresh_field("items")
+		cur_frm.refresh_field("total_berat")
+		cur_frm.refresh_field("per_kadar")
 	},
 	validate: function(frm){
 		frm.events.get_disconnect(frm)
@@ -320,6 +325,14 @@ frappe.ui.form.on('Transfer Stockist', {
 				})
 			}
 		}		
+		if (frm.doc.docstatus === 1) {
+			frm.add_custom_button(__("Buat Baru"), () => {
+			  frappe.model.open_mapped_doc({
+				method: "lestari.stockist.doctype.transfer_stockist.transfer_stockist.buat_baru",
+				frm: cur_frm
+			  })
+			});
+		  }
 	getListAndSetQuery(frm);
 	},
 	id_employee: function(frm){

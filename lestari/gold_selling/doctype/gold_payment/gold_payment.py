@@ -538,7 +538,7 @@ class GoldPayment(StockController):
 						account_list_idr=account
 					else:
 						account_list_idr="{},{}".format(account_list_idr,account)
-			frappe.db.sql("""update `tabGL Entry` set against="{}" where voucher="{}" and account = "110.401.000 - Piutang Dagang - LMS" """.format(account_list_idr,self.name))
+			frappe.db.sql("""update `tabGL Entry` set against="{}" where voucher_no="{}" and account = "110.401.000 - Piutang Dagang - LMS" """.format(account_list_idr,self.name))
 	def get_gl_entries(self, warehouse_account=None):
 		from erpnext.accounts.general_ledger import merge_similar_entries
 		#GL  Generate

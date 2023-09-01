@@ -48,7 +48,6 @@
    "label": "Posting Date"
   },
   {
-   "depends_on": "eval: doc.id_employee == '9999999999'",
    "fieldname": "transfer",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -56,7 +55,7 @@
    "label": "Transfer",
    "options": "Stock Entry Transfer",
    "read_only": 1,
-   "read_only_depends_on": "eval: doc.id_employee != '9999999999'",
+   "read_only_depends_on": "eval: doc.id_employee != '999999'",
    "reqd": 1
   },
   {
@@ -263,7 +262,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-07-31 15:42:08.525668",
+ "modified": "2023-08-25 15:16:18.583002",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Transfer Stockist",

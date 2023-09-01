@@ -1,5 +1,10 @@
 import frappe
-
+def patch():
+	data=frappe.db.sql("select name from `tabGold Payment` where docstatus=1",as_list=1)
+	for row in data:
+		doc=frappe.get_doc("Gold Payment",row[0])
+		doc.update_against()
+		frappe.db.commit()
 def submit(doc,method):
 	#validate used full advance
 	deposit=[]
@@ -39,3 +44,4 @@ def cancel(doc,method):
 	gabungan = """{}","{}""".format(deposit_str,payment_str)
 	frappe.db.sql("""update `tabStock Payment` set reference_type='' , reference_name='' where parent in ("{}")""".format(gabungan),as_list=1)
 	frappe.db.sql("""update `tabGL Entry` set against_voucher_type="" , against_voucher="" where name in ("{}") """.format(gle_str),as_list=1)
+#	frappe.db.commit()
