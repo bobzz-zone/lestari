@@ -621,7 +621,7 @@ class GoldPayment(StockController):
 					"company":self.company,
 					"is_cancelled":0
 				})
-				total_piutang_idr=total_piutang_idr+row.tax_allocated
+				
 			# if sisa>0 and row.allocated>0:
 			if row.allocated>0:
 				# payment=row.allocated
@@ -653,7 +653,6 @@ class GoldPayment(StockController):
 					"company":self.company,
 					"is_cancelled":0
 				})
-				total_piutang_gold=total_piutang_gold+(row.allocated*row.tutupan)
 		#		credit=credit+(payment*row.tutupan)
 				if row.tutupan!=self.tutupan:
 					nilai_selisih_kurs=nilai_selisih_kurs+((self.tutupan-row.tutupan)*row.allocated)
