@@ -140,7 +140,7 @@ function reset_allocated(frm){
 	//frappe.msgprint("Reset Called");
 	refresh_total_and_charges(frm);
 	calculate_table_advance(frm);
-	frappe.msgprint("Karena ad aperubahan nilai, maka data alokasi dan write off telah ter reset!!");
+	// frappe.msgprint("Karena ad aperubahan nilai, maka data alokasi dan write off telah ter reset!!");
 }
 function calculate_table_idr(frm,cdt,cdn){
 	var total=0;
@@ -412,6 +412,9 @@ frappe.ui.form.on('Gold Payment', {
 				cur_frm.set_value("unallocated_payment",0);
 			}else{
 				var unaloc=parseFloat(saldo_gold- total_alo).toFixed(3);
+				if (isNan(unaloc)){
+					unaloc=0;
+				}
 				frm.doc.unallocated_payment=unaloc;
 				cur_frm.set_value("unallocated_payment",unaloc);
 			}

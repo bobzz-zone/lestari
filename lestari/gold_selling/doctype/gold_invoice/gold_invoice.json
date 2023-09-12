@@ -42,10 +42,13 @@
   "items_section",
   "items",
   "tax_sb",
+  "tax_id",
   "ppn",
   "pph",
   "total_pajak",
   "sisa_pajak",
+  "total_sebelum_pajak",
+  "total_setelah_pajak",
   "sb_bill",
   "total_bruto",
   "cash_back",
@@ -402,14 +405,12 @@
   {
    "fieldname": "ppn",
    "fieldtype": "Currency",
-   "label": "PPN",
-   "read_only": 1
+   "label": "PPN"
   },
   {
    "fieldname": "pph",
    "fieldtype": "Currency",
-   "label": "PPH",
-   "read_only": 1
+   "label": "PPH"
   },
   {
    "fieldname": "tax_status",
@@ -471,11 +472,30 @@
    "fieldname": "tanggal_titip",
    "fieldtype": "Date",
    "label": "Tanggal Titip"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_sebelum_pajak",
+   "fieldtype": "Currency",
+   "label": "Total Sebelum Pajak"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_setelah_pajak",
+   "fieldtype": "Currency",
+   "label": "Total Setelah Pajak",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer.tax_id",
+   "fieldname": "tax_id",
+   "fieldtype": "Read Only",
+   "label": "Tax ID"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-08-22 15:18:04.017490",
+ "modified": "2023-09-12 11:30:51.602007",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",
