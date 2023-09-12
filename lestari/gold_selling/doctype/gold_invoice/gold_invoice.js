@@ -221,7 +221,7 @@ function hitung_pajak(frm){
 }
 function hitung_rate(frm, cdt, cdn){
 	var d = locals[cdt][cdn];
-	frappe.model.set_value(cdt, cdn, "amount", Math.floor((d.rate * d.qty) *10)0/1000);
+	frappe.model.set_value(cdt, cdn, "amount", Math.floor((d.rate * d.qty) *10)/1000);
 	frappe.model.set_value(cdt, cdn, "print_amount", Math.floor((d.print_rate * d.qty) *10)/1000);
 	var total = 0;
 	var total_print = 0;
@@ -324,6 +324,7 @@ frappe.ui.form.on("Gold Invoice Item", {
 	category: function (frm, cdt, cdn) {
 		// your code here
 		var d = locals[cdt][cdn];
+		console.log(d)
 		if (!d.category) {
 			return;
 		}
@@ -333,9 +334,11 @@ frappe.ui.form.on("Gold Invoice Item", {
 			callback: function (r) {
 				frappe.model.set_value(cdt, cdn, "rate", r.message.nilai);
 				frappe.model.set_value(cdt, cdn, "print_rate", r.message.nilai_print);
-				frappe.model.set_value(cdt, cdn, "amount", Math.floor(((parseFloat(r.message.nilai) * d.qty) / 100)*1000)/1000);
-				frappe.model.set_value(cdt, cdn, "print_amount", Math.floor(((parseFloat(r.message.nilai_print) * d.qty) / 100)*1000)/1000);
-
+				// frappe.model.set_value(cdt, cdn, "amount", Math.floor(((parseFloat(r.message.nilai) * d.qty) / 100)*1000)/1000);
+				// frappe.model.set_value(cdt, cdn, "print_amount", Math.floor(((parseFloat(r.message.nilai_print) * d.qty) / 100)*1000)/1000);
+				frappe.model.set_value(cdt, cdn, "amount", Math.floor((parseFloat(r.message.nilai) * d.qty) *10)/1000);
+				frappe.model.set_value(cdt, cdn, "print_amount", Math.floor((parseFloat(r.message.nilai_print) * d.qty) *10)/1000);
+				console.log(r.message.nilai)
 				var total = 0;
 				var total_print = 0;
 				$.each(frm.doc.items, function (i, g) {

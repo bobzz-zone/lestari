@@ -439,6 +439,8 @@ def get_gold_rate(category,customer,customer_group,customer_print):
 		if customer_group_rate and customer_group_rate[0]:
 			# return {"nilai":customer_group_rate[0][0]}
 			cr=customer_group_rate[0][0]
+
+	# frappe.msgprint(str({"nilai":cr,"nilai_print":pr}))
 	return {"nilai":cr,"nilai_print":pr}
 
 @frappe.whitelist(allow_guest=True)
