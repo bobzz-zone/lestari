@@ -47,6 +47,7 @@
   "pph",
   "total_pajak",
   "sisa_pajak",
+  "column_break_41",
   "total_sebelum_pajak",
   "total_setelah_pajak",
   "sb_bill",
@@ -491,11 +492,15 @@
    "fieldname": "tax_id",
    "fieldtype": "Read Only",
    "label": "Tax ID"
+  },
+  {
+   "fieldname": "column_break_41",
+   "fieldtype": "Column Break"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-09-12 11:30:51.602007",
+ "modified": "2023-09-12 12:43:09.225613",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",

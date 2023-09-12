@@ -138,21 +138,18 @@ frappe.ui.form.on("Gold Invoice", {
 		refresh_field("total_advance");
 	},
 	ppn: function (frm){
-		hitung_pajak(frm)
+		sebelum_pajak(frm)
 	},
 	pph: function (frm){
-		hitung_pajak(frm)
+		sebelum_pajak(frm)
 	},
 	total_sebelum_pajak: function (frm){
-		// frappe.msgprint('test')
-		var ppn_rate=110;
+		sebelum_pajak(frm)
+	},
+});
+function sebelum_pajak(frm){
+	var ppn_rate=110;
 		var pph_rate=25;
-		// if(frm.doc.is_skb==1){
-		// 	pph_rate=0;
-		// }else if (!frm.doc.tax_id){
-		// 	ppn_rate=165;
-		// 	pph_rate=0;
-		// }
 		if (frm.doc.non_pph==1){
 			if(frm.doc.is_skb==1){
 				pph_rate=0;
@@ -167,8 +164,6 @@ frappe.ui.form.on("Gold Invoice", {
 		frm.doc.pph=Math.floor(frm.doc.total_sebelum_pajak * pph_rate / 10000);
 		refresh_field("ppn");
 		refresh_field("pph");
-		console.log(frm.doc.ppn)
-		console.log(frm.doc.pph)
 
 		frm.doc.total_pajak=frm.doc.ppn+frm.doc.pph;
 		frm.doc.sisa_pajak=frm.doc.total_pajak;
@@ -177,9 +172,7 @@ frappe.ui.form.on("Gold Invoice", {
 		refresh_field("total_pajak");
 		refresh_field("sisa_pajak");
 		refresh_field("total_setelah_pajak");
-	},
-});
-
+}
 function hitung_ppn(ppn_rate, frm){
 	frm.doc.ppn=Math.floor(frm.doc.grand_total * frm.doc.tutupan * ppn_rate / 10000);
 	refresh_field("ppn");
@@ -226,6 +219,39 @@ function hitung_pajak(frm){
 		// refresh_field("sisa_pajak");
 	}
 }
+function hitung_rate(frm, cdt, cdn){
+	var d = locals[cdt][cdn];
+	if(d.rate > 0){
+		frappe.model.set_value(cdt, cdn, "amount", Math.floor(((d.rate * d.qty) / 100)*1000)/1000);
+		frappe.model.set_value(cdt, cdn, "print_amount", Math.floor(((d.print_rate * d.qty) / 100)*1000)/1000);
+	}
+	var total = 0;
+	var total_print = 0;
+	var total_bruto = 0;
+	$.each(frm.doc.items, function (i, g) {
+		total = total + g.amount;
+		total_print = total_print + g.amount;
+		total_bruto = total_bruto + g.qty;
+	});
+	frm.doc.total = total;
+	frm.doc.total_print = total_print;
+	frm.doc.total_bruto = total_bruto;
+	if (!frm.doc.discount_amount) {
+		frm.doc.discount_amount = 0;
+	}
+	frm.doc.grand_total = frm.doc.total - frm.doc.discount_amount;
+	hitung_pajak(frm);
+	if (!frm.doc.total_advance) {
+		frm.doc.total_advance = 0;
+	}
+	frm.doc.outstanding = frm.doc.grand_total - frm.doc.total_advance;
+	refresh_field("outstanding");
+	refresh_field("total");
+	refresh_field("total_print");
+	refresh_field("total_bruto");
+	refresh_field("discount_amount");
+	refresh_field("grand_total");
+}
 frappe.ui.form.on("Gold Invoice Advance IDR", {
 	idr_allocated: function (frm, cdt, cdn) {
 		var d = locals[cdt][cdn];
@@ -269,6 +295,9 @@ frappe.ui.form.on("Gold Invoice Advance Gold", {
 	},
 });
 frappe.ui.form.on("Gold Invoice Item", {
+	items_remove: function(frm, cdt, cdn){
+		hitung_rate(frm,cdt,cdn)
+	},
 	category: function (frm, cdt, cdn) {
 		// your code here
 		var d = locals[cdt][cdn];
@@ -310,65 +339,9 @@ frappe.ui.form.on("Gold Invoice Item", {
 		});
 	},
 	qty: function (frm, cdt, cdn) {
-		var d = locals[cdt][cdn];
-		frappe.model.set_value(cdt, cdn, "amount", Math.floor(((d.rate * d.qty) / 100)*1000)/1000);
-		frappe.model.set_value(cdt, cdn, "print_amount", Math.floor(((d.print_rate * d.qty) / 100)*1000)/1000);
-		var total = 0;
-		var total_print = 0;
-		var total_bruto = 0;
-		$.each(frm.doc.items, function (i, g) {
-			total = total + g.amount;
-			total_print = total_print + g.amount;
-			total_bruto = total_bruto + g.qty;
-		});
-		frm.doc.total = total;
-		frm.doc.total_print = total_print;
-		frm.doc.total_bruto = total_bruto;
-		if (!frm.doc.discount_amount) {
-			frm.doc.discount_amount = 0;
-		}
-		frm.doc.grand_total = frm.doc.total - frm.doc.discount_amount;
-		hitung_pajak(frm);
-		if (!frm.doc.total_advance) {
-			frm.doc.total_advance = 0;
-		}
-		frm.doc.outstanding = frm.doc.grand_total - frm.doc.total_advance;
-		refresh_field("outstanding");
-		refresh_field("total");
-		refresh_field("total_print");
-		refresh_field("total_bruto");
-		refresh_field("discount_amount");
-		refresh_field("grand_total");
+		hitung_rate(frm,cdt,cdn)
 	},
 	rate: function (frm, cdt, cdn) {
-		var d = locals[cdt][cdn];
-		frappe.model.set_value(cdt, cdn, "amount", Math.floor(((d.rate * d.qty) / 100)*1000)/1000);
-		frappe.model.set_value(cdt, cdn, "print_amount", Math.floor(((d.print_rate * d.qty) / 100)*1000)/1000);
-		var total = 0;
-		var total_print = 0;
-		var total_bruto = 0;
-		$.each(frm.doc.items, function (i, g) {
-			total = total + g.amount;
-			total_print = total_print + g.amount;
-			total_bruto = total_bruto + g.qty;
-		});
-		frm.doc.total = total;
-		frm.doc.total_print = total_print;
-		frm.doc.total_bruto = total_bruto;
-		if (!frm.doc.discount_amount) {
-			frm.doc.discount_amount = 0;
-		}
-		frm.doc.grand_total = frm.doc.total - frm.doc.discount_amount;
-		hitung_pajak(frm);
-		if (!frm.doc.total_advance) {
-			frm.doc.total_advance = 0;
-		}
-		frm.doc.outstanding = frm.doc.grand_total - frm.doc.total_advance;
-		refresh_field("outstanding");
-		refresh_field("total");
-		refresh_field("total_print");
-		refresh_field("total_bruto");
-		refresh_field("discount_amount");
-		refresh_field("grand_total");
+		hitung_rate(frm,cdt,cdn)
 	},
 });
