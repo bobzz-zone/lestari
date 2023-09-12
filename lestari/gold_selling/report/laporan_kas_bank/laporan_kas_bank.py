@@ -82,15 +82,34 @@ def get_result(filters):
 #	)
 #	return gl_entries
 def get_gl_entries(filters):
+	# gl_entries = frappe.db.sql("""
+	# 	SELECT 
+	# 		gl.name as gl_entry, gl.posting_date, 
+	# 		a.account_name as buku, a.account_number as lawan,
+	# 		gl.cost_center,
+	# 		gl.remarks as keterangan, gl.account as account, gl.against as against,
+	# 		gl.debit as credit, gl.credit as debit,
+	# 		gl.voucher_type, gl.voucher_no
+	# 		FROM `tabGL Entry` gl left join `tabAccount` a on gl.account=a.name
+	# 	WHERE gl.is_cancelled = 0
+	# 	{conditions}
+	# 	order by gl.posting_date, gl.voucher_type, gl.voucher_no
+	# """.format(
+	# 		conditions=get_conditions(filters),
+	# 	),
+	# 	 as_dict=1, debug=1
+	# )
+
+	# return gl_entries
 	gl_entries = frappe.db.sql("""
 		SELECT 
 			gl.name as gl_entry, gl.posting_date, 
-			a.account_name as buku, a.account_number as lawan,
+			gl.against as lawan,
 			gl.cost_center,
 			gl.remarks as keterangan, gl.account as account, gl.against as against,
 			gl.debit as credit, gl.credit as debit,
 			gl.voucher_type, gl.voucher_no
-			FROM `tabGL Entry` gl left join `tabAccount` a on gl.account=a.name
+			FROM `tabGL Entry` gl 
 		WHERE gl.is_cancelled = 0
 		{conditions}
 		order by gl.posting_date, gl.voucher_type, gl.voucher_no
@@ -101,7 +120,6 @@ def get_gl_entries(filters):
 	)
 
 	return gl_entries
-
 def get_conditions(filters):
 	conditions = []
 
@@ -228,13 +246,7 @@ def get_column():
 	columns = [
 		{"label": _("Posting Date"), "fieldname": "posting_date", "fieldtype": "Date", "width": 120},
 		{
-			"label": _("Buku"), 
-			"fieldname": "buku", 
-			"fieldtype": "Data", 
-			"width": 150
-		},
-		{
-			"label": _("Lawan"), 
+			"label": _("Lawan Transaksi"), 
 			"fieldname": "lawan", 
 			"fieldtype": "Data", 
 			"width": 150
