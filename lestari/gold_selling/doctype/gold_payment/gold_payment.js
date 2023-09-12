@@ -429,8 +429,8 @@ frappe.ui.form.on('Gold Payment', {
 			refresh_field("allocated_payment");
 			
 			
-			
-			if((frm.doc.unallocated_idr_payment/frm.doc.tutupan) + frm.doc.unallocated_payment<=1/100){
+			var sisa_pay=(frm.doc.unallocated_idr_payment/frm.doc.tutupan) + frm.doc.unallocated_payment;
+			if(sisa_pay<=1/100 && sisa_pay>0){
 				frappe.msgprint("Write off sisa Sedikit "+(frm.doc.unallocated_idr_payment/frm.doc.tutupan) + frm.doc.unallocated_payment);
 				run_writeoff_sisa(frm);
 			}if(frm.doc.total_sisa_invoice<=0.01){
