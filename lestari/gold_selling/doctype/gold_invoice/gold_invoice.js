@@ -219,14 +219,10 @@ function hitung_pajak(frm){
 		// refresh_field("sisa_pajak");
 	}
 }
-function hitung_amount(frm, cdt, cdn){
-	var d = locals[cdt][cdn];
-	frappe.model.set_value(cdt, cdn, "amount", Math.floor(((d.rate * d.qty) / 100)*1000)/1000);
-	frappe.model.set_value(cdt, cdn, "print_amount", Math.floor(((d.print_rate * d.qty) / 100)*1000)/1000);
-	
-}
 function hitung_rate(frm, cdt, cdn){
-	hitung_amount(frm, cdt, cdn)
+	var d = locals[cdt][cdn];
+	frappe.model.set_value(cdt, cdn, "amount", Math.floor((d.rate * d.qty) *10)0/1000);
+	frappe.model.set_value(cdt, cdn, "print_amount", Math.floor((d.print_rate * d.qty) *10)/1000);
 	var total = 0;
 	var total_print = 0;
 	var total_bruto = 0;

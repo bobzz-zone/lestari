@@ -867,6 +867,7 @@ class GoldPayment(StockController):
 				gl[row]["against"]=against_debit
 			else:
 				gl[row]["against"]=against_credit
+			print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 			print(gl[row])
 			gl_entries.append(frappe._dict(gl[row]))
 
