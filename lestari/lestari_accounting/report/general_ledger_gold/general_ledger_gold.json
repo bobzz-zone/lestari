@@ -10,10 +10,10 @@
  "modified": "2017-02-24 20:17:51.995451", 
  "modified_by": "Administrator", 
  "module": "Accounts", 
- "name": "General Ledger", 
+ "name": "General Ledger Gold", 
  "owner": "Administrator", 
  "ref_doctype": "GL Entry", 
- "report_name": "General Ledger", 
+ "report_name": "General Ledger Gold", 
  "report_type": "Script Report", 
  "roles": [
   {
