@@ -568,7 +568,6 @@ class GoldPayment(StockController):
 		#hitung selisih kurs untuk DP
 		for row in self.gold_invoice_advance:
 			nilai_selisih_kurs=nilai_selisih_kurs+(row.gold_allocated*(self.tutupan-row.tutupan))
-		print(nilai_selisih_kurs)
 		# distribute total gold perlu bagi per invoice
 		#sisa= self.allocated_payment
 		credit=0
@@ -595,10 +594,6 @@ class GoldPayment(StockController):
 						account_list_idr=account
 					else:
 						account_list_idr="{},{}".format(account_list_idr,account)
-					if self.total_pajak:
-						gl[account]['against']=piutang_idr
-					else:
-						gl[account]['against']=piutang_gold
 				
 		for row in self.invoice_table:
 			if row.tax_allocated>0:
@@ -847,17 +842,33 @@ class GoldPayment(StockController):
 				for sup in supplier_list:
 					gl[sup]=self.gl_dict_with_sup(cost_center,uang_buat_beli_emas,titip[sup],0,fiscal_years,sup)
 		
-		#roundoff=0
+		roundoff=0
+		against_debit=""
+		against_credit=""
 		for row in gl:
 			roundoff=roundoff+gl[row]['debit']-gl[row]['credit']
-			gl_entries.append(frappe._dict(gl[row]))
+			if gl[row]["debit"]>0:
+				if gl[row]["account"] not in against_credit:
+					against_credit="{} ,{}".format(against_credit,gl[row]["account"])
+			else:
+				if gl[row]["account"] not in against_debit:
+					against_debit="{} ,{}".format(against_debit,gl[row]["account"])
 		#add roundoff
 		if roundoff!=0:
 			roundoff_coa=frappe.db.get_value('Company', self.company, 'round_off_account')
 			if roundoff>0:
 				gl[roundoff_coa]=self.gl_dict(cost_center,roundoff_coa,0,roundoff,fiscal_years)
+				against_debit="{} ,{}".format(against_debit,gl[row]["account"])
 			else:
 				gl[roundoff_coa]=gl[roundoff_coa]=self.gl_dict(cost_center,roundoff_coa,roundoff*-1,0,fiscal_years)
-			gl_entries.append(frappe._dict(gl[roundoff_coa]))
+				against_credit="{} ,{}".format(against_credit,gl[row]["account"])
+#			gl_entries.append(frappe._dict(gl[roundoff_coa]))
+		for row in gl:
+			if gl[row]["debit"]>0:
+				gl[row]["against"]=against_debit
+			else:
+				gl[row]["against"]=against_credit
+			gl_entries.append(frappe._dict(gl[row]))
+
 		gl_entries = merge_similar_entries(gl_entries)
 		return gl_entries
