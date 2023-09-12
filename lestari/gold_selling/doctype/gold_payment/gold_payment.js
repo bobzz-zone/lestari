@@ -5,7 +5,7 @@ var isButtonClicked = false;
 var isButtonClicked1 = false;
 function run_writeoff_sisa(frm){
 	if(frm.doc.unallocated_payment>0){
-		frm.doc.write_off=frm.doc.write_off-frm.doc.unallocated_payment;
+		frm.doc.write_off=frm.doc.write_off+frm.doc.unallocated_payment;
 		frm.doc.unallocated_payment=0;
 		frm.doc.total_sisa_invoice=0;
 		refresh_field("write_off");
@@ -13,7 +13,7 @@ function run_writeoff_sisa(frm){
 		refresh_field("total_sisa_invoice");
 	}
 	if(frm.doc.unallocated_idr_payment>0){
-		frm.doc.write_off_idr=frm.doc.write_off_idr-frm.doc.unallocated_idr_payment;
+		frm.doc.write_off_idr=frm.doc.write_off_idr+frm.doc.unallocated_idr_payment;
 		frm.doc.unallocated_idr_payment=0;
 		refresh_field("write_off_idr");
 		refresh_field("unallocated_idr_payment");
@@ -22,8 +22,8 @@ function run_writeoff_sisa(frm){
 		if(frm.doc.total_sisa_invoice>0.1){
 			frappe.msgprint("Penghapusan Sisa Invoice Melebihi 0.1 Gram Emas di lakukan apabila document ini di submit")
 		}
-		frm.doc.write_off=frm.doc.write_off+frm.doc.total_sisa_invoice;
-		frm.doc.total_sisa_invoice=0
+		frm.doc.write_off=frm.doc.write_off-frm.doc.total_sisa_invoice;
+		//frm.doc.total_sisa_invoice=0
 		refresh_field("total_sisa_invoice");
 	}
 	frm.doc.write_off_total=(frm.doc.write_off*frm.doc.tutupan)+frm.doc.write_off_idr;
