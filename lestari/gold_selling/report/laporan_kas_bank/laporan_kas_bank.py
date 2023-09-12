@@ -104,7 +104,7 @@ def get_gl_entries(filters):
 	gl_entries = frappe.db.sql("""
 		SELECT 
 			gl.name as gl_entry, gl.posting_date, 
-			gl.against as lawan,
+			ifnull(gl.against,gl.voucher_type) as lawan,
 			gl.cost_center,
 			gl.remarks as keterangan, gl.account as account, gl.against as against,
 			gl.debit as credit, gl.credit as debit,
