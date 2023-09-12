@@ -107,7 +107,7 @@ class GoldPayment(StockController):
 				depo.flags.ignore_permissions = True
 				depo.submit()
 				#depo.submit()
-				frappe.msgprint("Customer Deposit {} Telah Terbuat".format(depo.name))
+				# frappe.msgprint("Customer Deposit {} Telah Terbuat".format(depo.name))
 			for row in self.invoice_table:
 				if row.allocated==row.outstanding and row.tax_allocated==row.outstanding_tax:
 					frappe.db.sql("""update `tabGold Invoice` set sisa_pajak=sisa_pajak - {} ,outstanding=outstanding-{} , invoice_status="Paid", gold_payment="{}" where name = "{}" """.format(row.tax_allocated,row.allocated,self.name,row.gold_invoice))
