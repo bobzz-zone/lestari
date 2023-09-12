@@ -87,7 +87,7 @@ def get_gl_entries(filters):
 			gl.name as gl_entry, gl.posting_date, 
 			a.account_name as buku, a.account_number as lawan,
 			gl.cost_center,
-			gl.remarks as keterangan, gl.account as against, gl.against as account,
+			gl.remarks as keterangan, gl.account as account, gl.against as against,
 			gl.debit as credit, gl.credit as debit,
 			gl.voucher_type, gl.voucher_no
 			FROM `tabGL Entry` gl left join `tabAccount` a on gl.account=a.name
@@ -109,7 +109,7 @@ def get_conditions(filters):
 		#conditions.append(" (gl.against = %(account)s or gl.account= %(account)s) ")
 		#conditions.append(" gl.against = %(account)s ")
 		#frappe.msgprint(""" gl.against LIKE "%{}%" """.format(filters.get("account")))
-		conditions.append(""" is_opening="No" and gl.against LIKE "%{0}%" and gl.account != "{0}" """.format(filters.get("account")))
+		conditions.append(""" is_opening="No" and gl.account = "{0}" """.format(filters.get("account")))
 #	if filters.against: 
 #		conditions.append("account = %(against)s")
 
