@@ -137,7 +137,57 @@ frappe.ui.form.on("Gold Invoice", {
 		refresh_field("total_idr_in_gold");
 		refresh_field("total_advance");
 	},
+	ppn: function (frm){
+		hitung_pajak(frm)
+	},
+	pph: function (frm){
+		hitung_pajak(frm)
+	},
+	total_sebelum_pajak: function (frm){
+		// frappe.msgprint('test')
+		var ppn_rate=110;
+		var pph_rate=25;
+		// if(frm.doc.is_skb==1){
+		// 	pph_rate=0;
+		// }else if (!frm.doc.tax_id){
+		// 	ppn_rate=165;
+		// 	pph_rate=0;
+		// }
+		if (frm.doc.non_pph==1){
+			if(frm.doc.is_skb==1){
+				pph_rate=0;
+			}else{
+				ppn_rate=165;
+				pph_rate=0;
+			}
+		}
+		frm.doc.grand_total = frm.doc.total_sebelum_pajak / frm.doc.tutupan
+		refresh_field("grand_total");
+		frm.doc.ppn=Math.floor(frm.doc.total_sebelum_pajak * ppn_rate / 10000);
+		frm.doc.pph=Math.floor(frm.doc.total_sebelum_pajak * pph_rate / 10000);
+		refresh_field("ppn");
+		refresh_field("pph");
+		console.log(frm.doc.ppn)
+		console.log(frm.doc.pph)
+
+		frm.doc.total_pajak=frm.doc.ppn+frm.doc.pph;
+		frm.doc.sisa_pajak=frm.doc.total_pajak;
+		frm.doc.total_setelah_pajak = frm.doc.total_sebelum_pajak + frm.doc.total_pajak
+		
+		refresh_field("total_pajak");
+		refresh_field("sisa_pajak");
+		refresh_field("total_setelah_pajak");
+	},
 });
+
+function hitung_ppn(ppn_rate, frm){
+	frm.doc.ppn=Math.floor(frm.doc.grand_total * frm.doc.tutupan * ppn_rate / 10000);
+	refresh_field("ppn");
+}
+function hitung_pph(pph_rate, frm){
+	frm.doc.pph=Math.floor(frm.doc.grand_total * frm.doc.tutupan * pph_rate / 10000);
+	refresh_field("pph");
+}
 function hitung_pajak(frm){
 	if (frm.doc.tax_status=="Tax"){
 		//semua pajak di bagi 10.000
@@ -151,15 +201,29 @@ function hitung_pajak(frm){
 				pph_rate=0;
 			}
 		}
-		frm.doc.ppn=Math.floor(frm.doc.grand_total * frm.doc.tutupan * ppn_rate / 10000);
-		frm.doc.pph=Math.floor(frm.doc.grand_total * frm.doc.tutupan * pph_rate / 10000);
+		hitung_ppn(ppn_rate, frm)
+		hitung_pph(pph_rate, frm)
+		
+		frm.doc.total_sebelum_pajak = Math.floor(frm.doc.grand_total * frm.doc.tutupan)
+
 		//frm.doc.total_tax_in_gold = (frm.doc.ppn+frm.doc.pph) / frm.doc.tutupan;
 		frm.doc.total_pajak=frm.doc.ppn+frm.doc.pph;
 		frm.doc.sisa_pajak=frm.doc.total_pajak;
-		refresh_field("pph");
-		refresh_field("ppn");
+		frm.doc.total_setelah_pajak = frm.doc.total_sebelum_pajak + frm.doc.total_pajak
+		
 		refresh_field("total_pajak");
 		refresh_field("sisa_pajak");
+		refresh_field("total_sebelum_pajak");
+		refresh_field("total_setelah_pajak");
+		// frm.doc.ppn=Math.floor(frm.doc.grand_total * frm.doc.tutupan * ppn_rate / 10000);
+		// frm.doc.pph=Math.floor(frm.doc.grand_total * frm.doc.tutupan * pph_rate / 10000);
+		// //frm.doc.total_tax_in_gold = (frm.doc.ppn+frm.doc.pph) / frm.doc.tutupan;
+		// frm.doc.total_pajak=frm.doc.ppn+frm.doc.pph;
+		// frm.doc.sisa_pajak=frm.doc.total_pajak;
+		// refresh_field("pph");
+		// refresh_field("ppn");
+		// refresh_field("total_pajak");
+		// refresh_field("sisa_pajak");
 	}
 }
 frappe.ui.form.on("Gold Invoice Advance IDR", {
