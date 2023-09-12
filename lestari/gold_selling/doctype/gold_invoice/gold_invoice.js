@@ -222,8 +222,8 @@ function hitung_pajak(frm){
 function hitung_rate(frm, cdt, cdn){
 	var d = locals[cdt][cdn];
 	if(d.rate > 0){
-		frappe.model.set_value(cdt, cdn, "amount", Math.floor(((d.rate * d.qty) / 100)*1000)/1000);
-		frappe.model.set_value(cdt, cdn, "print_amount", Math.floor(((d.print_rate * d.qty) / 100)*1000)/1000);
+		frappe.model.set_value(cdt, cdn, "amount", Math.floor((d.rate * d.qty) *10)0/1000);
+		frappe.model.set_value(cdt, cdn, "print_amount", Math.floor((d.print_rate * d.qty) *10)/1000);
 	}
 	var total = 0;
 	var total_print = 0;
