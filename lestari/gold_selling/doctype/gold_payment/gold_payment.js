@@ -23,8 +23,8 @@ function run_writeoff_sisa(frm){
 			frappe.msgprint("Penghapusan Sisa Invoice Melebihi 0.1 Gram Emas di lakukan apabila document ini di submit")
 		}
 		frm.doc.write_off=frm.doc.write_off-frm.doc.total_sisa_invoice;
+		refresh_field("write_off");
 		//frm.doc.total_sisa_invoice=0
-		refresh_field("total_sisa_invoice");
 	}
 	frm.doc.write_off_total=(frm.doc.write_off*frm.doc.tutupan)+frm.doc.write_off_idr;
 	refresh_field("write_off_total");
