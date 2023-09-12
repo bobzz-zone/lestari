@@ -183,6 +183,7 @@ frappe.ui.form.on('Stock Payment', {
 	},
 	stock_deposit_remove:function(frm,cdt,cdn) {
 		var d=locals[cdt][cdn];
+		alert(1);
 		calculate(frm,cdt,cdn)
 	},
 	qty:function(frm,cdt,cdn) {
