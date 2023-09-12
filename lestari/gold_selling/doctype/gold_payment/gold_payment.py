@@ -621,7 +621,7 @@ class GoldPayment(StockController):
 					"company":self.company,
 					"is_cancelled":0
 				})
-				
+
 			# if sisa>0 and row.allocated>0:
 			if row.allocated>0:
 				# payment=row.allocated
@@ -870,4 +870,6 @@ class GoldPayment(StockController):
 			gl_entries.append(frappe._dict(gl[row]))
 
 		gl_entries = merge_similar_entries(gl_entries)
+		for row in gl_entries:
+			frappe.msgprint(row)
 		return gl_entries
