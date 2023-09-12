@@ -18,13 +18,13 @@ function run_writeoff_sisa(frm){
 		refresh_field("write_off_idr");
 		refresh_field("unallocated_idr_payment");
 	}
-/*	if (frm.doc.total_sisa_invoice>0.1){
+	if (frm.doc.total_sisa_invoice>0){
 		if(frm.doc.total_sisa_invoice>0.1){
 			frappe.msgprint("Penghapusan Sisa Invoice Melebihi 0.1 Gram Emas di lakukan apabila document ini di submit")
 		}
 		frm.doc.write_off=frm.doc.write_off+frm.doc.total_sisa_invoice;
 		refresh_field("total_sisa_invoice");
-	}*/
+	}
 	frm.doc.write_off_total=(frm.doc.write_off*frm.doc.tutupan)+frm.doc.write_off_idr;
 	refresh_field("write_off_total");
 	refresh_total_and_charges(frm);
