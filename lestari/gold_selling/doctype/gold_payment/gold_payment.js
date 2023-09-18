@@ -327,7 +327,7 @@ frappe.ui.form.on('Gold Payment', {
 		//frm.dirty();
 	},
 	auto_distribute:function(frm){
-		if (frm.doc.invoice_table==[] && frm.doc.customer_return==[]){
+		if (frm.doc.invoice_table==[] || frm.doc.customer_return==[]){
 			frappe.throw("Tidak ada Invoice yang terpilih");
 		}else{
 			reset_allocated(frm);

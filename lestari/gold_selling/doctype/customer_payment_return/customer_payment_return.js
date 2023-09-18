@@ -6,7 +6,7 @@ function calculate_table_stock(frm,cdt,cdn){
     frappe.model.set_value(cdt, cdn,"amount",d.rate*d.qty/100);
     var total=0;
     $.each(frm.doc.items,  function(i,  g) {
-    	total=total+g.qty;
+    	total=total+g.amount;
     });
     frm.doc.total=total;
     frm.doc.outstanding=total;
@@ -100,10 +100,10 @@ frappe.ui.form.on('Stock Payment Return Item', {
 		refresh_field("total_terima");
 		frm.doc.outstanding=total;
 		refresh_field("outstanding");
-	},
+	},*/
 	rate:function(frm,cdt,cdn) {
 		calculate_table_stock(frm,cdt,cdn)
-	},*/
+	},
 
 	
 });
