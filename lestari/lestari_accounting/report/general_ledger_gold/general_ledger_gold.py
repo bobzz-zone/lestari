@@ -132,9 +132,7 @@ def get_accountwise_gle(filters, gl_entries,opening):
 
 	def update_value_in_dict(data, key, gle):
 		data[key].debit += gle.debit
-		#data[key].debit += gle.credit
 		data[key].credit += gle.credit
-		#data[key].credit += gle.debit
 
 	from_date, to_date = getdate(filters.from_date), getdate(filters.to_date)
 	if opening > 0 :
@@ -144,12 +142,8 @@ def get_accountwise_gle(filters, gl_entries,opening):
 		totals["opening"].credit += opening*-1
 		totals["closing"].credit += opening*-1
 	for gle in gl_entries:
-		#frappe.msgprint("{}".format(gle))
 		group_by_value = gle.get('account')
-#		if gle.posting_date < from_date:
-#			update_value_in_dict(totals, "opening", gle)
-#			update_value_in_dict(totals, "closing", gle)
-#		el
+
 		if gle.posting_date <= to_date:
 			keylist = [
 				gle.get("voucher_type"),
@@ -213,20 +207,6 @@ def get_column():
 			"fieldtype": "Data", 
 			"width": 150
 		},
-		# {
-		# 	"label": _("Debit"), 
-		# 	"fieldname": "account", 
-		# 	"fieldtype": "Link",
-		# 	"options": "Account",
-		# 	"width": 150
-		# },
-		# {
-		# 	"label": _("Credit"), 
-		# 	"fieldname": "against", 
-		# 	"fieldtype": "Link",
-		# 	"options": "Account",
-		# 	"width": 150
-		# },
 		{
 			"label": _("Masuk ({0})").format(currency),
 			"fieldname": "debit",
@@ -271,20 +251,5 @@ def get_column():
 			"width": 150
 		},
 	]
-	# columns = [
-	# 	"Name:Link/GL Entry:150",
-	# 	"Keterangan:Data:150",
-	# 	"Cost Center:Link/Cost Center:150",
-	# 	"Remarks:Data:150",
-	# 	"Debit:Link/Account:150",
-	# 	"Credit:Link/Account:150",
-	# 	"Masuk:Data:150",
-	# 	"Keluar:Data:150",
-	# 	"Saldo:Data:150",
-	# 	"Proses:Data:150",
-	# 	"Penyebab:Data:150",
-	# 	"Dok No:Data:150",
-	# ]
-
 	return columns
 
