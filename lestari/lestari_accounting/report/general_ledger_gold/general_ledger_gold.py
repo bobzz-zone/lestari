@@ -196,7 +196,7 @@ def get_column():
 		{"label": _("Posting Date"), "fieldname": "posting_date", "fieldtype": "Date", "width": 120},
 		{
 			"label": _("Lawan Transaksi"), 
-			"fieldname": "lawan", 
+			"fieldname": "account", 
 			"fieldtype": "Data", 
 			"width": 150
 		},
