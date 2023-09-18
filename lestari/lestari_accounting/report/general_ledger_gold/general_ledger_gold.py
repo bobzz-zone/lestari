@@ -6,7 +6,7 @@ from collections import OrderedDict
 
 import frappe
 from frappe import _, _dict
-from frappe.utils import cstr, getdate
+from frappe.utils import cstr, getdate,flt
 
 from erpnext import get_company_currency, get_default_company
 
