@@ -62,7 +62,7 @@ def get_gl_entries(filters):
 			ifnull(gl.against,gl.voucher_type) as lawan,
 			gl.cost_center,
 			gl.remarks as keterangan, gl.account as account, gl.against as against,
-			gl.debit , gl.credit,gl.party,gl.party_type,
+			gl.debit_in_account_currency as debit , gl.credit_in_account_currency as credit,gl.party,gl.party_type,
 			gl.voucher_type, gl.voucher_no
 			FROM `tabGL Entry` gl 
 		WHERE gl.is_cancelled = 0
@@ -89,7 +89,7 @@ def get_conditions(filters):
 
 def get_data_with_opening_closing(filters, gl_entries):
 	data = []
-	opening = frappe.db.sql("select sum(debit-credit) as total from `tabGL Entry` where (posting_date <'{}'  or is_opening='Yes') and account='{}' and is_cancelled = 0 group by account ".format(filters.get("from_date"),filters.get("account")),as_list=1)
+	opening = frappe.db.sql("select sum(debit_in_account_currency -credit_in_account_currency) as total from `tabGL Entry` where (posting_date <'{}'  or is_opening='Yes') and account='{}' and is_cancelled = 0 group by account ".format(filters.get("from_date"),filters.get("account")),as_list=1)
 	nilai_opening=0
 	if opening:
 		nilai_opening=flt(opening[0][0])
