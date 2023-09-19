@@ -39,7 +39,7 @@ class JanjiBayar(Document):
 		doc.janji_bayar = self.name
 		doc.sisa_janji=self.sisa_janji
 		doc.deposit_type = "IDR"
-		
+		doc.sales_bundle = ""
 		doc.flags.ignore_permissions = True
 		doc.save()
 		return doc

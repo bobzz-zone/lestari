@@ -825,10 +825,10 @@ class GoldPayment(StockController):
 		if self.write_off!=0:
 			if self.write_off>0:
 				# frappe.msgprint("+"+str(self.write_off_total))
-				gl[self.write_off_account]=self.gl_dict(cost_center,self.write_off_account,self.write_off_total,0,fiscal_years)
+				gl[self.write_off_account]=self.gl_dict(cost_center,self.write_off_account,self.write_off_total*-1,0,fiscal_years)
 			else:
 				# frappe.msgprint("-"+str(self.write_off_total*-1))
-				gl[self.write_off_account]=self.gl_dict(cost_center,self.write_off_account,0,self.write_off_total*-1,fiscal_years)
+				gl[self.write_off_account]=self.gl_dict(cost_center,self.write_off_account,0,self.write_off_total,fiscal_years)
 
 			# frappe.msgprint(str(gl[self.write_off_account]))
 		if self.total_gold_payment>0:
