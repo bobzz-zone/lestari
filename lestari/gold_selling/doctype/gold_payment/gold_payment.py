@@ -767,7 +767,7 @@ class GoldPayment(StockController):
 									"cost_center":cost_center,
 									"credit":0,
 									"debit":row.gold_allocated*row.tutupan,
-									"account_currency":"IDR",
+									"account_currency":"GOLD",
 									"credit_in_account_currency":0,
 									"debit_in_account_currency":row.gold_allocated,
 									#"against":"4110.000 - Penjualan - L",
