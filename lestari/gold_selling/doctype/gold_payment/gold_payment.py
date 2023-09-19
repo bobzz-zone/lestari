@@ -793,6 +793,7 @@ class GoldPayment(StockController):
 									"is_cancelled":0
 									})
 		for row in adv:
+			roundoff=roundoff+row['debit']-row['credit']
 			gl_entries.append(frappe._dict(row))
 		#	credit=credit+csk
 		#	debit=debit+dsk
