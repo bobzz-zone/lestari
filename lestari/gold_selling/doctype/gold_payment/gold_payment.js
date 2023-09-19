@@ -415,15 +415,16 @@ frappe.ui.form.on('Gold Payment', {
 				frm.doc.unallocated_payment=0;
 				cur_frm.set_value("unallocated_payment",0);
 			}else{
+				//frappe.msgprint(saldo_gold+" - "+total_alo);
 				var unaloc=parseFloat(saldo_gold- total_alo).toFixed(3);
-				if (isNan(unaloc)){
+				if (unaloc == "" || unaloc == NaN){
 					unaloc=0;
 				}
 				frm.doc.unallocated_payment=unaloc;
 				cur_frm.set_value("unallocated_payment",unaloc);
 			}
 
-			frappe.msgprint("Unallocated "+cur_frm.doc.unallocated_payment);
+			//frappe.msgprint("Unallocated "+unaloc);
 			cur_frm.set_value("allocated_payment",parseFloat(total_alo).toFixed(3));
 			refresh_field("unallocated_idr_payment");
 			refresh_field("unallocated_payment");
@@ -434,7 +435,7 @@ frappe.ui.form.on('Gold Payment', {
 			if(sisa_pay<=1/100 && sisa_pay>0){
 				frappe.msgprint("Write off sisa Sedikit "+(frm.doc.unallocated_idr_payment/frm.doc.tutupan) + frm.doc.unallocated_payment);
 				run_writeoff_sisa(frm);
-			}if(frm.doc.total_sisa_invoice<=0.01){
+			}if(frm.doc.total_sisa_invoice<=0.01 && frm.doc.total_sisa_invoice>0){
 				frappe.msgprint("Write off sisa Invoice Senilai "+frm.doc.total_sisa_invoice);
 				run_writeoff_sisa(frm);
 			}else{

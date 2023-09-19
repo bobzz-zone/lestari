@@ -821,11 +821,15 @@ class GoldPayment(StockController):
 			
 		#	debit=debit+(self.discount_amount*self.tutupan)
 		#	frappe.msgprint("Discount credit = {} , debit = {}".format(credit,debit))
-		if self.write_off!=0:
+		if self.write_off!=0 and 1==2:
 			if self.write_off>0:
+				# frappe.msgprint("+"+str(self.write_off_total))
 				gl[self.write_off_account]=self.gl_dict(cost_center,self.write_off_account,self.write_off_total,0,fiscal_years)
 			else:
+				# frappe.msgprint("-"+str(self.write_off_total*-1))
 				gl[self.write_off_account]=self.gl_dict(cost_center,self.write_off_account,0,self.write_off_total*-1,fiscal_years)
+
+			# frappe.msgprint(str(gl[self.write_off_account]))
 		if self.total_gold_payment>0:
 			warehouse_value=0
 			titip={}
@@ -872,7 +876,7 @@ class GoldPayment(StockController):
 				gl[row]["against"]=against_debit
 			else:
 				gl[row]["against"]=against_credit
-			frappe.msgprint(str(gl[row]))
+			# frappe.msgprint(str(gl[row]))
 			gl_entries.append(frappe._dict(gl[row]))
 
 		gl_entries = merge_similar_entries(gl_entries)

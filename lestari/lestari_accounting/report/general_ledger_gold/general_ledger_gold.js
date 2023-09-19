@@ -42,9 +42,6 @@ frappe.query_reports["General Ledger Gold"] = {
 			}
 		},
 		{
-			"fieldtype": "Break",
-		},
-		{
 			"fieldname":"party_type",
 			"label": __("Party Type"),
 			"fieldtype": "Link",
