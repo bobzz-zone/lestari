@@ -694,24 +694,34 @@ class GoldPayment(StockController):
 				if row.tutupan!=self.tutupan:
 					nilai_selisih_kurs=nilai_selisih_kurs+((self.tutupan-row.tutupan)*row.allocated)
 					
-		roundoff=0
-#		frappe.msgprint("Customer Return credit = {} , debit = {}".format(credit,debit))
-		for row in gl_piutang:
-			roundoff=roundoff+row['debit']-row['credit']
-			gl_entries.append(frappe._dict(row))
-		for row in gl_piutang_idr:
-			roundoff=roundoff+row['debit']-row['credit']
-			gl_entries.append(frappe._dict(row))
-		for row in gl_entries:
-			if row.debit>0:
-				against_credit="{} ,{}".format(against_credit,row.account)
-			else:
-				against_debit="{} ,{}".format(against_debit,row.account)
+		
 		#adnvace GL
 		adv=[]
 		for row in self.invoice_advance:
 			#advance_split=[]
 			deposit=frappe.get_doc("Customer Deposit",row.customer_deposit)
+			if row.idr_allocated>0:
+				gl_piutang_idr.append({
+					"posting_date":self.posting_date,
+					"account":piutang_gold,
+					"party_type":"Customer",
+					"party":self.customer,
+					"cost_center":cost_center,
+					"debit":row.idr_allocated,
+					"credit":0,
+					"account_currency":"IDR",
+					"debit_in_account_currency":row.idr_allocated,
+					"credit_in_account_currency":0,
+					#"against":"4110.000 - Penjualan - L",
+					"voucher_type":"Gold Payment",
+					"voucher_no":self.name,
+					#"remarks":"",
+					"is_opening":"No",
+					"is_advance":"No",
+					"fiscal_year":fiscal_years,
+					"company":self.company,
+					"is_cancelled":0
+				})
 			if deposit.idr_left >=row.idr_allocated:
 				frappe.db.sql("""update `tabCustomer Deposit` set idr_left={} where name="{}" """.format(deposit.idr_left -row.idr_allocated,row.customer_deposit),as_list=1)
 				#update GL for payment
@@ -748,6 +758,28 @@ class GoldPayment(StockController):
 									})
 		for row in self.gold_invoice_advance:
 			deposit=frappe.get_doc("Customer Deposit",row.customer_deposit)
+			if row.gold_allocated>0:
+				gl_piutang.append({
+					"posting_date":self.posting_date,
+					"account":piutang_gold,
+					"party_type":"Customer",
+					"party":self.customer,
+					"cost_center":cost_center,
+					"debit":row.gold_allocated*row.tutupan,
+					"credit":0,
+					"account_currency":"GOLD",
+					"debit_in_account_currency":row.gold_allocated,
+					"credit_in_account_currency":0,
+					#"against":"4110.000 - Penjualan - L",
+					"voucher_type":"Gold Payment",
+					"voucher_no":self.name,
+					#"remarks":"",
+					"is_opening":"No",
+					"is_advance":"No",
+					"fiscal_year":fiscal_years,
+					"company":self.company,
+					"is_cancelled":0
+				})
 			if deposit.gold_left >=row.gold_allocated:
 				frappe.db.sql("""update `tabCustomer Deposit` set  gold_left={} where name="{}" """.format(deposit.gold_left -row.gold_allocated,row.customer_deposit),as_list=1)
 				#update GL for payment
@@ -755,6 +787,7 @@ class GoldPayment(StockController):
 				if deposit.gold_left ==row.gold_allocated:
 					frappe.db.sql("""update `tabGL Entry` set against_voucher_type="Gold Payment",against_voucher="{}" where voucher_no="{}" 
 					and voucher_type="Customer Deposit" and against_voucher_type is NULL and against_voucher is NULL and account="{}" and is_cancelled=0""".format(self.name,row.customer_deposit,piutang_gold),as_list=1)
+					gl_piutang.append()
 				else:
 				#if split needed
 					frappe.db.sql("""update `tabGL Entry` set debit={},debit_in_account_currency={} where voucher_no="{}" 
@@ -782,9 +815,21 @@ class GoldPayment(StockController):
 									"company":self.company,
 									"is_cancelled":0
 									})
-					if row.tutupan!=self.tutupan:
-						nilai_selisih_kurs=nilai_selisih_kurs+((self.tutupan-row.tutupan)*row.allocated)
-					
+				if row.tutupan!=self.tutupan:
+					nilai_selisih_kurs=nilai_selisih_kurs+((self.tutupan-row.tutupan)*row.gold_allocated)
+		roundoff=0
+#		frappe.msgprint("Customer Return credit = {} , debit = {}".format(credit,debit))
+		for row in gl_piutang:
+			roundoff=roundoff+row['debit']-row['credit']
+			gl_entries.append(frappe._dict(row))
+		for row in gl_piutang_idr:
+			roundoff=roundoff+row['debit']-row['credit']
+			gl_entries.append(frappe._dict(row))
+		for row in gl_entries:
+			if row.debit>0:
+				against_credit="{} ,{}".format(against_credit,row.account)
+			else:
+				against_debit="{} ,{}".format(against_debit,row.account)
 		#perlu check selisih kurs dari tutupan
 		#lebih dr 0 itu debit
 		dsk=0
@@ -795,9 +840,9 @@ class GoldPayment(StockController):
 			else:
 				csk=nilai_selisih_kurs
 			gl[selisih_kurs]=self.gl_dict(cost_center,selisih_kurs,dsk,csk,fiscal_years)
-		for row in adv:
-			roundoff=roundoff+row['debit']-row['credit']
-			gl_entries.append(frappe._dict(row))
+		# for row in adv:
+		# 	roundoff=roundoff+row['debit']-row['credit']
+		# 	gl_entries.append(frappe._dict(row))
 		#	credit=credit+csk
 		#	debit=debit+dsk
 		#frappe.msgprint("Selisih Kurs credit = {} , debit = {}".format(credit,debit))
