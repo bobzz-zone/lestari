@@ -787,7 +787,7 @@ class GoldPayment(StockController):
 				if deposit.gold_left ==row.gold_allocated:
 					frappe.db.sql("""update `tabGL Entry` set against_voucher_type="Gold Payment",against_voucher="{}" where voucher_no="{}" 
 					and voucher_type="Customer Deposit" and against_voucher_type is NULL and against_voucher is NULL and account="{}" and is_cancelled=0""".format(self.name,row.customer_deposit,piutang_gold),as_list=1)
-					gl_piutang.append()
+					
 				else:
 				#if split needed
 					frappe.db.sql("""update `tabGL Entry` set debit={},debit_in_account_currency={} where voucher_no="{}" 
