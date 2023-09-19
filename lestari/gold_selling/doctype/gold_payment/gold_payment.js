@@ -7,9 +7,9 @@ function run_writeoff_sisa(frm){
 	if(frm.doc.unallocated_payment>0){
 		frm.doc.write_off=frm.doc.write_off+frm.doc.unallocated_payment;
 		frm.doc.unallocated_payment=0;
-		frm.doc.total_sisa_invoice=0;
 		refresh_field("write_off");
 		refresh_field("unallocated_payment");
+		frm.doc.total_sisa_invoice=0;
 		refresh_field("total_sisa_invoice");
 	}
 	if(frm.doc.unallocated_idr_payment>0){
@@ -64,19 +64,7 @@ function calculate_table_invoice_alo(frm,cdt,cdn){
 	});
 	frm.doc.allocated_idr_payment=tax_allocated;
 	frm.doc.allocated_payment=allocated ;
-	/*frm.doc.unallocated_payment=frm.doc.total_gold_payment + frm.doc.total_gold -frm.doc.allocated_payment;
-	frm.doc.unallocated_idr_payment=frm.doc.total_idr_payment - tax_allocated + frm.doc.total_idr_advance;
-	if (frm.doc.unallocated_payment < 0 && frm.doc.unallocated_idr_payment>0){
-		var nilai_kelebihan_idr = frm.doc.unallocated_idr_payment / frm.doc.tutupan;
-		frm.doc.unallocated_payment = frm.doc.unallocated_payment + nilai_kelebihan_idr;
-		if (frm.doc.unallocated_payment ==0){
-			frm.doc.unallocated_idr_payment= frm.doc.unallocated_payment * frm.doc.tutupan;
-			frm.doc.unallocated_payment=0;
-		}else if (frm.doc.unallocated_payment >0){
-			frm.doc.unallocated_idr_payment= frm.doc.unallocated_payment * frm.doc.tutupan;
-			frm.doc.unallocated_payment=0;
-		}
-	}*/
+
 	refresh_field("allocated_payment");
 	/*refresh_field("unallocated_idr_payment");
 	refresh_field("unallocated_payment");*/
@@ -145,6 +133,7 @@ function reset_allocated(frm){
 	refresh_field("write_off_total");
 	refresh_field("jadi_deposit");
 	//frappe.msgprint("Reset Called");
+	calculate_table_invoice(frm);
 	refresh_total_and_charges(frm);
 	calculate_table_advance(frm);
 	// frappe.msgprint("Karena ad aperubahan nilai, maka data alokasi dan write off telah ter reset!!");
