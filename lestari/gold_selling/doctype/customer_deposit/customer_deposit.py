@@ -37,13 +37,13 @@ class CustomerDeposit(StockController):
 		if self.is_convert==1:
 			for row in  self.source:
 				frappe.db.sql("""update `tabCustomer Deposit` set idr_left=idr_left-{} where name="{}" """.format(row.convert,row.customer_deposit),as_list=1)
-		if self.janji_bayar and self.total_idr_deposit>0:
-				janji=frappe.get_doc("Janji Bayar",self.janji_bayar)
-				if janji.status=="Pending":
-					if janji.sisa_janji<=self.total_idr_deposit : 
-						frappe.db.sql("""update `tabJanji Bayar` set status="Lunas",total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_deposit,self.janji_bayar))
-					else:
-						frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_deposit,self.janji_bayar))
+		# if self.janji_bayar and self.total_idr_deposit>0:
+		# 		janji=frappe.get_doc("Janji Bayar",self.janji_bayar)
+		# 		if janji.status=="Pending":
+		# 			if janji.sisa_janji<=self.total_idr_deposit : 
+		# 				frappe.db.sql("""update `tabJanji Bayar` set status="Lunas",total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_deposit,self.janji_bayar))
+		# 			else:
+		# 				frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_deposit,self.janji_bayar))
 		if self.list_janji_bayar and self.total_idr_deposit>0:
 			for row in self.list_janji_bayar:
 				deposit = self.total_idr_deposit #5,938,340,461.00
