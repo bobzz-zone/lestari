@@ -693,7 +693,7 @@ class GoldPayment(StockController):
 #				credit=credit+(payment*row.tutupan)
 				if row.tutupan!=self.tutupan:
 					nilai_selisih_kurs=nilai_selisih_kurs+((self.tutupan-row.tutupan)*row.allocated)
-					print(nilai_selisih_kurs)
+					
 		roundoff=0
 #		frappe.msgprint("Customer Return credit = {} , debit = {}".format(credit,debit))
 		for row in gl_piutang:
@@ -707,16 +707,6 @@ class GoldPayment(StockController):
 				against_credit="{} ,{}".format(against_credit,row.account)
 			else:
 				against_debit="{} ,{}".format(against_debit,row.account)
-		#perlu check selisih kurs dari tutupan
-		#lebih dr 0 itu debit
-		dsk=0
-		csk=0
-		if nilai_selisih_kurs!=0:
-			if nilai_selisih_kurs<0:
-				dsk=nilai_selisih_kurs*-1
-			else:
-				csk=nilai_selisih_kurs
-			gl[selisih_kurs]=self.gl_dict(cost_center,selisih_kurs,dsk,csk,fiscal_years)
 		#adnvace GL
 		adv=[]
 		for row in self.invoice_advance:
@@ -776,7 +766,7 @@ class GoldPayment(StockController):
 									"party":row.customer,
 									"cost_center":cost_center,
 									"credit":0,
-									"debit":row.gold_allocated*deposit.tutupan,
+									"debit":row.gold_allocated*row.tutupan,
 									"account_currency":"IDR",
 									"credit_in_account_currency":0,
 									"debit_in_account_currency":row.gold_allocated,
@@ -792,6 +782,19 @@ class GoldPayment(StockController):
 									"company":self.company,
 									"is_cancelled":0
 									})
+					if row.tutupan!=self.tutupan:
+						nilai_selisih_kurs=nilai_selisih_kurs+((self.tutupan-row.tutupan)*row.allocated)
+					
+		#perlu check selisih kurs dari tutupan
+		#lebih dr 0 itu debit
+		dsk=0
+		csk=0
+		if nilai_selisih_kurs!=0:
+			if nilai_selisih_kurs<0:
+				dsk=nilai_selisih_kurs*-1
+			else:
+				csk=nilai_selisih_kurs
+			gl[selisih_kurs]=self.gl_dict(cost_center,selisih_kurs,dsk,csk,fiscal_years)
 		for row in adv:
 			roundoff=roundoff+row['debit']-row['credit']
 			gl_entries.append(frappe._dict(row))
