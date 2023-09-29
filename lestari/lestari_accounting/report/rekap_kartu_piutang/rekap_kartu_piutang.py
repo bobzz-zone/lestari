@@ -17,7 +17,7 @@ def execute(filters=None):
             SELECT
             customer,
             idr_left AS deposit_idr,
-            gold_left*-1 AS outstanding,
+            gold_left*-1 AS outstanding
             FROM
             `tabCustomer Deposit`
             WHERE docstatus = 1) a group by a. customer """, as_list=1)
