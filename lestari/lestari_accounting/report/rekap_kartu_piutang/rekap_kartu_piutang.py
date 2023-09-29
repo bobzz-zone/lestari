@@ -5,7 +5,7 @@ import frappe
 
 
 def execute(filters=None):
-	columns, data = ["Customer:Link/Customer:200","Deposit IDR:Currency:200","Total Piutang Emas:Currency:300"], []
+	columns, data = ["Customer:Link/Customer:200","Deposit IDR:Currency:200","Total Piutang Emas:Float:300"], []
 	data = frappe.db.sql("""select customer,sum(deposit_idr),sum(outstanding) from (SELECT
             customer,
             "0" AS deposit_idr,
