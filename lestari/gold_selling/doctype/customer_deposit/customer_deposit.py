@@ -373,10 +373,10 @@ class CustomerDeposit(StockController):
 		against_credit=""
 		for row in gl:
 			if gl[row]["debit"]>0:
-				if gl[row]["account"] not in against_credit:
+				if str(gl[row]["account"]) not in against_credit:
 					against_credit="{} ,{}".format(against_credit,gl[row]["account"])
 			else:
-				if gl[row]["account"] not in against_debit:
+				if str(gl[row]["account"]) not in against_debit:
 					against_debit="{} ,{}".format(against_debit,gl[row]["account"])
 		for row in gl:
 			if gl[row]["debit"]>0:

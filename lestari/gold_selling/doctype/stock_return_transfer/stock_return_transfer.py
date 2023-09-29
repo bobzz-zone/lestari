@@ -10,78 +10,117 @@ class StockReturnTransfer(Document):
 		# frappe.msgprint(self.type)
 		if self.type == "Keluar":
 			if self.customer:
-				list_kpr = frappe.db.get_list("Konfirmasi Payment Return",filters={'customer':self.customer,'docstatus':1})
-			else:
-				list_kpr = frappe.db.get_list("Konfirmasi Payment Return",filters={'docstatus':1})
+			# 	list_kpr = frappe.db.get_list("Konfirmasi Payment Return",filters={'customer':self.customer,'docstatus':1})
+			# else:
+			# 	list_kpr = frappe.db.get_list("Konfirmasi Payment Return",filters={'docstatus':1})
+				list_kpr = frappe.db.sql("""
+					SELECT
+					a.name,
+					a.docstatus,
+					b.name AS rongsok,
+					b.customer,
+					b.is_out,
+					b.item,
+					b.tolak_qty,
+					b.voucher_type,
+					b.voucher_no,
+					"Konfirmasi Payment Return Rongsok" AS doctype,
+					c.kadar
+					FROM
+					`tabKonfirmasi Payment Return` a
+					JOIN `tabKonfirmasi Payment Return Rongsok` b
+						ON a.name = b.parent
+					JOIN `tabItem` c
+						ON b.item = c.item_code
+					WHERE a.`docstatus` = 1
+					AND b.customer = '{0}'
+					AND b.`tolak_qty` > 0
+					UNION
+					SELECT
+					a.name,
+					a.docstatus,
+					b.name AS rongsok,
+					b.customer,
+					b.is_out,
+					b.item,
+					b.tolak_qty,
+					b.voucher_type,
+					b.voucher_no,
+					"Konfirmasi Payment Return Perhiasan" AS doctype,
+					c.kadar
+					FROM
+					`tabKonfirmasi Payment Return` a
+					JOIN `tabKonfirmasi Payment Return Perhiasan` b
+						ON a.name = b.`parent`
+					JOIN `tabItem` c
+						ON b.item = c.item_code
+					WHERE a.`docstatus` = 1
+					AND b.customer = '{0}'
+					AND b.`tolak_qty` > 0
+				""".format(self.customer),as_dict=1)
+				# frappe.msgprint(str(list_kpr))
 			for row in list_kpr:
 				# frappe.msgprint(str(row))
-				doc = frappe.get_doc("Konfirmasi Payment Return", row)
-				for col in doc.detail_perhiasan:
-					if col.is_out != 1:
-						if col.tolak_qty > 0:
-							customer = self.customer
-							if not self.customer:
-								customer = frappe.db.get_value(col.voucher_type,col.voucher_no,'customer')
-							if self.sub_customer:
-								subcustomer = self.sub_customer
-								perhiasan = {
-								'item': col.item,
-								'berat': col.tolak_qty,
-								'customer': customer,
-								'sub_customer': subcustomer,
-								'kadar':frappe.db.get_value("Item",col.item,'kadar'),
-								'voucher_type': col.voucher_type,
-								'voucher_no': col.voucher_no,
-								'child_type':col.doctype,
-								'child_name':col.name,
-							}
-							else:
-								subcustomer = frappe.db.get_value(col.voucher_type,col.voucher_no,'subcustomer')
-								perhiasan = {
-								'item': col.item,
-								'berat': col.tolak_qty,
-								'customer': customer,
-								'sub_customer': subcustomer,
-								'kadar':frappe.db.get_value("Item",col.item,'kadar'),
-								'voucher_type': col.voucher_type,
-								'voucher_no': col.voucher_no,
-								'child_type':col.doctype,
-								'child_name':col.name,
-							}
-							self.append("transfer_details",perhiasan)
-				for col in doc.detail_rongsok:
-					if col.is_out != 1:
-						if col.tolak_qty > 0:
-							customer = self.customer
-							if not self.customer:
-								customer = frappe.db.get_value(col.voucher_type,col.voucher_no,'customer')
-							if self.sub_customer:
-								subcustomer = self.sub_customer
-								rongsok = {
-									'item': col.item,
-									'berat': col.tolak_qty,
-									'customer': customer,
-									'sub_customer': subcustomer,
-									'kadar':frappe.db.get_value("Item",col.item,'kadar'),
-									'voucher_type': col.voucher_type,
-									'voucher_no': col.voucher_no,
-									'child_type':col.doctype,
-									'child_name':col.name,
-								}
-							else:
-								subcustomer = frappe.db.get_value(col.voucher_type,col.voucher_no,'subcustomer')
-								rongsok = {
-									'item': col.item,
-									'berat': col.tolak_qty,
-									'customer': customer,
-									'sub_customer': subcustomer,
-									'kadar':frappe.db.get_value("Item",col.item,'kadar'),
-									'voucher_type': col.voucher_type,
-									'voucher_no': col.voucher_no,
-									'child_type':col.doctype,
-									'child_name':col.name,
-								}
-							self.append("transfer_details",rongsok)
+				# doc = frappe.get_doc("Konfirmasi Payment Return", row.name)
+				# for col in doc.detail_perhiasan:
+				subcustomer = frappe.db.get_value(row.voucher_type,row.voucher_no,'subcustomer')
+				if self.sub_customer:
+					if self.sub_customer == subcustomer:
+						child = {
+							'item': row.item,
+							'berat': row.tolak_qty,
+							'customer': row.customer,
+							'sub_customer': subcustomer,
+							# 'kadar':frappe.db.get_value("Item",row.item,'kadar'),
+							'kadar':row.kadar,
+							'voucher_type': row.voucher_type,
+							'voucher_no': row.voucher_no,
+							'child_type':row.doctype,
+							'child_name':""
+						}
+						if row.doctype == "Konfirmasi Payment Return Perhiasan":
+							child['child_name'] = row.perhiasan
+							# frappe.msgprint(str(child))
+						else:
+							child['child_name'] = row.rongsok
+							# frappe.msgprint(str(child))
+
+						self.append("transfer_details",child)
+				else:
+					child = {
+							'item': row.item,
+							'berat': row.tolak_qty,
+							'customer': row.customer,
+							'sub_customer': subcustomer,
+							# 'kadar':frappe.db.get_value("Item",row.item,'kadar'),
+							'kadar':row.kadar,
+							'voucher_type': row.voucher_type,
+							'voucher_no': row.voucher_no,
+							'child_type':row.doctype,
+							'child_name':""
+					}
+					if row.doctype == "Konfirmasi Payment Return Perhiasan":
+						child['child_name'] = row.perhiasan
+						# frappe.msgprint(str(child))
+					else:
+						child['child_name'] = row.rongsok
+						# frappe.msgprint(str(child))
+
+					self.append("transfer_details",child)
+				# for col in doc.detail_rongsok:
+					# subcustomer = frappe.db.get_value(col.voucher_type,col.voucher_no,'subcustomer')
+					# rongsok = {
+					# 	'item': col.item,
+					# 	'berat': col.tolak_qty,
+					# 	'customer': col.customer,
+					# 	'sub_customer': subcustomer,
+					# 	'kadar':frappe.db.get_value("Item",col.item,'kadar'),
+					# 	'voucher_type': col.voucher_type,
+					# 	'voucher_no': col.voucher_no,
+					# 	'child_type':col.doctype,
+					# 	'child_name':col.name,
+					# }
+					# self.append("transfer_details",rongsok)
 		else:
 			doc = frappe.get_doc("Stock Return Transfer",self.no_doc)
 			self.sales = doc.sales

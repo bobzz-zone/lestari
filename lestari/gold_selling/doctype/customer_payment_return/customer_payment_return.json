@@ -29,6 +29,7 @@
   "section_break_17",
   "get_stock_return",
   "items",
+  "calculate_24k",
   "summary_sb",
   "total",
   "total_terima",
@@ -242,12 +243,17 @@
    "fieldtype": "Button",
    "label": "Get Stock Return",
    "options": "get_stock_return"
+  },
+  {
+   "fieldname": "calculate_24k",
+   "fieldtype": "Button",
+   "label": "Calculate 24K"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-08-01 11:34:03.628249",
+ "modified": "2023-09-19 15:12:41.314634",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Payment Return",
