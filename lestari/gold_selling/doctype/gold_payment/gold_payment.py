@@ -903,6 +903,7 @@ class GoldPayment(StockController):
 		#roundoff=0
 		
 		for row in gl:
+			frappe.msgprint(str(row))
 			roundoff=roundoff+gl[row]['debit']-gl[row]['credit']
 			if gl[row]["debit"]>0:
 				if gl[row]["account"] not in against_credit:
@@ -912,13 +913,15 @@ class GoldPayment(StockController):
 					against_debit="{} ,{}".format(against_debit,gl[row]["account"])
 		#add roundoff
 		if roundoff!=0 :
-			roundoff_coa=frappe.db.get_value('Company', self.company, 'round_off_account')
+			roundoff_coa= frappe.db.get_value('Company', self.company, 'round_off_account')
 			if roundoff>0:
 				gl[roundoff_coa]=self.gl_dict(cost_center,roundoff_coa,0,roundoff,fiscal_years)
-				against_debit="{} ,{}".format(against_debit,gl[row]["account"])
+				if roundoff_coa not in against_credit:
+					against_debit = "{} ,{}".format(against_debit,roundoff_coa)
 			else:
 				gl[roundoff_coa]=gl[roundoff_coa]=self.gl_dict(cost_center,roundoff_coa,roundoff*-1,0,fiscal_years)
-				against_credit="{} ,{}".format(against_credit,gl[row]["account"])
+				if roundoff_coa not in against_credit:
+					against_credit="{} ,{}".format(against_credit,roundoff_coa)
 #			gl_entries.append(frappe._dict(gl[roundoff_coa]))
 		for row in gl:
 			if gl[row]["debit"]>0:

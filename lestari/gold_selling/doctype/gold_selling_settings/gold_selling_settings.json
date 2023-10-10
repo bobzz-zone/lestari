@@ -18,7 +18,9 @@
   "default_warehouse",
   "default_kas_kantor",
   "ppn_account",
-  "pph_account"
+  "pph_account",
+  "wh_cpr_return",
+  "wh_cpr_rongsok"
  ],
  "fields": [
   {
@@ -109,12 +111,24 @@
    "fieldtype": "Link",
    "label": "PPH Account",
    "options": "Account"
+  },
+  {
+   "fieldname": "wh_cpr_return",
+   "fieldtype": "Link",
+   "label": "Warehouse Retur Kembali Return",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "wh_cpr_rongsok",
+   "fieldtype": "Link",
+   "label": "Warehouse Retur Kembali Rongsok",
+   "options": "Warehouse"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-06-23 13:18:33.710979",
+ "modified": "2023-10-06 14:07:10.016552",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling Settings",

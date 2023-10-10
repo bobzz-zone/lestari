@@ -13,7 +13,6 @@
   "territory",
   "sales_bundle",
   "janji_bayar",
-  "sales_warehouse",
   "type_emas",
   "piutang_gold",
   "column_break_2",
@@ -23,6 +22,8 @@
   "company",
   "due_date",
   "warehouse",
+  "warehouse_rongsok",
+  "warehouse_return",
   "invoice_section",
   "get_gold_invoice",
   "invoice_table",
@@ -273,6 +274,7 @@
    "options": "Company"
   },
   {
+   "fetch_from": "sales_bundle.warehouse",
    "fieldname": "warehouse",
    "fieldtype": "Link",
    "label": "Warehouse",
@@ -334,14 +336,6 @@
    "label": "Sales Bundle",
    "mandatory_depends_on": "eval: doc.customer != '' ",
    "options": "Sales Stock Bundle"
-  },
-  {
-   "fetch_from": "sales_bundle.warehouse",
-   "fieldname": "sales_warehouse",
-   "fieldtype": "Link",
-   "label": "Sales Warehouse",
-   "options": "Warehouse",
-   "read_only": 1
   },
   {
    "fieldname": "janji_bayar",
@@ -544,12 +538,26 @@
    "fieldname": "tax_sb",
    "fieldtype": "Section Break",
    "label": "Summary Tax"
+  },
+  {
+   "fetch_from": "sales_bundle.warehouse_rongsok",
+   "fieldname": "warehouse_rongsok",
+   "fieldtype": "Link",
+   "label": "Warehouse Rongsok",
+   "options": "Warehouse"
+  },
+  {
+   "fetch_from": "sales_bundle.warehouse_return",
+   "fieldname": "warehouse_return",
+   "fieldtype": "Link",
+   "label": "Warehouse Return",
+   "options": "Warehouse"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-09-25 14:21:47.737699",
+ "modified": "2023-10-06 14:19:29.756164",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

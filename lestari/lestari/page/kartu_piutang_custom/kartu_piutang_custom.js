@@ -39,6 +39,9 @@ DevExtreme = Class.extend({
 			groupPanel: {
 				visible: true,
 			},
+			grouping:{
+				autoExpandAll: false,
+			},
 			paging: {
 				pageSize: 25,
 			},
@@ -77,7 +80,8 @@ DevExtreme = Class.extend({
 				  dataField: 'customer',
 				  format: 'string',
 				  width: 150,
-				  caption: 'Customer'
+				  caption: 'Customer',
+				  groupIndex: 0
 				},
 			  {
 				dataField: 'date',
@@ -121,15 +125,29 @@ DevExtreme = Class.extend({
 				  caption: 'Deposit IDR'
 			  },
 			  ],
+			  sortByGroupSummaryInfo: [{
+				summaryItem: 'count',
+			  }],
 			summary: {
-				groupItems: [{
-					column: 'no',
-					summaryType: 'count',
-					displayFormat: '{0} orders',
-				  }, {
-					column: 'Total',
+				totalItems: [
+				{
+						column: 'outstanding',
+						summaryType: 'sum',
+						displayFormat: 'Outstanding: {0}',
+						showInGroupFooter: false,
+						alignByColumn: true,
+						valueFormat: {
+							type: 'fixedPoint',
+							precision: 2,
+							thousandsSeparator: ',',
+							currencySymbol: '',
+							useGrouping: true,
+						},
+				},
+				{
+					column: 'deposit_gold',
 					summaryType: 'sum',
-					displayFormat: 'Total: {0}',
+					displayFormat: 'Deposit Gold: {0}',
 					showInGroupFooter: false,
 					alignByColumn: true,
 					valueFormat: {
@@ -139,7 +157,71 @@ DevExtreme = Class.extend({
 						currencySymbol: '',
 						useGrouping: true,
 					},
-				  }],
+				  },
+				  {
+					column: 'Deposit IDR',
+					summaryType: 'sum',
+					displayFormat: 'Deposit IDR: {0}',
+					showInGroupFooter: false,
+					alignByColumn: true,
+					valueFormat: {
+						type: 'fixedPoint',
+						precision: 2,
+						thousandsSeparator: ',',
+						currencySymbol: '',
+						useGrouping: true,
+					},
+				  },
+			],
+				groupItems: [{
+					column: 'no',
+					summaryType: 'count',
+					displayFormat: '{0} orders',
+					showInGroupFooter: false,
+				  }, 
+				  {
+					column: 'outstanding',
+					summaryType: 'sum',
+					displayFormat: 'Outstanding: {0}',
+					showInGroupFooter: false,
+					alignByColumn: true,
+					valueFormat: {
+						type: 'fixedPoint',
+						precision: 2,
+						thousandsSeparator: ',',
+						currencySymbol: '',
+						useGrouping: true,
+					},
+				  },
+				  {
+					column: 'deposit_gold',
+					summaryType: 'sum',
+					displayFormat: 'Deposit Gold: {0}',
+					showInGroupFooter: false,
+					alignByColumn: true,
+					valueFormat: {
+						type: 'fixedPoint',
+						precision: 2,
+						thousandsSeparator: ',',
+						currencySymbol: '',
+						useGrouping: true,
+					},
+				  },
+				  {
+					column: 'Deposit IDR',
+					summaryType: 'sum',
+					displayFormat: 'Deposit IDR: {0}',
+					showInGroupFooter: false,
+					alignByColumn: true,
+					valueFormat: {
+						type: 'fixedPoint',
+						precision: 2,
+						thousandsSeparator: ',',
+						currencySymbol: '',
+						useGrouping: true,
+					},
+				  },
+				],
 			  },
 			onExporting(e) {
 				const workbook = new ExcelJS.Workbook();

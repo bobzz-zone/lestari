@@ -1,5 +1,5 @@
 {
- "add_total_row": 0,
+ "add_total_row": 1,
  "columns": [],
  "creation": "2023-09-29 16:08:29.739021",
  "disable_prepared_report": 0,
@@ -9,7 +9,7 @@
  "filters": [],
  "idx": 0,
  "is_standard": "Yes",
- "modified": "2023-09-29 16:11:11.744981",
+ "modified": "2023-09-29 16:28:14.775354",
  "modified_by": "bobzz.zone@gmail.com",
  "module": "Lestari Accounting",
  "name": "Rekap Kartu Piutang",

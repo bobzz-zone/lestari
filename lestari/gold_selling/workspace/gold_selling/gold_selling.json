@@ -173,7 +173,7 @@
    "type": "Link"
   }
  ],
- "modified": "2023-07-18 10:55:54.759995",
+ "modified": "2023-10-10 10:27:13.610384",
  "modified_by": "dendro@lms.com",
  "module": "Gold Selling",
  "name": "Gold Selling",
@@ -260,6 +260,19 @@
    "label": "Stock Return Transfer",
    "link_to": "Stock Return Transfer",
    "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Rekap Piutang Customer",
+   "link_to": "Rekap Piutang Customer",
+   "stats_filter": "",
+   "type": "Report"
+  },
+  {
+   "doc_view": "",
+   "label": "Kartu Piutang",
+   "link_to": "kartu-piutang-custom",
+   "type": "Page"
   }
  ]
 }

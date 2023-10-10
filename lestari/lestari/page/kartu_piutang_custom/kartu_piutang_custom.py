@@ -21,7 +21,7 @@ def contoh_report():
             NAME AS voucher_no
             FROM
             `tabGold Invoice`
-            WHERE docstatus = 1
+            WHERE docstatus = 1 and outstanding > 0
             UNION
             SELECT
             customer,
@@ -35,7 +35,7 @@ def contoh_report():
             NAME AS voucher_no
             FROM
             `tabCustomer Deposit`
-            WHERE docstatus = 1
+            WHERE docstatus = 1 and ( gold_left > 0  or idr_left > 0 )
     """,as_dict = 1)
     no = 0
     for row in list_doc:
@@ -52,5 +52,5 @@ def contoh_report():
             'deposit_idr': flt(row.deposit_idr),
         }
         piutang.append(baris_baris)
-    frappe.msgprint(str(piutang))  
+    # frappe.msgprint(str(piutang))  
     return piutang   

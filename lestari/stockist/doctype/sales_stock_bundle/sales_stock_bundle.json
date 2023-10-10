@@ -16,6 +16,8 @@
   "abbr",
   "pendamping",
   "warehouse",
+  "warehouse_rongsok",
+  "warehouse_return",
   "amended_from"
  ],
  "fields": [
@@ -92,12 +94,26 @@
    "fieldtype": "Data",
    "label": "Kode",
    "read_only": 1
+  },
+  {
+   "fetch_from": "sales.warehouse_rongsok",
+   "fieldname": "warehouse_rongsok",
+   "fieldtype": "Link",
+   "label": "Warehouse Rongsok",
+   "options": "Warehouse"
+  },
+  {
+   "fetch_from": "sales.warehouse_return",
+   "fieldname": "warehouse_return",
+   "fieldtype": "Link",
+   "label": "Warehouse Return",
+   "options": "Warehouse"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-07-18 11:38:53.412076",
+ "modified": "2023-10-06 14:19:20.435928",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Sales Stock Bundle",
