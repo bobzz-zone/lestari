@@ -137,6 +137,7 @@ function reset_allocated(frm){
 	refresh_total_and_charges(frm);
 	calculate_table_advance(frm);
 	// frappe.msgprint("Karena ad aperubahan nilai, maka data alokasi dan write off telah ter reset!!");
+	// frm.dirty()
 }
 function calculate_table_idr(frm,cdt,cdn){
 	var total=0;
@@ -270,7 +271,7 @@ frappe.ui.form.on('Gold Payment', {
 				return false;
 			}
 		});
-		
+		frappe.msgprint("JS:"+frm.doc.jadi_deposit)
 	},
 	discount:function(frm){
 		if (frm.doc.discount<0){
@@ -309,14 +310,15 @@ frappe.ui.form.on('Gold Payment', {
 	},
 	jadikan_deposit:function(frm){
 		//need to check
-		frm.doc.jadi_deposit=frm.doc.unallocated_payment + (frm.doc.unallocated_idr_payment/frm.doc.tutupan);
+		// frm.doc.jadi_deposit=frm.doc.unallocated_payment + (frm.doc.unallocated_idr_payment/frm.doc.tutupan); // punya ko bob
+		frm.doc.jadi_deposit=frm.doc.unallocated_payment;
 		frm.doc.unallocated_payment=0;
 		frm.doc.unallocated_idr_payment=0;
 		frappe.msgprint("Total Deposit "+frm.doc.jadi_deposit);
 		refresh_field("unallocated_payment");
 		refresh_field("unallocated_idr_payment");
 		refresh_field("jadi_deposit");
-		//frm.dirty();
+		// frm.dirty();
 	},
 	auto_distribute:function(frm){
 		if (frm.doc.invoice_table==[] || frm.doc.customer_return==[]){
@@ -435,7 +437,7 @@ frappe.ui.form.on('Gold Payment', {
 			}
 			frappe.msgprint("Pembayaran Telah di Alokasikan");
 		}
-
+		// frm.dirty()
 	},
 	tutupan:function(frm){
 		cur_frm.get_field("tutupan").set_focus()

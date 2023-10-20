@@ -35,6 +35,7 @@ class StockReturnTransfer(Document):
 					WHERE a.`docstatus` = 1
 					AND b.customer = '{0}'
 					AND b.`tolak_qty` > 0
+					AND b.`is_out` = 0
 					UNION
 					SELECT
 					a.name,
@@ -57,6 +58,7 @@ class StockReturnTransfer(Document):
 					WHERE a.`docstatus` = 1
 					AND b.customer = '{0}'
 					AND b.`tolak_qty` > 0
+					AND b.`is_out` = 0
 				""".format(self.customer),as_dict=1)
 				# frappe.msgprint(str(list_kpr))
 			for row in list_kpr:

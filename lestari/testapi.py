@@ -1,5 +1,6 @@
 import frappe
 import json
+from frappe.utils import flt
 # @frappe.whitelist()
 #     response = json.loads(str(resep))
 #     # response = frappe.new_doc("Resep Mul Karet")
@@ -7,6 +8,15 @@ import json
 #     # response.final_product = "?"
 #     # response.type_mul =
 #     return response
+
+def fix_outstanding():
+	data = frappe.db.sql("select name,grand_total from `tabGold Invoice` where docstatus=1",as_list=1)
+	for row in data:
+		payment = frappe.db.sql("select sum(allocated) as total from `tabGold Payment Invoice` where gold_invoice='{}' and docstatus=1 group by gold_invoice ".format(row[0]),as_list=1)
+		#update
+		if payment and len(payment)>0:
+			frappe.db.sql("update `tabGold Invoice` set outstanding={} where name='{}'".format(flt(row[1])-flt(payment[0][0]),row[0]),as_list=1)
+
 def fix_mr():
 	frappe.db.sql("update `tabMaterial Request Item` set ordered_qty=0 where docstatus=0")
 	data = frappe.db.sql("select name from `tabMaterial Request` where docstatus=1 and material_request_type='Purchase'",as_list=1)

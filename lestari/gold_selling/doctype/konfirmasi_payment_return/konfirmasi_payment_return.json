@@ -36,8 +36,10 @@
   {
    "fieldname": "serah_terima",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "No Serah Terima Stock",
-   "options": "Serah Terima Payment Stock"
+   "options": "Serah Terima Payment Stock",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_3",
@@ -47,8 +49,10 @@
    "fetch_from": "serah_terima.sales_bundle",
    "fieldname": "sales_bundle",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Sales Bundle",
-   "options": "Sales Stock Bundle"
+   "options": "Sales Stock Bundle",
+   "reqd": 1
   },
   {
    "fieldname": "section_break_6",
@@ -144,7 +148,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-06-26 14:12:29.833211",
+ "modified": "2023-10-16 10:52:12.060177",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Konfirmasi Payment Return",
