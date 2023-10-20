@@ -39,7 +39,7 @@ def execute(filters=None):
 		from `tabCustomer Deposit` cd where docstatus=1 and (customer="{0}" or subcustomer="{0}") and deposit_payment=0
 		UNION 
 		select cd.posting_date,"Gold Payment" as "type" , cd.name as "voucher_no" ,cd.customer,cd.subcustomer,cd.sales_bundle, 0 as debit , (total_gold_payment+total_idr_gold) as "kredit" , 0 as "titipan" , 0 , 0
-		from `tabGold Payment` cd where docstatus=1 and (customer="{0}" or subcustomer="{0}") and deposit_payment=0
+		from `tabGold Payment` cd where docstatus=1 and (customer="{0}" or subcustomer="{0}") 
 		
 		) x 
 
