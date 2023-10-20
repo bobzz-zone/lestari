@@ -43,6 +43,7 @@ class GoldPayment(StockController):
 			total=total-row.allocated_janji
 		if not self.warehouse:
 			self.warehouse = frappe.db.get_single_value('Gold Selling Settings', 'default_warehouse')
+		# frappe.msgprint("PY:"+self.jadi_deposit)
 
 	def on_submit(self):
 		if self.unallocated_payment>0.001:
@@ -316,25 +317,25 @@ class GoldPayment(StockController):
 				'tutupan':row.tutupan
 			}
 			self.append("customer_return",baris_baru)
-		list_srt = frappe.db.get_list("Stock Return Transfer", filters={"type":"Keluar", "docstatus":1})
-		# total24k = 0
-		for row in list_srt:
-			doc = frappe.get_doc("Stock Return Transfer", row.name)
-			for col in doc.transfer_details:
-				if self.customer == col.customer or self.customer == col.sub_customer:
-					if col.is_out == 0:
-						# frappe.msgprint(row.name)
-						# frappe.msgprint(col.name)
-						# total24k = total24k + col.berat
-						baris_baru_item = {
-							'item':col.item,
-							'customer': col.customer,
-							'sub_customer': col.sub_customer,
-							'bruto':col.berat,
-							'no_parent' : row.name,
-							'no_doc': col.name
-						}
-						self.append("stock_return_transfer",baris_baru_item)
+		# list_srt = frappe.db.get_list("Stock Return Transfer", filters={"type":"Keluar", "docstatus":1})
+		# # total24k = 0
+		# for row in list_srt:
+		# 	doc = frappe.get_doc("Stock Return Transfer", row.name)
+		# 	for col in doc.transfer_details:
+		# 		if self.customer == col.customer or self.customer == col.sub_customer:
+		# 			if col.is_out == 0:
+		# 				# frappe.msgprint(row.name)
+		# 				# frappe.msgprint(col.name)
+		# 				# total24k = total24k + col.berat
+		# 				baris_baru_item = {
+		# 					'item':col.item,
+		# 					'customer': col.customer,
+		# 					'sub_customer': col.sub_customer,
+		# 					'bruto':col.berat,
+		# 					'no_parent' : row.name,
+		# 					'no_doc': col.name
+		# 				}
+		# 				self.append("stock_return_transfer",baris_baru_item)
 				
 		# self.total_24k_return = total24k
 		#lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_idr_advance

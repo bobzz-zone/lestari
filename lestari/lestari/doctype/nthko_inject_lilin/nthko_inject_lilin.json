@@ -1,0 +1,221 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-10-05 13:33:52.233632",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "spko_inject",
+  "stick_pohon",
+  "berat_pohon_total",
+  "column_break_4",
+  "id_operator",
+  "label_piring",
+  "berat_batu",
+  "column_break_7",
+  "nama_operator",
+  "operator",
+  "berat_piringan",
+  "berat_resin",
+  "column_break_5",
+  "tanggal",
+  "total_qty",
+  "kadar",
+  "section_break_17",
+  "catatan",
+  "section_break_16",
+  "item_button",
+  "column_break_18",
+  "penggunaan_batu",
+  "item_section",
+  "items",
+  "penggunaan_batu_section",
+  "detail_batu",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "spko_inject",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "No. SPKO Inject",
+   "options": "SPKO Inject Lilin",
+   "reqd": 1
+  },
+  {
+   "fieldname": "stick_pohon",
+   "fieldtype": "Link",
+   "label": "STICK POHON",
+   "options": "Data Jenis Sprue Utama",
+   "read_only": 1
+  },
+  {
+   "fieldname": "berat_pohon_total",
+   "fieldtype": "Float",
+   "label": "BERAT POHON TOTAL"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "id_operator",
+   "fieldtype": "Data",
+   "label": "ID OPERATOR"
+  },
+  {
+   "fieldname": "label_piring",
+   "fieldtype": "Link",
+   "label": "LABEL PIRING",
+   "options": "Serial No"
+  },
+  {
+   "fieldname": "berat_batu",
+   "fieldtype": "Float",
+   "label": "BERAT BATU"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": " ",
+   "fieldname": "nama_operator",
+   "fieldtype": "Data",
+   "label": "NAMA OPERATOR",
+   "read_only": 1
+  },
+  {
+   "fieldname": "operator",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "OPERATOR",
+   "options": "Employee"
+  },
+  {
+   "default": "0",
+   "fieldname": "berat_piringan",
+   "fieldtype": "Float",
+   "label": "BERAT PIRINGAN",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "berat_resin",
+   "fieldtype": "Float",
+   "label": "BERAT RESIN",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "tanggal",
+   "fieldtype": "Date",
+   "label": "TANGGAL"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_qty",
+   "fieldtype": "Int",
+   "label": "TOTAL QTY",
+   "read_only": 1
+  },
+  {
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "label": "KADAR",
+   "options": "Data Logam",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "catatan",
+   "fieldtype": "Data",
+   "label": "CATATAN"
+  },
+  {
+   "fieldname": "section_break_16",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "item_button",
+   "fieldtype": "HTML",
+   "label": "Item",
+   "options": "<button class=\"btn btn-default btn-block\" style=\"margin-bottom: 10px; background-color: #913030;\">Item</button>"
+  },
+  {
+   "fieldname": "column_break_18",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "penggunaan_batu",
+   "fieldtype": "HTML",
+   "label": "Penggunaan Batu",
+   "options": "<button class=\"btn btn-default btn-block\" style=\"margin-bottom: 10px;\">Penggunaan Batu</button>"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "NTHKO Inject Lilin Item"
+  },
+  {
+   "fieldname": "penggunaan_batu_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Penggunaan Batu"
+  },
+  {
+   "fieldname": "detail_batu",
+   "fieldtype": "Table",
+   "label": "Detail Batu",
+   "options": "NTHKO Inject Lilin Batu"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "NTHKO Inject Lilin",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "item_section",
+   "fieldtype": "Section Break",
+   "label": "Item"
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-10-12 13:58:48.468221",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "NTHKO Inject Lilin",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

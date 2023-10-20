@@ -389,6 +389,7 @@
    "fieldname": "total_idr_in_gold",
    "fieldtype": "Float",
    "label": "Total IDR Payment In Gold",
+   "precision": "3",
    "read_only": 1
   },
   {
@@ -468,6 +469,7 @@
   {
    "fieldname": "stock_return_transfer",
    "fieldtype": "Table",
+   "hidden": 1,
    "label": "Stock Return Transfer",
    "options": "Gold Payment Stock Return"
   },
@@ -557,7 +559,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-10-06 14:19:29.756164",
+ "modified": "2023-10-20 10:46:17.222518",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

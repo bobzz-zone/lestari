@@ -21,6 +21,7 @@
   "stick_pohon",
   "column_break_15",
   "total_qty",
+  "daftar_product",
   "catatan",
   "section_break_19",
   "admin_lilin",
@@ -211,12 +212,18 @@
    "fieldtype": "HTML",
    "label": "Item",
    "options": "<button class=\"btn btn-default btn-block\" style=\"margin-bottom: 10px; background-color: #913030;\">Item</button>"
+  },
+  {
+   "fieldname": "daftar_product",
+   "fieldtype": "HTML",
+   "label": "Daftar Product",
+   "options": "<button class=\"btn btn-default btn-block\" style=\"margin-bottom: 15px; margin-top: 40px; background-color: #913030;\">Daftar Product</button>"
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-08-02 16:20:48.728294",
+ "modified": "2023-10-12 14:25:59.044589",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "SPKO Inject Lilin",

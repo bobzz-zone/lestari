@@ -13,6 +13,9 @@ frappe.ui.form.on('SPKO Inject Lilin', {
 			frm.set_df_property('item_section', 'hidden', 1)
 			frm.set_df_property('karet_pilihan_section', 'hidden', 0)
 		})
+		$('div[data-fieldname="daftar_product"').on('click',function(){
+			frm.events.get_items_from_rph_lilin(frm)
+		})
 	},
 	make_custom_buttons: function (frm) {
 		// if (frm.doc.docstatus === 0) {
