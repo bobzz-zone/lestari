@@ -253,6 +253,17 @@ frappe.ui.form.on('Gold Payment', {
     //         }
     //     });
     // },
+    customer:function(frm){
+    	frappe.call({
+				method: "lestari.gold_selling.doctype.gold_payment.gold_payment.get_latest_transaction",
+				args:{type:frm.doc.customer},
+				callback: function (r){
+					frm.doc.tutupan=r.message.history;
+					refresh_field("history_payment");
+
+				}
+			});
+    },
 	validate:function(frm){
 		//validate allocated amount
 		if (frm.doc.list_janji_bayar && frm.doc.list_janji_bayar.length>0){
