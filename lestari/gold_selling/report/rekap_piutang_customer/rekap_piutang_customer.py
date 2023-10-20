@@ -33,7 +33,7 @@ def execute(filters=None):
 		
 		(
 		select gi.posting_date ,"Gold Invoice" as "type" ,gi.name as "voucher_no" ,gi.customer,gi.subcustomer, gi.bundle as "sales_bundle", grand_total as debit, 0 as "kredit" , 0 as "titipan" ,0 as is_convert , 0 as total_value_converted
-		from `tabGold Invoice` gi where docstatus=1 and outstanding>0 and (customer="{0}" or subcustomer="{0}")
+		from `tabGold Invoice` gi where docstatus=1  and (customer="{0}" or subcustomer="{0}")
 		UNION 
 		select cd.posting_date,"Customer Deposit" as "type" , cd.name as "voucher_no" ,cd.customer,cd.subcustomer,cd.sales_bundle, 0 as debit , total_gold_deposit as "kredit" , (total_idr_deposit ) as "titipan" , is_convert , total_value_converted
 		from `tabCustomer Deposit` cd where docstatus=1 and (customer="{0}" or subcustomer="{0}") and deposit_payment=0
