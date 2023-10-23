@@ -52,5 +52,5 @@ def get_items_from_rph_lilin(source_name, target_doc=None, args=None):
 			"condition": select_item
 		}
 	}, target_doc)
-	frappe.msgprint(str(doc))
+	# frappe.msgprint(str(doc))
 	return doc

@@ -19,7 +19,6 @@ frappe.ui.form.on('SPKO Inject Lilin', {
 	},
 	make_custom_buttons: function (frm) {
 		// if (frm.doc.docstatus === 0) {
-		  // frm.add_custom_button(__("Sales Order"), () => frm.events.get_items_from_sales_order(frm), __("Get Items From"));
 		  frm.add_custom_button(__("DAFTAR PRODUCT"), () => frm.events.get_items_from_rph_lilin(frm));
 		  frm.add_custom_button(__("CETAK BARCODE"), () => frm.events.get_items_from_form_order(frm), __("CETAK"));
 		  frm.add_custom_button(__("CETAK SPKO"), () => frm.events.get_items_from_form_order(frm), __("CETAK"));
