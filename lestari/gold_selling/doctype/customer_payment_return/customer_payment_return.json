@@ -15,6 +15,7 @@
   "customer_name",
   "customer_group",
   "territory",
+  "subcustomer",
   "column_break",
   "posting_date",
   "posting_time",
@@ -248,12 +249,18 @@
    "fieldname": "calculate_24k",
    "fieldtype": "Button",
    "label": "Calculate 24K"
+  },
+  {
+   "fieldname": "subcustomer",
+   "fieldtype": "Link",
+   "label": "Sub Customer",
+   "options": "Customer"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-09-19 15:12:41.314634",
+ "modified": "2023-10-20 13:18:06.779179",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Payment Return",

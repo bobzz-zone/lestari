@@ -79,7 +79,9 @@
   "writeoff_sisa",
   "jadikan_deposit",
   "reset_alokasi",
-  "amended_from"
+  "amended_from",
+  "history_section",
+  "history_payment"
  ],
  "fields": [
   {
@@ -554,12 +556,23 @@
    "fieldtype": "Link",
    "label": "Warehouse Return",
    "options": "Warehouse"
+  },
+  {
+   "fieldname": "history_section",
+   "fieldtype": "Section Break",
+   "label": "History"
+  },
+  {
+   "fieldname": "history_payment",
+   "fieldtype": "HTML",
+   "label": "History Payment",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-10-20 10:46:17.222518",
+ "modified": "2023-10-20 15:01:10.048978",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

@@ -173,7 +173,7 @@
    "type": "Link"
   }
  ],
- "modified": "2023-10-10 10:27:13.610384",
+ "modified": "2023-10-20 16:25:42.516292",
  "modified_by": "dendro@lms.com",
  "module": "Gold Selling",
  "name": "Gold Selling",
@@ -185,6 +185,12 @@
    "doc_view": "List",
    "label": "Gold Invoice",
    "link_to": "Gold Invoice",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Pembayaran Penjualan",
+   "link_to": "Gold Payment",
    "type": "DocType"
   },
   {
@@ -272,6 +278,18 @@
    "doc_view": "",
    "label": "Kartu Piutang",
    "link_to": "kartu-piutang-custom",
+   "type": "Page"
+  },
+  {
+   "doc_view": "",
+   "label": "Info Proses Penjualan",
+   "link_to": "info-proses-penjuala",
+   "type": "Page"
+  },
+  {
+   "doc_view": "",
+   "label": "List Detail Pembayaran",
+   "link_to": "list-detail-pembayar",
    "type": "Page"
   }
  ]

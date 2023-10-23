@@ -935,5 +935,16 @@ class GoldPayment(StockController):
 		gl_entries = merge_similar_entries(gl_entries)
 		return gl_entries
 @frappe.whitelist(allow_guest=True)
-def get_latest_transaction(customer = "CT"):
-	return {"history":""}
+def get_latest_transaction(customer):
+
+	# cd_list = frappe.db.sql("""
+	# SELECT * FROM `tabCustomer Deposit`
+	# where customer = "{}" ORDER BY posting_date asc limit 3
+	# """.format(customer),as_dict=True)
+	# for row in cd_list:
+	# 	baris_baru = {
+	# 		'name': row.name,
+	# 		'deposit_type' : row.deposit_type,
+	# 		''
+	# 	}
+	return {"history":"Hello Word"}

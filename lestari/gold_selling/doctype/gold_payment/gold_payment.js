@@ -256,9 +256,9 @@ frappe.ui.form.on('Gold Payment', {
     customer:function(frm){
     	frappe.call({
 				method: "lestari.gold_selling.doctype.gold_payment.gold_payment.get_latest_transaction",
-				args:{type:frm.doc.customer},
+				args:{customer:frm.doc.customer},
 				callback: function (r){
-					frm.doc.tutupan=r.message.history;
+					frm.doc.history_payment=r.message.history;
 					refresh_field("history_payment");
 
 				}
