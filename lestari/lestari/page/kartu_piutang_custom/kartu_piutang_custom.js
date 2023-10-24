@@ -11,6 +11,10 @@ DevExtreme = Class.extend({
 		this.make()
 	},
 	// make page
+	doctypes: function(name){
+		console.log(name)
+		// return name.replace(/\s+/g, '-').toLowerCase();
+	},
 	make: async function(){
 		let me = $(this);
 		DevExpress.localization.locale(navigator.language);
@@ -24,11 +28,33 @@ DevExtreme = Class.extend({
 		// 	currency: "",
 		// 	useGrouping: true
 		//   });
-		console.log(employees)		
+		// var doctype = await this.doctypes(employees.message.voucher_type)
+		// console.log(doctype)
 		// DevExpress.localization.locale('id');
 		$("#dataGrid").dxDataGrid({
 			dataSource: employees.message,
         	keyExpr: 'voucher_no',
+			dataRowTemplate(container, item) {
+				let me = $(this)
+				const { data } = item;
+				let url = window.location.origin+'/app';
+				
+				// console.log(data.voucher_type);
+				var doctype = this.doctypes(data.voucher_type);
+				console.log(doctype)
+				const markup = '<tr class=\'main-row\'>'
+					+ `<td>${data.no}</td>`
+					+ `<td>${data.customer}</td>`
+					+ `<td><a href='${url}/${doctype}/${data.voucher_no}'/>${data.voucher_no}</a></td>`
+					+ `<td>${data.voucher_type}</td>`
+					+ `<td>${data.date}</td>`
+					+ `<td>${data.tutupan}</td>`
+					+ `<td>${data.outstanding}</td>`
+					+ `<td>${data.deposit_gold}</td>`
+					+ `<td>${data.deposit_idr}</td>`
+				+ '</tr>';
+				container.append(markup);
+			  },
 			showBorders: true,
 			allowColumnReordering: true,
 			allowColumnResizing: true,

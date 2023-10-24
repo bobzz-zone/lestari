@@ -38,7 +38,9 @@ def contoh_report():
             WHERE docstatus = 1 and ( gold_left > 0  or idr_left > 0 )
     """,as_dict = 1)
     no = 0
+    url = "http://erpnext.lestarigold.co.id/app"
     for row in list_doc:
+        doctype = row.voucher_type.lower().replace(' ', '-')
         no+=1
         baris_baris = {
             'no' : no,
