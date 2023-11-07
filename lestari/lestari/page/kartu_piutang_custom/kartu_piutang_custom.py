@@ -63,6 +63,7 @@ def contoh_report(posting_date = None):
             'outstanding' : flt(row.outstanding),
             'deposit_gold' : flt(row.deposit_emas),
             'deposit_idr': flt(row.deposit_idr),
+            'summarize' : flt(row.outstanding) - flt(row.deposit_emas)
         }
         piutang.append(baris_baris)
     # frappe.msgprint(str(piutang))  

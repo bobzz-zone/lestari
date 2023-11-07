@@ -16,6 +16,7 @@ class JanjiBayar(Document):
 		inv = frappe.get_doc("Gold Invoice",self.gold_invoice)
 		doc = frappe.new_doc("Gold Payment")
 		doc.customer = self.customer
+		doc.subcustomer = self.subcustomer
 		doc.warehouse = inv.warehouse
 		doc.posting_date = now()
 		doc.janji_bayar = self.name
@@ -36,9 +37,21 @@ class JanjiBayar(Document):
 	def get_deposit(self):
 		doc = frappe.new_doc("Customer Deposit")
 		doc.customer = self.customer
+		doc.subcustomer = self.subcustomer
 		doc.posting_date = now()
 		doc.janji_bayar = self.name
 		doc.sisa_janji=self.sisa_janji
+		baris_baru = {
+			'janji_bayar' : self.name,
+			'no_invoice' : self.gold_invoice,
+			'customer' : self.customer,
+			'tanggal_janji' : self.tanggal_janji,
+			'total_janji_bayar' : self.total_bayar,
+			'idr_janji_bayar' : self.total_idr_payment,
+			'sisa_janji' : self.sisa_janji,
+			'status_janji' : self.status
+		}
+		doc.append('list_janji_bayar', baris_baru)
 		doc.deposit_type = "IDR"
 		doc.sales_bundle = self.sales_bundle
 		doc.flags.ignore_permissions = True

@@ -91,7 +91,7 @@
    "fieldtype": "Select",
    "label": "Kode Seri",
    "no_copy": 1,
-   "options": "GP-GOLD-.YYYY.-\nGP-STOCK-.YYYY.-",
+   "options": "GP\nGP-GOLD-.YYYY.-\nGP-STOCK-.YYYY.-",
    "print_hide": 1,
    "reqd": 1
   },
@@ -588,7 +588,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-11-07 13:19:47.573584",
+ "modified": "2023-11-07 13:51:05.673111",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

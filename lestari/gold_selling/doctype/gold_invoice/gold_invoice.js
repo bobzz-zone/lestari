@@ -9,7 +9,7 @@ frappe.ui.form.on("Gold Invoice", {
 		if (!cur_frm.doc.no_invoice) {
 			cur_frm.set_df_property("no_invoice", "hidden", 1);
 		}
-		hitung_pajak(frm);
+		// hitung_pajak(frm);
 	},
 	refresh: function (frm) {
 	// your code here

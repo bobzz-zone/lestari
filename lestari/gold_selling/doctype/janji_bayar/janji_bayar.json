@@ -218,7 +218,8 @@
    "fieldname": "sales_bundle",
    "fieldtype": "Link",
    "label": "Sales Bundle",
-   "options": "Sales Stock Bundle"
+   "options": "Sales Stock Bundle",
+   "reqd": 1
   },
   {
    "fieldname": "subcustomer",
@@ -235,7 +236,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-11-07 13:09:01.958449",
+ "modified": "2023-11-07 13:36:22.060917",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Janji Bayar",

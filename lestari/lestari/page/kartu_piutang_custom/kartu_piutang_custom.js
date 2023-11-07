@@ -150,6 +150,16 @@ DevExtreme = Class.extend({
 				  },
 				  caption: 'Deposit IDR'
 			  },
+			  {
+				dataField: 'summarize',
+				alignment: 'right',
+				format: {
+					type: 'fixedPoint',
+					precision: 3,
+					currency: '',
+				  },
+				caption: 'Summarize'
+			  },
 			  ],
 			  sortByGroupSummaryInfo: [{
 				summaryItem: 'count',
@@ -185,7 +195,21 @@ DevExtreme = Class.extend({
 					},
 				  },
 				  {
-					column: 'Deposit IDR',
+					column: 'deposit_idr',
+					summaryType: 'sum',
+					displayFormat: '{0}',
+					showInGroupFooter: false,
+					alignByColumn: true,
+					valueFormat: {
+						type: 'fixedPoint',
+						precision: 3,
+						thousandsSeparator: ',',
+						currencySymbol: '',
+						useGrouping: true,
+					},
+				  },
+				  {
+					column: 'summarize',
 					summaryType: 'sum',
 					displayFormat: '{0}',
 					showInGroupFooter: false,
@@ -234,7 +258,21 @@ DevExtreme = Class.extend({
 					},
 				  },
 				  {
-					column: 'Deposit IDR',
+					column: 'deposit_idr',
+					summaryType: 'sum',
+					displayFormat: '{0}',
+					showInGroupFooter: false,
+					alignByColumn: true,
+					valueFormat: {
+						type: 'fixedPoint',
+						precision: 3,
+						thousandsSeparator: ',',
+						currencySymbol: '',
+						useGrouping: true,
+					},
+				  },
+				  {
+					column: 'summarize',
 					summaryType: 'sum',
 					displayFormat: '{0}',
 					showInGroupFooter: false,
