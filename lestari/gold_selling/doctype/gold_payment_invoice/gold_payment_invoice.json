@@ -17,7 +17,8 @@
   "allocated",
   "tutupan",
   "total_bruto",
-  "tax_allocated"
+  "tax_allocated",
+  "last_gp"
  ],
  "fields": [
   {
@@ -124,12 +125,18 @@
    "fieldname": "tax_allocated",
    "fieldtype": "Currency",
    "label": "Tax Payment Allocated"
+  },
+  {
+   "fetch_from": "gold_invoice.gold_payment",
+   "fieldname": "last_gp",
+   "fieldtype": "Read Only",
+   "label": "Last Gold Payment"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-07-25 00:29:25.874770",
+ "modified": "2023-11-07 12:34:33.051310",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment Invoice",

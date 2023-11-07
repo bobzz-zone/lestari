@@ -19,6 +19,7 @@ class JanjiBayar(Document):
 		doc.warehouse = inv.warehouse
 		doc.posting_date = now()
 		doc.janji_bayar = self.name
+		doc.sales_bundle = self.sales_bundle
 		doc.total_invoice = inv.outstanding
 		baris_baru = {
 			'gold_invoice':inv.name,
@@ -39,7 +40,7 @@ class JanjiBayar(Document):
 		doc.janji_bayar = self.name
 		doc.sisa_janji=self.sisa_janji
 		doc.deposit_type = "IDR"
-		doc.sales_bundle = ""
+		doc.sales_bundle = self.sales_bundle
 		doc.flags.ignore_permissions = True
 		doc.save()
 		return doc

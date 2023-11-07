@@ -8,17 +8,17 @@ class GoldInvoice(Document):
 		if(self.no_invoice):
 			self.name = self.no_invoice
 			#total items
-			total=0
-			bruto=0
-			for row in self.items:
-				total=total+row.amount
-				bruto=bruto+row.qty
-			self.total=total
-			self.total_bruto=bruto
-			if not self.discount:
-				self.discount=0
-			self.grand_total=flt(self.total)-flt(self.discount)
-			self.outstanding = self.grand_total - flt(self.total_advance)
+			# total=0
+			# bruto=0
+			# for row in self.items:
+			# 	total=total+row.amount
+			# 	bruto=bruto+row.qty
+			# self.total=total
+			# self.total_bruto=bruto
+			# if not self.discount:
+			# 	self.discount=0
+			# self.grand_total=flt(self.total)-flt(self.discount)
+			# self.outstanding = self.grand_total - flt(self.total_advance)
 			if self.outstanding<0:
 				frappe.throw("Outstanding tidak boleh lebih kecil dari 0")
 	@frappe.whitelist(allow_guest=True)

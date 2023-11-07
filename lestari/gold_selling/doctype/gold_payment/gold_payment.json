@@ -82,7 +82,8 @@
   "reset_alokasi",
   "amended_from",
   "history_section",
-  "history_payment"
+  "history_payment",
+  "status_document"
  ],
  "fields": [
   {
@@ -574,12 +575,20 @@
    "fieldname": "fokus_piutang",
    "fieldtype": "Check",
    "label": "Fokus Piutang"
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status_document",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Status Document",
+   "options": "Draft\nSubmitted\nCancelled"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-11-07 10:51:21.584532",
+ "modified": "2023-11-07 13:19:47.573584",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",
