@@ -71,7 +71,6 @@
   "outstanding",
   "column_break_48",
   "invoice_status",
-  "status",
   "gold_payment",
   "amended_from"
  ],
@@ -312,12 +311,13 @@
    "label": "Summary"
   },
   {
+   "default": "Draft",
    "fieldname": "invoice_status",
    "fieldtype": "Select",
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Status",
-   "options": "Unpaid\nPaid",
+   "options": "Unpaid\nPaid\nDraft\nCancelled",
    "read_only": 1
   },
   {
@@ -498,18 +498,11 @@
   {
    "fieldname": "column_break_41",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "status",
-   "fieldtype": "Select",
-   "in_standard_filter": 1,
-   "label": "Status",
-   "options": "\nDraft\nSubmitted\nCancelled"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-10-30 13:21:26.972826",
+ "modified": "2023-11-07 12:36:18.824606",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",

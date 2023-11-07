@@ -11,6 +11,8 @@
   "customer",
   "customer_name",
   "customer_group",
+  "subcustomer",
+  "subcustomer_name",
   "territory",
   "catatan",
   "column_break_7",
@@ -18,6 +20,7 @@
   "type_emas",
   "piutang_gold",
   "jenis_janji",
+  "sales_bundle",
   "gold_invoice",
   "total_invoice",
   "status_invoice",
@@ -210,11 +213,29 @@
    "label": "Piutang Emas",
    "options": "Account",
    "read_only": 1
+  },
+  {
+   "fieldname": "sales_bundle",
+   "fieldtype": "Link",
+   "label": "Sales Bundle",
+   "options": "Sales Stock Bundle"
+  },
+  {
+   "fieldname": "subcustomer",
+   "fieldtype": "Link",
+   "label": "SubCustomer",
+   "options": "Customer"
+  },
+  {
+   "fetch_from": "subcustomer.customer_name",
+   "fieldname": "subcustomer_name",
+   "fieldtype": "Read Only",
+   "label": "SubCustomer Name"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-10-24 14:21:26.559096",
+ "modified": "2023-11-07 13:09:01.958449",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Janji Bayar",
