@@ -138,10 +138,42 @@ frappe.ui.form.on("Gold Invoice", {
 		refresh_field("total_advance");
 	},
 	ppn: function (frm){
-		sebelum_pajak(frm)
+		// sebelum_pajak(frm)
+		var ppn_rate=110;
+		var pph_rate=25;
+		if(frm.doc.is_skb==1){
+			pph_rate=0;
+		}else if (!frm.doc.tax_id){
+			ppn_rate=165;
+			pph_rate=0;
+		}
+		// frm.doc.ppn=Math.floor(frm.doc.total_sebelum_pajak * ppn_rate / 10000);
+		frm.doc.total_pajak=frm.doc.ppn+frm.doc.pph;
+		frm.doc.sisa_pajak=frm.doc.total_pajak;
+		frm.doc.total_setelah_pajak = frm.doc.total_sebelum_pajak + frm.doc.total_pajak
+		console.log(frm.doc.total_pajak)
+		refresh_field("total_pajak");
+		refresh_field("sisa_pajak");
+		refresh_field("total_setelah_pajak");
 	},
 	pph: function (frm){
-		sebelum_pajak(frm)
+		// sebelum_pajak(frm)
+		var ppn_rate=110;
+		var pph_rate=25;
+		if(frm.doc.is_skb==1){
+			pph_rate=0;
+		}else if (!frm.doc.tax_id){
+			ppn_rate=165;
+			pph_rate=0;
+		}
+		// frm.doc.pph=Math.floor(frm.doc.total_sebelum_pajak * pph_rate / 10000);
+		frm.doc.total_pajak=frm.doc.ppn+frm.doc.pph;
+		frm.doc.sisa_pajak=frm.doc.total_pajak;
+		frm.doc.total_setelah_pajak = frm.doc.total_sebelum_pajak + frm.doc.total_pajak
+		console.log(frm.doc.total_pajak)
+		refresh_field("total_pajak");
+		refresh_field("sisa_pajak");
+		refresh_field("total_setelah_pajak");	
 	},
 	total_sebelum_pajak: function (frm){
 		sebelum_pajak(frm)

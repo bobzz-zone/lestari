@@ -76,6 +76,7 @@
   "unallocated_payment",
   "jadi_deposit",
   "auto_distribute",
+  "fokus_piutang",
   "writeoff_sisa",
   "jadikan_deposit",
   "reset_alokasi",
@@ -567,12 +568,18 @@
    "fieldtype": "HTML",
    "label": "History Payment",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "fokus_piutang",
+   "fieldtype": "Check",
+   "label": "Fokus Piutang"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-10-20 15:01:10.048978",
+ "modified": "2023-11-07 10:51:21.584532",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

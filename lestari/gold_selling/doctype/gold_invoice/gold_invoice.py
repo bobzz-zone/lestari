@@ -44,13 +44,12 @@ class GoldInvoice(Document):
 			self.invoice_status="Paid"
 		else:
 			self.invoice_status="Unpaid"
-
+		self.status = "Submitted"
 	def on_submit(self):
 		if self.outstanding <= 0:
 			frappe.throw(str(self.outstanding))
 		else:
 			self.make_gl_entries()
-		self.status = "Submitted"
 	def get_gl_entries(self, warehouse_account=None):
 		from erpnext.accounts.general_ledger import merge_similar_entries
 		#GL  Generate
