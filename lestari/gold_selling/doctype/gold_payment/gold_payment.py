@@ -50,6 +50,7 @@ class GoldPayment(StockController):
 			# frappe.msgprint(self.total_invoice)
 			frappe.throw("Error,unallocated Payment Masih ada {}".format(self.unallocated_payment))
 		else:
+			self.status_document="Submitted"
 			##			for cek in self.idr_payment:
 				# if cek.mode_of_payment != "Cash":
 					# frappe.throw("Silahkan Cek Transfer Bank Terlebih Dahulu")
@@ -128,6 +129,7 @@ class GoldPayment(StockController):
 						frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_payment,self.janji_bayar))
 	def on_cancel(self):
 		self.flags.ignore_links=True
+		self.status_document="Cancelled"
 		piutang_gold = self.piutang_gold
 		self.make_gl_entries_on_cancel()
 		self.update_stock_ledger()
