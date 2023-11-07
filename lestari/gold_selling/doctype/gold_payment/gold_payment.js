@@ -282,7 +282,7 @@ frappe.ui.form.on('Gold Payment', {
 				return false;
 			}
 		});
-		frappe.msgprint("JS:"+frm.doc.jadi_deposit)
+		// frappe.msgprint("JS:"+frm.doc.jadi_deposit)
 	},
 	discount:function(frm){
 		if (frm.doc.discount<0){

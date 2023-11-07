@@ -13,6 +13,7 @@
   "kategori",
   "terima_berat",
   "total_berat_input",
+  "get_items",
   "column_break_7",
   "sales_bundle",
   "sales",
@@ -21,6 +22,7 @@
   "customer",
   "customer_group",
   "territory",
+  "reset",
   "section_break_12",
   "items",
   "amended_from"
@@ -144,12 +146,22 @@
    "fieldname": "total_berat_input",
    "fieldtype": "Float",
    "label": "Total Berat Input"
+  },
+  {
+   "fieldname": "reset",
+   "fieldtype": "Button",
+   "label": "Reset"
+  },
+  {
+   "fieldname": "get_items",
+   "fieldtype": "Button",
+   "label": "Get Items"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-07-31 14:06:54.337089",
+ "modified": "2023-10-31 16:19:46.849003",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Konfirmasi Return Subkategori",

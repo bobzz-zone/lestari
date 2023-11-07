@@ -904,7 +904,7 @@ class GoldPayment(StockController):
 		#roundoff=0
 		
 		for row in gl:
-			frappe.msgprint(str(row))
+			# frappe.msgprint(str(row))
 			roundoff=roundoff+gl[row]['debit']-gl[row]['credit']
 			if gl[row]["debit"]>0:
 				if gl[row]["account"] not in against_credit:

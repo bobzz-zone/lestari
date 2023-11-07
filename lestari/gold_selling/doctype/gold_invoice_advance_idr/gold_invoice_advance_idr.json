@@ -7,6 +7,7 @@
  "engine": "InnoDB",
  "field_order": [
   "customer_deposit",
+  "no_nota",
   "date",
   "idr_deposit",
   "idr_allocated",
@@ -58,12 +59,20 @@
    "fieldtype": "Link",
    "label": "Account Piutang",
    "options": "Account"
+  },
+  {
+   "fetch_from": "customer_deposit.no_nota",
+   "fieldname": "no_nota",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "No Nota",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-05-16 01:13:39.635489",
+ "modified": "2023-11-06 14:24:53.554912",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice Advance IDR",

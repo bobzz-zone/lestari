@@ -3,19 +3,28 @@
 
 from __future__ import unicode_literals
 import frappe
-from frappe.utils import flt
+from frappe.utils import now,today,add_days,flt
+from datetime import datetime
+import json
 
 @frappe.whitelist()
-def contoh_report():
+def contoh_report(posting_date = None):
     invoice = []
+    if posting_date:
+        json_data = json.loads(posting_date)
+    else:
+        input_dt = datetime.today()
+        res = input_dt.replace(day=1)
+        json_data = [res.date(), today()]
     list_doc = frappe.db.sql("""
         SELECT
            *
         FROM
         `tabGold Invoice`
         WHERE docstatus = 1
+        AND posting_date BETWEEN "{0}" AND "{1}"
         ORDER BY posting_date ASC
-    """,as_dict=1)
+    """.format(json_data[0],json_data[1]),as_dict = 1)
     no = 0
     for row in list_doc:
         no+=1

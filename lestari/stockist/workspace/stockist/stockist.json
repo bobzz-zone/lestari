@@ -23,7 +23,7 @@
    "type": "Link"
   }
  ],
- "modified": "2023-07-21 11:02:35.158068",
+ "modified": "2023-11-03 10:59:14.690560",
  "modified_by": "dendro@lms.com",
  "module": "Stockist",
  "name": "Stockist",
@@ -91,6 +91,12 @@
    "label": "List Transfer Stockist",
    "link_to": "Transfer Stockist",
    "stats_filter": "{\n    \"docstatus\": 0\n}",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Form Order",
+   "link_to": "Form Order",
    "type": "DocType"
   }
  ]

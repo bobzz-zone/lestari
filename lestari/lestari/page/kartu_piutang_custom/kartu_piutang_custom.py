@@ -3,10 +3,19 @@
 
 from __future__ import unicode_literals
 import frappe
-from frappe.utils import flt
+from frappe.utils import now,today,add_days,flt
+from datetime import datetime
+import json
 
 @frappe.whitelist()
-def contoh_report():
+def contoh_report(posting_date = None):
+    if posting_date:
+        json_data = json.loads(posting_date)
+    else:
+        input_dt = datetime.today()
+        res = input_dt.replace(day=1)
+        json_data = [res.date(), today()]
+    # frappe.msgprint(str(res.date()))
     piutang = []
     list_doc = frappe.db.sql("""
             SELECT
@@ -22,6 +31,7 @@ def contoh_report():
             FROM
             `tabGold Invoice`
             WHERE docstatus = 1 and outstanding > 0
+            AND posting_date BETWEEN "{0}" AND "{1}"
             UNION
             SELECT
             customer,
@@ -36,7 +46,8 @@ def contoh_report():
             FROM
             `tabCustomer Deposit`
             WHERE docstatus = 1 and ( gold_left > 0  or idr_left > 0 )
-    """,as_dict = 1)
+            AND posting_date BETWEEN "{0}" AND "{1}"
+    """.format(json_data[0],json_data[1]),as_dict = 1)
     no = 0
     url = "http://erpnext.lestarigold.co.id/app"
     for row in list_doc:
@@ -46,7 +57,7 @@ def contoh_report():
             'no' : no,
             'voucher_no' : row.voucher_no,
             'voucher_type' : row.voucher_type,
-            'date' : frappe.format(row.posting_date,{'fieldtype':'Date'}),
+            'posting_date' : row.posting_date,
             'customer' : row.customer,
             'tutupan' : flt(row.tutupan),
             'outstanding' : flt(row.outstanding),

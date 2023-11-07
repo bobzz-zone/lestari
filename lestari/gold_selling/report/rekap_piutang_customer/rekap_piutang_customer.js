@@ -10,6 +10,13 @@ frappe.query_reports["Rekap Piutang Customer"] = {
 			"fieldtype": "Link",
 			"options": "Customer",
 			"reqd": 1
+		},
+		{
+			"fieldname":"posting_date",
+			"label": __("Posting Date"),
+			"fieldtype": "DateRange",
+			"default": [frappe.datetime.month_start(), frappe.datetime.now_date()],
+			"reqd": 1
 		}
 	]
 };
