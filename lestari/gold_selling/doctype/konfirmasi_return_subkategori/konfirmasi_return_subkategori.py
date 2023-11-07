@@ -6,9 +6,12 @@ from frappe.model.document import Document
 
 class KonfirmasiReturnSubkategori(Document):
     def on_submit(self):
-        pass
+        # pass
         # doc = frappe.get_doc("Konfirmasi Payment Return", self.no_konfirmasi)
-        # for row in self.items:pass	
+        for row in self.items:
+            frappe.db.sql("""UPDATE `{}` SET is_confirm = 1 WHERE name = '{}' """.format(row.child_table, row.child_id))	
+            
+            
     @frappe.whitelist()
     def get_konfirmasi(self):
         doc = frappe.get_doc("Konfirmasi Payment Return", self.no_konfirmasi)
@@ -16,7 +19,7 @@ class KonfirmasiReturnSubkategori(Document):
         total_berat_input = 0
         if doc.detail_perhiasan:
             for row in doc.detail_perhiasan:
-                if row.is_out == 0 and row.is_confirm == 0:
+                if row.is_confirm == 0:
                     total_berat_input += row.terima_qty
                     terima_berat += row.terima_qty
                     baris_baru = {

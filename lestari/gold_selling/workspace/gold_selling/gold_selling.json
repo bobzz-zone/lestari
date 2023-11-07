@@ -173,7 +173,7 @@
    "type": "Link"
   }
  ],
- "modified": "2023-10-20 16:25:42.516292",
+ "modified": "2023-10-31 12:40:57.603845",
  "modified_by": "dendro@lms.com",
  "module": "Gold Selling",
  "name": "Gold Selling",
@@ -291,6 +291,18 @@
    "label": "List Detail Pembayaran",
    "link_to": "list-detail-pembayar",
    "type": "Page"
+  },
+  {
+   "doc_view": "",
+   "label": "Info Janji Bayar",
+   "link_to": "info-janji-bayar",
+   "type": "Page"
+  },
+  {
+   "doc_view": "",
+   "label": "Titipan Transfer Tracking",
+   "link_to": "Titipan Transfer Tracking",
+   "type": "Report"
   }
  ]
 }

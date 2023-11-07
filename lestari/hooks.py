@@ -15,18 +15,20 @@ app_license = "MIT"
 # include js, css files in header of desk.html
 # app_include_css = "/assets/lestari/css/lestari.css"
 # app_include_js = "/assets/lestari/js/lestari.js"
-app_include_css = ['/assets/lestari/css/dx.light.css',
+app_include_css = [
+    			   '/assets/lestari/css/dx.light.css',
 				   '/assets/lestari/css/dx.dark.css',
-                   '/assets/lestari/css/frappe-datatable.min.css']
+                #    '/assets/lestari/css/frappe-datatable.min.css'
+                   ]
 app_include_js = ['/assets/lestari/js/dx.all.js',
                   '/assets/lestari/js/exceljs.min.js',
                   '/assets/lestari/js/FileSaver.min.js',
                   '/assets/lestari/js/jspdf.umd.min.js',
                   '/assets/lestari/js/jszip.min.js',
                   '/assets/lestari/js/polyfill.min.js',
-                  '/assets/lestari/js/Sortable.min.js',
+                #   '/assets/lestari/js/Sortable.min.js',
                   '/assets/lestari/js/clusterize.min.js',
-                  '/assets/lestari/js/frappe-datatable.min.js',
+                #   '/assets/lestari/js/frappe-datatable.min.js',
                   '/assets/lestari/js/lestari.js']
 
 
@@ -123,7 +125,8 @@ doc_events = {
 jenv = {
 	'filters':[
 		# 'get_all:lestari.lestari.doctype.rencana_produk_harian.rencana_produk_harian.get_all'
-		'get_qrcode:lestari.generateqr.get_qrcode'
+		'get_qrcode:lestari.generateqr.get_qrcode',
+        'get_num2words:lestari.num2words.get_num2words'
 	]
 }
 

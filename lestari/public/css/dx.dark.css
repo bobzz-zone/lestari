@@ -1,8 +1,8 @@
 @charset "UTF-8";
 /**
 * DevExtreme (dx.dark.css)
-* Version: 23.1.4
-* Build date: Fri Jul 14 2023
+* Version: 23.1.6
+* Build date: Fri Oct 13 2023
 *
 * Copyright (c) 2012 - 2023 Developer Express Inc. ALL RIGHTS RESERVED
 * Read about DevExtreme licensing here: https://js.devexpress.com/Licensing/
@@ -2433,6 +2433,7 @@
   -ms-flex-pack: center;
   justify-content: center;
   vertical-align: middle;
+  background-size: contain;
   width: 18px;
   height: 18px;
   font-size: 18px;
@@ -8742,7 +8743,7 @@
 .dx-rtl .dx-treeview-node-container:first-child>.dx-treeview-node {
   padding-left: 0;
 }
-.dx-rtl .dx-treeview-node-container .dx-treeview-node .dx-treeview-item .dx-treeview-item-content > .dx-icon {
+.dx-rtl .dx-treeview-node-container .dx-treeview-node .dx-treeview-item .dx-treeview-item-content .dx-icon {
   margin-right: 0;
 }
 .dx-rtl .dx-treeview-custom-collapse-icon,
@@ -8780,7 +8781,7 @@
 .dx-treeview.dx-rtl .dx-treeview-node {
   padding-right: 15px;
 }
-.dx-treeview.dx-rtl .dx-treeview-item .dx-treeview-item-content > .dx-icon {
+.dx-treeview.dx-rtl .dx-treeview-item .dx-treeview-item-content .dx-icon {
   margin-left: 5px;
 }
 .dx-treeview.dx-rtl .dx-treeview-item-with-checkbox .dx-treeview-item {
@@ -8872,13 +8873,16 @@
   background-color: #1ca8dd;
   color: #2a2a2a;
 }
+.dx-treeview-item-without-checkbox.dx-state-focused > .dx-treeview-item .dx-item-content .dx-item-url {
+  color: unset;
+}
 .dx-treeview-item {
   display: block;
   cursor: pointer;
   padding: 5px 6px;
   min-height: 32px;
 }
-.dx-treeview-item .dx-treeview-item-content > .dx-icon {
+.dx-treeview-item .dx-treeview-item-content .dx-icon {
   display: inline-block;
   vertical-align: middle;
   margin-right: 5px;
@@ -9160,7 +9164,7 @@
   display: none;
   z-index: 2000;
   cursor: pointer;
-  background-color: #2a2a2a;
+  border: 1px solid transparent;
 }
 .dx-menu-adaptive-mode .dx-treeview-toggle-item-visibility {
   left: auto;
@@ -9208,6 +9212,13 @@
   -webkit-box-flex: 1;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
+}
+.dx-context-menu-content-delimiter::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #2a2a2a;
 }
 .dx-menu .dx-menu-item-expanded {
   background-color: #2a2a2a;
@@ -13213,7 +13224,9 @@
   font-size: 0!important;
 }
 .dx-datagrid-group-panel {
-  display: inline-block;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   white-space: nowrap;
   width: 100%;
   -ms-touch-action: pinch-zoom;
@@ -13883,10 +13896,10 @@
   width: 85px;
   min-width: 85px;
 }
-.dx-datagrid-table .dx-row .dx-command-edit .dx-link.dx-state-disabled {
+.dx-datagrid-table .dx-row .dx-command-edit .dx-state-disabled.dx-link {
   opacity: .5;
 }
-.dx-datagrid-table .dx-row .dx-command-edit .dx-link.dx-state-disabled.dx-link-icon {
+.dx-datagrid-table .dx-row .dx-command-edit .dx-state-disabled.dx-link-icon {
   opacity: .6;
 }
 .dx-datagrid-table .dx-row .dx-command-expand {
@@ -14385,6 +14398,7 @@
   padding: 7px;
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
+  line-height: 1.2858;
 }
 .dx-datagrid-group-panel .dx-group-panel-item {
   margin-right: 10px;
@@ -15962,10 +15976,10 @@ input.dx-hidden {
   width: 85px;
   min-width: 85px;
 }
-.dx-treelist-table .dx-row .dx-command-edit .dx-link.dx-state-disabled {
+.dx-treelist-table .dx-row .dx-command-edit .dx-state-disabled.dx-link {
   opacity: .5;
 }
-.dx-treelist-table .dx-row .dx-command-edit .dx-link.dx-state-disabled.dx-link-icon {
+.dx-treelist-table .dx-row .dx-command-edit .dx-state-disabled.dx-link-icon {
   opacity: .6;
 }
 .dx-treelist-table .dx-row .dx-command-expand {

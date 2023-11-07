@@ -77,7 +77,7 @@ frappe.ui.form.on("Gold Invoice", {
 	get_gold_payment: function (frm) {
 	frm.call("get_gold_payment", { throw_if_missing: true }).then((r) => {
 		if (r.message) {
-		console.log(r.message);
+		// console.log(r.message);
 		frappe.set_route("Form", r.message.doctype, r.message.name);
 		}
 	});
@@ -324,7 +324,7 @@ frappe.ui.form.on("Gold Invoice Item", {
 	category: function (frm, cdt, cdn) {
 		// your code here
 		var d = locals[cdt][cdn];
-		console.log(d)
+		// console.log(d)
 		if (!d.category) {
 			return;
 		}
@@ -338,7 +338,7 @@ frappe.ui.form.on("Gold Invoice Item", {
 				// frappe.model.set_value(cdt, cdn, "print_amount", Math.floor(((parseFloat(r.message.nilai_print) * d.qty) / 100)*1000)/1000);
 				frappe.model.set_value(cdt, cdn, "amount", Math.floor((parseFloat(r.message.nilai) * d.qty) *10)/1000);
 				frappe.model.set_value(cdt, cdn, "print_amount", Math.floor((parseFloat(r.message.nilai_print) * d.qty) *10)/1000);
-				console.log(r.message.nilai)
+				// console.log(r.message.nilai)
 				var total = 0;
 				var total_print = 0;
 				$.each(frm.doc.items, function (i, g) {

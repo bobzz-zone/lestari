@@ -1,27 +1,49 @@
 frappe.pages['info-proses-penjuala'].on_page_load = function(wrapper) {
-	new DevExtreme(wrapper)
+	var tema = frappe.boot.user.desk_theme
+		if(tema == "Dark"){
+			frappe.require('/assets/lestari/css/dx.dark.css',function() {
+				new DevExtreme(wrapper)
+			})
+		}else{
+			frappe.require('/assets/lestari/css/dx.light.css',function() {
+				new DevExtreme(wrapper)
+			})
+		}
+		DevExpress.viz.refreshTheme();
+	frappe.breadcrumbs.add("Gold Selling");
 }
 DevExtreme = Class.extend({
 	init: function(wrapper){
+		var me = this
 		this.page = frappe.ui.make_app_page({
 			parent: wrapper,
 			title: 'Info Proses Penjualan',
 			single_column: true
 		});
+		this.page.set_secondary_action('Refresh', () => me.make(), { icon: 'refresh', size: 'sm'})
+		this.posting_date = ""
+		this.page.add_field({"fieldtype": "DateRange", "fieldname": "posting_date","default": [frappe.datetime.month_start(), frappe.datetime.now_date()],
+			"label": __("Posting Date"), "reqd": 1,
+			change: function() {
+				me.posting_date = this.value;
+				me.make()
+			}
+		}),
 		this.make()
+		// frappe.msgprint('Data Terload')
 	},
 	// make page
 	make: async function(){
-		let me = $(this);
-		DevExpress.localization.locale(navigator.language);
+		let me = this
+		console.log(this.page.wrapper.attr('id'))
+		// DevExpress.localization.locale(navigator.language);
 		let body = `<div class="dx-viewport">
-			<div id="dataGrid"></div>
+			<div id="dataGrid_`+this.page.wrapper.attr('id')+`"></div>
 		</div>`;
 		$(frappe.render_template(body, this)).appendTo(this.page.main)
-		var employees =  await this.employees()
-		console.log(employees.message)		
-		$("#dataGrid").dxDataGrid({
-			dataSource: employees.message,
+		var infoproses = await this.infoproses()
+		$("#dataGrid_"+this.page.wrapper.attr('id')).dxDataGrid({
+			dataSource: infoproses.message,
         	keyExpr: 'no_nota',
 			height: 650,
 			width: '100%',
@@ -29,6 +51,9 @@ DevExtreme = Class.extend({
 			allowColumnReordering: false,
 			showBorders: true,
 			hoverStateEnabled:true,
+			preloadEnabled:true,
+			renderAsync:true,
+			filterBuilder: true,
 			summary: {
 				groupItems: [{
 					summaryType: "count"
@@ -235,7 +260,7 @@ DevExtreme = Class.extend({
       			template: masterDetailTemplate,
 				// template: function (container, options){
 				// 	console.log(container)
-				// 	var currentEmployeeData = employees.message[options.key - 1];
+				// 	var currentEmployeeData = infoproses.message[options.key - 1];
 				// 	container.addClass("internal-grid-container");
 				// 	$("<div>")
 				// 	.addClass("internal-grid")
@@ -247,7 +272,7 @@ DevExtreme = Class.extend({
 			},
 			onExporting(e) {
 				const workbook = new ExcelJS.Workbook();
-				const worksheet = workbook.addWorksheet('Employees');
+				const worksheet = workbook.addWorksheet('infoproses');
 		  
 				DevExpress.excelExporter.exportDataGrid({
 				  component: e.component,
@@ -365,11 +390,13 @@ DevExtreme = Class.extend({
 			};
 		  }
 	},
-	employees: function(){
+	infoproses: function(){
+		var me = this
 		var data = frappe.call({
 			method: 'lestari.lestari.page.info_proses_penjuala.info_proses_penjuala.contoh_report',
 			args: {
 				'doctype': 'Gold Payment',
+				'posting_date': me.posting_date,
 			}
 		});
 

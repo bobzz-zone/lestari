@@ -3,59 +3,56 @@ frappe.pages['kartu-piutang-custom'].on_page_load = function(wrapper) {
 }
 DevExtreme = Class.extend({
 	init: function(wrapper){
+		var me = this
 		this.page = frappe.ui.make_app_page({
 			parent: wrapper,
 			title: 'Kartu Piutang Customer',
 			single_column: true
 		});
+		this.posting_date = ""
+		this.page.add_field({"fieldtype": "DateRange", "fieldname": "posting_date","default": [frappe.datetime.month_start(), frappe.datetime.now_date()],
+			"label": __("Posting Date"), "reqd": 1,
+			change: function() {
+				me.posting_date = this.value;
+				me.make()
+			}
+		}),
 		this.make()
 	},
 	// make page
-	doctypes: function(name){
-		console.log(name)
-		// return name.replace(/\s+/g, '-').toLowerCase();
-	},
 	make: async function(){
-		let me = $(this);
-		DevExpress.localization.locale(navigator.language);
+		let me = this
+		console.log(this.page.wrapper.attr('id'))
+		// DevExpress.localization.locale(navigator.language);
 		let body = `<div class="dx-viewport">
-			<div id="dataGrid"></div>
+			<div id="dataGrid_`+this.page.wrapper.attr('id')+`"></div>
 		</div>`;
+		const formatDate = new Intl.DateTimeFormat(['ban', 'id']).format;
 		$(frappe.render_template(body, this)).appendTo(this.page.main)
-		var employees =  await this.employees()
-		// var formattedNumber = DevExpress.localization.formatNumber(employees.message., {
-		// 	style: "currency",
-		// 	currency: "",
-		// 	useGrouping: true
-		//   });
-		// var doctype = await this.doctypes(employees.message.voucher_type)
-		// console.log(doctype)
-		// DevExpress.localization.locale('id');
-		$("#dataGrid").dxDataGrid({
-			dataSource: employees.message,
+		var piutang =  await this.piutang()
+		$("#dataGrid_"+this.page.wrapper.attr('id')).dxDataGrid({
+			dataSource: piutang.message,
         	keyExpr: 'voucher_no',
-			dataRowTemplate(container, item) {
-				let me = $(this)
-				const { data } = item;
-				let url = window.location.origin+'/app';
-				
-				// console.log(data.voucher_type);
-				var doctype = this.doctypes(data.voucher_type);
-				console.log(doctype)
-				const markup = '<tr class=\'main-row\'>'
-					+ `<td>${data.no}</td>`
-					+ `<td>${data.customer}</td>`
-					+ `<td><a href='${url}/${doctype}/${data.voucher_no}'/>${data.voucher_no}</a></td>`
-					+ `<td>${data.voucher_type}</td>`
-					+ `<td>${data.date}</td>`
-					+ `<td>${data.tutupan}</td>`
-					+ `<td>${data.outstanding}</td>`
-					+ `<td>${data.deposit_gold}</td>`
-					+ `<td>${data.deposit_idr}</td>`
-				+ '</tr>';
-				container.append(markup);
-			  },
+			// dataRowTemplate(container, item) {
+			// 	const { data } = item;
+			// 	let url = window.location.origin+'/app';
+			// 	var doctype = data.voucher_type.replace(/\s+/g, '-').toLowerCase();;
+			// 	const markup = '<tr class=\'main-row\'>'
+			// 		+ `<td>${data.no}</td>`
+			// 		+ `<td>${data.customer}</td>`
+			// 		+ `<td><a href='${url}/${doctype}/${data.voucher_no}' target="_blank" >`
+			// 		+ `${data.voucher_no}</a></td>` 	
+			// 		+ `<td>${data.voucher_type}</td>`
+			// 		+ `<td>${data.date}</td>`
+			// 		+ `<td>${data.tutupan}</td>`
+			// 		+ `<td>${data.outstanding}</td>`
+			// 		+ `<td>${data.deposit_gold}</td>`
+			// 		+ `<td>${data.deposit_idr}</td>`
+			// 	+ '</tr>';
+			// 	container.append(markup);
+			//   },
 			showBorders: true,
+			rowAlternationEnabled: true,
 			allowColumnReordering: true,
 			allowColumnResizing: true,
 			columnAutoWidth: true,
@@ -78,9 +75,13 @@ DevExtreme = Class.extend({
 			showInfo: true,
 			showNavigationButtons: true,
 			},
-			filterRow: { visible: true },
+			filterRow: { visible: true, applyFilter: 'auto'},
+			filterPanel: { visible: true },
         	searchPanel: { visible: true }, 
 			columnChooser: { enabled: true },
+			headerFilter: {
+				visible: true,
+			  },
 			export: {
 				enabled: true
 			},
@@ -110,10 +111,9 @@ DevExtreme = Class.extend({
 				  groupIndex: 0
 				},
 			  {
-				dataField: 'date',
-				format: 'string',
-				width: 150,
-				caption: 'Posting Date'
+				dataField: 'posting_date',
+				format: 'date',
+				caption: 'Posting Date',
 			  },
 			  {
 				dataField: 'tutupan',
@@ -125,7 +125,7 @@ DevExtreme = Class.extend({
 				alignment: 'right',
 				format: {
 					type: 'fixedPoint',
-					precision: 2,
+					precision: 3,
 					currency: '',
 				  },
 				caption: 'Outstanding'
@@ -135,7 +135,7 @@ DevExtreme = Class.extend({
 				alignment: 'right',
 				format: {
 					type: 'fixedPoint',
-					precision: 2,
+					precision: 3,
 					currency: '',
 				  },
 				caption: 'Deposit Gold'
@@ -145,7 +145,7 @@ DevExtreme = Class.extend({
 				alignment: 'right',
 				format: {
 					type: 'fixedPoint',
-					precision: 2,
+					precision: 3,
 					currency: '',
 				  },
 				  caption: 'Deposit IDR'
@@ -159,12 +159,12 @@ DevExtreme = Class.extend({
 				{
 						column: 'outstanding',
 						summaryType: 'sum',
-						displayFormat: 'Outstanding: {0}',
+						displayFormat: '{0}',
 						showInGroupFooter: false,
 						alignByColumn: true,
 						valueFormat: {
 							type: 'fixedPoint',
-							precision: 2,
+							precision: 3,
 							thousandsSeparator: ',',
 							currencySymbol: '',
 							useGrouping: true,
@@ -173,12 +173,12 @@ DevExtreme = Class.extend({
 				{
 					column: 'deposit_gold',
 					summaryType: 'sum',
-					displayFormat: 'Deposit Gold: {0}',
+					displayFormat: '{0}',
 					showInGroupFooter: false,
 					alignByColumn: true,
 					valueFormat: {
 						type: 'fixedPoint',
-						precision: 2,
+						precision: 3,
 						thousandsSeparator: ',',
 						currencySymbol: '',
 						useGrouping: true,
@@ -187,12 +187,12 @@ DevExtreme = Class.extend({
 				  {
 					column: 'Deposit IDR',
 					summaryType: 'sum',
-					displayFormat: 'Deposit IDR: {0}',
+					displayFormat: '{0}',
 					showInGroupFooter: false,
 					alignByColumn: true,
 					valueFormat: {
 						type: 'fixedPoint',
-						precision: 2,
+						precision: 3,
 						thousandsSeparator: ',',
 						currencySymbol: '',
 						useGrouping: true,
@@ -208,12 +208,12 @@ DevExtreme = Class.extend({
 				  {
 					column: 'outstanding',
 					summaryType: 'sum',
-					displayFormat: 'Outstanding: {0}',
+					displayFormat: '{0}',
 					showInGroupFooter: false,
 					alignByColumn: true,
 					valueFormat: {
 						type: 'fixedPoint',
-						precision: 2,
+						precision: 3,
 						thousandsSeparator: ',',
 						currencySymbol: '',
 						useGrouping: true,
@@ -222,12 +222,12 @@ DevExtreme = Class.extend({
 				  {
 					column: 'deposit_gold',
 					summaryType: 'sum',
-					displayFormat: 'Deposit Gold: {0}',
+					displayFormat: '{0}',
 					showInGroupFooter: false,
 					alignByColumn: true,
 					valueFormat: {
 						type: 'fixedPoint',
-						precision: 2,
+						precision: 3,
 						thousandsSeparator: ',',
 						currencySymbol: '',
 						useGrouping: true,
@@ -236,12 +236,12 @@ DevExtreme = Class.extend({
 				  {
 					column: 'Deposit IDR',
 					summaryType: 'sum',
-					displayFormat: 'Deposit IDR: {0}',
+					displayFormat: '{0}',
 					showInGroupFooter: false,
 					alignByColumn: true,
 					valueFormat: {
 						type: 'fixedPoint',
-						precision: 2,
+						precision: 3,
 						thousandsSeparator: ',',
 						currencySymbol: '',
 						useGrouping: true,
@@ -251,7 +251,7 @@ DevExtreme = Class.extend({
 			  },
 			onExporting(e) {
 				const workbook = new ExcelJS.Workbook();
-				const worksheet = workbook.addWorksheet('Employees');
+				const worksheet = workbook.addWorksheet('piutang');
 		  
 				DevExpress.excelExporter.exportDataGrid({
 				  component: e.component,
@@ -266,11 +266,12 @@ DevExtreme = Class.extend({
 			  }
 		});
 	},
-	employees: function(){
+	piutang: function(){
+		var me = this
 		var data = frappe.call({
 			method: 'lestari.lestari.page.kartu_piutang_custom.kartu_piutang_custom.contoh_report',
 			args: {
-				'doctype': 'Purchase Order',
+				'posting_date': me.posting_date,
 			}
 		});
 

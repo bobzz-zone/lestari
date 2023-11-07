@@ -3,11 +3,19 @@
 
 from __future__ import unicode_literals
 import frappe
-from frappe.utils import flt
+from frappe.utils import now,today,add_days,flt
+from datetime import datetime
+import json
 
 @frappe.whitelist()
-def contoh_report():
+def contoh_report(posting_date):
     piutang = []
+    if posting_date:
+        json_data = json.loads(posting_date)
+    else:
+        input_dt = datetime.today()
+        res = input_dt.replace(day=1)
+        json_data = [res.date(), today()]
     list_doc = frappe.db.sql("""
         SELECT
             a.name,
@@ -56,9 +64,10 @@ def contoh_report():
         LEFT JOIN `tabGold Invoice Advance IDR` g
             ON a.name = g.parent
             AND g.idr_allocated > 0
-        WHERE a.docstatus = 1
+        WHERE a.docstatus = 1 
+        AND a.posting_date BETWEEN "{0}" AND "{1}" 
         ORDER BY a.`customer` ASC
-    """,as_dict=1)
+    """.format(json_data[0],json_data[1]),as_dict = 1)
     # list_doc = frappe.db.get_list("Gold Payment", filters={'docstatus':1})
     # frappe.msgprint(str(list_doc))
     no = 0

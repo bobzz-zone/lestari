@@ -79,29 +79,21 @@ frappe.ui.form.on('Konfirmasi Return Subkategori', {
 		  });
 		
 	},no_konfirmasi: function(frm){
-		if(cur_frm.doc.items){
-			if(cur_frm.doc.items.length > 0){
-				cur_frm.clear_table("items")
-				cur_frm.refresh_field('items')
-			}else{
-				frappe.call({
-					method: "get_konfirmasi",
-					doc: frm.doc,
-					callback: function (r){
-						cur_frm.refresh_fields();	
-						}
-					})
-			}
-		}else{
-			frappe.call({
-				method: "get_konfirmasi",
-				doc: frm.doc,
-				callback: function (r){
-					cur_frm.refresh_fields();
-					}
-				})
-			}
-	}
+		
+	},reset: function(frm){
+		cur_frm.set_value('terima_berat',0);
+		cur_frm.set_value('total_berat_input',0);
+		cur_frm.clear_table("items")
+		cur_frm.refresh_fields();
+	},get_items: function(frm){
+		frappe.call({
+			method: "get_konfirmasi",
+			doc: frm.doc,
+			callback: function (r){
+				cur_frm.refresh_fields();
+				}
+			})
+		}
 	
 	// items_add: function(frm,cdt,cdn){
 	// 	cur_frm.fields_dict['items'].grid.grid_rows.sortable('refresh');

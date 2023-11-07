@@ -3,16 +3,25 @@ frappe.pages['list-detail-pembayar'].on_page_load = function(wrapper) {
 }
 DevExtreme = Class.extend({
 	init: function(wrapper){
+		var me = this
 		this.page = frappe.ui.make_app_page({
 			parent: wrapper,
 			title: 'List Detail Pembayaran',
 			single_column: true
 		});
+		this.posting_date = ""
+		this.page.add_field({"fieldtype": "DateRange", "fieldname": "posting_date","default": [frappe.datetime.month_start(), frappe.datetime.now_date()],
+			"label": __("Posting Date"), "reqd": 1,
+			change: function() {
+				me.posting_date = this.value;
+				me.make()
+			}
+		}),
 		this.make()
 	},
 	// make page
 	make: async function(){
-		let me = $(this);
+		var me = this
 		DevExpress.localization.locale(navigator.language);
 		let body = `<div class="dx-viewport">
 			<div id="dataGrid"></div>
@@ -405,10 +414,12 @@ DevExtreme = Class.extend({
 		  }
 	},
 	employees: function(){
+		var me = this
 		var data = frappe.call({
 			method: 'lestari.lestari.page.list_detail_pembayar.list_detail_pembayar.contoh_report',
 			args: {
 				'doctype': 'Gold Payment',
+				'posting_date': me.posting_date,
 			}
 		});
 
