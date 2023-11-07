@@ -21,7 +21,6 @@ class GoldInvoice(Document):
 			self.outstanding = self.grand_total - flt(self.total_advance)
 			if self.outstanding<0:
 				frappe.throw("Outstanding tidak boleh lebih kecil dari 0")
-			self.status = "Draft"
 	@frappe.whitelist(allow_guest=True)
 	def add_row_action(self):
 		gi = frappe.db.sql("""select name,income_account from `tabGold Selling Item` where kadar="{}" and item_group="{}" """.format(self.kadar,self.category),as_list=1)
@@ -44,7 +43,6 @@ class GoldInvoice(Document):
 			self.invoice_status="Paid"
 		else:
 			self.invoice_status="Unpaid"
-		self.status = "Submitted"
 	def on_submit(self):
 		if self.outstanding <= 0:
 			frappe.throw(str(self.outstanding))
@@ -394,7 +392,7 @@ class GoldInvoice(Document):
 			if row.gold_allocated:
 				frappe.db.sql("""update `tabCustomer Deposit` set  gold_left=gold_left + {} where name="{}" """.format(row.gold_allocated,row.customer_deposit),as_list=1)
 		self.make_gl_entries()
-		self.status = "Cancelled"
+		self.invoice_status = "Cancelled"
 	@frappe.whitelist(allow_guest=True)
 	def get_gold_payment(self):
 		doc = frappe.new_doc("Gold Payment")
