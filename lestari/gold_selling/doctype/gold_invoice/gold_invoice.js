@@ -368,8 +368,8 @@ frappe.ui.form.on("Gold Invoice Item", {
 				if (cur_frm.doc.tax_status=="Non Tax"){
 					add=1/2;
 				}
-				var value_new = parseFloat(r.message.nilai) + add;
-				var value_print = parseFloat(r.message.nilai_print) + add;
+				var value_new = parseFloat(r.message.nilai) ;
+				var value_print = parseFloat(r.message.nilai_print) ;
 				frappe.model.set_value(cdt, cdn, "rate", value_new);
 				frappe.model.set_value(cdt, cdn, "print_rate", value_print);
 				// frappe.model.set_value(cdt, cdn, "amount", Math.floor(((parseFloat(r.message.nilai) * d.qty) / 100)*1000)/1000);
