@@ -364,12 +364,18 @@ frappe.ui.form.on("Gold Invoice Item", {
 			method: "lestari.gold_selling.doctype.gold_invoice.gold_invoice.get_gold_rate",
 			args: { category: d.category, customer: frm.doc.customer, customer_group: frm.doc.customer_group,customer_print : frm.doc.subcustomer || "" },
 			callback: function (r) {
-				frappe.model.set_value(cdt, cdn, "rate", r.message.nilai);
-				frappe.model.set_value(cdt, cdn, "print_rate", r.message.nilai_print);
+				var add = 0 ;
+				if (cur_frm.doc.tax_status=="Non Tax"){
+					add=1/2;
+				}
+				var value_new = parseFloat(r.message.nilai) + add;
+				var value_print = parseFloat(r.message.nilai_print) + add;
+				frappe.model.set_value(cdt, cdn, "rate", value_new);
+				frappe.model.set_value(cdt, cdn, "print_rate", value_print);
 				// frappe.model.set_value(cdt, cdn, "amount", Math.floor(((parseFloat(r.message.nilai) * d.qty) / 100)*1000)/1000);
 				// frappe.model.set_value(cdt, cdn, "print_amount", Math.floor(((parseFloat(r.message.nilai_print) * d.qty) / 100)*1000)/1000);
-				frappe.model.set_value(cdt, cdn, "amount", Math.floor((parseFloat(r.message.nilai) * d.qty) *10)/1000);
-				frappe.model.set_value(cdt, cdn, "print_amount", Math.floor((parseFloat(r.message.nilai_print) * d.qty) *10)/1000);
+				frappe.model.set_value(cdt, cdn, "amount", Math.floor((value_new*10)/1000);
+				frappe.model.set_value(cdt, cdn, "print_amount", Math.floor((value_print * d.qty) *10)/1000);
 				// console.log(r.message.nilai)
 				var total = 0;
 				var total_print = 0;
