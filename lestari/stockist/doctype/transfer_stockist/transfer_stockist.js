@@ -297,11 +297,11 @@ frappe.ui.form.on('Transfer Stockist', {
 	},
 	onload:function(frm){
 		frm.trigger('get_connect')
-		cur_frm.set_value("total_berat",0)
+		cur_frm.set_value("total_bruto",0)
 		cur_frm.clear_table("items")
 		cur_frm.clear_table("per_kadar")
 		cur_frm.refresh_field("items")
-		cur_frm.refresh_field("total_berat")
+		cur_frm.refresh_field("total_bruto")
 		cur_frm.refresh_field("per_kadar")
 	},
 	validate: function(frm){

@@ -10,12 +10,14 @@ from frappe.utils import cint, flt
 
 class TransferStockist(Document):
 	def validate(self):
-		self.status = 'Draft'
+		# self.status = 'Draft'
+		frappe.db.sql("""UPDATE `tabTransfer Stockist` SET status = "{0}" where name = "{1}" """.format("Draft",self.name))
 	def on_submit(self):
-		self.status = 'Submitted'
-		# frappe.db.sql("""UPDATE `tabTransfer Stockist` SET status = "{0}" where name = "{1}" """.format("Submitted",self.name))
+		# self.status = 'Submitted'
+		frappe.db.sql("""UPDATE `tabTransfer Stockist` SET status = "{0}" where name = "{1}" """.format("Submitted",self.name))
 	def on_cancel(self):
-		self.status = 'Cancelled'
+		frappe.db.sql("""UPDATE `tabTransfer Stockist` SET status = "{0}" where name = "{1}" """.format("Cancelled",self.name))
+		# self.status = 'Cancelled'
 
 @frappe.whitelist()
 def buat_baru(source_name, target_doc=None):

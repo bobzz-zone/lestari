@@ -15,7 +15,7 @@ def contoh_report(posting_date = None):
     else:
         input_dt = datetime.today()
         res = input_dt.replace(day=1)
-        json_data = [res.date(), today()]
+        json_data = ['2023-10-31', today()]
     list_doc = frappe.db.sql("""
         SELECT
            *

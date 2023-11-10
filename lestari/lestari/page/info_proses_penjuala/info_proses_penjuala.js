@@ -22,7 +22,7 @@ DevExtreme = Class.extend({
 		});
 		this.page.set_secondary_action('Refresh', () => me.make(), { icon: 'refresh', size: 'sm'})
 		this.posting_date = ""
-		this.page.add_field({"fieldtype": "DateRange", "fieldname": "posting_date","default": [frappe.datetime.month_start(), frappe.datetime.now_date()],
+		this.page.add_field({"fieldtype": "DateRange", "fieldname": "posting_date","default": ['2023-10-31', frappe.datetime.now_date()],
 			"label": __("Posting Date"), "reqd": 1,
 			change: function() {
 				me.posting_date = this.value;
@@ -45,50 +45,84 @@ DevExtreme = Class.extend({
 		$("#dataGrid_"+this.page.wrapper.attr('id')).dxDataGrid({
 			dataSource: infoproses.message,
         	keyExpr: 'no_nota',
-			height: 650,
-			width: '100%',
+			// height: 650,
+			// width: '100%',
 			// columnAutoWidth: true,
-			allowColumnReordering: false,
+			// allowColumnReordering: false,
+			// showBorders: true,
+			// hoverStateEnabled:true,
+			// preloadEnabled:true,
+			// renderAsync:true,
+			// filterBuilder: true,
+			// summary: {
+			// 	groupItems: [{
+			// 		summaryType: "count"
+			// 	}]
+			// },
+			// columnFixing: {
+			// 	enabled: true,
+			// 	fixedPosition: "top"
+			// },
+			// scrolling: {
+			// 	mode: 'virtual',
+			// 	rowRenderingMode: 'virtual',
+			// },
+			// paging: {
+			// 	enabled: false
+			// },
+			// filterRow: {
+			// 	visible: true
+			// },
+			// headerFilter: {
+			// 	visible: true
+			// },
+			// filterRow: {
+			// 	visible: true
+			// },
+			// grouping: {  
+			// 	autoExpandAll: false  
+			// },  
+			// groupPanel: {
+			// 	visible: true
+			// },
+			// searchPanel: {
+			// 	visible: true
+			// },
+			// focusedRowEnabled: false,
+			// export: {
+			// 	enabled: true
+			// },
 			showBorders: true,
-			hoverStateEnabled:true,
-			preloadEnabled:true,
-			renderAsync:true,
-			filterBuilder: true,
-			summary: {
-				groupItems: [{
-					summaryType: "count"
-				}]
-			},
-			columnFixing: {
-				enabled: true,
-				fixedPosition: "top"
-			},
+			rowAlternationEnabled: true,
+			allowColumnReordering: true,
+			allowColumnResizing: true,
+			columnAutoWidth: true,
 			scrolling: {
-				mode: 'virtual',
-				rowRenderingMode: 'virtual',
+				columnRenderingMode: 'virtual',
+			  },
+			groupPanel: {
+				visible: true,
+			},
+			grouping:{
+				autoExpandAll: false,
 			},
 			paging: {
-				enabled: false
+				pageSize: 25,
 			},
-			filterRow: {
-				visible: true
+			pager: {
+			visible: true,
+			allowedPageSizes: [25, 50, 100, 'all'],
+			showPageSizeSelector: true,
+			showInfo: true,
+			showNavigationButtons: true,
 			},
+			filterRow: { visible: true, applyFilter: 'auto'},
+			filterPanel: { visible: true },
+        	searchPanel: { visible: true }, 
+			columnChooser: { enabled: true },
 			headerFilter: {
-				visible: true
-			},
-			filterRow: {
-				visible: true
-			},
-			grouping: {  
-				autoExpandAll: false  
-			},  
-			groupPanel: {
-				visible: true
-			},
-			searchPanel: {
-				visible: true
-			},
-			focusedRowEnabled: false,
+				visible: true,
+			  },
 			export: {
 				enabled: true
 			},
@@ -191,6 +225,35 @@ DevExtreme = Class.extend({
 			}	
 		],
 		summary:{
+			totalItems: [
+				{
+					column: 'berat_kotor',
+					summaryType: 'sum',
+					displayFormat: '{0}',
+					showInGroupFooter: false,
+					alignByColumn: true,
+					valueFormat: {
+						type: 'fixedPoint',
+						precision: 2,
+						thousandsSeparator: ',',
+						currencySymbol: '',
+						useGrouping: true,
+					},
+			},{
+				column: 'berat_bersih',
+				summaryType: 'sum',
+				displayFormat: '{0}',
+				showInGroupFooter: false,
+				alignByColumn: true,
+				valueFormat: {
+					type: 'fixedPoint',
+					precision: 2,
+					thousandsSeparator: ',',
+					currencySymbol: '',
+					useGrouping: true,
+				},
+		},
+			],
 			groupItems: [
 				{
 					column: 'no',
@@ -214,7 +277,7 @@ DevExtreme = Class.extend({
 				{
 					column: 'berat_kotor',
 					summaryType: 'sum',
-					displayFormat: 'Berat Kotor : {0}',
+					displayFormat: '{0}',
 					showInGroupFooter: false,
 					alignByColumn: true,
 					valueFormat: {
@@ -228,7 +291,7 @@ DevExtreme = Class.extend({
 				{
 					column: 'berat_bersih',
 					summaryType: 'sum',
-					displayFormat: 'Berat Bersih : {0}',
+					displayFormat: '{0}',
 					showInGroupFooter: false,
 					alignByColumn: true,
 					valueFormat: {

@@ -1,5 +1,16 @@
 frappe.pages['kartu-piutang-custom'].on_page_load = function(wrapper) {
-	new DevExtreme(wrapper)
+	var tema = frappe.boot.user.desk_theme
+		if(tema == "Dark"){
+			frappe.require('/assets/lestari/css/dx.dark.css',function() {
+				new DevExtreme(wrapper)
+			})
+		}else{
+			frappe.require('/assets/lestari/css/dx.light.css',function() {
+				new DevExtreme(wrapper)
+			})
+		}
+		DevExpress.viz.refreshTheme();
+	frappe.breadcrumbs.add("Gold Selling");
 }
 DevExtreme = Class.extend({
 	init: function(wrapper){
@@ -9,8 +20,9 @@ DevExtreme = Class.extend({
 			title: 'Kartu Piutang Customer',
 			single_column: true
 		});
+		this.page.set_secondary_action('Refresh', () => me.make(), { icon: 'refresh', size: 'sm'})
 		this.posting_date = ""
-		this.page.add_field({"fieldtype": "DateRange", "fieldname": "posting_date","default": [frappe.datetime.month_start(), frappe.datetime.now_date()],
+		this.page.add_field({"fieldtype": "DateRange", "fieldname": "posting_date","default": ['2023-10-31', frappe.datetime.now_date()],
 			"label": __("Posting Date"), "reqd": 1,
 			change: function() {
 				me.posting_date = this.value;
@@ -110,6 +122,13 @@ DevExtreme = Class.extend({
 				  caption: 'Customer',
 				  groupIndex: 0
 				},
+				{
+					dataField: 'bundle',
+					format: 'string',
+					width: 150,
+					caption: 'Bundle',
+					
+				  },
 			  {
 				dataField: 'posting_date',
 				format: 'date',
@@ -223,12 +242,7 @@ DevExtreme = Class.extend({
 					},
 				  },
 			],
-				groupItems: [{
-					column: 'no',
-					summaryType: 'count',
-					displayFormat: '{0} orders',
-					showInGroupFooter: false,
-				  }, 
+				groupItems: [
 				  {
 					column: 'outstanding',
 					summaryType: 'sum',

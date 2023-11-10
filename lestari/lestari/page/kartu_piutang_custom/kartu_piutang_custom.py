@@ -14,13 +14,14 @@ def contoh_report(posting_date = None):
     else:
         input_dt = datetime.today()
         res = input_dt.replace(day=1)
-        json_data = [res.date(), today()]
+        json_data = ['2023-10-31', today()]
     # frappe.msgprint(str(res.date()))
     piutang = []
     list_doc = frappe.db.sql("""
             SELECT
             customer,
             no_invoice,
+            bundle,
             "0" AS deposit_emas,
             "0" AS deposit_idr,
             tutupan,
@@ -36,6 +37,7 @@ def contoh_report(posting_date = None):
             SELECT
             customer,
             "0" AS no_invoice,
+            sales_bundle as bundle,
             gold_left AS deposit_emas,
             idr_left AS deposit_idr,
             tutupan,
@@ -57,6 +59,7 @@ def contoh_report(posting_date = None):
             'no' : no,
             'voucher_no' : row.voucher_no,
             'voucher_type' : row.voucher_type,
+            'bundle' : row.bundle,
             'posting_date' : row.posting_date,
             'customer' : row.customer,
             'tutupan' : flt(row.tutupan),

@@ -31,7 +31,7 @@ class GoldPayment(StockController):
 				for row in self.list_janji_bayar:
 					self.janji_bayar = row.janji_bayar
 			else:
-				frappe.throw("Janji Bayar Lebih dari 1")
+				frappe.msgprint("Janji Bayar Lebih dari 1")
 		total = self.total_idr_payment
 		for row in self.list_janji_bayar:
 			if total == 0 :
@@ -121,12 +121,27 @@ class GoldPayment(StockController):
 				else:
 					frappe.db.sql("""update `tabCustomer Payment Return` set outstanding=outstanding-{} where name = "{}" """.format(row.allocated,row.invoice))
 			if self.janji_bayar and self.total_idr_payment>0:
-				janji=frappe.get_doc("Janji Bayar",self.janji_bayar)
-				if janji.status=="Pending":
-					if janji.sisa_janji<=self.total_idr_payment : 
-						frappe.db.sql("""update `tabJanji Bayar` set status="Lunas",total_terbayar=total_terbayar+sisa_janji , sisa_janji=0 where name = "{0}" """.format(self.janji_bayar))
-					else:
-						frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_payment,self.janji_bayar))
+				# janji=frappe.get_doc("Janji Bayar",self.janji_bayar)
+				# if janji.status=="Pending":
+				# 	if janji.sisa_janji<=self.total_idr_payment : 
+				# 		frappe.db.sql("""update `tabJanji Bayar` set status="Lunas",total_terbayar=total_terbayar+sisa_janji , sisa_janji=0 where name = "{0}" """.format(self.janji_bayar))
+				# 	else:
+				# 		frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(self.total_idr_payment,self.janji_bayar))
+				for row in self.list_janji_bayar:
+					deposit = self.total_idr_payment #5,938,340,461.00
+				# frappe.msgprint(row.janji_bayar)
+				# frappe.msgprint(deposit)
+					if deposit > 0:
+						janji=frappe.get_doc("Janji Bayar",row.janji_bayar)
+						if janji.status=="Pending":
+							if janji.sisa_janji<=deposit : 
+								frappe.db.sql("""update `tabJanji Bayar` set status="Lunas", total_terbayar = {0}, sisa_janji=0 where name = "{1}" """.format(janji.total_bayar,row.janji_bayar))
+								frappe.db.sql("""UPDATE `tabPembayaran Janji Bayar` SET idr_janji_bayar = {2}, sisa_janji = {3}, status_janji = "{4}",allocated_janji = {0} where name = "{1}" """.format(janji.sisa_janji,row.name,janji.total_bayar, 0,"Lunas"))
+							else:
+								frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar+{0} , sisa_janji=sisa_janji-{0} where name = "{1}" """.format(deposit,row.janji_bayar))
+								frappe.db.sql("""UPDATE `tabPembayaran Janji Bayar` SET idr_janji_bayar = {2}, sisa_janji = {3},allocated_janji = {0} where name = "{1}" """.format(deposit,row.name,row.idr_janji_bayar + row.allocated_janji, (row.total_janji_bayar - row.allocated_janji)))
+						deposit = deposit - janji.sisa_janji # 5,938,340,461.00 - 5,451,000,000.00 = 487,340,461.00
+			self.reload()
 	def on_cancel(self):
 		self.flags.ignore_links=True
 		self.status_document="Cancelled"
@@ -134,6 +149,13 @@ class GoldPayment(StockController):
 		self.make_gl_entries_on_cancel()
 		self.update_stock_ledger()
 		self.repost_future_sle_and_gle()
+		if self.list_janji_bayar and self.total_idr_payment>0:
+			for row in self.list_janji_bayar:
+					janji=frappe.get_doc("Janji Bayar",row.janji_bayar)
+					if janji.status == "Lunas":
+						frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar-{0} ,status="Pending", sisa_janji=sisa_janji+{0} where name = "{1}" """.format(row.allocated_janji,row.janji_bayar))
+					else:
+						frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar-{0} , sisa_janji=sisa_janji+{0} where name = "{1}" """.format(row.allocated_janji,row.janji_bayar))
 		#revert advance
 		frappe.db.sql("""update `tabGL Entry` set  against_voucher_type=NULL,against_voucher=NULL where against_voucher_type="Gold Payment" and against_voucher="{}" """.format(self.name))
 		#merge if needed
