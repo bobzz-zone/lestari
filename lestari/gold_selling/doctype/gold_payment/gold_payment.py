@@ -728,7 +728,7 @@ class GoldPayment(StockController):
 			if row.idr_allocated>0:
 				gl_piutang_idr.append({
 					"posting_date":self.posting_date,
-					"account":piutang_gold,
+					"account":piutang_idr,
 					"party_type":"Customer",
 					"party":self.customer,
 					"cost_center":cost_center,

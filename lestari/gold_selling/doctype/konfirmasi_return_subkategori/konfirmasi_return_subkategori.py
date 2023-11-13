@@ -9,7 +9,7 @@ class KonfirmasiReturnSubkategori(Document):
         # pass
         # doc = frappe.get_doc("Konfirmasi Payment Return", self.no_konfirmasi)
         for row in self.items:
-            frappe.db.sql("""UPDATE `{}` SET is_confirm = 1 WHERE name = '{}' """.format(row.child_table, row.child_id))	
+            frappe.db.sql("""UPDATE `tab{}` SET is_confirm = 1 WHERE name = '{}' """.format(row.child_table, row.child_id))	
             
             
     @frappe.whitelist()

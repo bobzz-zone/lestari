@@ -10,6 +10,7 @@
   "posting_date",
   "sales_bundle",
   "sales",
+  "saldo_awal",
   "column_break_3",
   "serah_terima",
   "s_warehouse",
@@ -38,8 +39,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "No Serah Terima Stock",
-   "options": "Serah Terima Payment Stock",
-   "reqd": 1
+   "options": "Serah Terima Payment Stock"
   },
   {
    "fieldname": "column_break_3",
@@ -142,13 +142,19 @@
    "fieldname": "summary_per_kadar_section",
    "fieldtype": "Section Break",
    "label": "Summary Per Kadar"
+  },
+  {
+   "default": "0",
+   "fieldname": "saldo_awal",
+   "fieldtype": "Check",
+   "label": "Saldo Awal"
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-10-16 10:52:12.060177",
+ "modified": "2023-11-13 12:43:42.298001",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Konfirmasi Payment Return",
