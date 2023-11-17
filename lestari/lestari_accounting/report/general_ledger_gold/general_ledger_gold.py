@@ -20,7 +20,7 @@ def execute(filters=None):
 		
 	validate_filters(filters)
 
-	columns = get_column()
+	columns = get_column(filters)
 	
 	update_translations()
 
@@ -182,9 +182,10 @@ def get_balance(row, balance, debit_field, credit_field):
 
 	return balance
 
-def get_column():
+def get_column(filters):
 	company = get_default_company()
 	currency = get_company_currency(company)
+	currency_gold = frappe.db.get_value('Account',filters.get("account"),'account_currency')
 
 	columns = [
 		{"label": _("Posting Date"), "fieldname": "posting_date", "fieldtype": "Date", "width": 120},
@@ -208,19 +209,19 @@ def get_column():
 			"width": 150
 		},
 		{
-			"label": _("Masuk ({0})").format(currency),
+			"label": _("Masuk ({0})").format(currency_gold),
 			"fieldname": "debit",
 			"fieldtype": "Float",
 			"width": 150,
 		},
 		{
-			"label": _("Keluar ({0})").format(currency),
+			"label": _("Keluar ({0})").format(currency_gold),
 			"fieldname": "credit",
 			"fieldtype": "Float",
 			"width": 150,
 		},
 		{
-			"label": _("Saldo ({0})").format(currency),
+			"label": _("Saldo ({0})").format(currency_gold),
 			"fieldname": "balance",
 			"fieldtype": "Float",
 			"width": 150,

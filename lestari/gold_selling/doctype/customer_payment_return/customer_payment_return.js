@@ -29,7 +29,9 @@ function calculate_amount(frm){
 
 frappe.ui.form.on('Customer Payment Return', {
 	setup: function(frm){
-		frm.set_value('posting_time', frappe.datetime.now_time());
+		if(cur_frm.doc.__islocal == 1){
+			frm.set_value('posting_time', frappe.datetime.now_time());
+		}
 	},
 	calculate_24k: function(frm){
 		calculate_amount(frm)

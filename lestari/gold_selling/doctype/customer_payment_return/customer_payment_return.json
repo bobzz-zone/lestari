@@ -239,7 +239,8 @@
    "fieldname": "sales",
    "fieldtype": "Link",
    "label": "Sales",
-   "options": "Sales Partner"
+   "options": "Sales Partner",
+   "reqd": 1
   },
   {
    "fieldname": "get_stock_return",
@@ -262,7 +263,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-10-24 15:40:53.935139",
+ "modified": "2023-11-16 11:25:47.625880",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Payment Return",

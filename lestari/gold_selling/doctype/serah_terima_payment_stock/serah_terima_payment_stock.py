@@ -12,6 +12,7 @@ class SerahTerimaPaymentStock(Document):
 			depo_list = frappe.get_list('Stock Payment',filters={'docstatus': 1, "rate":['>=',95], 'is_done':["<",1]}, fields=['parent','parenttype','name','item','qty','rate','amount','is_done'])
 		else:
 			depo_list = frappe.get_list('Stock Payment',filters={'docstatus': 1, "rate":['<',95], 'is_done':["<",1]}, fields=['parent','parenttype','name','item','qty','rate','amount','is_done'])
+		frappe.msgprint(str(depo_list))
 		for row in depo_list:
 			# frappe.msgprint(str(row.voucher_type))
 			doc = frappe.get_doc(str(row.parenttype), row.parent).sales_bundle

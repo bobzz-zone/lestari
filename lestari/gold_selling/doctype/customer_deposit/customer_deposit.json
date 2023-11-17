@@ -312,12 +312,13 @@
   {
    "fieldname": "no_nota",
    "fieldtype": "Int",
+   "in_standard_filter": 1,
    "label": "No Nota"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-11-06 14:22:23.412577",
+ "modified": "2023-11-14 15:15:09.043614",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Deposit",

@@ -106,6 +106,10 @@ function hitung(){
 }
 
 frappe.ui.form.on('Konfirmasi Payment Return Perhiasan', {
+	detail_perhiasan_remove: function(frm, cdt, cdn){
+		var d=locals[cdt][cdn];
+		hitung()
+	},
 	terima_qty: function(frm, cdt, cdn){
 		var d=locals[cdt][cdn];
 		frappe.model.set_value(cdt, cdn,"tolak_qty",d.qty-d.terima_qty);
@@ -120,6 +124,10 @@ frappe.ui.form.on('Konfirmasi Payment Return Perhiasan', {
 	}
 	});
 frappe.ui.form.on('Konfirmasi Payment Return Rongsok', {
+	detail_rongsok_remove: function(frm, cdt, cdn){
+		var d=locals[cdt][cdn];
+		hitung()
+	},
 	terima_qty: function(frm, cdt, cdn){
 		var d=locals[cdt][cdn];
 		frappe.model.set_value(cdt, cdn,"tolak_qty",d.qty-d.terima_qty);
