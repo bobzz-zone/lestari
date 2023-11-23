@@ -33,7 +33,8 @@
   "uuid",
   "list_pause",
   "amended_from",
-  "list_spko"
+  "list_spko",
+  "idle_reason"
  ],
  "fields": [
   {
@@ -186,12 +187,17 @@
    "fieldname": "washing_method",
    "fieldtype": "Data",
    "label": "Washing Method"
+  },
+  {
+   "fieldname": "idle_reason",
+   "fieldtype": "Data",
+   "label": "Idle Reason"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-11-17 10:55:16.340611",
+ "modified": "2023-11-21 13:49:50.976412",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Work log Testing",

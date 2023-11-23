@@ -17,7 +17,7 @@ class StockReturnTransfer(Document):
 					SELECT
 					a.name,
 					a.docstatus,
-					b.name AS rongsok,
+					b.name AS child_name,
 					b.customer,
 					b.is_out,
 					b.item,
@@ -40,7 +40,7 @@ class StockReturnTransfer(Document):
 					SELECT
 					a.name,
 					a.docstatus,
-					b.name AS rongsok,
+					b.name AS child_name,
 					b.customer,
 					b.is_out,
 					b.item,
@@ -78,14 +78,14 @@ class StockReturnTransfer(Document):
 							'voucher_type': row.voucher_type,
 							'voucher_no': row.voucher_no,
 							'child_type':row.doctype,
-							'child_name':""
+							'child_name':row.child_name
 						}
-						if row.doctype == "Konfirmasi Payment Return Perhiasan":
-							child['child_name'] = row.perhiasan
-							# frappe.msgprint(str(child))
-						else:
-							child['child_name'] = row.rongsok
-							# frappe.msgprint(str(child))
+						# if row.doctype == "Konfirmasi Payment Return Perhiasan":
+						# 	child['child_name'] = row.perhiasan
+						# 	frappe.msgprint(str(child))
+						# else:
+						# 	child['child_name'] = row.rongsok
+						# 	frappe.msgprint(str(child))
 
 						self.append("transfer_details",child)
 				else:
@@ -99,14 +99,14 @@ class StockReturnTransfer(Document):
 							'voucher_type': row.voucher_type,
 							'voucher_no': row.voucher_no,
 							'child_type':row.doctype,
-							'child_name':""
+							'child_name':row.child_name
 					}
-					if row.doctype == "Konfirmasi Payment Return Perhiasan":
-						child['child_name'] = row.perhiasan
-						# frappe.msgprint(str(child))
-					else:
-						child['child_name'] = row.rongsok
-						# frappe.msgprint(str(child))
+					# if row.doctype == "Konfirmasi Payment Return Perhiasan":
+					# 	child['child_name'] = row.perhiasan
+					# 	frappe.msgprint(str(child))
+					# else:
+					# 	child['child_name'] = row.rongsok
+					# 	frappe.msgprint(str(child))
 
 					self.append("transfer_details",child)
 				# for col in doc.detail_rongsok:
@@ -152,9 +152,12 @@ class StockReturnTransfer(Document):
 		for row in self.transfer_details:
 			if self.type == "Keluar":
 				frappe.db.set_value(str(row.child_type),row.child_name,'is_out',1)
+				frappe.msgprint(str(frappe.db.get_value(str(row.child_type),row.child_name,'is_out')))
 			else:
 				frappe.db.set_value(str(row.child_type),row.child_name,'is_out',0)
+				frappe.msgprint(str(frappe.db.get_value(str(row.child_type),row.child_name,'is_out')))
 	def on_cancel(self):
 		for row in self.transfer_details:
 			if self.type == "Keluar":
 				frappe.db.set_value(str(row.child_type),row.child_name,'is_out',0)
+				frappe.msgprint(str(frappe.db.get_value(str(row.child_type),row.child_name,'is_out')))
