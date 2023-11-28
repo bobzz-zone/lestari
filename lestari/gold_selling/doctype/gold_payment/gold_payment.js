@@ -362,13 +362,13 @@ frappe.ui.form.on('Gold Payment', {
 				idr_to_gold=parseFloat(idr_to_gold).toFixed(3);
 			}
 			var saldo_gold=frm.doc.unallocated_payment-frm.doc.total_extra_charges;
-			if (saldo_gold + idr_to_gold < 0){
-				frappe.throw("Error , Nilai Biaya Tambahan Melebihi Pembayaran yang di lakukan")
-			}else (saldo_gold +idr_to_gold==0){
+			var need_to= parseFloat(saldo_gold) + parseFloat(idr_to_gold);
+			if (need_to < 0){
+				frappe.throw("Error , Nilai Biaya Tambahan Melebihi Pembayaran yang di lakukan");
+			}else (need_to==0){
 				frm.doc.unallocated_payment=0;
 				frm.doc.unallocated_idr_payment=0;
 			}
-			var need_to= parseFloat(saldo_gold) + parseFloat(idr_to_gold);
 			//frappe.msgprint("Need to "+need_to +" dari IDR "+idr_to_gold+" dari GOLD "+saldo_gold);
 			// console.log(need_to)
 			var sisa_invoice = parseFloat(cur_frm.doc.total_invoice) - parseFloat(need_to) + frm.doc.total_extra_charges ;
