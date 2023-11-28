@@ -19,6 +19,7 @@ class StockReturnTransfer(Document):
 					a.docstatus,
 					b.name AS child_name,
 					b.customer,
+					b.subcustomer,
 					b.is_out,
 					b.item,
 					b.tolak_qty,
@@ -33,7 +34,7 @@ class StockReturnTransfer(Document):
 					JOIN `tabItem` c
 						ON b.item = c.item_code
 					WHERE a.`docstatus` = 1
-					AND b.customer = '{0}'
+					AND (b.customer = '{0}' OR b.subcustomer = '{1}')
 					AND b.`tolak_qty` > 0
 					AND b.`is_out` = 0
 					UNION
@@ -42,6 +43,7 @@ class StockReturnTransfer(Document):
 					a.docstatus,
 					b.name AS child_name,
 					b.customer,
+					b.subcustomer,
 					b.is_out,
 					b.item,
 					b.tolak_qty,
@@ -56,10 +58,10 @@ class StockReturnTransfer(Document):
 					JOIN `tabItem` c
 						ON b.item = c.item_code
 					WHERE a.`docstatus` = 1
-					AND b.customer = '{0}'
+					AND (b.customer = '{0}' OR b.subcustomer = '{1}')
 					AND b.`tolak_qty` > 0
 					AND b.`is_out` = 0
-				""".format(self.customer),as_dict=1)
+				""".format(self.customer,self.sub_customer),as_dict=1)
 				# frappe.msgprint(str(list_kpr))
 			for row in list_kpr:
 				# frappe.msgprint(str(row))
@@ -152,12 +154,12 @@ class StockReturnTransfer(Document):
 		for row in self.transfer_details:
 			if self.type == "Keluar":
 				frappe.db.set_value(str(row.child_type),row.child_name,'is_out',1)
-				frappe.msgprint(str(frappe.db.get_value(str(row.child_type),row.child_name,'is_out')))
+				# frappe.msgprint(str(frappe.db.get_value(str(row.child_type),row.child_name,'is_out')))
 			else:
 				frappe.db.set_value(str(row.child_type),row.child_name,'is_out',0)
-				frappe.msgprint(str(frappe.db.get_value(str(row.child_type),row.child_name,'is_out')))
+				# frappe.msgprint(str(frappe.db.get_value(str(row.child_type),row.child_name,'is_out')))
 	def on_cancel(self):
 		for row in self.transfer_details:
 			if self.type == "Keluar":
 				frappe.db.set_value(str(row.child_type),row.child_name,'is_out',0)
-				frappe.msgprint(str(frappe.db.get_value(str(row.child_type),row.child_name,'is_out')))
+				# frappe.msgprint(str(frappe.db.get_value(str(row.child_type),row.child_name,'is_out')))

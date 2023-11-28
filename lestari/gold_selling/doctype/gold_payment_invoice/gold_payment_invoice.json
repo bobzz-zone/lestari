@@ -130,13 +130,14 @@
    "fetch_from": "gold_invoice.gold_payment",
    "fieldname": "last_gp",
    "fieldtype": "Read Only",
+   "in_list_view": 1,
    "label": "Last Gold Payment"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-11-07 12:34:33.051310",
+ "modified": "2023-11-24 11:42:20.482682",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment Invoice",
