@@ -321,8 +321,11 @@ frappe.ui.form.on('Gold Payment', {
 	},
 	jadikan_deposit:function(frm){
 		//need to check
-		frm.doc.jadi_deposit=frm.doc.unallocated_payment + (frm.doc.unallocated_idr_payment/frm.doc.tutupan); // punya ko bob
-		//frm.doc.jadi_deposit=frm.doc.unallocated_payment;
+		if (frm.unallocated_idr_payment<=0){
+			frm.doc.jadi_deposit=frm.doc.unallocated_payment;
+		}else{
+			frm.doc.jadi_deposit=frm.doc.unallocated_payment + (frm.doc.unallocated_idr_payment/frm.doc.tutupan); // punya ko bob
+		}
 		frm.doc.unallocated_payment=0;
 		frm.doc.unallocated_idr_payment=0;
 		frappe.msgprint("Total Deposit "+frm.doc.jadi_deposit);
