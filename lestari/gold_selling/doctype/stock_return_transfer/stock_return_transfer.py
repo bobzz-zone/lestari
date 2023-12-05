@@ -67,7 +67,10 @@ class StockReturnTransfer(Document):
 				# frappe.msgprint(str(row))
 				# doc = frappe.get_doc("Konfirmasi Payment Return", row.name)
 				# for col in doc.detail_perhiasan:
-				subcustomer = frappe.db.get_value(row.voucher_type,row.voucher_no,'subcustomer')
+				if row.subcustomer:
+					subcustomer = row.subcustomer
+				else:
+					subcustomer = frappe.db.get_value(row.voucher_type,row.voucher_no,'subcustomer')
 				if self.sub_customer:
 					if self.sub_customer == subcustomer:
 						child = {

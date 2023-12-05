@@ -688,6 +688,11 @@ frappe.ui.form.on('IDR Payment', {
 	}
 });
 frappe.ui.form.on('Gold Payment Charges', {
+	other_charges_remove:function(frm,cdt,cdn){
+		// frappe.msgprint('remove')
+		calculate_table_charges(frm,cdt,cdn)
+		refresh_total_and_charges(frm)
+	},
 	category:function(frm,cdt,cdn) {
 		var d=locals[cdt][cdn];
 		d.amount=0
@@ -793,7 +798,6 @@ frappe.ui.form.on('Gold Payment Stock Return', {
 		calculate_stock_return(frm,cdt,cdn)
 	}
 });
-
 
 
 function calculate_table_advance(frm,cdt,cdn){
