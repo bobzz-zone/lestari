@@ -201,10 +201,8 @@ frappe.ui.form.on('Stock Payment', {
 	},
 	amount_idr:function(frm,cdt,cdn) {
 	    var d=locals[cdt][cdn];
-		d.bruto = Math.floor(d.amount_idr/frm.doc.tutupan)*100/d.rate;
-		d.amount= Math.floor(d.amount_idr/frm.doc.tutupan);
-		refresh_field("bruto");
-		refresh_field("amount");
+		frappe.model.set_value(cdt, cdn,"bruto",Math.floor(d.amount_idr/frm.doc.tutupan)*100/d.rate);
+		frappe.model.set_value(cdt, cdn,"amount",Math.floor(d.amount_idr/frm.doc.tutupan));
 	}
 	
 });
