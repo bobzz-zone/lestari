@@ -20,24 +20,34 @@
 
 		<!-- tanggal -->
 		<div class="col-sm-2 col-xs-2 text-center">
-			{%= doc.get_formatted("tanggal") %}
+			<div class="alert alert-default">
+				{%= doc.get_formatted("tanggal") %}
+			</div>
 		</div>
 
 		<!-- customer -->
 		<div class="col-sm-4 col-xs-4 text-center">
 				{%= doc.get_formatted("customer") %} <br/>
-                {%= doc.get_formatted("sub_customer") %} <br/>
-                {%= doc.get_formatted("end_user") %} <br/>
+			{% if(doc.sub_customer) { %}
+				{%= doc.get_formatted("sub_customer") %} <br/>
+			{% } %}
+			{% if(doc.end_user) { %}
+				{%= doc.get_formatted("end_user") %} <br/>
+			{% } %}
 		</div>
 
 		<!-- total -->
 		<div class="col-sm-2 col-xs-2 text-center">
+			<div class="alert alert-danger">
 				{%= doc.get_formatted("total") %}
+			</div>
 		</div>
 
 		<!-- outstanding -->
 		<div class="col-sm-2 col-xs-2 text-center">
+			<div class="alert alert-default">
 				{%= doc.get_formatted("outstanding") %}
+			</div>
 		</div>
 	</div>
 {% } %}

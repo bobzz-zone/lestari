@@ -13,7 +13,7 @@ class PermintaanBatu(Document):
 		new_doc.employee_name = self.nama_employee
 		new_doc.transaction_date = self.posting_date
 		new_doc.schedule_date = self.tanggal_dibutuhkan
-		new_doc.set_warehouse = "Pasang Batu - LMS"
+		new_doc.set_warehouse = "Batu - LMS"
 		new_doc.terms = self.catatan
 		for row in self.items:
 			baris_baru = {

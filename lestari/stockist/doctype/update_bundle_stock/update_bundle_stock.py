@@ -31,18 +31,26 @@ class UpdateBundleStock(Document):
         ste.save()
         self.status = frappe.db.sql("""UPDATE `tabUpdate Bundle Stock` SET status = "{0}" where name = "{1}" """.format("Submitted",self.name))
         frappe.msgprint(str(frappe.get_last_doc("Stock Entry")))
+        kss = {}
         for row in self.items:
             if self.type == "Add Stock":
-                kss = frappe.new_doc("Kartu Stock Sales")
-                kss.item = row.gold_selling_item
-                kss.bundle = self.bundle
-                kss.kategori = row.kategori
-                kss.sub_kategori = row.sub_kategori
-                kss.kadar = row.kadar
-                kss.warehouse = self.warehouse
-                kss.qty = row.qty_penambahan
-                kss.flags.ignore_permissions = True
-                kss.save()
+                doc = frappe.db.get_list(doctype = "Kartu Stock Sales", filters={"bundle" : self.bundle, "item":row.gold_selling_item, "sub_kategori": row.sub_kategori})
+                if len(doc) > 0:
+                    kss = frappe.get_doc("Kartu Stock Sales", doc[0].name)
+                    kss.qty = kss.qty + row.qty_penambahan
+                    kss.flags.ignore_permissions = True
+                    kss.save()
+                else:
+                    kss = frappe.new_doc("Kartu Stock Sales")
+                    kss.item = row.gold_selling_item
+                    kss.bundle = self.bundle
+                    kss.kategori = row.kategori
+                    kss.sub_kategori = row.sub_kategori
+                    kss.kadar = row.kadar
+                    kss.warehouse = self.warehouse
+                    kss.qty = row.qty_penambahan
+                    kss.flags.ignore_permissions = True
+                    kss.save()
             else:
                 doc = frappe.db.get_list(doctype = "Kartu Stock Sales", filters={"bundle" : self.bundle, "item":row.gold_selling_item, "sub_kategori": row.sub_kategori})
 				# frappe.db.set_value('Task', 'TASK00002', 'subject', 'New Subject')

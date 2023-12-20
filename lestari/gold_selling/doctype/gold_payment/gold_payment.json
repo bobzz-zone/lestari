@@ -27,7 +27,10 @@
   "invoice_section",
   "get_gold_invoice",
   "invoice_table",
+  "total_24k_inv",
+  "total_sisa_inv",
   "customer_return",
+  "total_cpr",
   "stock_return_transfer",
   "deposit_sb",
   "ag_cb",
@@ -583,12 +586,27 @@
    "in_standard_filter": 1,
    "label": "Status Document",
    "options": "Draft\nSubmitted\nCancelled"
+  },
+  {
+   "fieldname": "total_cpr",
+   "fieldtype": "Float",
+   "label": "Total CPR"
+  },
+  {
+   "fieldname": "total_24k_inv",
+   "fieldtype": "Float",
+   "label": "Total 24K Inv"
+  },
+  {
+   "fieldname": "total_sisa_inv",
+   "fieldtype": "Float",
+   "label": "Total Sisa Inv"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-11-07 13:51:05.673111",
+ "modified": "2023-12-06 13:09:28.804099",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

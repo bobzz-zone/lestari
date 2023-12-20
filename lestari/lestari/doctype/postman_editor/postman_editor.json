@@ -37,7 +37,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-07-10 14:24:50.757896",
+ "modified": "2023-12-20 11:38:41.345756",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "PostMan Editor",
@@ -56,6 +56,5 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
- "track_changes": 1,
- "track_seen": 1
+ "track_changes": 1
 }

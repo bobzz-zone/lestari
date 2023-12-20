@@ -52,14 +52,18 @@ DevExtreme = Class.extend({
 			// 	const markup = '<tr class=\'main-row\'>'
 			// 		+ `<td>${data.no}</td>`
 			// 		+ `<td>${data.customer}</td>`
-			// 		+ `<td><a href='${url}/${doctype}/${data.voucher_no}' target="_blank" >`
-			// 		+ `${data.voucher_no}</a></td>` 	
+			// 		+ `<td><button type="button" class="btn btn-primary">
+			// 		<a href='${url}/${doctype}/${data.voucher_no}' target="_blank" >`
+			// 		+ `${data.voucher_no}</a></button></td>` 	
 			// 		+ `<td>${data.voucher_type}</td>`
-			// 		+ `<td>${data.date}</td>`
+			// 		+ `<td>${data.bundle}</td>`
+			// 		+ `<td>${data.posting_date}</td>`
 			// 		+ `<td>${data.tutupan}</td>`
 			// 		+ `<td>${data.outstanding}</td>`
+			// 		+ `<td>${data.cpr}</td>`
 			// 		+ `<td>${data.deposit_gold}</td>`
 			// 		+ `<td>${data.deposit_idr}</td>`
+			// 		+ `<td>${data.summarize}</td>`
 			// 	+ '</tr>';
 			// 	container.append(markup);
 			//   },
@@ -107,7 +111,16 @@ DevExtreme = Class.extend({
 				dataField: 'voucher_no',
 				format: 'string',
 				width: 150,
-				caption: 'Voucher No'
+				caption: 'Voucher No',
+				cellTemplate(container, options) {
+					// console.log(options)
+					const { data } = options;
+					let url = window.location.origin+'/app';
+					var doctype = data.voucher_type.replace(/\s+/g, '-').toLowerCase();
+					$('<a href='+url+'/'+doctype+'/'+options.value+' class="btn btn-primary btn-block '+doctype+'" target="_blank">'+options.value+'</a>')
+					//   .append($('<a>', { href: , text: options.value, target:'_blank' }))
+					  .appendTo(container);
+				  },
 			  },
 			  {
 				dataField: 'voucher_type',
@@ -150,6 +163,16 @@ DevExtreme = Class.extend({
 				caption: 'Outstanding'
 			  },
 			  {
+				dataField: 'cpr',
+				alignment: 'right',
+				format: {
+					type: 'fixedPoint',
+					precision: 3,
+					currency: '',
+				  },
+				caption: 'Outstanding CPR'
+			  },
+			  {
 				dataField: 'deposit_gold',
 				alignment: 'right',
 				format: {
@@ -187,6 +210,20 @@ DevExtreme = Class.extend({
 				totalItems: [
 				{
 						column: 'outstanding',
+						summaryType: 'sum',
+						displayFormat: '{0}',
+						showInGroupFooter: false,
+						alignByColumn: true,
+						valueFormat: {
+							type: 'fixedPoint',
+							precision: 3,
+							thousandsSeparator: ',',
+							currencySymbol: '',
+							useGrouping: true,
+						},
+				},
+				{
+						column: 'cpr',
 						summaryType: 'sum',
 						displayFormat: '{0}',
 						showInGroupFooter: false,
@@ -245,6 +282,20 @@ DevExtreme = Class.extend({
 				groupItems: [
 				  {
 					column: 'outstanding',
+					summaryType: 'sum',
+					displayFormat: '{0}',
+					showInGroupFooter: false,
+					alignByColumn: true,
+					valueFormat: {
+						type: 'fixedPoint',
+						precision: 3,
+						thousandsSeparator: ',',
+						currencySymbol: '',
+						useGrouping: true,
+					},
+				  },
+				  {
+					column: 'cpr',
 					summaryType: 'sum',
 					displayFormat: '{0}',
 					showInGroupFooter: false,

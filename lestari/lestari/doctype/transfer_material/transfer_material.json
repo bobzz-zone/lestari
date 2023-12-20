@@ -87,7 +87,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-23 14:34:51.939013",
+ "modified": "2023-12-20 11:38:40.223269",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Transfer Material",
@@ -108,7 +108,5 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
- "track_changes": 1,
- "track_seen": 1,
- "track_views": 1
+ "track_changes": 1
 }

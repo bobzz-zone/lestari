@@ -44,7 +44,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-09-09 15:00:02.503827",
+ "modified": "2023-12-20 11:38:39.875659",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Whatsapp Setting",
@@ -63,7 +63,5 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
- "track_changes": 1,
- "track_seen": 1,
- "track_views": 1
+ "track_changes": 1
 }

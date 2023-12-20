@@ -402,10 +402,21 @@ class GoldInvoice(Document):
 
 		doc.total_invoice = self.outstanding
 		baris_baru = {
+			# 'gold_invoice':self.name,
+			# 'total':self.outstanding,
+			# 'due_date':self.due_date,
+			# 'total':self.grand_total,
 			'gold_invoice':self.name,
-			'total':self.outstanding,
+			'tanggal':self.posting_date,
+			'customer':self.customer,
+			'sub_customer':self.subcustomer,
+			'end_user':self.enduser,
+			'outstanding':self.outstanding,
+			'total':self.grand_total,
 			'due_date':self.due_date,
-			'total':self.grand_total
+			'total_bruto':self.total_bruto,
+			'tutupan':self.tutupan,
+			'outstanding_tax':self.sisa_pajak
 		}
 		doc.append("invoice_table",baris_baru)
 		tutupan = frappe.db.sql("""

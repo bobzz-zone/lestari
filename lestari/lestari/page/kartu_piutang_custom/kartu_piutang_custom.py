@@ -19,36 +19,62 @@ def contoh_report(posting_date = None):
     piutang = []
     list_doc = frappe.db.sql("""
             SELECT
-            customer,
-            no_invoice,
-            bundle,
-            "0" AS deposit_emas,
-            "0" AS deposit_idr,
-            tutupan,
-            outstanding,
-            posting_date,
-            "Gold Invoice" AS voucher_type,
-            NAME AS voucher_no
-            FROM
-            `tabGold Invoice`
-            WHERE docstatus = 1 and outstanding > 0
-            AND posting_date BETWEEN "{0}" AND "{1}"
-            UNION
-            SELECT
-            customer,
-            "0" AS no_invoice,
-            sales_bundle as bundle,
-            gold_left AS deposit_emas,
-            idr_left AS deposit_idr,
-            tutupan,
-            "0" AS outstanding,
-            posting_date,
-            "Customer Deposit" AS voucher_type,
-            NAME AS voucher_no
-            FROM
-            `tabCustomer Deposit`
-            WHERE docstatus = 1 and ( gold_left > 0  or idr_left > 0 )
-            AND posting_date BETWEEN "{0}" AND "{1}"
+                customer,
+                no_invoice,
+                bundle,
+                "0" AS deposit_emas,
+                "0" AS deposit_idr,
+                tutupan,
+                outstanding,
+                "0" AS cpr,
+                posting_date,
+                "Gold Invoice" AS voucher_type,
+                NAME AS voucher_no
+                FROM
+                `tabGold Invoice`
+                WHERE docstatus = 1
+                AND outstanding > 0
+                AND posting_date BETWEEN "{0}"
+                AND "{1}"
+                UNION
+                SELECT
+                customer,
+                no_nota AS no_invoice,
+                sales_bundle AS bundle,
+                gold_left AS deposit_emas,
+                idr_left AS deposit_idr,
+                tutupan,
+                "0" AS outstanding,
+                "0" AS cpr,
+                posting_date,
+                "Customer Deposit" AS voucher_type,
+                NAME AS voucher_no
+                FROM
+                `tabCustomer Deposit`
+                WHERE docstatus = 1
+                AND (gold_left > 0
+                    OR idr_left > 0)
+                AND posting_date BETWEEN "{0}"
+                AND "{1}"
+                UNION
+                SELECT
+                customer,
+                no_nota AS no_invoice,
+                sales_bundle AS bundle,
+                "0" AS deposit_emas,
+                "0" AS deposit_idr,
+                tutupan,
+                "0" AS outstanding,
+                outstanding AS cpr,
+                posting_date,
+                "Customer Payment Return" AS voucher_type,
+                NAME AS voucher_no
+                FROM
+                `tabCustomer Payment Return`
+                WHERE docstatus = 1
+                AND outstanding > 0
+                AND posting_date BETWEEN "{0}"
+                AND "{1}"
     """.format(json_data[0],json_data[1]),as_dict = 1)
     no = 0
     url = "http://erpnext.lestarigold.co.id/app"
@@ -66,7 +92,8 @@ def contoh_report(posting_date = None):
             'outstanding' : flt(row.outstanding),
             'deposit_gold' : flt(row.deposit_emas),
             'deposit_idr': flt(row.deposit_idr),
-            'summarize' : flt(row.outstanding) - flt(row.deposit_emas)
+            'cpr': flt(row.cpr),
+            'summarize' : flt(row.outstanding) + flt(row.cpr) - flt(row.deposit_emas)
         }
         piutang.append(baris_baris)
     # frappe.msgprint(str(piutang))  

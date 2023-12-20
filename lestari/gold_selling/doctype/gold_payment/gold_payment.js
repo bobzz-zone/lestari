@@ -36,18 +36,30 @@ function run_writeoff_sisa(frm){
 //tax allocated itu di pisah tp kalo un allocated based on mata uang...
 function calculate_table_invoice(frm,cdt,cdn){
 	var total=0;
+	var total_inv=0;
+	var total_sisa=0;
+	var total_cpr=0;
 	var total_pajak=0;
 	$.each(frm.doc.invoice_table,  function(i,  g) {
 		total=total+g.outstanding;
+		total_inv=total_inv+g.total;
+		total_sisa=total_sisa+g.total;
 		total_pajak=g.outstanding_tax+total_pajak;
 	});
 	$.each(frm.doc.customer_return,  function(i,  g) {
 		total=total+g.outstanding;
+		total_cpr=total_cpr+g.outstanding;
 	});
 	frm.doc.total_pajak=total_pajak;
 	frm.doc.total_invoice=total;
+	frm.doc.total_24k_inv=total_inv;
+	frm.doc.total_sisa_inv=total_sisa;
+	frm.doc.total_cpr=total_cpr;
 	refresh_field("total_pajak");
 	refresh_field("total_invoice");
+	refresh_field("total_24k_inv");
+	refresh_field("total_sisa_inv");
+	refresh_field("total_cpr");
 	//frappe.model.set_value(cdt, cdn,"allocated",0);
 	frm.doc.discount_amount=Math.floor(frm.doc.bruto_discount/100*frm.doc.discount*1000)/1000;
 	refresh_field("discount_amount");
@@ -692,6 +704,7 @@ frappe.ui.form.on('Gold Payment Charges', {
 		// frappe.msgprint('remove')
 		calculate_table_charges(frm,cdt,cdn)
 		refresh_total_and_charges(frm)
+		reset_allocated(frm);
 	},
 	category:function(frm,cdt,cdn) {
 		var d=locals[cdt][cdn];

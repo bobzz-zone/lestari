@@ -48,12 +48,13 @@ frappe.ui.form.on("Gold Invoice", {
 		__("View")
 		);
 	}
-	frm.set_query("category", function (doc) {
+	frm.set_query("category","items", function (doc, cdt, cdn) {
 		return {
 		filters: {
 			// "is_group":1
-			parent_item_group: "Products",
+			// parent_item_group: "Products",
 		},
+		order_by: "kadar asc"
 		};
 	});
 	frm.set_query("customer_deposit", "invoice_advance", function (doc, cdt, cdn) {

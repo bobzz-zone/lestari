@@ -3,7 +3,8 @@
 
 function calculate(frm,cdt,cdn){
 	var d=locals[cdt][cdn];
-	frappe.model.set_value(cdt, cdn,"amount",Math.floor(d.rate*d.qty*10)/1000);
+		// frappe.model.set_value(cdt, cdn,"amount",Math.floor(d.rate*d.qty*10)/1000);
+	frappe.model.set_value(cdt, cdn,"amount",Math.floor(d.qty*(d.rate*10))/1000);
 	var total=0;
 	$.each(frm.doc.stock_deposit,  function(i,  g) {
 	   	total=total+g.amount;

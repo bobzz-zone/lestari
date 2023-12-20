@@ -76,7 +76,7 @@ class CustomerPaymentReturn(StockController):
 					company=self.company,
 					raise_error_if_no_rate=False
 				)
-			row.total_amount=row.qty*row.valuation_rate
+			row.total_amount=flt(row.qty)*(row.valuation_rate or 0)
 		self.make_gl_entries()
 		#posting Stock Ledger Post
 		self.update_stock_ledger()

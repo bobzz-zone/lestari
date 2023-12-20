@@ -20,6 +20,7 @@
    "fieldname": "item",
    "fieldtype": "Link",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Item",
    "options": "Gold Selling Item",
    "reqd": 1
@@ -28,6 +29,7 @@
    "fieldname": "bundle",
    "fieldtype": "Link",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Bundle",
    "options": "Sales Stock Bundle",
    "reqd": 1
@@ -36,6 +38,7 @@
    "fetch_from": "item.item_group",
    "fieldname": "kategori",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "Kategori",
    "options": "Item Group",
    "read_only": 1
@@ -43,6 +46,7 @@
   {
    "fieldname": "sub_kategori",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "Sub Kategori",
    "options": "Item Group"
   },
@@ -50,6 +54,7 @@
    "fetch_from": "item.kadar",
    "fieldname": "kadar",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "Kadar",
    "options": "Data Logam",
    "read_only": 1
@@ -58,6 +63,7 @@
    "fetch_from": "bundle.warehouse",
    "fieldname": "warehouse",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "Warehouse",
    "options": "Warehouse",
    "read_only": 1
@@ -71,7 +77,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-05-09 10:41:18.187316",
+ "modified": "2023-12-20 11:37:27.558293",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Kartu Stock Sales",
@@ -92,7 +98,5 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
- "track_changes": 1,
- "track_seen": 1,
- "track_views": 1
+ "track_changes": 1
 }
