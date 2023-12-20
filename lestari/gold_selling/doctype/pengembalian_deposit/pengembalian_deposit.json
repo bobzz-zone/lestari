@@ -9,10 +9,14 @@
  "field_order": [
   "date",
   "deposit",
-  "type",
+  "deposit_type",
   "amount",
+  "gold_amount",
+  "type_emas",
   "tutupan",
-  "account",
+  "mode_of_payment",
+  "idr_account",
+  "gold_account",
   "amended_from"
  ],
  "fields": [
@@ -41,33 +45,69 @@
    "reqd": 1
   },
   {
-   "fieldname": "type",
-   "fieldtype": "Data",
-   "label": "Type",
+   "depends_on": "type!=\"Emas\"",
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount IDR",
+   "mandatory_depends_on": "type!=\"Emas\""
+  },
+  {
+   "depends_on": "type==\"Emas\"",
+   "fieldname": "tutupan",
+   "fieldtype": "Currency",
+   "label": "Tutupan",
+   "mandatory_depends_on": "type==\"Emas\""
+  },
+  {
+   "depends_on": "type==\"Emas\"",
+   "fetch_from": "deposit.type_emas",
+   "fieldname": "type_emas",
+   "fieldtype": "Link",
+   "label": "Type Emas",
+   "options": "Basic Nilai Tukar Emas",
    "read_only": 1
   },
   {
-   "fieldname": "amount",
-   "fieldtype": "Currency",
-   "label": "Amount"
+   "fetch_from": "deposit.deposit_type",
+   "fieldname": "deposit_type",
+   "fieldtype": "Data",
+   "label": "Deposit Type",
+   "read_only": 1
   },
   {
-   "fieldname": "tutupan",
-   "fieldtype": "Currency",
-   "label": "Tutupan"
-  },
-  {
-   "fieldname": "account",
+   "fieldname": "mode_of_payment",
    "fieldtype": "Link",
-   "label": "Return Account",
+   "label": "Mode Of Payment Return",
+   "options": "Mode of Payment"
+  },
+  {
+   "fetch_from": "deposit.account_piutang",
+   "fieldname": "idr_account",
+   "fieldtype": "Link",
+   "label": "IDR Piutang Account",
    "options": "Account",
-   "reqd": 1
+   "read_only": 1
+  },
+  {
+   "fetch_from": "deposit.piutang_gold",
+   "fieldname": "gold_account",
+   "fieldtype": "Link",
+   "label": "Gold Piutang Account",
+   "options": "Account",
+   "read_only": 1
+  },
+  {
+   "depends_on": "type==\"Emas\"",
+   "fieldname": "gold_amount",
+   "fieldtype": "Float",
+   "label": "Amount Gold",
+   "mandatory_depends_on": "type==\"Emas\""
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-12-20 12:29:41.542994",
+ "modified": "2023-12-20 12:45:08.331317",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Pengembalian Deposit",
