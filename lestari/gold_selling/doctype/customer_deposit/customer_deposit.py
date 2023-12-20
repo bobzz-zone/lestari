@@ -389,12 +389,18 @@ class CustomerDeposit(StockController):
 @frappe.whitelist()
 def get_idr_advance(doctype, txt, searchfield, start, page_len, filters):
 	return frappe.db.sql(
-		"""select name , idr_left from `tabCustomer Deposit` where name LIKE %(txt)s and deposit_type="IDR" and docstatus=1 and (customer=%(customer)s or subcustomer=%(subcustomer)s ) """,
+		"""select name , idr_left from `tabCustomer Deposit` where name LIKE %(txt)s and idr_left>0 and deposit_type="IDR" and docstatus=1 and (customer=%(customer)s or subcustomer=%(subcustomer)s ) """,
 		{"customer": filters.get("customer", ""),"subcustomer": filters.get("subcustomer", ""), "txt": "%" + txt + "%"},
 	)
 @frappe.whitelist()
 def get_gold_advance(doctype, txt, searchfield, start, page_len, filters):
 	return frappe.db.sql(
-		"""select name , gold_left from `tabCustomer Deposit` where name LIKE %(txt)s and deposit_type="Emas" and docstatus=1 and (customer=%(customer)s or subcustomer=%(subcustomer)s ) """,
+		"""select name , gold_left from `tabCustomer Deposit` where name LIKE %(txt)s and gold_left>0 and deposit_type="Emas" and docstatus=1 and (customer=%(customer)s or subcustomer=%(subcustomer)s ) """,
+		{"customer": filters.get("customer", ""),"subcustomer": filters.get("subcustomer", ""), "txt": "%" + txt + "%"},
+	)
+@frappe.whitelist()
+def get_deposit_outstanding(doctype, txt, searchfield, start, page_len, filters):
+	return frappe.db.sql(
+		"""select name ,deposit_type,idr_left , gold_left from `tabCustomer Deposit` where name LIKE %(txt)s and (idr_left>0 or gold_left>0) and docstatus=1 and (customer=%(customer)s or subcustomer=%(subcustomer)s ) """,
 		{"customer": filters.get("customer", ""),"subcustomer": filters.get("subcustomer", ""), "txt": "%" + txt + "%"},
 	)
