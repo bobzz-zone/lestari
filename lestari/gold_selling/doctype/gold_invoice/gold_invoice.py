@@ -101,35 +101,16 @@ class GoldInvoice(Document):
                                 	"company":self.company,
                                 	"is_cancelled":0
 				}
-			if self.free_ppn==0:
-				gl[piutang_idr]={
-									"posting_date":self.posting_date,
-									"account":piutang_idr,
-									"party_type":"Customer",
-									"party":self.customer,
-									"cost_center":cost_center,
-									"debit":self.ppn+self.pph,
-									"credit":0,
-									"account_currency":"IDR",
-									"debit_in_account_currency":self.ppn+self.pph,
-									"credit_in_account_currency":0,
-									#"against":"4110.000 - Penjualan - L",
-									"voucher_type":"Gold Invoice",
-									"voucher_no":self.name,
-									#"remarks":"",
-									"is_opening":"No",
-									"is_advance":"No",
-									"fiscal_year":fiscal_years,
-									"company":self.company,
-									"is_cancelled":0
-									}
-			else:
+
+			
+			total_piutang_idr=0
+			if free_ppn==1:
 				free_ppn = frappe.db.get_single_value('Gold Selling Settings', 'free_ppn')
 				gl[free_ppn]={
 									"posting_date":self.posting_date,
 									"account":free_ppn,
-									"party_type":"Customer",
-									"party":self.customer,
+									"party_type":"",
+									"party":"",
 									"cost_center":cost_center,
 									"debit":self.ppn,
 									"credit":0,
@@ -146,11 +127,15 @@ class GoldInvoice(Document):
 									"company":self.company,
 									"is_cancelled":0
 									}
-				gl[piutang_idr]={
+			else:
+				total_piutang_idr=self.ppn
+			if free_pph==1:
+				free_pph = frappe.db.get_single_value('Gold Selling Settings', 'free_pph')
+				gl[free_pph]={
 									"posting_date":self.posting_date,
-									"account":piutang_idr,
-									"party_type":"Customer",
-									"party":self.customer,
+									"account":free_pph,
+									"party_type":"",
+									"party":"",
 									"cost_center":cost_center,
 									"debit":self.pph,
 									"credit":0,
@@ -167,6 +152,29 @@ class GoldInvoice(Document):
 									"company":self.company,
 									"is_cancelled":0
 									}
+			else:
+				total_piutang_idr=total_piutang_idr+self.pph
+			gl[piutang_idr]={
+								"posting_date":self.posting_date,
+								"account":piutang_idr,
+								"party_type":"Customer",
+								"party":self.customer,
+								"cost_center":cost_center,
+								"debit":total_piutang_idr,
+								"credit":0,
+								"account_currency":"IDR",
+								"debit_in_account_currency":total_piutang_idr,
+								"credit_in_account_currency":0,
+								#"against":"4110.000 - Penjualan - L",
+								"voucher_type":"Gold Invoice",
+								"voucher_no":self.name,
+								#"remarks":"",
+								"is_opening":"No",
+								"is_advance":"No",
+								"fiscal_year":fiscal_years,
+								"company":self.company,
+								"is_cancelled":0
+								}
 		dsk=0
 		csk=0
 		#check selisihkurs
