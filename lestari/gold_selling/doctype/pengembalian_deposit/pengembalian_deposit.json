@@ -8,6 +8,8 @@
  "engine": "InnoDB",
  "field_order": [
   "date",
+  "customer",
+  "subcustomer",
   "deposit",
   "deposit_type",
   "amount",
@@ -17,6 +19,7 @@
   "mode_of_payment",
   "idr_account",
   "gold_account",
+  "company",
   "amended_from"
  ],
  "fields": [
@@ -45,21 +48,20 @@
    "reqd": 1
   },
   {
-   "depends_on": "type!=\"Emas\"",
+   "fetch_from": "deposit.idr_left",
    "fieldname": "amount",
    "fieldtype": "Currency",
    "label": "Amount IDR",
-   "mandatory_depends_on": "type!=\"Emas\""
+   "read_only": 1
   },
   {
-   "depends_on": "type==\"Emas\"",
    "fieldname": "tutupan",
    "fieldtype": "Currency",
    "label": "Tutupan",
-   "mandatory_depends_on": "type==\"Emas\""
+   "mandatory_depends_on": "deposit_type==\"Emas\""
   },
   {
-   "depends_on": "type==\"Emas\"",
+   "depends_on": "deposit_type==\"Emas\";",
    "fetch_from": "deposit.type_emas",
    "fieldname": "type_emas",
    "fieldtype": "Link",
@@ -70,8 +72,9 @@
   {
    "fetch_from": "deposit.deposit_type",
    "fieldname": "deposit_type",
-   "fieldtype": "Data",
+   "fieldtype": "Select",
    "label": "Deposit Type",
+   "options": "\nEmas\nIDR",
    "read_only": 1
   },
   {
@@ -97,17 +100,38 @@
    "read_only": 1
   },
   {
-   "depends_on": "type==\"Emas\"",
+   "depends_on": "deposit_type==\"Emas\";",
+   "fetch_from": "deposit.gold_left",
    "fieldname": "gold_amount",
    "fieldtype": "Float",
    "label": "Amount Gold",
-   "mandatory_depends_on": "type==\"Emas\""
+   "read_only": 1
+  },
+  {
+   "fetch_from": "subcustomer.parent_customer",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "subcustomer",
+   "fieldtype": "Link",
+   "label": "SubCustomer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-12-20 12:45:08.331317",
+ "modified": "2023-12-20 13:26:34.524744",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Pengembalian Deposit",
