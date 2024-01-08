@@ -10,6 +10,8 @@
   "naming_series",
   "no_invoice",
   "tax_status",
+  "free_ppn",
+  "free_pph",
   "type_emas",
   "piutang_gold",
   "is_skb",
@@ -498,11 +500,23 @@
   {
    "fieldname": "column_break_41",
    "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "free_ppn",
+   "fieldtype": "Check",
+   "label": "Free PPN"
+  },
+  {
+   "default": "0",
+   "fieldname": "free_pph",
+   "fieldtype": "Check",
+   "label": "Free PPh"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-11-24 11:39:27.490367",
+ "modified": "2024-01-05 16:21:07.923011",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",

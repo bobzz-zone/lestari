@@ -40,6 +40,7 @@
   {
    "fieldname": "operation",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "Operation",
    "options": "Operation"
   },
@@ -53,6 +54,7 @@
    "fetch_from": "employee.id_employee",
    "fieldname": "employee_id",
    "fieldtype": "Int",
+   "in_standard_filter": 1,
    "label": "Employee ID",
    "read_only": 1
   },
@@ -197,7 +199,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-11-21 13:49:50.976412",
+ "modified": "2023-12-22 16:23:07.917033",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Work log Testing",

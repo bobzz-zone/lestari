@@ -231,11 +231,19 @@ function sebelum_pajak(frm){
 		refresh_field("total_setelah_pajak");
 }
 function hitung_ppn(ppn_rate, frm){
-	frm.doc.ppn=Math.floor(frm.doc.grand_total * frm.doc.tutupan * ppn_rate / 10000);
+	if(frm.doc.ppn || frm.doc.ppn > 0){
+		return
+	}else{
+		frm.doc.ppn=Math.floor(frm.doc.grand_total * frm.doc.tutupan * ppn_rate / 10000);
+	}
 	refresh_field("ppn");
 }
 function hitung_pph(pph_rate, frm){
-	frm.doc.pph=Math.floor(frm.doc.grand_total * frm.doc.tutupan * pph_rate / 10000);
+	if(frm.doc.pph || frm.doc.pph > 0){
+		return
+	}else{	
+		frm.doc.pph=Math.floor(frm.doc.grand_total * frm.doc.tutupan * pph_rate / 10000);
+	}
 	refresh_field("pph");
 }
 function hitung_pajak(frm){
@@ -251,6 +259,7 @@ function hitung_pajak(frm){
 				pph_rate=0;
 			}
 		}
+
 		hitung_ppn(ppn_rate, frm)
 		hitung_pph(pph_rate, frm)
 		

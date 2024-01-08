@@ -958,6 +958,8 @@ class GoldPayment(StockController):
 			gl_entries.append(frappe._dict(gl[row]))
 
 		gl_entries = merge_similar_entries(gl_entries)
+
+		# frappe.msgprint(str(gl_entries))
 		return gl_entries
 @frappe.whitelist(allow_guest=True)
 def get_latest_transaction(customer):

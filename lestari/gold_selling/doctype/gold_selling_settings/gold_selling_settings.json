@@ -20,7 +20,9 @@
   "ppn_account",
   "pph_account",
   "wh_cpr_return",
-  "wh_cpr_rongsok"
+  "wh_cpr_rongsok",
+  "free_ppn",
+  "free_pph"
  ],
  "fields": [
   {
@@ -123,12 +125,24 @@
    "fieldtype": "Link",
    "label": "Warehouse Retur Kembali Rongsok",
    "options": "Warehouse"
+  },
+  {
+   "fieldname": "free_ppn",
+   "fieldtype": "Link",
+   "label": "Free PPn Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "free_pph",
+   "fieldtype": "Link",
+   "label": "Free PPh Account",
+   "options": "Account"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-10-06 14:07:10.016552",
+ "modified": "2024-01-05 16:20:43.336739",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling Settings",

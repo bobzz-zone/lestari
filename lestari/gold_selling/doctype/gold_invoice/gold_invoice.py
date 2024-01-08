@@ -104,7 +104,8 @@ class GoldInvoice(Document):
 
 			
 			total_piutang_idr=0
-			if free_ppn==1:
+			# frappe.throw(str(self.free_ppn))
+			if self.free_ppn==1:
 				free_ppn = frappe.db.get_single_value('Gold Selling Settings', 'free_ppn')
 				gl[free_ppn]={
 									"posting_date":self.posting_date,
@@ -129,7 +130,7 @@ class GoldInvoice(Document):
 									}
 			else:
 				total_piutang_idr=self.ppn
-			if free_pph==1:
+			if self.free_pph==1:
 				free_pph = frappe.db.get_single_value('Gold Selling Settings', 'free_pph')
 				gl[free_pph]={
 									"posting_date":self.posting_date,
@@ -403,6 +404,7 @@ class GoldInvoice(Document):
 				gl[row]['remarks']=""
 			gl_entries.append(frappe._dict(gl[row]))
 		gl_entries = merge_similar_entries(gl_entries)
+		frappe.msgprint(str(gl_entries))
 		return gl_entries
 	def make_gl_entries(self, gl_entries=None, from_repost=False):
 		from erpnext.accounts.general_ledger import make_gl_entries, make_reverse_gl_entries
