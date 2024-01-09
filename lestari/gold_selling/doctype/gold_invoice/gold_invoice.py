@@ -176,6 +176,28 @@ class GoldInvoice(Document):
 								"company":self.company,
 								"is_cancelled":0
 								}
+		if self.free_tax_trf==1:
+			depo = frappe.new_doc("Customer Deposit")
+			depo.customer = self.customer
+			depo.customer_group = self.customer_group
+			depo.territory = self.territory
+			depo.subcustomer = self.subcustomer
+			depo.warehouse = self.warehouse
+			depo.posting_date = self.posting_date
+			depo.deposit_type="IDR"
+			depo.tutupan=self.tutupan
+			depo.sales_bundle=self.bundle
+			depo.deposit_payment=1
+			depo.gold_invoice=self.name
+			depo.total_idr_deposit=total_piutang_idr
+			depo.idr_left=self.total_piutang_idr
+			# depo.gold_type=self.type_emas
+			depo.type_emas=self.type_emas
+			depo.account_piutang=frappe.db.get_single_value('Gold Selling Settings', 'piutang_idr')
+			# frappe.msgprint(depo)
+			depo.flags.ignore_permissions = True
+			# depo.save()
+			depo.submit()
 		dsk=0
 		csk=0
 		#check selisihkurs

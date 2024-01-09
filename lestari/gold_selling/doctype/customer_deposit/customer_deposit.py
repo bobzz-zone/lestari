@@ -308,6 +308,10 @@ class CustomerDeposit(StockController):
 										"company":self.company,
 										"is_cancelled":0
 										}
+				if self.deposit_payment==1:
+					depo_account = frappe.db.get_single_value('Gold Selling Settings', 'payment_deposit_coa')
+					# frappe.msgprint(str(depo_account))
+					gl[depo_account]=self.gl_dict(cost_center,depo_account,self.total_idr_deposit,0,fiscal_years)
 				for row in self.idr_deposit:
 					account=get_bank_cash_account(row.mode_of_payment,self.company)["account"]
 					if account in gl:
