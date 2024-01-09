@@ -160,7 +160,7 @@ frappe.ui.form.on("Gold Invoice", {
 		if (frm.doc.free_ppn==0){
 			frm.doc.sisa_pajak=frm.doc.sisa_pajak+frm.doc.ppn;
 		}
-		if (frm.doc.free_ppn==0){
+		if (frm.doc.free_pph==0){
 			frm.doc.sisa_pajak=frm.doc.sisa_pajak+frm.doc.pph;
 		}
 		frm.doc.total_setelah_pajak = frm.doc.total_sebelum_pajak + frm.doc.total_pajak
@@ -185,7 +185,7 @@ frappe.ui.form.on("Gold Invoice", {
 		if (frm.doc.free_ppn==0){
 			frm.doc.sisa_pajak=frm.doc.sisa_pajak+frm.doc.ppn;
 		}
-		if (frm.doc.free_ppn==0){
+		if (frm.doc.free_pph==0){
 			frm.doc.sisa_pajak=frm.doc.sisa_pajak+frm.doc.pph;
 		}
 		frm.doc.total_setelah_pajak = frm.doc.total_sebelum_pajak + frm.doc.total_pajak
@@ -221,7 +221,7 @@ function sebelum_pajak(frm){
 		if (frm.doc.free_ppn==0){
 			frm.doc.sisa_pajak=frm.doc.sisa_pajak+frm.doc.ppn;
 		}
-		if (frm.doc.free_ppn==0){
+		if (frm.doc.free_pph==0){
 			frm.doc.sisa_pajak=frm.doc.sisa_pajak+frm.doc.pph;
 		}
 		frm.doc.total_setelah_pajak = frm.doc.total_sebelum_pajak + frm.doc.total_pajak
@@ -271,7 +271,7 @@ function hitung_pajak(frm){
 		if (frm.doc.free_ppn==0){
 			frm.doc.sisa_pajak=frm.doc.sisa_pajak+frm.doc.ppn;
 		}
-		if (frm.doc.free_ppn==0){
+		if (frm.doc.free_pph==0){
 			frm.doc.sisa_pajak=frm.doc.sisa_pajak+frm.doc.pph;
 		}
 		frm.doc.total_setelah_pajak = frm.doc.total_sebelum_pajak + frm.doc.total_pajak
