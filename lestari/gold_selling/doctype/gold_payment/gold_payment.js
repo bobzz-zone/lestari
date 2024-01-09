@@ -432,7 +432,7 @@ frappe.ui.form.on('Gold Payment', {
 				
 			//}	
 			//refresh_field("total_sisa_invoice");
-			if (idr_to_gold>0){
+			if (idr_to_gold!=0){
 				var sisa_idr=parseFloat((idr_to_gold-(total_alo-saldo_gold))*frm.doc.tutupan).toFixed(0);
 				frm.doc.unallocated_idr_payment=sisa_idr;
 				if (frm.doc.total_pajak>0 && frm.doc.fokus_piutang==1){
