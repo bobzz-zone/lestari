@@ -404,7 +404,7 @@ class GoldInvoice(Document):
 				gl[row]['remarks']=""
 			gl_entries.append(frappe._dict(gl[row]))
 		gl_entries = merge_similar_entries(gl_entries)
-		frappe.msgprint(str(gl_entries))
+		# frappe.msgprint(str(gl_entries))
 		return gl_entries
 	def make_gl_entries(self, gl_entries=None, from_repost=False):
 		from erpnext.accounts.general_ledger import make_gl_entries, make_reverse_gl_entries

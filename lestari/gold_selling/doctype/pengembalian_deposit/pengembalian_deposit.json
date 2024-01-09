@@ -100,7 +100,6 @@
    "read_only": 1
   },
   {
-   "depends_on": "deposit_type==\"Emas\";",
    "fetch_from": "deposit.gold_left",
    "fieldname": "gold_amount",
    "fieldtype": "Float",
@@ -131,7 +130,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-12-20 13:26:34.524744",
+ "modified": "2024-01-09 12:57:44.737115",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Pengembalian Deposit",

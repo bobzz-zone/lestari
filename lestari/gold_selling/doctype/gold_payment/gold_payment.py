@@ -32,6 +32,14 @@ class GoldPayment(StockController):
 					self.janji_bayar = row.janji_bayar
 			else:
 				frappe.msgprint("Janji Bayar Lebih dari 1")
+
+		if self.idr_payment:
+			for row in self.idr_payment:
+				type_payment = frappe.db.get_value("Mode of Payment", row.mode_of_payment, "is_sales")
+				if type_payment < 1:
+					frappe.throw("Mode Pembayaran Salah")
+				
+
 		total = self.total_idr_payment
 		for row in self.list_janji_bayar:
 			if total == 0 :
@@ -103,11 +111,13 @@ class GoldPayment(StockController):
 				depo.gold_payment=self.name
 				depo.total_gold_deposit=self.jadi_deposit
 				depo.gold_left=self.jadi_deposit
-				depo.gold_type=self.type_emas
-				depo.type_emas=piutang_gold
+				# depo.gold_type=self.type_emas
+				depo.type_emas=self.type_emas
+				depo.piutang_gold = piutang_gold
 				depo.account_piutang=frappe.db.get_single_value('Gold Selling Settings', 'piutang_idr')
 				# frappe.msgprint(depo)
 				depo.flags.ignore_permissions = True
+				# depo.save()
 				depo.submit()
 				#depo.submit()
 				# frappe.msgprint("Customer Deposit {} Telah Terbuat".format(depo.name))
@@ -254,7 +264,7 @@ class GoldPayment(StockController):
 			}
 			self.append("list_janji_bayar",baris_baru)
 			baris_baru = {
-				'mode_of_payment': "Cash",
+				'mode_of_payment': "Kas Sales",
 				'amount': row.sisa_janji
 			}
 			total_idr_payment += row.sisa_janji
@@ -954,7 +964,10 @@ class GoldPayment(StockController):
 				gl[row]["against"]=against_debit
 			else:
 				gl[row]["against"]=against_credit
-			# frappe.msgprint(str(gl[row]))
+			
+			if not gl[row]["account"]:
+				frappe.msgprint(str(gl[row]))
+				frappe.msgprint("test")
 			gl_entries.append(frappe._dict(gl[row]))
 
 		gl_entries = merge_similar_entries(gl_entries)

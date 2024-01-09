@@ -571,6 +571,14 @@ frappe.ui.form.on('Gold Payment', {
 			};
 
 		});
+		frm.set_query("mode_of_payment","idr_payment", function(doc, cdt, cdn) {
+			return {
+				"filters": [
+					["Mode of Payment", "is_sales", "=", "1"],
+				]
+			};
+
+		});
 		frm.set_query("janji_bayar","list_janji_bayar", function(doc, cdt, cdn) {
 			return {
 				"filters": {
@@ -811,7 +819,6 @@ frappe.ui.form.on('Gold Payment Stock Return', {
 		calculate_stock_return(frm,cdt,cdn)
 	}
 });
-
 
 function calculate_table_advance(frm,cdt,cdn){
 	var total_gold=0;

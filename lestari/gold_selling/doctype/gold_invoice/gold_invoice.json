@@ -12,6 +12,7 @@
   "tax_status",
   "free_ppn",
   "free_pph",
+  "free_tax_trf",
   "type_emas",
   "piutang_gold",
   "is_skb",
@@ -503,20 +504,29 @@
   },
   {
    "default": "0",
+   "depends_on": "tax_status==\"Tax\"",
    "fieldname": "free_ppn",
    "fieldtype": "Check",
    "label": "Free PPN"
   },
   {
    "default": "0",
+   "depends_on": "tax_status==\"Tax\"",
    "fieldname": "free_pph",
    "fieldtype": "Check",
    "label": "Free PPh"
+  },
+  {
+   "default": "0",
+   "depends_on": "tax_status==\"Tax\"",
+   "fieldname": "free_tax_trf",
+   "fieldtype": "Check",
+   "label": "Free Pajak Di Transfer"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2024-01-05 16:21:07.923011",
+ "modified": "2024-01-09 13:05:21.745888",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",

@@ -8,6 +8,7 @@
  "engine": "InnoDB",
  "field_order": [
   "posting_date",
+  "type",
   "naming_series",
   "tanggal_dibutuhkan",
   "id_material_request",
@@ -102,13 +103,19 @@
    "fieldtype": "Int",
    "label": "Total Qty",
    "read_only": 1
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "O\nNon-O"
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-10-12 13:39:58.512242",
+ "modified": "2024-01-08 12:52:14.185148",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Permintaan Batu",

@@ -8,9 +8,12 @@
  "engine": "InnoDB",
  "field_order": [
   "posting_date",
-  "sales",
   "nilai_cash",
   "get_payment",
+  "column_break_4",
+  "sales",
+  "bundle",
+  "section_break_7",
   "payment",
   "keterangan",
   "amended_from"
@@ -60,12 +63,26 @@
    "fieldtype": "Table",
    "label": "Payment",
    "options": "Serah Terima Payment Cash Deposit"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bundle",
+   "fieldtype": "Link",
+   "label": "Bundle",
+   "options": "Sales Stock Bundle"
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-11-17 12:15:06.256856",
+ "modified": "2024-01-09 13:21:29.713624",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Serah Terima Payment Cash",
