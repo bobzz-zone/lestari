@@ -369,7 +369,7 @@ frappe.ui.form.on('Gold Payment', {
 				refresh_field("allocated_idr_payment");
 			}
 			var idr_to_gold=0;
-			if (frm.doc.unallocated_idr_payment>0){
+			if (frm.doc.unallocated_idr_payment!=0){
 				idr_to_gold = (frm.doc.unallocated_idr_payment/frm.doc.tutupan);
 				idr_to_gold=parseFloat(idr_to_gold).toFixed(3);
 			}
