@@ -190,7 +190,7 @@ class GoldInvoice(Document):
 			depo.deposit_payment=1
 			depo.gold_invoice=self.name
 			depo.total_idr_deposit=total_piutang_idr
-			depo.idr_left=self.total_piutang_idr
+			depo.idr_left=total_piutang_idr
 			# depo.gold_type=self.type_emas
 			depo.type_emas=self.type_emas
 			depo.account_piutang=frappe.db.get_single_value('Gold Selling Settings', 'piutang_idr')
