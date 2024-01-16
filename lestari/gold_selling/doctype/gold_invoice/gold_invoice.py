@@ -155,7 +155,8 @@ class GoldInvoice(Document):
 									}
 			else:
 				total_piutang_idr=total_piutang_idr+self.pph
-			gl[piutang_idr]={
+			if total_piutang_idr>0:
+				gl[piutang_idr]={
 								"posting_date":self.posting_date,
 								"account":piutang_idr,
 								"party_type":"Customer",
