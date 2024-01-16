@@ -157,10 +157,10 @@ frappe.ui.form.on("Gold Invoice", {
 		// frm.doc.ppn=Math.floor(frm.doc.total_sebelum_pajak * ppn_rate / 10000);
 		frm.doc.total_pajak=frm.doc.ppn+frm.doc.pph;
 		frm.doc.sisa_pajak=0;
-		if (frm.doc.free_ppn==0){
+		if (frm.doc.free_ppn==0   || frm.doc.free_tax_trf==1){
 			frm.doc.sisa_pajak=frm.doc.sisa_pajak+frm.doc.ppn;
 		}
-		if (frm.doc.free_pph==0){
+		if (frm.doc.free_pph==0  || frm.doc.free_tax_trf==1){
 			frm.doc.sisa_pajak=frm.doc.sisa_pajak+frm.doc.pph;
 		}
 		frm.doc.total_setelah_pajak = frm.doc.total_sebelum_pajak + frm.doc.total_pajak
@@ -182,10 +182,10 @@ frappe.ui.form.on("Gold Invoice", {
 		// frm.doc.pph=Math.floor(frm.doc.total_sebelum_pajak * pph_rate / 10000);
 		frm.doc.total_pajak=frm.doc.ppn+frm.doc.pph;
 		frm.doc.sisa_pajak=0;
-		if (frm.doc.free_ppn==0){
+		if (frm.doc.free_ppn==0  || frm.doc.free_tax_trf==1){
 			frm.doc.sisa_pajak=frm.doc.sisa_pajak+frm.doc.ppn;
 		}
-		if (frm.doc.free_pph==0){
+		if (frm.doc.free_pph==0  || frm.doc.free_tax_trf==1){
 			frm.doc.sisa_pajak=frm.doc.sisa_pajak+frm.doc.pph;
 		}
 		frm.doc.total_setelah_pajak = frm.doc.total_sebelum_pajak + frm.doc.total_pajak
@@ -218,10 +218,10 @@ function sebelum_pajak(frm){
 
 		frm.doc.total_pajak=frm.doc.ppn+frm.doc.pph;
 		frm.doc.sisa_pajak=0;
-		if (frm.doc.free_ppn==0){
+		if (frm.doc.free_ppn==0  || frm.doc.free_tax_trf==1){
 			frm.doc.sisa_pajak=frm.doc.sisa_pajak+frm.doc.ppn;
 		}
-		if (frm.doc.free_pph==0){
+		if (frm.doc.free_pph==0 || frm.doc.free_tax_trf==1){
 			frm.doc.sisa_pajak=frm.doc.sisa_pajak+frm.doc.pph;
 		}
 		frm.doc.total_setelah_pajak = frm.doc.total_sebelum_pajak + frm.doc.total_pajak
@@ -268,10 +268,10 @@ function hitung_pajak(frm){
 		//frm.doc.total_tax_in_gold = (frm.doc.ppn+frm.doc.pph) / frm.doc.tutupan;
 		frm.doc.total_pajak=frm.doc.ppn+frm.doc.pph;
 		frm.doc.sisa_pajak=0;
-		if (frm.doc.free_ppn==0){
+		if (frm.doc.free_ppn==0 || frm.doc.free_tax_trf==1){
 			frm.doc.sisa_pajak=frm.doc.sisa_pajak+frm.doc.ppn;
 		}
-		if (frm.doc.free_pph==0){
+		if (frm.doc.free_pph==0 || frm.doc.free_tax_trf==1){
 			frm.doc.sisa_pajak=frm.doc.sisa_pajak+frm.doc.pph;
 		}
 		frm.doc.total_setelah_pajak = frm.doc.total_sebelum_pajak + frm.doc.total_pajak
