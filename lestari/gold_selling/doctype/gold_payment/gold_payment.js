@@ -436,7 +436,7 @@ frappe.ui.form.on('Gold Payment', {
 				var sisa_idr=parseFloat((idr_to_gold-(total_alo-saldo_gold))*frm.doc.tutupan).toFixed(0);
 				//jika lebih besar dari yang di hitungdi awal berarti idr nya g kepakai, alias payment enasnya udah cukup
 				if (sisa_idr/frm.doc.tutupan>idr_to_gold){
-					sisa_idr=idr_to_gold;
+					sisa_idr=idr_to_gold * frm.doc.tutupan;
 				}
 
 				frm.doc.unallocated_idr_payment=sisa_idr;
