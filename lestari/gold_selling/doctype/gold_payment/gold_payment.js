@@ -157,7 +157,7 @@ function calculate_table_idr(frm,cdt,cdn){
 		total=total+g.amount;
 	});
 	frm.doc.total_idr_payment=total;
-	frm.doc.total_idr_gold=total/frm.doc.tutupan;
+	frm.doc.total_idr_gold=Math.floor(total*1000/frm.doc.tutupan)/1000;
 	refresh_field("total_idr_payment");
 	refresh_field("total_idr_gold");
 	//calculate total payment
@@ -441,18 +441,19 @@ frappe.ui.form.on('Gold Payment', {
 
 				frm.doc.unallocated_idr_payment=sisa_idr;
 				if (frm.doc.total_pajak>0 && frm.doc.fokus_piutang==1){
-					var idr_need_to=frm.doc.unallocated_idr_payment;
+					//var idr_need_to=frm.doc.unallocated_idr_payment;
 					var total_allocated=0;
 					$.each(frm.doc.invoice_table,  function(i,  g) {
-						if (idr_need_to > g.outstanding_tax){
+						if (sisa_idr > g.outstanding_tax){
 							g.tax_allocated=g.outstanding_tax;
 						}else{
 							g.tax_allocated=idr_need_to;
 						}
 						total_allocated = total_allocated + g.tax_allocated;
-						idr_need_to=idr_need_to-g.tax_allocated;
+						sisa_idr=sisa_idr-g.tax_allocated;
+						
 					});
-					frm.doc.unallocated_idr_payment=idr_need_to;
+					frm.doc.unallocated_idr_payment=sisa_idr;
 					frm.doc.allocated_idr_payment = total_allocated;
 					refresh_field("allocated_idr_payment");
 				}
@@ -762,7 +763,7 @@ frappe.ui.form.on('Stock Payment', {
 			args:{"item":d.item,"customer":frm.doc.customer,"customer_group":frm.doc.customer_group},
 			callback: function (r){
 				frappe.model.set_value(cdt, cdn,"rate",r.message.nilai);
-				frappe.model.set_value(cdt, cdn,"amount",parseFloat(r.message.nilai)*d.qty/100);
+				frappe.model.set_value(cdt, cdn,"amount",Math.floor(parseFloat(r.message.nilai)*d.qty*10)/1000);
 				var total=0;
 				$.each(frm.doc.stock_payment,  function(i,  g) {
 					total=total+g.amount;
@@ -779,12 +780,13 @@ frappe.ui.form.on('Stock Payment', {
 	},
 	qty:function(frm,cdt,cdn) {
 		var d=locals[cdt][cdn];
-		frappe.model.set_value(cdt, cdn,"amount",d.rate*d.qty/100);
+		frappe.model.set_value(cdt, cdn,"amount",Math.floor(d.rate*d.qty*10)/1000);
 		calculate_table_stock(frm,cdt,cdn)
 	},
 	rate:function(frm,cdt,cdn) {
 		var d=locals[cdt][cdn];
-		frappe.model.set_value(cdt, cdn,"amount",d.rate*d.qty/100);
+		frappe.model.set_value(cdt, cdn,"amount",Math.floor(d.rate*d.qty*10)/1000);
+		
 		calculate_table_stock(frm,cdt,cdn)
 	},
 	stock_payment_remove:function(frm,cdt,cdn){

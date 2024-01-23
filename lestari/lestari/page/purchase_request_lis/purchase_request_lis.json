@@ -1,0 +1,19 @@
+{
+ "content": null,
+ "creation": "2024-01-16 14:08:44.238348",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2024-01-16 14:08:44.238348",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "purchase-request-lis",
+ "owner": "Administrator",
+ "page_name": "purchase-request-lis",
+ "roles": [],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 1,
+ "title": "Purchase Request List"
+}

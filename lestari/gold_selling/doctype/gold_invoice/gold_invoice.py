@@ -177,7 +177,7 @@ class GoldInvoice(Document):
 								"company":self.company,
 								"is_cancelled":0
 								}
-		if self.free_tax_trf==1:
+		if self.free_tax_trf==1 and self.docstatus==1:
 			depo = frappe.new_doc("Customer Deposit")
 			depo.customer = self.customer
 			depo.customer_group = self.customer_group

@@ -142,7 +142,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-01-05 16:20:43.336739",
+ "modified": "2024-01-16 14:55:28.425509",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling Settings",
@@ -160,5 +160,6 @@
   }
  ],
  "sort_field": "modified",
- "sort_order": "DESC"
+ "sort_order": "DESC",
+ "track_changes": 1
 }

@@ -16,6 +16,7 @@
   "gold_amount",
   "type_emas",
   "tutupan",
+  "old_tutupan",
   "mode_of_payment",
   "idr_account",
   "gold_account",
@@ -125,12 +126,18 @@
    "fieldtype": "Link",
    "label": "Company",
    "options": "Company"
+  },
+  {
+   "fetch_from": "deposit.tutupan",
+   "fieldname": "old_tutupan",
+   "fieldtype": "Currency",
+   "label": "Old Tutupan"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-01-09 12:57:44.737115",
+ "modified": "2024-01-09 14:20:59.013781",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Pengembalian Deposit",

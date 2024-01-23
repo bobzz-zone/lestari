@@ -241,12 +241,12 @@ class GoldPayment(StockController):
 			frappe.db.sql("""update `tabGold Invoice` set sisa_pajak=sisa_pajak+{} ,outstanding=outstanding+{} , invoice_status="Unpaid" where name = "{}" """.format(row.tax_allocated,row.allocated,row.gold_invoice))
 		for row in self.customer_return:
 			frappe.db.sql("""update `tabCustomer Payment Return` set outstanding=outstanding+{} , invoice_status="Unpaid" where name = "{}" """.format(row.allocated,row.invoice))
-		if self.janji_bayar and self.total_idr_payment>0:
-				janji=frappe.get_doc("Janji Bayar",self.janji_bayar)
-				if janji.status == "Lunas":
-					frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar-{0} ,status="Pending", sisa_janji=sisa_janji+{0} where name = "{1}" """.format(self.total_idr_payment,self.janji_bayar))
-				else:
-					frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar-{0} , sisa_janji=sisa_janji+{0} where name = "{1}" """.format(self.total_idr_payment,self.janji_bayar))
+		# if self.janji_bayar and self.total_idr_payment>0:
+		# 		janji=frappe.get_doc("Janji Bayar",self.janji_bayar)
+		# 		if janji.status == "Lunas":
+		# 			frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar-{0} ,status="Pending", sisa_janji=sisa_janji+{0} where name = "{1}" """.format(self.total_idr_payment,self.janji_bayar))
+		# 		else:
+		# 			frappe.db.sql("""update `tabJanji Bayar` set total_terbayar=total_terbayar-{0} , sisa_janji=sisa_janji+{0} where name = "{1}" """.format(self.total_idr_payment,self.janji_bayar))
 	@frappe.whitelist()
 	def get_janji_bayar(self):
 		doc = frappe.db.get_list("Janji Bayar", filters={"customer": self.customer, "status":"Pending", 'docstatus':1, 'jenis_janji':"Pembayaran"}, fields=['name','tanggal_janji','customer','gold_invoice','total_bayar','total_terbayar','sisa_janji','status'])
@@ -302,7 +302,8 @@ class GoldPayment(StockController):
                       and (
                       customer = "{0}"
                       or customer = "{1}" )
-                      """.format(self.customer, self.subcustomer),as_dict=1)
+					  and type_emas = "{2}"
+                      """.format(self.customer, self.subcustomer, self.type_emas),as_dict=1)
 		# frappe.msgprint(str(doc))
 		if self.tutupan > 0:
 			tutupan = self.tutupan
@@ -377,7 +378,7 @@ class GoldPayment(StockController):
 		#lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_gold_advance
 		total_advance = 0
 		#if self.type_payment=="IDR":
-		list_deposit=frappe.db.sql("""select name , idr_left ,account_piutang,posting_date,customer from `tabCustomer Deposit` where idr_left>0 and deposit_type="IDR" and docstatus=1 and (customer="{}" or subcustomer="{}" ) """.format(self.customer,self.subcustomer),as_dict=1)
+		list_deposit=frappe.db.sql("""select name , idr_left ,account_piutang,posting_date,customer from `tabCustomer Deposit` where idr_left>0 and deposit_type="IDR" and docstatus=1 and (customer="{}" or subcustomer="{}" ) and type_emas ="{}" """.format(self.customer,self.subcustomer,self.type_emas),as_dict=1)
 		total_idr_in_gold = 0
 		for row in list_deposit:
 			# frappe.msgprint(str(row))
@@ -398,7 +399,7 @@ class GoldPayment(StockController):
 			self.total_idr_in_gold = total_idr_in_gold
 			total_advance += total_idr_in_gold
 		#if self.type_payment=="Gold":
-		list_deposit=frappe.db.sql("""select name , gold_left ,tutupan,posting_date,customer from `tabCustomer Deposit` where gold_left>0 and deposit_type="Emas" and docstatus=1 and (customer="{}" or subcustomer="{}" ) """.format(self.customer,self.subcustomer),as_dict=1)
+		list_deposit=frappe.db.sql("""select name , gold_left ,tutupan,posting_date,customer from `tabCustomer Deposit` where gold_left>0 and deposit_type="Emas" and docstatus=1 and (customer="{}" or subcustomer="{}" ) and type_emas ="{}" """.format(self.customer,self.subcustomer,self.type_emas),as_dict=1)
 		total_gold = 0
 		for row in list_deposit:
 			# frappe.msgprint(str(row))

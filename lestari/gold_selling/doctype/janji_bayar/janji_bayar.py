@@ -3,7 +3,20 @@
 
 import frappe
 from frappe.model.document import Document
-from frappe.utils import now
+from frappe.utils import (
+	add_days,
+	add_months,
+	cint,
+	flt,
+	fmt_money,
+	formatdate,
+	get_last_day,
+	get_link_to_form,
+	getdate,
+	nowdate,
+	today,
+	now
+)
 
 class JanjiBayar(Document):
 	def validate(self):
@@ -19,7 +32,8 @@ class JanjiBayar(Document):
 		doc.subcustomer = self.subcustomer
 		doc.warehouse = inv.warehouse
 		doc.posting_date = now()
-		doc.janji_bayar = self.name
+		doc.tutupan = self.tutupan
+		# doc.janji_bayar = self.name
 		doc.sales_bundle = self.sales_bundle
 		doc.total_invoice = inv.outstanding
 		baris_baru = {
@@ -29,7 +43,34 @@ class JanjiBayar(Document):
 			'total':inv.grand_total
 		}
 		doc.append("invoice_table",baris_baru)
-
+		baris_baru1 = {
+				'janji_bayar':self.name,
+				'no_invoice':self.gold_invoice,
+				'customer':self.customer,
+				'tanggal_janji':self.tanggal_janji,
+				'total_janji_bayar':self.total_bayar,
+				'idr_janji_terbayar':self.total_terbayar,
+				'sisa_janji':self.sisa_janji,
+				'status_janji':self.status
+			}
+		doc.append("list_janji_bayar",baris_baru1)
+		baris_baru2 = {
+			'mode_of_payment': "Kas Sales",
+			'amount': self.sisa_janji
+		}
+		doc.append("idr_payment",baris_baru2)
+		total_idr_payment = 0
+		total_idr_gold = 0
+		total_payment = 0
+		unallocated_payment = 0
+		total_idr_payment += self.sisa_janji
+		total_idr_gold += flt(total_idr_payment) / flt(self.tutupan)
+		total_payment += flt(total_idr_payment) / flt(self.tutupan)
+		unallocated_payment += flt(total_idr_payment) / flt(self.tutupan)
+		doc.total_idr_payment = total_idr_payment
+		doc.total_idr_gold = total_idr_gold
+		doc.total_payment = total_payment
+		doc.unallocated_payment = unallocated_payment
 		doc.flags.ignore_permissions = True
 		doc.save()
 		return doc

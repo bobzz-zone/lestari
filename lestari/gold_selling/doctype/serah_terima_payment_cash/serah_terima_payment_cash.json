@@ -16,6 +16,7 @@
   "section_break_7",
   "payment",
   "keterangan",
+  "no_voucher",
   "amended_from"
  ],
  "fields": [
@@ -41,7 +42,7 @@
   {
    "fieldname": "keterangan",
    "fieldtype": "Text Editor",
-   "label": "Ketarangan"
+   "label": "Keterangan"
   },
   {
    "fieldname": "amended_from",
@@ -59,6 +60,7 @@
    "options": "get_payment"
   },
   {
+   "allow_bulk_edit": 1,
    "fieldname": "payment",
    "fieldtype": "Table",
    "label": "Payment",
@@ -77,12 +79,18 @@
   {
    "fieldname": "section_break_7",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "no_voucher",
+   "fieldtype": "Link",
+   "label": "No Voucher",
+   "options": "Journal Entry"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-01-09 13:21:29.713624",
+ "modified": "2024-01-16 14:39:43.336079",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Serah Terima Payment Cash",

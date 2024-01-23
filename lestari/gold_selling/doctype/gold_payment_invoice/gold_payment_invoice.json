@@ -116,6 +116,7 @@
    "options": "Customer"
   },
   {
+   "fetch_from": "gold_invoice.sisa_pajak",
    "fieldname": "outstanding_tax",
    "fieldtype": "Currency",
    "label": "Outstanding Pajak",
@@ -137,7 +138,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-11-24 11:42:20.482682",
+ "modified": "2024-01-16 15:04:28.674411",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment Invoice",

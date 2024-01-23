@@ -3,6 +3,8 @@
 
 import frappe
 from frappe.model.document import Document
+from erpnext.accounts.utils import get_account_currency, get_fiscal_years, validate_fiscal_year
+from erpnext.accounts.doctype.sales_invoice.sales_invoice import get_bank_cash_account
 
 class PengembalianDeposit(Document):
 	pass
@@ -52,15 +54,16 @@ class PengembalianDeposit(Document):
 		gl = {}
 		
 		gl_piutang = []
-		fiscal_years = get_fiscal_years(self.posting_date, company=self.company)[0][0]
+		fiscal_years = get_fiscal_years(self.date, company=self.company)[0][0]
 		deposit=frappe.get_doc("Customer Deposit",self.deposit)
 		#1 untuk GL untuk piutang Gold
-		piutang_gold = self.piutang_gold
+		piutang_gold = self.gold_account
 		selisih_kurs = frappe.db.get_single_value('Gold Selling Settings', 'selisih_kurs')
 		#piutang_idr = frappe.db.get_single_value('Gold Selling Settings', 'piutang_idr')
 		cost_center = frappe.db.get_single_value('Gold Selling Settings', 'cost_center')
 		nilai_kembali=0
 		nilai_selisih_kurs = 0
+		gold_amount = 0
 		against=self.idr_account
 		payment_account=get_bank_cash_account(self.mode_of_payment,self.company)["account"]
 		#hitung selisih kurs untuk DP
@@ -77,7 +80,7 @@ class PengembalianDeposit(Document):
 			nilai_kembali = gold_amount*self.tutupan
 			against=self.gold_account
 			gl_piutang.append({
-					"posting_date":self.posting_date,
+					"posting_date":self.date,
 					"account":self.gold_account,
 					"party_type":"Customer",
 					"party":self.customer,
@@ -102,7 +105,7 @@ class PengembalianDeposit(Document):
 		else:
 			nilai_kembali=amount
 			gl_piutang.append({
-					"posting_date":self.posting_date,
+					"posting_date":self.date,
 					"account":self.idr_account,
 					"party_type":"Customer",
 					"party":self.customer,
@@ -137,7 +140,7 @@ class PengembalianDeposit(Document):
 	@frappe.whitelist()
 	def gl_dict(self,cost_center,account,debit,credit,fiscal_years,against):
 		return {
-					"posting_date":self.posting_date,
+					"posting_date":self.date,
 					"account":account,
 					"party_type":"",
 					"party":"",

@@ -7,6 +7,7 @@ from erpnext.stock import get_warehouse_account_map
 from erpnext.accounts.utils import get_account_currency, get_fiscal_years, validate_fiscal_year
 from erpnext.accounts.doctype.sales_invoice.sales_invoice import get_bank_cash_account
 from erpnext.controllers.stock_controller import StockController
+from frappe.utils import flt
 class CustomerDeposit(StockController):
 	def validate(self):
 		#total items
@@ -227,7 +228,9 @@ class CustomerDeposit(StockController):
 		fiscal_years = get_fiscal_years(self.posting_date, company=self.company)[0][0]
 		if self.is_convert==0:
 			#1 untuk GL untuk piutang Gold
-			if self.total_gold_deposit>0 and self.deposit_type=="Emas":
+			if not self.total_gold_deposit:
+				self.total_gold_deposit = 0
+			if flt(self.total_gold_deposit) > 0 and self.deposit_type=="Emas":
 				piutang_gold = self.piutang_gold
 				# frappe.msgprint(str(piutang_gold))
 				gl[piutang_gold]={

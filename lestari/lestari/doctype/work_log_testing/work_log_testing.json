@@ -31,10 +31,11 @@
   "menit_akumulasi",
   "detik_akumulasi",
   "uuid",
-  "list_pause",
+  "idle_reason",
   "amended_from",
+  "list_pause",
   "list_spko",
-  "idle_reason"
+  "list_detail_rusak"
  ],
  "fields": [
   {
@@ -194,12 +195,18 @@
    "fieldname": "idle_reason",
    "fieldtype": "Data",
    "label": "Idle Reason"
+  },
+  {
+   "fieldname": "list_detail_rusak",
+   "fieldtype": "Table",
+   "label": "List Detail Rusak",
+   "options": "Detail Rusak"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-12-22 16:23:07.917033",
+ "modified": "2024-01-16 07:47:12.382541",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Work log Testing",

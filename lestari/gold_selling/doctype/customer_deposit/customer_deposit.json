@@ -28,6 +28,7 @@
   "is_convert",
   "deposit_payment",
   "gold_payment",
+  "gold_invoice",
   "column_break_2",
   "posting_date",
   "posting_time",
@@ -314,11 +315,17 @@
    "fieldtype": "Int",
    "in_standard_filter": 1,
    "label": "No Nota"
+  },
+  {
+   "fieldname": "gold_invoice",
+   "fieldtype": "Link",
+   "label": "Gold Invoice",
+   "options": "Gold Invoice"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-11-14 15:15:09.043614",
+ "modified": "2024-01-09 13:30:21.583239",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Deposit",

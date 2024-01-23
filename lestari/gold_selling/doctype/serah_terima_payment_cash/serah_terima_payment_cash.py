@@ -7,22 +7,63 @@ from frappe.model.document import Document
 class SerahTerimaPaymentCash(Document):
 	@frappe.whitelist()
 	def get_payment(self):
-		payment = frappe.get_list('IDR Payment',filters={'docstatus': 1, 'mode_of_payment':"Cash",'is_done':["<",1]}, fields=['parent','parenttype','name','mode_of_payment','amount','is_done'])
+		self.payment = {}
+		payment = frappe.get_list('IDR Payment',
+					filters={'docstatus': 1,'mode_of_payment':["in",['Cash','Kas Sales']],'is_done':["<",1],"creation":[">=","2024/01/01"]}, 
+					fields=['parent','parenttype','name','mode_of_payment','amount','is_done'])
 		total_cash = 0
 		for row in payment:
 			# frappe.msgprint(row)
-			total_cash += row.amount
-			payment_baru = {
-				'mode_of_payment': row.mode_of_payment,
-				'amount': row.amount,
-				'customer': frappe.get_value(row.parenttype, row.parent, 'customer'),
-				'deposit_account': frappe.get_doc('Mode of Payment', row.mode_of_payment).accounts[0].default_account,
-				'voucher_type':row.parenttype,
-				'voucher_no':row.parent,
-				'child_table':"IDR Payment",
-				'child_id':row.name
-			}
-			self.append('payment',payment_baru)
+			bundle = frappe.get_value(row.parenttype, row.parent, 'sales_bundle')
+			sales = frappe.get_value("Sales Stock Bundle", bundle, 'sales')
+			if self.sales:
+				if self.sales == sales:
+					if self.bundle:
+						if self.bundle == bundle:
+							total_cash += row.amount
+							payment_baru = {
+								'mode_of_payment': row.mode_of_payment,
+								'bundle': bundle,
+								'sales': sales,
+								'amount': row.amount,
+								'customer': frappe.get_value(row.parenttype, row.parent, 'customer'),
+								'deposit_account': frappe.get_doc('Mode of Payment', row.mode_of_payment).accounts[0].default_account,
+								'voucher_type':row.parenttype,
+								'voucher_no':row.parent,
+								'child_table':"IDR Payment",
+								'child_id':row.name
+							}
+							self.append('payment',payment_baru)
+					else:
+						total_cash += row.amount
+						payment_baru = {
+							'mode_of_payment': row.mode_of_payment,
+							'bundle': bundle,
+							'sales': sales,
+							'amount': row.amount,
+							'customer': frappe.get_value(row.parenttype, row.parent, 'customer'),
+							'deposit_account': frappe.get_doc('Mode of Payment', row.mode_of_payment).accounts[0].default_account,
+							'voucher_type':row.parenttype,
+							'voucher_no':row.parent,
+							'child_table':"IDR Payment",
+							'child_id':row.name
+						}
+						self.append('payment',payment_baru)
+			else:
+				total_cash += row.amount
+				payment_baru = {
+					'mode_of_payment': row.mode_of_payment,
+					'bundle': bundle,
+					'sales': sales,
+					'amount': row.amount,
+					'customer': frappe.get_value(row.parenttype, row.parent, 'customer'),
+					'deposit_account': frappe.get_doc('Mode of Payment', row.mode_of_payment).accounts[0].default_account,
+					'voucher_type':row.parenttype,
+					'voucher_no':row.parent,
+					'child_table':"IDR Payment",
+					'child_id':row.name
+				}
+				self.append('payment',payment_baru)
 			# baris_baru = {
 			# 	'amount':row.amount,
 			# 	'voucher_type':row.parenttype,
@@ -40,8 +81,10 @@ class SerahTerimaPaymentCash(Document):
 			baris_baru = {
 				'account' : row.deposit_account,
 				'debit_in_account_currency' : row.amount,
+				'user_remark' : self.name
 			}
 			je.append('accounts', baris_baru)
+			frappe.db.set_value("IDR Payment", row.child_id, "is_done", 1)
 		account_kas = frappe.db.get_single_value('Gold Selling Settings','default_kas_kantor')
 		je.append('accounts',{'account':account_kas,"credit_in_account_currency":self.nilai_cash})
 		je.posting_date = self.posting_date
@@ -49,5 +92,9 @@ class SerahTerimaPaymentCash(Document):
 		je.bill_date = self.posting_date
 		je.flags.ignore_permissions = True
 		je.save()
-		for col in self.details:
-			frappe.db.set_value("IDR Payment", col.child_id, "is_done", 1)
+
+	def on_cancel(self):
+		doc = frappe.get_doc("Journal Entry", self.no_voucher)
+		doc.cancel()
+		for row in self.payment:
+			frappe.db.set_value("IDR Payment", row.child_id, "is_done", 0)
