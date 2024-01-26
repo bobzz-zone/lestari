@@ -96,6 +96,10 @@ class GoldPayment(StockController):
 				
 				#update invoice
 			if self.jadi_deposit>0:
+				type_depo="Emas"
+				if self.type_depo!="Emas":
+					type_depo="IDR"
+
 				piutang_gold = self.piutang_gold
 				depo = frappe.new_doc("Customer Deposit")
 				depo.customer = self.customer
@@ -104,15 +108,20 @@ class GoldPayment(StockController):
 				depo.subcustomer = self.subcustomer
 				depo.warehouse = self.warehouse
 				depo.posting_date = self.posting_date
-				depo.deposit_type="Emas"
 				depo.tutupan=self.tutupan
 				depo.sales_bundle=self.sales_bundle
 				depo.deposit_payment=1
 				depo.gold_payment=self.name
-				depo.total_gold_deposit=self.jadi_deposit
-				depo.gold_left=self.jadi_deposit
 				# depo.gold_type=self.type_emas
 				depo.type_emas=self.type_emas
+				if type_depo=="Emas":
+					depo.total_gold_deposit=self.jadi_deposit
+					depo.gold_left=self.jadi_deposit
+					depo.deposit_type="Emas"
+				else:
+					depo.total_idr_deposit=self.jadi_deposit*self.tutupan
+					depo.gold_left=self.jadi_deposit*self.tutupan
+					depo.deposit_type="IDR"
 				depo.piutang_gold = piutang_gold
 				depo.account_piutang=frappe.db.get_single_value('Gold Selling Settings', 'piutang_idr')
 				# frappe.msgprint(depo)
