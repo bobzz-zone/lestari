@@ -104,13 +104,18 @@ class GoldPayment(StockController):
 				depo.subcustomer = self.subcustomer
 				depo.warehouse = self.warehouse
 				depo.posting_date = self.posting_date
-				depo.deposit_type="Emas"
+				depo.deposit_type= self.type_deposit
+				depo.type_emas=self.type_emas
 				depo.tutupan=self.tutupan
 				depo.sales_bundle=self.sales_bundle
 				depo.deposit_payment=1
 				depo.gold_payment=self.name
-				depo.total_gold_deposit=self.jadi_deposit
-				depo.gold_left=self.jadi_deposit
+				if self.type_deposit == "Emas":
+					depo.total_gold_deposit=self.jadi_deposit
+					depo.gold_left=self.jadi_deposit
+				else:
+					depo.total_idr_deposit=self.jadi_deposit * self.tutupan
+					depo.idr_left=self.jadi_deposit * self.tutupan
 				# depo.gold_type=self.type_emas
 				depo.type_emas=self.type_emas
 				depo.piutang_gold = piutang_gold
@@ -182,7 +187,7 @@ class GoldPayment(StockController):
 		for row in self.invoice_advance:
 			if row.idr_allocated>0:
 				#reset idr left
-				frappe.db.sql("update `tabCustomer Deposit` set gold_left=gold_left+{} where name='{}'".format(row.idr_allocated,row.customer_deposit),as_list=1)
+				frappe.db.sql("update `tabCustomer Deposit` set idr_left=idr_left+{} where name='{}'".format(row.idr_allocated,row.customer_deposit),as_list=1)
 				gl_list=frappe.db.sql("""select name ,debit,credit,debit_in_account_currency,credit_in_account_currency from `tabGL Entry` where voucher_no="{}" and account="{}" and against_voucher_type=NULL and against_voucher=NULL and is_cancelled=0 """.format(row.customer_deposit,row.account_piutang),as_list=1)
 				for det in gl_list:
 					if row.customer_deposit in patch:

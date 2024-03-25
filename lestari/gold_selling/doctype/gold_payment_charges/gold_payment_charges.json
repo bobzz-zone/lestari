@@ -10,7 +10,10 @@
   "account",
   "type",
   "amount",
-  "gold_amount"
+  "gold_amount",
+  "ket_cb",
+  "berat",
+  "kadar"
  ],
  "fields": [
   {
@@ -51,12 +54,27 @@
    "label": "24K",
    "mandatory_depends_on": "type==\"Emas\"",
    "read_only_depends_on": "type==\"IDR\""
+  },
+  {
+   "fieldname": "ket_cb",
+   "fieldtype": "Column Break",
+   "label": "Keterangan"
+  },
+  {
+   "fieldname": "berat",
+   "fieldtype": "Float",
+   "label": "Berat Bruto"
+  },
+  {
+   "fieldname": "kadar",
+   "fieldtype": "Float",
+   "label": "Kadar"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-11-28 15:34:25.138803",
+ "modified": "2024-03-19 13:28:42.101086",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment Charges",

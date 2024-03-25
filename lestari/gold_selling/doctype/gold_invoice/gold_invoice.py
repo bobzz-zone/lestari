@@ -541,3 +541,31 @@ def get_gold_purchase_rate(item,customer,customer_group):
 	if customer_group_rate and customer_group_rate[0]:
 		return {"nilai":customer_group_rate[0][0]}
 	return {"nilai":0}
+
+@frappe.whitelist(allow_guest=True)
+def check_serah_terima_cash(sales_bundle):
+	# frappe.msgprint("test")
+	stc = frappe.db.sql("""
+		SELECT a.name,b.name AS parent,a.is_done,a.`mode_of_payment`  FROM `tabIDR Payment` a
+		JOIN `tabGold Payment` b ON a.parent = b.`name`
+		WHERE b.sales_bundle = '{0}' AND a.`mode_of_payment` IN ('Cash','Kas Sales') AND a.is_done < 1 AND a.docstatus = 1
+		UNION
+		SELECT a.name,b.name AS parent,a.is_done,a.`mode_of_payment` FROM `tabIDR Payment` a
+		LEFT JOIN `tabCustomer Deposit` b ON a.parent = b.`name`
+		WHERE b.sales_bundle = '{0}' AND a.`mode_of_payment` IN ('Cash','Kas Sales') AND a.is_done < 1 AND a.docstatus = 1
+		ORDER BY is_done ASC
+	""".format(sales_bundle),as_list=1)
+	frappe.msgprint(str(len(stc)))
+	if len(stc) > 0:
+		status = 1
+		data = {
+			'status': status,
+			'count': len(stc),
+		}
+	else:
+		status = 0
+		data = {
+			'status': status,
+			'count': len(stc),
+		}
+	return data

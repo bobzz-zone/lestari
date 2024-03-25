@@ -82,7 +82,7 @@ class UpdateBundleStock(Document):
 def get_sub_item(kadar, sub_kategori):
     item_code = frappe.db.sql("""
                               SELECT item_code, gold_selling_item FROM `tabItem` WHERE kadar = "{}" and item_group = "Pembayaran" and item_code LIKE "{}%" LIMIT 1
-                              """.format(kadar,sub_kategori))
+                              """.format(kadar,sub_kategori),debug=False)
     # frappe.msgprint(item_code)
     return item_code
 

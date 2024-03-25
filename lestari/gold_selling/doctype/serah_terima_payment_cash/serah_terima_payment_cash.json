@@ -16,7 +16,8 @@
   "section_break_7",
   "payment",
   "keterangan",
-  "no_voucher",
+  "voucher_no",
+  "company",
   "amended_from"
  ],
  "fields": [
@@ -81,16 +82,25 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "no_voucher",
+   "default": "Lestari Mulia Sentosa",
+   "fieldname": "company",
    "fieldtype": "Link",
-   "label": "No Voucher",
+   "label": "Company",
+   "options": "Company",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "voucher_no",
+   "fieldtype": "Link",
+   "label": "Voucher No",
    "options": "Journal Entry"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-01-16 14:39:43.336079",
+ "modified": "2024-02-19 14:59:17.056033",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Serah Terima Payment Cash",

@@ -11,6 +11,23 @@ frappe.ui.form.on("Gold Invoice", {
 		}
 		// hitung_pajak(frm);
 	},
+	bundle: function(frm){
+		// frappe.call({
+		// 	method: "lestari.gold_selling.doctype.gold_invoice.gold_invoice.check_serah_terima_cash",
+		// 	args: { sales_bundle: cur_frm.doc.bundle },
+		// 	callback: function (r) {
+		// 		console.log(r.message)
+		// 		if(r.message.status == 1){
+		// 			$(".primary-action").css("display","none");
+		// 			alert("Ada Transaksi Belum Serah Terima")
+		// 		}else{
+		// 			$(".primary-action").css("display","show");
+		// 		}
+		// 		// cur_frm.doc.tutupan = r.message.nilai;
+		// 		// cur_frm.refresh_field("tutupan");
+		// 	},
+		// });
+	},
 	refresh: function (frm) {
 	// your code here
 	frm.set_query("bundle", function(){

@@ -57,14 +57,12 @@
    "fieldname": "type",
    "fieldtype": "Select",
    "label": "Type",
-   "options": "STA\nSTO\nSTP\nCustomer"
+   "options": "Stock\nCustomer\nSalesman"
   },
   {
-   "depends_on": "eval:doc.type == \"Customer\"",
    "fieldname": "customer",
-   "fieldtype": "Link",
-   "label": "Customer",
-   "options": "Customer"
+   "fieldtype": "Data",
+   "label": "Customer"
   },
   {
    "fetch_from": "customer.customer_name",
@@ -327,7 +325,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-07-03 11:09:38.899849",
+ "modified": "2024-02-26 10:43:46.302284",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Form Order",

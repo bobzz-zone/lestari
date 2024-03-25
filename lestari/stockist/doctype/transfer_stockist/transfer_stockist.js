@@ -296,13 +296,15 @@ frappe.ui.form.on('Transfer Stockist', {
 		// removeColumns(frm, 'note', 'Transfer Stockist Item')
 	},
 	onload:function(frm){
-		frm.trigger('get_connect')
-		cur_frm.set_value("total_bruto",0)
-		cur_frm.clear_table("items")
-		cur_frm.clear_table("per_kadar")
-		cur_frm.refresh_field("items")
-		cur_frm.refresh_field("total_bruto")
-		cur_frm.refresh_field("per_kadar")
+		if (cur_frm.is_new()){
+			frm.trigger('get_connect')
+			cur_frm.set_value("total_bruto",0)
+			cur_frm.clear_table("items")
+			cur_frm.clear_table("per_kadar")
+			cur_frm.refresh_field("items")
+			cur_frm.refresh_field("total_bruto")
+			cur_frm.refresh_field("per_kadar")
+		}
 	},
 	validate: function(frm){
 		frm.events.get_disconnect(frm)
@@ -310,6 +312,13 @@ frappe.ui.form.on('Transfer Stockist', {
 	refresh: function(frm) {
 		frm.add_custom_button(__("Connect"), () => frm.events.get_connect(frm));
 		if (cur_frm.is_new()){
+			frm.trigger('get_connect')
+			cur_frm.set_value("total_bruto",0)
+			cur_frm.clear_table("items")
+			cur_frm.clear_table("per_kadar")
+			cur_frm.refresh_field("items")
+			cur_frm.refresh_field("total_bruto")
+			cur_frm.refresh_field("per_kadar")
 			frappe.db.get_value("Employee", { "user_id": frappe.session.user }, ["name","id_employee"]).then(function (responseJSON) {
 				cur_frm.set_value("pic", responseJSON.message.name);
 				cur_frm.set_value("id_employee", responseJSON.message.id_employee);

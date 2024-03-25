@@ -39,10 +39,10 @@ class ItemGenerator(Document):
 			item_name = self.item_name
 			new = frappe.new_doc('Item')
 			new.item_code = item_code+"-"+kadar+alloy
-			index1 = item_name.index("gr") + len("gr")
-			new_item_name = item_name[:index1].strip()
+			# index1 = item_name.index("gr") + len("gr")
+			# new_item_name = item_name[:index1].strip()
 			# new_item_name = item_name.split("06K-300")[0].strip()
-			new.item_name = new_item_name+" "+row.kadar
+			new.item_name = item_name+" "+row.kadar
 			new.item_group = self.item_group
 			new.item_group_parent = self.item_group_parent
 			new.stock_uom = self.default_uom

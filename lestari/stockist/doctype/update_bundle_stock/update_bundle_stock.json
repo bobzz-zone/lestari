@@ -47,7 +47,9 @@
   "per_sub_category",
   "section_break_13",
   "status",
-  "amended_from"
+  "amended_from",
+  "column_break_41",
+  "id_transfer"
  ],
  "fields": [
   {
@@ -69,7 +71,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Type",
-   "options": "\nAdd Stock\nDeduct Stock",
+   "options": "\nNew Stock\nAdd Stock\nDeduct Stock",
    "reqd": 1
   },
   {
@@ -305,12 +307,22 @@
    "label": "Status",
    "options": "Draft\nSubmitted\nCancelled",
    "read_only": 1
+  },
+  {
+   "fieldname": "column_break_41",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "id_transfer",
+   "fieldtype": "Data",
+   "label": "ID Transfer",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-07-25 14:13:54.999644",
+ "modified": "2024-02-13 13:06:27.402453",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Update Bundle Stock",

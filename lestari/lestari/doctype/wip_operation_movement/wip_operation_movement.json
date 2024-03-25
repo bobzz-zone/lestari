@@ -1,0 +1,98 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-02-12 12:43:03.031019",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "employee",
+  "operation",
+  "transdate",
+  "spko",
+  "work_log",
+  "weight",
+  "pcs",
+  "type"
+ ],
+ "fields": [
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Employee",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fieldname": "operation",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Operation",
+   "options": "Operation"
+  },
+  {
+   "fieldname": "transdate",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "TransDate",
+   "reqd": 1
+  },
+  {
+   "fieldname": "spko",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "SPKO",
+   "options": "SPKO",
+   "reqd": 1
+  },
+  {
+   "fieldname": "work_log",
+   "fieldtype": "Link",
+   "label": "Work Log",
+   "options": "Work log Testing"
+  },
+  {
+   "fieldname": "weight",
+   "fieldtype": "Float",
+   "label": "Weight",
+   "reqd": 1
+  },
+  {
+   "fieldname": "pcs",
+   "fieldtype": "Int",
+   "label": "Pcs",
+   "reqd": 1
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "type",
+   "options": "\nIN\nOUT",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-02-13 13:20:24.083750",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "WIP Operation Movement",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

@@ -56,7 +56,6 @@
   "sb_bill",
   "total_bruto",
   "cash_back",
-  "column_break_33",
   "total",
   "total_print",
   "discount",
@@ -75,7 +74,8 @@
   "column_break_48",
   "invoice_status",
   "gold_payment",
-  "amended_from"
+  "amended_from",
+  "data_70"
  ],
  "fields": [
   {
@@ -384,10 +384,6 @@
    "precision": "3"
   },
   {
-   "fieldname": "column_break_33",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "gold_payment",
    "fieldtype": "Data",
    "label": "Gold Payment",
@@ -519,11 +515,15 @@
    "fieldname": "free_tax_trf",
    "fieldtype": "Check",
    "label": "Free Pajak Di Transfer"
+  },
+  {
+   "fieldname": "data_70",
+   "fieldtype": "Data"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2024-01-09 13:46:26.784190",
+ "modified": "2024-03-19 10:49:39.337015",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice",

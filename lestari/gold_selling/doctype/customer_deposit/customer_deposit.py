@@ -48,8 +48,8 @@ class CustomerDeposit(StockController):
 		if self.list_janji_bayar and self.total_idr_deposit>0:
 			for row in self.list_janji_bayar:
 				deposit = self.total_idr_deposit #5,938,340,461.00
-				frappe.msgprint(row.janji_bayar)
-				frappe.msgprint(deposit)
+				# frappe.msgprint(row.janji_bayar)
+				# frappe.msgprint(deposit)
 				if deposit > 0:
 					janji=frappe.get_doc("Janji Bayar",row.janji_bayar)
 					if janji.status=="Pending":
@@ -66,7 +66,7 @@ class CustomerDeposit(StockController):
 		self.flags.ignore_links=True
 		if self.idr_left !=self.total_idr_deposit or self.gold_left != self.total_gold_deposit:
 			frappe.throw("Deposit ini sudah terpakai tidak bisa di cancel")
-		self.make_gl_entries_on_cancel()
+		self.make_gl_entries()
 		if self.terima_barang==1 and self.is_convert==0:
 			self.update_stock_ledger()
 			self.repost_future_sle_and_gle()
@@ -273,10 +273,12 @@ class CustomerDeposit(StockController):
 						else :
 							warehouse_value=warehouse_value+row.amount
 					# frappe.throw(str(titip))
+					# frappe.msgprint(str(warehouse_value))
 					if warehouse_value>0:
 						self.terima_barang=1
 						warehouse_account = get_warehouse_account_map(self.company)[self.warehouse].account
 						gl[warehouse_account]=self.gl_dict(cost_center,warehouse_account,self.total_gold_deposit*self.tutupan,0,fiscal_years)
+						# frappe.msgprint(str(gl[warehouse_account]))
 					if len(supplier_list)>0:
 						uang_buat_beli_emas= frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
 						for sup in supplier_list:
@@ -378,6 +380,7 @@ class CustomerDeposit(StockController):
 		gl_entries=[]
 		against_debit=""
 		against_credit=""
+		# frappe.msgprint(str(gl))
 		for row in gl:
 			if gl[row]["debit"]>0:
 				if str(gl[row]["account"]) not in against_credit:

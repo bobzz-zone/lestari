@@ -8,7 +8,11 @@
  "field_order": [
   "spko",
   "total_rusak",
-  "keterangan"
+  "keterangan",
+  "sub_kategori",
+  "barang_jadi",
+  "cycletime",
+  "jumlah_pcs"
  ],
  "fields": [
   {
@@ -30,12 +34,32 @@
    "fieldname": "keterangan",
    "fieldtype": "Small Text",
    "label": "keterangan"
+  },
+  {
+   "fieldname": "sub_kategori",
+   "fieldtype": "Data",
+   "label": "Sub Kategori"
+  },
+  {
+   "fieldname": "barang_jadi",
+   "fieldtype": "Data",
+   "label": "Barang Jadi"
+  },
+  {
+   "fieldname": "cycletime",
+   "fieldtype": "Data",
+   "label": "Cycletime"
+  },
+  {
+   "fieldname": "jumlah_pcs",
+   "fieldtype": "Int",
+   "label": "Jumlah Pcs"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-08-16 12:50:47.338480",
+ "modified": "2024-03-06 14:17:15.645810",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Worklog spko list",

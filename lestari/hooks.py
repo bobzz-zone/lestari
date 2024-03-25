@@ -16,6 +16,7 @@ app_license = "MIT"
 # app_include_css = "/assets/lestari/css/lestari.css"
 # app_include_js = "/assets/lestari/js/lestari.js"
 app_include_css = [
+    			   '/assets/lestari/css/lestari.css',
     			   '/assets/lestari/css/dx.light.css',
 				   '/assets/lestari/css/dx.dark.css',
                 #    '/assets/lestari/css/frappe-datatable.min.css'

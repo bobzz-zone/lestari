@@ -22,7 +22,8 @@
   "wh_cpr_return",
   "wh_cpr_rongsok",
   "free_ppn",
-  "free_pph"
+  "free_pph",
+  "blocking_gold_invoice"
  ],
  "fields": [
   {
@@ -137,12 +138,18 @@
    "fieldtype": "Link",
    "label": "Free PPh Account",
    "options": "Account"
+  },
+  {
+   "default": "0",
+   "fieldname": "blocking_gold_invoice",
+   "fieldtype": "Check",
+   "label": "Blocking Gold Invoice"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-01-16 14:55:28.425509",
+ "modified": "2024-02-19 14:52:47.150259",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Selling Settings",

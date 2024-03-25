@@ -12,8 +12,8 @@ class PengembalianDeposit(Document):
 		self.make_gl_entries()
 		frappe.db.sql("""update `tabCustomer Deposit` set idr_left=0,gold_left=0 where name="{}" """.format(self.deposit),as_list=1)
 	def on_cancel(self):
-		self.make_gl_entries_on_cancel()
-		frappe.db.sql("""update `tabCustomer Deposit` set idr_left=id_left+{},gold_left=gold_left+{} where name="{}" """.format(self.amount,self.gold_amount,self.deposit),as_list=1)
+		self.make_gl_entries()
+		frappe.db.sql("""update `tabCustomer Deposit` set idr_left=idr_left+{},gold_left=gold_left+{} where name="{}" """.format(self.amount,self.gold_amount,self.deposit),as_list=1)
 	def make_gl_entries(self, gl_entries=None, from_repost=False):
 		from erpnext.accounts.general_ledger import make_gl_entries, make_reverse_gl_entries
 

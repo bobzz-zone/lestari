@@ -9,6 +9,16 @@ from frappe.utils import flt
 #     # response.type_mul =
 #     return response
 
+def regen_gl():
+#	data = frappe.db.sql("select d.parent from `tabPurchase Invoice Item` d where d.docstatus=1 and d.item_code in (select name from `tabItem` i where i.is_stock_item=1) group by d.parent",as_list=1)
+#	total=len(data)
+#	for row in data:
+	doc = frappe.get_doc("Purchase Invoice","ACC-PINV-2024-00296")
+	frappe.db.sql("delete from `tabGL Entry` where voucher_no='ACC-PINV-2024-00296' and voucher_type='Purchase Invoice' ")
+	doc.make_gl_entries()
+	frappe.db.commit()
+#		print(total)
+#		total=total-1
 def fix_outstanding():
 	data = frappe.db.sql("select name,grand_total from `tabGold Invoice` where docstatus=1",as_list=1)
 	for row in data:
@@ -82,3 +92,40 @@ def item_form_order(item=None):
     doc.flags.ignore_permissions = True
     doc.save()
     return doc.as_dict()
+
+@frappe.whitelist()
+def repair_gl_entry_malik(doctype = "Purchase Invoice",docname = "ACC-PINV-2024-00787"):
+	
+	docu = frappe.get_doc(doctype, docname)	
+	# delete_sl = frappe.db.sql(""" DELETE FROM tabStock Ledger Entry WHERE voucher_no = "{}" """.format(docname))
+	delete_gl = frappe.db.sql(""" DELETE FROM `tabGL Entry` WHERE voucher_no = "{}" """.format(docname))
+
+	# frappe.db.sql(""" UPDATE tabSingles SET VALUE = 1 WHERE field = "allow_negative_stock" """)
+	# docu.update_stock_ledger()
+	docu.make_gl_entries()
+	# frappe.db.sql(""" UPDATE tabSingles SET VALUE = 0 WHERE field = "allow_negative_stock" """)
+
+@frappe.whitelist()
+def repair_gl_entry_arif():
+    doctype = "Gold Invoice"
+    row = "49240961"
+    # for row in docname:
+    docu = frappe.get_doc(doctype, row)	
+    # delete_sl = frappe.db.sql(""" DELETE FROM tabStock Ledger Entry WHERE voucher_no = "{}" """.format(row))
+    delete_gl = frappe.db.sql(""" DELETE FROM `tabGL Entry` WHERE voucher_no = "{}" """.format(row))
+    print('GL Deleted '+row)
+
+    # frappe.db.sql(""" UPDATE tabSingles SET VALUE = 1 WHERE field = "allow_negative_stock" """)
+    # docu.update_stock_ledger()
+    docu.make_gl_entries()
+    print('GL Created '+row)
+
+	# digunakan jika backdate
+	# for row in docu.items:
+	# 	update_entries_after({
+	# 		"item_code": row.item_code,
+	# 		"warehouse": row.warehouse,
+	# 		"posting_date": docu.posting_date,
+	# 		"posting_time": docu.posting_time
+	# 	})
+	# frappe.db.sql(""" UPDATE tabSingles SET VALUE = 0 WHERE field = "allow_negative_stock" """)
