@@ -20,26 +20,13 @@ frappe.ui.form.on('Customer Deposit', {
 		cur_frm.reload_doc()
 	},
 	validate:function(frm){
-		// var deposit = cur_frm.doc.total_idr_deposit
-		// $.each(frm.doc.list_janji_bayar,  function(i,  g) {
-		// 	var idr_janji_bayar = 0
-		// 	if(deposit > 0){
-		// 		deposit = deposit - g.sisa_janji
-		// 		if(deposit > 0){
-		// 			idr_janji_bayar = g.sisa_janji
-		// 			g.sisa_janji = 	0
-		// 		}else{
-		// 			idr_janji_bayar = g.sisa_janji
-		// 			g.sisa_janji = 	0
-		// 		}
-		// 		if(g.sisa_janji > 0){
-		// 			g.status_janji = 'Pending'
-		// 		}else{
-		// 			g.status_janji = 'Lunas'
-		// 		}
-		// 		g.idr_janji_bayar = 
-		// 	}
-		// });
+		if(frm.doc.deposit_type="Emas"){
+			frm.doc.gold_left=frm.doc.total_gold_deposit - frm.doc.total_other_charges_gold;
+			refresh_field("gold_left");
+		}else{
+			frm.doc.idr_left=frm.doc.total_idr_deposit - frm.doc.total_other_charges_idr;
+			refresh_field("idr_left");
+		}
 	},
 	refresh: function(frm) {
 		frm.set_query("sales_bundle", function(){
@@ -207,3 +194,42 @@ frappe.ui.form.on('Stock Payment', {
 	}
 	
 });
+frappe.ui.form.on('Gold Payment Charges', {
+	other_charges_remove:function(frm,cdt,cdn){
+		// frappe.msgprint('remove')
+		calculate_other(frm,cdt,cdn);
+	},
+	category:function(frm,cdt,cdn) {
+		var d=locals[cdt][cdn];
+		d.amount=0
+		d.gold_amount=0
+		frappe.model.set_value(cdt, cdn,"gold_amount",0);
+		frappe.model.set_value(cdt, cdn,"amount",0);
+	},
+	gold_amount:function(frm,cdt,cdn) {
+		calculate_other(frm,cdt,cdn);
+	},
+	amount:function(frm,cdt,cdn) {
+		var d=locals[cdt][cdn];
+		if(d.type=="IDR"){
+			frappe.model.set_value(cdt, cdn,"gold_amount",d.amount/frm.doc.tutupan);
+		}
+		calculate_other(frm,cdt,cdn);	}
+});
+function calculate_other(frm,cdt,cdn){
+	var d=locals[cdt][cdn];
+	total_gold=0;
+	total_idr=0;
+	$.each(frm.doc.other_charges,  function(i,  g) {
+	   	total_gold = total_gold + g.gold_amount;
+		if(g.gold_amount>0 && g.amount==0){
+		   	total_idr = total_idr + (g.gold_amount*frm.doc.tutupan);
+		}else{
+		   	total_idr = total_idr + g.amount;
+		}
+	});
+	frm.doc.total_other_charges_gold=total_gold;
+	frm.doc.total_other_charges_idr=total_idr;
+	refresh_field("total_other_charges_gold");
+	refresh_field("total_other_charges_idr");
+}
