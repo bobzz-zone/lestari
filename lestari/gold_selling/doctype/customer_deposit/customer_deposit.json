@@ -41,6 +41,10 @@
   "idr_deposit",
   "total_idr_deposit",
   "idr_left",
+  "other_sec",
+  "other_charges",
+  "total_other_charges_gold",
+  "total_other_charges_idr",
   "stock_deposit_section",
   "stock_deposit",
   "total_gold_deposit",
@@ -321,11 +325,34 @@
    "fieldtype": "Link",
    "label": "Gold Invoice",
    "options": "Gold Invoice"
+  },
+  {
+   "fieldname": "other_sec",
+   "fieldtype": "Section Break",
+   "label": "Other Charges"
+  },
+  {
+   "fieldname": "other_charges",
+   "fieldtype": "Table",
+   "label": "Other Charges",
+   "options": "Gold Payment Charges"
+  },
+  {
+   "fieldname": "total_other_charges_gold",
+   "fieldtype": "Float",
+   "label": "Total Other Charges Gold",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_other_charges_idr",
+   "fieldtype": "Currency",
+   "label": "Total Other Charges IDR",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2024-01-09 13:30:21.583239",
+ "modified": "2024-03-26 11:14:12.109933",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Deposit",
