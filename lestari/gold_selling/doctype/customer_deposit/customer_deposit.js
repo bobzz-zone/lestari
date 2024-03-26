@@ -215,6 +215,7 @@ frappe.ui.form.on('Gold Payment Charges', {
 			frappe.model.set_value(cdt, cdn,"gold_amount",d.amount/frm.doc.tutupan);
 		}
 		calculate_other(frm,cdt,cdn);
+	}
 });
 function calculate_other(frm,cdt,cdn){
 	var d=locals[cdt][cdn];
