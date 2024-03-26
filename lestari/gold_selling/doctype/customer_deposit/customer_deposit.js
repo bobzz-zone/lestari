@@ -20,7 +20,7 @@ frappe.ui.form.on('Customer Deposit', {
 		cur_frm.reload_doc()
 	},
 	validate:function(frm){
-		if(frm.doc.deposit_type="Emas"){
+		if(frm.doc.deposit_type=="Emas"){
 			frm.doc.gold_left=frm.doc.total_gold_deposit - frm.doc.total_other_charges_gold;
 			refresh_field("gold_left");
 		}else{
