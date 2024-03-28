@@ -27,6 +27,7 @@ frappe.ui.form.on('Customer Deposit', {
 			frm.doc.idr_left=frm.doc.total_idr_deposit - frm.doc.total_other_charges_idr;
 			refresh_field("idr_left");
 		}
+		console.log(frm.doc.gold_left)
 	},
 	refresh: function(frm) {
 		frm.set_query("sales_bundle", function(){
@@ -219,8 +220,8 @@ frappe.ui.form.on('Gold Payment Charges', {
 });
 function calculate_other(frm,cdt,cdn){
 	var d=locals[cdt][cdn];
-	total_gold=0;
-	total_idr=0;
+	var total_gold=0;
+	var total_idr=0;
 	$.each(frm.doc.other_charges,  function(i,  g) {
 	   	total_gold = total_gold + g.gold_amount;
 		if(g.gold_amount>0 && g.amount==0){

@@ -416,7 +416,26 @@ class GoldPayment(StockController):
 			self.total_idr_in_gold = total_idr_in_gold
 			total_advance += total_idr_in_gold
 		#if self.type_payment=="Gold":
-		list_deposit=frappe.db.sql("""select name , gold_left ,tutupan,posting_date,customer from `tabCustomer Deposit` where gold_left>0 and deposit_type="Emas" and docstatus=1 and (customer="{}" or subcustomer="{}" ) and type_emas ="{}" """.format(self.customer,self.subcustomer,self.type_emas),as_dict=1)
+		# frappe.throw("""select name , gold_left ,tutupan,posting_date,customer from `tabCustomer Deposit` where gold_left>0 and deposit_type="Emas" and docstatus=1 and (customer="{}" or subcustomer="{}" ) and type_emas ="{}" """.format(self.customer,self.subcustomer,self.type_emas))
+		list_deposit=frappe.db.sql("""SELECT
+					name,
+					gold_left,
+					total_other_charges_gold,
+					tutupan,
+					posting_date,
+					customer
+					FROM
+					`tabCustomer Deposit`
+					WHERE ( gold_left > 0 OR total_other_charges_gold > 0 )
+					AND deposit_type = "Emas"
+					AND docstatus = 1
+					AND (
+						customer = "{}"
+						OR subcustomer = "{}"
+					)
+					AND type_emas = "{}" 
+				""".format(self.customer,self.subcustomer,self.type_emas),as_dict=1)
+		# list_deposit=frappe.db.sql("""select name , gold_left ,tutupan,posting_date,customer from `tabCustomer Deposit` where gold_left>0 and deposit_type="Emas" and docstatus=1 and (customer="{}" or subcustomer="{}" ) and type_emas ="{}" """.format(self.customer,self.subcustomer,self.type_emas),as_dict=1)
 		total_gold = 0
 		for row in list_deposit:
 			# frappe.msgprint(str(row))
