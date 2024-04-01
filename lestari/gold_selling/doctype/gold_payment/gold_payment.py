@@ -96,9 +96,9 @@ class GoldPayment(StockController):
 				
 				#update invoice
 			if self.jadi_deposit>0:
-				type_depo="Emas"
-				if self.type_depo!="Emas":
-					type_depo="IDR"
+				# type_depo="Emas"
+				# if self.type_depo!="Emas":
+				# 	type_depo="IDR"
 
 				piutang_gold = self.piutang_gold
 				depo = frappe.new_doc("Customer Deposit")
