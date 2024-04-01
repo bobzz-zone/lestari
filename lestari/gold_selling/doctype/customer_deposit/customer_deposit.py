@@ -283,11 +283,11 @@ class CustomerDeposit(StockController):
 						uang_buat_beli_emas= frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
 						for sup in supplier_list:
 							gl[sup]=self.gl_dict_with_sup(cost_center,uang_buat_beli_emas,titip[sup]*self.tutupan,0,fiscal_years,sup)
-					for row in self.other_charges:
-						if row.gold_amount>0:
-							gl[row.category]=self.gl_dict(cost_center,row.account,row.gold_amount*self.tutupan,0,fiscal_years)
-						else:
-							gl[row.category]=self.gl_dict(cost_center,row.account,0,row.gold_amount*self.tutupan,fiscal_years)
+					# for row in self.other_charges:
+					# 	if row.gold_amount>0:
+					# 		gl[row.category]=self.gl_dict(cost_center,row.account,row.gold_amount*self.tutupan,0,fiscal_years)
+					# 	else:
+					# 		gl[row.category]=self.gl_dict(cost_center,row.account,0,row.gold_amount*self.tutupan,fiscal_years)
 				# elif self.terima_barang==1:
 				# else:
 				# 	uang_buat_beli_emas= frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
@@ -329,11 +329,11 @@ class CustomerDeposit(StockController):
 						gl[account]['debit_in_account_currency']=gl[account]['debit']
 					else:
 						gl[account]=self.gl_dict(cost_center,account,row.amount,0,fiscal_years)	
-				for row in self.other_charges:
-					if row.gold_amount>0:
-						gl[row.category]=self.gl_dict(cost_center,row.account,row.gold_amount*self.tutupan,0,fiscal_years)
-					else:
-						gl[row.category]=self.gl_dict(cost_center,row.account,0,row.gold_amount*self.tutupan,fiscal_years)			
+				# for row in self.other_charges:
+				# 	if row.gold_amount>0:
+				# 		gl[row.category]=self.gl_dict(cost_center,row.account,row.gold_amount*self.tutupan,0,fiscal_years)
+				# 	else:
+				# 		gl[row.category]=self.gl_dict(cost_center,row.account,0,row.gold_amount*self.tutupan,fiscal_years)			
 		else:
 			if self.deposit_type!="Emas":
 				frappe.throw("Conversion hanya bisa untuk Deposit Rupiah menjadi emas")
@@ -386,6 +386,11 @@ class CustomerDeposit(StockController):
 								"company":self.company,
 								"is_cancelled":0
 								}
+		for row in self.other_charges:
+			if row.gold_amount>0:
+				gl[row.category]=self.gl_dict(cost_center,row.account,row.gold_amount*self.tutupan,0,fiscal_years)
+			else:
+				gl[row.category]=self.gl_dict(cost_center,row.account,0,row.gold_amount*self.tutupan,fiscal_years)
 		# frappe.throw(str(gl))
 		gl_entries=[]
 		against_debit=""
