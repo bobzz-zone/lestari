@@ -283,6 +283,7 @@ class CustomerDeposit(StockController):
 						uang_buat_beli_emas= frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
 						for sup in supplier_list:
 							gl[sup]=self.gl_dict_with_sup(cost_center,uang_buat_beli_emas,titip[sup]*self.tutupan,0,fiscal_years,sup)
+					frappe.msgprint("Here")
 					for row in self.other_charges:
 						if row.gold_amount>0:
 							gl[row.category]=self.gl_dict(cost_center,row.account,row.gold_amount*self.tutupan,0,fiscal_years)
