@@ -230,7 +230,7 @@ class CustomerDeposit(StockController):
 			#1 untuk GL untuk piutang Gold
 			if not self.total_gold_deposit:
 				self.total_gold_deposit = 0
-			if flt(self.total_gold_deposit) > 0 and self.deposit_type=="Emas":
+			if flt(self.gold_left) > 0 and self.deposit_type=="Emas":
 				piutang_gold = self.piutang_gold
 				# frappe.msgprint(str(piutang_gold))
 				gl[piutang_gold]={
@@ -283,18 +283,18 @@ class CustomerDeposit(StockController):
 						uang_buat_beli_emas= frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
 						for sup in supplier_list:
 							gl[sup]=self.gl_dict_with_sup(cost_center,uang_buat_beli_emas,titip[sup]*self.tutupan,0,fiscal_years,sup)
-					# for row in self.other_charges:
-					# 	if row.gold_amount>0:
-					# 		gl[row.category]=self.gl_dict(cost_center,row.account,row.gold_amount*self.tutupan,0,fiscal_years)
-					# 	else:
-					# 		gl[row.category]=self.gl_dict(cost_center,row.account,0,row.gold_amount*self.tutupan,fiscal_years)
+					for row in self.other_charges:
+						if row.gold_amount>0:
+							gl[row.category]=self.gl_dict(cost_center,row.account,row.gold_amount*self.tutupan,0,fiscal_years)
+						else:
+							gl[row.category]=self.gl_dict(cost_center,row.account,0,row.gold_amount*self.tutupan,fiscal_years)
 				# elif self.terima_barang==1:
 				# else:
 				# 	uang_buat_beli_emas= frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
 				# 	gl[uang_buat_beli_emas]=gl_dict(cost_center,uang_buat_beli_emas,self.total_gold_deposit*self.tutupan,0,fiscal_years)
 
 			#untuk deposit IDR
-			if self.total_idr_deposit and self.total_idr_deposit > 0 and self.deposit_type == "IDR":
+			if self.idr_left and self.idr_left > 0 and self.deposit_type == "IDR":
 				piutang_idr = self.account_piutang
 				
 				gl[piutang_idr]={
@@ -329,11 +329,11 @@ class CustomerDeposit(StockController):
 						gl[account]['debit_in_account_currency']=gl[account]['debit']
 					else:
 						gl[account]=self.gl_dict(cost_center,account,row.amount,0,fiscal_years)	
-				# for row in self.other_charges:
-				# 	if row.gold_amount>0:
-				# 		gl[row.category]=self.gl_dict(cost_center,row.account,row.gold_amount*self.tutupan,0,fiscal_years)
-				# 	else:
-				# 		gl[row.category]=self.gl_dict(cost_center,row.account,0,row.gold_amount*self.tutupan,fiscal_years)			
+				for row in self.other_charges:
+					if row.gold_amount>0:
+						gl[row.category]=self.gl_dict(cost_center,row.account,row.gold_amount*self.tutupan,0,fiscal_years)
+					else:
+						gl[row.category]=self.gl_dict(cost_center,row.account,0,row.gold_amount*self.tutupan,fiscal_years)			
 		else:
 			if self.deposit_type!="Emas":
 				frappe.throw("Conversion hanya bisa untuk Deposit Rupiah menjadi emas")
@@ -386,11 +386,6 @@ class CustomerDeposit(StockController):
 								"company":self.company,
 								"is_cancelled":0
 								}
-		for row in self.other_charges:
-			if row.gold_amount>0:
-				gl[row.category]=self.gl_dict(cost_center,row.account,row.gold_amount*self.tutupan,0,fiscal_years)
-			else:
-				gl[row.category]=self.gl_dict(cost_center,row.account,0,row.gold_amount*self.tutupan,fiscal_years)
 		# frappe.throw(str(gl))
 		gl_entries=[]
 		against_debit=""
