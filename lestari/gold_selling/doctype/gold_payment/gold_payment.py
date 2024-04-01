@@ -121,15 +121,15 @@ class GoldPayment(StockController):
 					depo.total_idr_deposit=self.jadi_deposit * self.tutupan
 					depo.idr_left=self.jadi_deposit * self.tutupan
 				# depo.gold_type=self.type_emas
-				depo.type_emas=self.type_emas
-				if type_depo=="Emas":
-					depo.total_gold_deposit=self.jadi_deposit
-					depo.gold_left=self.jadi_deposit
-					depo.deposit_type="Emas"
-				else:
-					depo.total_idr_deposit=self.jadi_deposit*self.tutupan
-					depo.gold_left=self.jadi_deposit*self.tutupan
-					depo.deposit_type="IDR"
+				# depo.type_emas=self.type_emas
+				# if type_deposit=="Emas":
+				# 	depo.total_gold_deposit=self.jadi_deposit
+				# 	depo.gold_left=self.jadi_deposit
+				# 	depo.deposit_type="Emas"
+				# else:
+				# 	depo.total_idr_deposit=self.jadi_deposit*self.tutupan
+				# 	depo.gold_left=self.jadi_deposit*self.tutupan
+				# 	depo.deposit_type="IDR"
 				depo.piutang_gold = piutang_gold
 				depo.account_piutang=frappe.db.get_single_value('Gold Selling Settings', 'piutang_idr')
 				# frappe.msgprint(depo)
