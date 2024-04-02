@@ -21,10 +21,10 @@ frappe.ui.form.on('Customer Deposit', {
 	},
 	validate:function(frm){
 		if(frm.doc.deposit_type=="Emas"){
-			frm.doc.gold_left=frm.doc.total_gold_deposit - frm.doc.total_other_charges_gold;
+			frm.doc.gold_left=frm.doc.total_gold_deposit + frm.doc.total_other_charges_gold;
 			refresh_field("gold_left");
 		}else{
-			frm.doc.idr_left=frm.doc.total_idr_deposit - frm.doc.total_other_charges_idr;
+			frm.doc.idr_left=frm.doc.total_idr_deposit + frm.doc.total_other_charges_idr;
 			refresh_field("idr_left");
 		}
 		console.log(frm.doc.gold_left)
