@@ -223,17 +223,15 @@ class CustomerDeposit(StockController):
 		from erpnext.accounts.general_ledger import merge_similar_entries
 		#GL  Generate
 		#get configurasi
-		frappe.msgprint("Here")
 		cost_center = frappe.db.get_single_value('Gold Selling Settings', 'cost_center')
 		gl={}
 		fiscal_years = get_fiscal_years(self.posting_date, company=self.company)[0][0]
 		if self.is_convert==0:
 			#1 untuk GL untuk piutang Gold
-			frappe.msgprint("1")
+			frappe.msgprint("{} = {}".format(self.deposit_type ,self.gold_left))
 			if not self.total_gold_deposit:
 				self.total_gold_deposit = 0
 			if flt(self.gold_left) > 0 and self.deposit_type=="Emas":
-				frappe.msgprint("Here")
 				piutang_gold = self.piutang_gold
 				# frappe.msgprint(str(piutang_gold))
 				frappe.msgprint("2")
