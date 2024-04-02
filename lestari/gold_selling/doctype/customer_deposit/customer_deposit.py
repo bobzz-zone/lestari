@@ -284,18 +284,18 @@ class CustomerDeposit(StockController):
 						for sup in supplier_list:
 							gl[sup]=self.gl_dict_with_sup(cost_center,uang_buat_beli_emas,titip[sup]*self.tutupan,0,fiscal_years,sup)
 					for row in self.other_charges:
-					if row.gold_amount>0:
-						if row.account in gl:
-							gl[row.account]["debit"] = flt(gl[row.account]["debit"]) + (row.gold_amount*self.tutupan)
-							gl[row.account]["debit_in_account_currency"] = gl[row.account]["debit"]
+						if row.gold_amount>0:
+							if row.account in gl:
+								gl[row.account]["debit"] = flt(gl[row.account]["debit"]) + (row.gold_amount*self.tutupan)
+								gl[row.account]["debit_in_account_currency"] = gl[row.account]["debit"]
+							else:
+								gl[row.account]=self.gl_dict(cost_center,row.account,row.gold_amount*self.tutupan,0,fiscal_years)
 						else:
-							gl[row.account]=self.gl_dict(cost_center,row.account,row.gold_amount*self.tutupan,0,fiscal_years)
-					else:
-						if row.account in gl:
-							gl[row.account]["credit"] = flt(gl[row.account]["credit"]) + (row.gold_amount*self.tutupan)
-							gl[row.account]["credit_in_account_currency"] = gl[row.account]["credit"]
-						else:
-							gl[row.account]=self.gl_dict(cost_center,row.account,0,row.gold_amount*self.tutupan,fiscal_years)
+							if row.account in gl:
+								gl[row.account]["credit"] = flt(gl[row.account]["credit"]) + (row.gold_amount*self.tutupan)
+								gl[row.account]["credit_in_account_currency"] = gl[row.account]["credit"]
+							else:
+								gl[row.account]=self.gl_dict(cost_center,row.account,0,row.gold_amount*self.tutupan,fiscal_years)
 				# elif self.terima_barang==1:
 				# else:
 				# 	uang_buat_beli_emas= frappe.db.get_single_value('Gold Selling Settings', 'uang_buat_beli_emas')
