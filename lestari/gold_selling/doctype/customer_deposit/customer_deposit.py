@@ -228,11 +228,13 @@ class CustomerDeposit(StockController):
 		fiscal_years = get_fiscal_years(self.posting_date, company=self.company)[0][0]
 		if self.is_convert==0:
 			#1 untuk GL untuk piutang Gold
+			frappe.msgprint("1")
 			if not self.total_gold_deposit:
 				self.total_gold_deposit = 0
 			if flt(self.gold_left) > 0 and self.deposit_type=="Emas":
 				piutang_gold = self.piutang_gold
 				# frappe.msgprint(str(piutang_gold))
+				frappe.msgprint("2")
 				gl[piutang_gold]={
 											"posting_date":self.posting_date,
 											"account":piutang_gold,
@@ -260,6 +262,7 @@ class CustomerDeposit(StockController):
 					gl[depo_account]=self.gl_dict(cost_center,depo_account,self.total_gold_deposit*self.tutupan,0,fiscal_years)
 
 				else:
+					frappe.msgprint("3")
 					warehouse_value=0
 					titip={}
 					supplier_list=[]
