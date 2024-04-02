@@ -6,6 +6,8 @@ function calculate(frm,cdt,cdn){
 		// frappe.model.set_value(cdt, cdn,"amount",Math.floor(d.rate*d.qty*10)/1000);
 	frappe.model.set_value(cdt, cdn,"amount",Math.floor(d.qty*(d.rate*10))/1000);
 	var total=0;
+	frm.doc.total_gold_deposit=0;
+	frm.doc.gold_left=0;
 	$.each(frm.doc.stock_deposit,  function(i,  g) {
 	   	total=total+g.amount;
 	});
