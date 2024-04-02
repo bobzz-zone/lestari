@@ -460,7 +460,7 @@ class GoldInvoice(Document):
 		elif self.docstatus == 2 :
 			make_reverse_gl_entries(voucher_type=self.doctype, voucher_no=self.name)
 	def on_cancel(self):
-		self.flags.ignore_links=True
+		#self.flags.ignore_links=True
 		#revert deposit balance
 		for row in self.invoice_advance:
 			if row.idr_allocated:
