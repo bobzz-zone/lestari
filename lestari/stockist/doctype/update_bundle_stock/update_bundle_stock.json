@@ -315,14 +315,13 @@
   {
    "fieldname": "id_transfer",
    "fieldtype": "Data",
-   "label": "ID Transfer",
-   "read_only": 1
+   "label": "ID Transfer"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-02-13 13:06:27.402453",
+ "modified": "2024-04-05 08:43:20.022180",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Update Bundle Stock",

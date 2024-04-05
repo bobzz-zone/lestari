@@ -22,10 +22,18 @@ DevExtreme = Class.extend({
 		});
 		this.page.set_secondary_action('Refresh', () => me.make(), { icon: 'refresh', size: 'sm'})
 		this.posting_date = ""
+		this.used = 1
 		this.page.add_field({"fieldtype": "DateRange", "fieldname": "posting_date","default": ['2023-10-31', frappe.datetime.now_date()],
 			"label": __("Posting Date"), "reqd": 1,
 			change: function() {
 				me.posting_date = this.value;
+				me.make()
+			}
+		}),
+		this.page.add_field({"fieldtype": "Check", "fieldname": "used","default": 1,
+			"label": __("Used"),
+			change: function() {
+				me.used = this.value;
 				me.make()
 			}
 		}),
@@ -375,6 +383,7 @@ DevExtreme = Class.extend({
 			method: 'lestari.lestari.page.kartu_piutang_custom.kartu_piutang_custom.contoh_report',
 			args: {
 				'posting_date': me.posting_date,
+				'used': me.used
 			}
 		});
 

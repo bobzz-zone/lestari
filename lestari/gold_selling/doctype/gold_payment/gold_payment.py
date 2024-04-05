@@ -320,6 +320,7 @@ class GoldPayment(StockController):
                       customer = "{0}"
                       or customer = "{1}" )
 					  and type_emas = "{2}"
+					  ORDER BY posting_date DESC
                       """.format(self.customer, self.subcustomer, self.type_emas),as_dict=1)
 		# frappe.msgprint(str(doc))
 		if self.tutupan > 0:
