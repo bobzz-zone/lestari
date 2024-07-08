@@ -1,6 +1,15 @@
 // Copyright (c) 2022, DAS and contributors
 // For license information, please see license.txt
 
+function calculate(){
+  var total = 0;
+  cur_frm.doc.details.forEach(function(item){
+    total += item.qty;
+  });
+  cur_frm.set_value("total_bruto", total);
+  cur_frm.refresh_field("details")
+}
+
 frappe.ui.form.on("Serah Terima Payment Stock", {
   refresh: function (frm) {
     // frm.fields_dict.details.grid.grid_buttons.addClass("hidden");
@@ -22,7 +31,7 @@ frappe.ui.form.on("Serah Terima Payment Stock", {
     cur_frm.refresh_fields()
   }
 });
-// frappe.ui.form.on("Serah Terima Stock Item Detail", {
+frappe.ui.form.on("Serah Terima Stock Item Detail", {
 //   // refresh: function(frm) {
 
 //   // }
@@ -33,4 +42,10 @@ frappe.ui.form.on("Serah Terima Payment Stock", {
 //     cur_frm.get_field("items").grid.grid_rows[d.idx - 1].remove();
 //     cur_frm.refresh_field("items");
 //   },
-// });
+  details_add: function(frm, cdt, cdn){
+    calculate();
+  },
+  details_remove: function(frm, cdt, cdn){
+    calculate();
+  }
+});

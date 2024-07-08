@@ -344,7 +344,8 @@ frappe.ui.form.on('Update Bundle Stock', {
 				// Prompt user to select any serial port.
 			  }
 			} else {
-			  frappe.msgprint("Your browser does not support serial device connection. Please switch to a supported browser to connect to your weigh device");
+			  console.log("Your browser does not support serial device connection. Please switch to a supported browser to connect to your weigh device");
+			//   frappe.msgprint("Your browser does not support serial device connection. Please switch to a supported browser to connect to your weigh device");
 			}
 		  }
 		  window.checkPort(false);

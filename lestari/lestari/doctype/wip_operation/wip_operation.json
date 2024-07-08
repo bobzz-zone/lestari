@@ -8,7 +8,8 @@
  "field_order": [
   "operation",
   "weight",
-  "pcs"
+  "pcs",
+  "workstation"
  ],
  "fields": [
   {
@@ -32,11 +33,17 @@
    "in_list_view": 1,
    "label": "Pcs",
    "reqd": 1
+  },
+  {
+   "fieldname": "workstation",
+   "fieldtype": "Link",
+   "label": "Workstation",
+   "options": "Workstation"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-13 13:20:12.089275",
+ "modified": "2024-06-28 07:55:29.268728",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "WIP Operation",

@@ -3,12 +3,19 @@
 
 frappe.ui.form.on("Gold Invoice", {
 	// setup:function(frm){
-	// 	frm.events.make_custom_buttons(frm);
+	// 	// frm.events.make_custom_buttons(frm);
+	// 	console.log(cur_frm.doc.tutupan)
+	// 	if (cur_frm.is_new() && !cur_frm.doc.tutupan){
+	// 		frappe.msgprint("Isikan Tutupan Terlebih Dahulu!!")
+	// 	}
 	// },
 	validate: function (frm) {
 		if (!cur_frm.doc.no_invoice) {
 			cur_frm.set_df_property("no_invoice", "hidden", 1);
 		}
+		// $.each(frm.doc.items, function (i, g) {
+		// 	hitung_rate(frm,"Gold Invoice Item", g.name)
+		// });
 		// hitung_pajak(frm);
 	},
 	bundle: function(frm){
@@ -29,6 +36,12 @@ frappe.ui.form.on("Gold Invoice", {
 		// });
 	},
 	refresh: function (frm) {
+
+	setTimeout(function(){
+		if (cur_frm.is_new() && !cur_frm.doc.tutupan){
+			frappe.msgprint("Isikan Tutupan Terlebih Dahulu!!")
+		}
+	},1000)
 	// your code here
 	frm.set_query("bundle", function(){
 		return {
@@ -156,9 +169,13 @@ frappe.ui.form.on("Gold Invoice", {
 		refresh_field("total_advance");
 	},
 	free_ppn:function(frm){
+		frm.doc.ppn = 0;
+		refresh_field("ppn")
 		hitung_pajak(frm);
 	},
 	free_pph:function(frm){
+		frm.doc.pph = 0;
+		refresh_field("pph")
 		hitung_pajak(frm);
 	},
 	ppn: function (frm){
@@ -249,7 +266,7 @@ function sebelum_pajak(frm){
 }
 function hitung_ppn(ppn_rate, frm){
 	if(frm.doc.ppn || frm.doc.ppn > 0){
-		return
+		return;
 	}else{
 		frm.doc.ppn=Math.floor(frm.doc.grand_total * frm.doc.tutupan * ppn_rate / 10000);
 	}
@@ -257,8 +274,8 @@ function hitung_ppn(ppn_rate, frm){
 }
 function hitung_pph(pph_rate, frm){
 	if(frm.doc.pph || frm.doc.pph > 0){
-		return
-	}else{	
+		return;
+	}else{
 		frm.doc.pph=Math.floor(frm.doc.grand_total * frm.doc.tutupan * pph_rate / 10000);
 	}
 	refresh_field("pph");
@@ -327,6 +344,8 @@ function hitung_rate(frm, cdt, cdn){
 		frm.doc.discount_amount = 0;
 	}
 	frm.doc.grand_total = frm.doc.total - frm.doc.discount_amount;
+	frm.doc.ppn=0;
+	frm.doc.pph=0;
 	hitung_pajak(frm);
 	if (!frm.doc.total_advance) {
 		frm.doc.total_advance = 0;

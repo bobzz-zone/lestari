@@ -48,7 +48,10 @@ app_include_js = ['/assets/lestari/js/dx.all.js',
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {
+	"Material Request" : "public/js/custom/material_request.js",
+	"Stock Entry" : "public/js/custom/stock_entry.js"
+}
 doctype_list_js = {"Item" : "public/js/item_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -121,6 +124,9 @@ doc_events = {
 	"Purchase Invoice":{
 		"before_submit":"lestari.pinv_custom.submit",
 		"before_cancel":"lestari.pinv_custom.cancel"
+	},
+	"Material Request":{
+		"on_submit":"lestari.custom.custom_material_request.submit"
 	}
 }
 jenv = {
@@ -134,7 +140,23 @@ jenv = {
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
+scheduler_events = {
+	"cron": {
+		# "0/5 * * * *": [
+		# 	"erpnext.manufacturing.doctype.bom_update_log.bom_update_log.resume_bom_cost_update_jobs",
+		# ],
+		# "0/30 * * * *": [
+		# 	"erpnext.utilities.doctype.video.video.update_youtube_data",
+		# ],
+		# Hourly but offset by 30 minutes
+		# "30 * * * *": [
+		# 	"erpnext.accounts.doctype.gl_entry.gl_entry.rename_gle_sle_docs",
+		# ],
+		# Daily but offset by 45 minutes
+		"45 0 * * *": [
+			"lestari.custom.custom_reorder_item.reorder_item",
+		],
+	},
 # 	"all": [
 # 		"lestari.tasks.all"
 # 	],
@@ -150,7 +172,7 @@ jenv = {
 # 	"monthly": [
 # 		"lestari.tasks.monthly"
 # 	]
-# }
+}
 
 # Testing
 # -------

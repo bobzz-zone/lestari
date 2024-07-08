@@ -13,11 +13,13 @@
   "kategori",
   "column_break_6",
   "kategori_pohon",
-  "qty_isi_pohon",
   "gambar_model",
   "image",
   "section_break_9",
+  "qty_isi_pohon",
   "qty",
+  "berat",
+  "total_berat",
   "remark",
   "view"
  ],
@@ -106,12 +108,22 @@
    "fieldname": "view",
    "fieldtype": "Button",
    "label": "View"
+  },
+  {
+   "fieldname": "berat",
+   "fieldtype": "Float",
+   "label": "Berat"
+  },
+  {
+   "fieldname": "total_berat",
+   "fieldtype": "Float",
+   "label": "Total Berat"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-11-08 14:22:57.499071",
+ "modified": "2024-06-03 15:33:19.384972",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Form Order Item",

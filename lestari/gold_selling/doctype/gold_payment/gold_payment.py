@@ -323,8 +323,9 @@ class GoldPayment(StockController):
 					  ORDER BY posting_date DESC
                       """.format(self.customer, self.subcustomer, self.type_emas),as_dict=1)
 		# frappe.msgprint(str(doc))
-		if self.tutupan > 0:
-			tutupan = self.tutupan
+		if self.tutupan:
+			if self.tutupan > 0:
+				tutupan = self.tutupan
 		else:
 			tutupan = frappe.db.sql("""
                         SELECT nilai

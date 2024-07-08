@@ -1,26 +1,28 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "naming_series:",
+ "autoname": "field:no_fo",
  "creation": "2022-10-27 09:45:30.366290",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "no_fo",
   "type",
+  "kadar",
+  "sub_kategori",
+  "kategori",
+  "column_break_4",
+  "posting_date",
+  "edit_posting_date",
   "naming_series",
+  "column_break_10",
+  "due_date",
+  "pic",
+  "pic_name",
   "customer",
   "customer_name",
   "customer_group",
-  "kadar",
-  "kategori",
-  "sub_kategori",
-  "column_break_4",
-  "pic",
-  "pic_name",
-  "posting_date",
-  "edit_posting_date",
-  "due_date",
   "production_period_week",
   "production_period_month",
   "production_period_year",
@@ -34,8 +36,11 @@
   "image",
   "qty",
   "remark",
+  "column_break_30",
   "pilih",
   "reset",
+  "btn_pilih",
+  "btn_reset",
   "column_break_21",
   "gambar",
   "section_break_8",
@@ -46,6 +51,9 @@
   "items",
   "section_break_12",
   "total_pohon",
+  "column_break_45",
+  "total_qty",
+  "total_berat",
   "invalid_sec",
   "items_invalid",
   "valid_sec",
@@ -319,13 +327,55 @@
    "fieldname": "edit_posting_date",
    "fieldtype": "Check",
    "label": "Edit Posting Date"
+  },
+  {
+   "fieldname": "no_fo",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "No FO",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_30",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "btn_pilih",
+   "fieldtype": "HTML",
+   "label": "btn_pilih",
+   "options": "<button class=\"btn btn-default btn-block\" style=\"margin-bottom: 10px;\">Pilih</button>"
+  },
+  {
+   "fieldname": "btn_reset",
+   "fieldtype": "HTML",
+   "label": "btn_reset",
+   "options": "<button class=\"btn btn-default btn-block\" style=\"margin-bottom: 10px; background-color: #913030;\">Reset</button>"
+  },
+  {
+   "fieldname": "column_break_45",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_qty",
+   "fieldtype": "Int",
+   "label": "Total Qty"
+  },
+  {
+   "fieldname": "total_berat",
+   "fieldtype": "Float",
+   "label": "Total Berat"
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-02-26 10:43:46.302284",
+ "modified": "2024-06-03 15:22:44.777187",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Form Order",

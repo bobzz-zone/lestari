@@ -7,23 +7,17 @@ from frappe.model.document import Document
 class SerahTerimaPaymentStock(Document):
 	@frappe.whitelist()
 	def get_detail(self):
-		
-		if self.category == "Emas 24":
-			depo_list = frappe.get_list('Stock Payment',filters={'docstatus': 1, "rate":['>=',95], 'is_done':["<",1]}, fields=['parent','parenttype','name','item','qty','rate','amount','is_done'])
-		else:
-			depo_list = frappe.get_list('Stock Payment',filters={'docstatus': 1, "rate":['<',95], 'is_done':["<",1]}, fields=['parent','parenttype','name','item','qty','rate','amount','is_done'])
-		frappe.msgprint(str(depo_list))
+		operator = '>=' if self.category == "Emas 24" else '<'
+		depo_list = frappe.get_list('Stock Payment',filters={'docstatus': 1, "rate":[operator,95], 'is_done':["<",1]}, fields=['parent','parenttype','name','item','qty','rate','amount','is_done'])
+		total = 0
+		self.details = []
 		for row in depo_list:
-			# frappe.msgprint(str(row.voucher_type))
-			doc = frappe.get_doc(str(row.parenttype), row.parent).sales_bundle
-			if doc and doc == self.sales_bundle:
-				# item_baru = {
-				# 	'item':row.item,
-				# 	'qty':row.qty,
-				# }
-				# self.append('items',item_baru)
+			if self.sales_bundle:
+				bundle = frappe.get_cached_value(str(row.parenttype), row.parent, 'sales_bundle')
+			if not self.sales_bundle or bundle == self.sales_bundle:
 				customer = frappe.db.get_value(row.parenttype,row.parent,'customer')
 				subcustomer = frappe.db.get_value(row.parenttype,row.parent,'subcustomer')
+				total += row.qty
 				baris_baru = {
 					'item':row.item,
 					'qty':row.qty,
@@ -38,6 +32,7 @@ class SerahTerimaPaymentStock(Document):
 					'child_id':row.name
 				}
 				self.append('details',baris_baru)
+		self.total_bruto = total
 		# self.flags.ignore_permissions = True
 		# self.save()
 	def on_submit(self):

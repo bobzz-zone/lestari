@@ -1,0 +1,149 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-05-07 13:49:58.595484",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "reparasi_order",
+  "tutupan",
+  "column_break_2",
+  "customer",
+  "sales",
+  "section_break_5",
+  "items",
+  "total_bruto",
+  "total_qty",
+  "section_break_10",
+  "harga_reparasi",
+  "total_idr_reparasi",
+  "section_break_13",
+  "payment_emas",
+  "total_24k",
+  "naming_series",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "reparasi_order",
+   "fieldtype": "Link",
+   "label": "Reparasi Order",
+   "options": "Reparasi Order"
+  },
+  {
+   "fieldname": "tutupan",
+   "fieldtype": "Currency",
+   "hidden": 1,
+   "label": "Tutupan"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "reparasi_order.customer",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "sales",
+   "fieldtype": "Link",
+   "label": "Sales",
+   "options": "Sales Partner"
+  },
+  {
+   "fieldname": "section_break_5",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_bruto",
+   "fieldtype": "Float",
+   "label": "Total Bruto"
+  },
+  {
+   "fieldname": "total_qty",
+   "fieldtype": "Int",
+   "label": "Total Qty"
+  },
+  {
+   "fieldname": "section_break_10",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "harga_reparasi",
+   "fieldtype": "Table",
+   "label": "Harga Reparasi",
+   "options": "Reparasi Invoice Payment IDR"
+  },
+  {
+   "fieldname": "total_idr_reparasi",
+   "fieldtype": "Currency",
+   "label": "Total IDR Reparasi"
+  },
+  {
+   "fieldname": "section_break_13",
+   "fieldtype": "Section Break",
+   "hidden": 1
+  },
+  {
+   "fieldname": "payment_emas",
+   "fieldtype": "Table",
+   "label": "Payment Emas",
+   "options": "Reparasi Invoice Payment Emas"
+  },
+  {
+   "fieldname": "total_24k",
+   "fieldtype": "Float",
+   "label": "Total Emas Reparasi"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Reparasi Invoice",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Reparasi Invoice Items"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Naming Series"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-06-04 14:35:12.615638",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "Reparasi Invoice",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

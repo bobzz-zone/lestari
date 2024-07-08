@@ -1,0 +1,31 @@
+{
+ "content": null,
+ "creation": "2024-06-05 12:23:02.791650",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2024-06-05 13:54:13.414902",
+ "modified_by": "Administrator",
+ "module": "Gold Selling",
+ "name": "info-tidak-terima-ba",
+ "owner": "Administrator",
+ "page_name": "info-tidak-terima-ba",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "Accounts Admin"
+  },
+  {
+   "role": "Accounts Manager"
+  }
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 1
+}

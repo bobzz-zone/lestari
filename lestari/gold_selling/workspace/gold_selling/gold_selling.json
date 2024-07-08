@@ -174,7 +174,7 @@
    "type": "Link"
   }
  ],
- "modified": "2024-01-08 09:54:30.016428",
+ "modified": "2024-06-05 13:54:58.688574",
  "modified_by": "dendro@lms.com",
  "module": "Gold Selling",
  "name": "Gold Selling",
@@ -310,6 +310,25 @@
    "label": "Titipan Transfer Tracking",
    "link_to": "Titipan Transfer Tracking",
    "type": "Report"
+  },
+  {
+   "doc_view": "List",
+   "label": "Reparasi Order",
+   "link_to": "Reparasi Order",
+   "stats_filter": "",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Reparasi Invoice",
+   "link_to": "Reparasi Invoice",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Info Tidak Terima Barang",
+   "link_to": "info-tidak-terima-ba",
+   "type": "Page"
   }
  ]
 }

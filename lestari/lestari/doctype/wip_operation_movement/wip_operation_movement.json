@@ -43,8 +43,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "SPKO",
-   "options": "SPKO",
-   "reqd": 1
+   "options": "SPKO"
   },
   {
    "fieldname": "work_log",
@@ -56,6 +55,7 @@
    "fieldname": "weight",
    "fieldtype": "Float",
    "label": "Weight",
+   "precision": "2",
    "reqd": 1
   },
   {
@@ -74,7 +74,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-13 13:20:24.083750",
+ "modified": "2024-07-08 10:25:02.510094",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "WIP Operation Movement",
