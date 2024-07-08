@@ -50,17 +50,6 @@
    "label": "Posting Date"
   },
   {
-   "fieldname": "transfer",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "Transfer",
-   "options": "Stock Entry Transfer",
-   "read_only": 1,
-   "read_only_depends_on": "eval: doc.id_employee != '999999'",
-   "reqd": 1
-  },
-  {
    "fetch_from": "transfer.gudang_sumber",
    "fieldname": "s_warehouse",
    "fieldtype": "Link",
@@ -268,12 +257,18 @@
    "fieldname": "id_transfer_stockist",
    "fieldtype": "Data",
    "label": "ID Transfer Stockist"
+  },
+  {
+   "fieldname": "transfer",
+   "fieldtype": "Link",
+   "label": "Transfer",
+   "options": "Stock Entry Transfer"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-21 14:37:56.201880",
+ "modified": "2024-06-19 13:50:30.628392",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Transfer Stockist",

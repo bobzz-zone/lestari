@@ -206,7 +206,8 @@
   {
    "fieldname": "tutupan",
    "fieldtype": "Currency",
-   "label": "Tutupan"
+   "label": "Tutupan",
+   "reqd": 1
   },
   {
    "default": "Unpaid",
@@ -264,7 +265,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-04-03 10:01:51.065798",
+ "modified": "2024-06-18 15:28:41.962681",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Customer Payment Return",

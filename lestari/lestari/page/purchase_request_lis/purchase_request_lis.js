@@ -320,7 +320,16 @@ DevExtreme = Class.extend({
 				"submitted":me.submitted,
 				"combine":me.combine
 			},
-			callback: function(){
+			callback: function(r){
+				// console.log(r)
+				let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
+				width=0,height=0,left=-1000,top=-1000`;
+				docname = r.message.name
+				if(docname){
+					setTimeout(async function(){
+						window.open('/app/purchase-order/'+docname, docname);
+					}, 1500);
+				}
 				me.make()
 			}
 		})

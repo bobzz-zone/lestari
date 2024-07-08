@@ -8,15 +8,22 @@ import json
 
 @frappe.whitelist()
 def make_po(data,supplier = None, combine = None, pajak = None, ppn = None, tujuan = None, no_faktur = None, submitted = None):
+    # frappe.throw(str(json.loads(data)))
     list_name = tuple(json.loads(data))
+    if len(list_name) > 1:
+        condition = """WHERE b.name IN {}""".format(str(list_name))
+    else:
+        doc_name = json.loads(data)
+        result = str(doc_name[0])
+        condition = """WHERE b.name = '{}'""".format(result)
     # frappe.msgprint(str(list_name))
     mr_list = frappe.db.sql("""
         SELECT 
         a.transaction_date, a.name, a.schedule_date, 
         b.name as IDM, b.item_code, b.schedule_date, b.item_name, b.description, b.keterangan, b.qty, b.uom, b.stock_uom, b.conversion_factor
-        FROM `tabMaterial Request` a JOIN `tabMaterial Request Item` b ON a.name = b.parent WHERE b.name IN {}
-    """.format(str(list_name)),as_dict=1)
-    frappe.msgprint(str(mr_list))
+        FROM `tabMaterial Request` a JOIN `tabMaterial Request Item` b ON a.name = b.parent {}
+    """.format(condition),as_dict=1)
+    # frappe.msgprint(str(mr_list))
     new_doc = frappe.new_doc("Purchase Order")
     new_doc.naming_series = "PO.YY.MM.DD.###"
     new_doc.transaction_date = mr_list[0].transaction_date
@@ -42,8 +49,9 @@ def make_po(data,supplier = None, combine = None, pajak = None, ppn = None, tuju
     new_doc.flags.ignore_permissions = True
     new_doc.save()
     if submitted and submitted == 1:
-        new_doc.submit()      
+        new_doc.submit()
     frappe.msgprint("PO Berhasil dibuat dengan Nomor"+str(new_doc))
+    return new_doc.as_dict()
 
 @frappe.whitelist()
 def make_purchase_order(source_name, target_doc=None, args=None):

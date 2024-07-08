@@ -8,6 +8,7 @@
  "engine": "InnoDB",
  "field_order": [
   "operation",
+  "next_operation",
   "is_batch",
   "washing_method",
   "employee",
@@ -72,6 +73,7 @@
    "label": "Waktu mulai"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "waktu_selesai",
    "fieldtype": "Datetime",
    "label": "Waktu selesai"
@@ -101,6 +103,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "total_detik",
    "fieldtype": "Int",
    "label": "Total Detik"
@@ -135,6 +138,7 @@
    "unique": 1
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "list_pause",
    "fieldtype": "Table",
    "label": "List Pause",
@@ -157,11 +161,13 @@
    "reqd": 1
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "total_detik_working",
    "fieldtype": "Int",
    "label": "Total Detik Working"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "total_detik_pause",
    "fieldtype": "Int",
    "label": "Total Detik Pause"
@@ -202,12 +208,18 @@
    "fieldtype": "Table",
    "label": "List Detail Rusak",
    "options": "Detail Rusak"
+  },
+  {
+   "fieldname": "next_operation",
+   "fieldtype": "Link",
+   "label": "Next Operation",
+   "options": "Operation"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-05 13:44:09.848404",
+ "modified": "2024-05-25 09:47:01.076360",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Work log Testing",
