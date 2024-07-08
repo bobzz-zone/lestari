@@ -404,7 +404,7 @@ class GoldPayment(StockController):
 			baris_baru = {
 				'customer_deposit':row.name,
 				'idr_deposit':row.idr_left,
-				'idr_allocated':row.idr_left,
+				'idr_allocated':0,
 				'date':row.posting_date,
 				'customer':row.customer,
 				'account_piutang':row.account_piutang
@@ -444,7 +444,7 @@ class GoldPayment(StockController):
 			baris_baru = {
 				'customer_deposit':row.name,
 				'gold_deposit':row.gold_left,
-				'gold_allocated':row.gold_left,
+				'gold_allocated':0,
 				'date':row.posting_date,
 				'customer':row.customer,
 				'tutupan':row.tutupan

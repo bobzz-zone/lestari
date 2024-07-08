@@ -449,12 +449,90 @@ frappe.ui.form.on('Gold Payment', {
 		run_writeoff_sisa(frm);
 	},
 	jadikan_deposit:function(frm){
+		//check first ada advance ga ?.. kalo ada potong advance aja
+		if(frm.doc.total_advance>0){
+			if (frm.doc.unallocated_payment >0 || frm.doc.unallocated_idr_payment >0){
+				frappe.msgprint("karena ada advance, maka deposit baru tidak akan terbentuk, namun penggunaan advance akan di sesuaikan")
+				var idr_emptied=false;
+				var idr_need_to_deduct=frm.doc.unallocated_idr_payment;
+				if(idr_need_to_deduct>0 && frm.doc.total_idr_advance>0){
+					for (var i=frm.doc.invoice_advance;i>0 && idr_need_to_deduct>0;i--){
+						row = frm.doc.invoice_advance[i-1];
+						if(row.allocated>0){
+							if(idr_need_to_deduct > row.allocated){
+								idr_need_to_deduct=idr_need_to_deduct-row.allocated;
+								row.allocated=0;
+								if(i==1){
+									idr_emptied=true;
+								}
+							}else{
+								row.allocated=row.allocated-idr_need_to_deduct;
+								idr_need_to_deduct=0;
+							}
+						}
+					}
+				}
+				frm.doc.unallocated_idr_payment=idr_need_to_deduct;
+				var sisa_idr = idr_need_to_deduct;
+				var gold_need_to_deduct=frm.doc.unallocated_payment;
+				if (idr_need_to_deduct>0){
+					gold_need_to_deduct=gold_need_to_deduct+(idr_need_to_deduct/frm.doc.tutupan);
+					idr_emptied=true;
+				}
+				if (frm.doc.total_gold>0 && frm.doc.unallocated_payment>0){
+					for (var i=frm.doc.gold_invoice_advance.length;i>0 && gold_need_to_deduct>0;i--){
+						row = frm.doc.gold_invoice_advance[i-1];
+						if(row.allocated>0){
+							if(gold_need_to_deduct > row.allocated){
+								gold_need_to_deduct=gold_need_to_deduct-row.allocated;
+								row.allocated=0;
+							}else{
+								row.allocated=row.allocated-gold_need_to_deduct;
+								gold_need_to_deduct=0;
+							}
+						}
+					}
+				}
+				if (gold_need_to_deduct>0 && !idr_emptied){
+					idr_need_to_deduct=gold_need_to_deduct*frm.doc.tutupan;
+					for (var i=frm.doc.invoice_advance;i>0 && idr_need_to_deduct>0;i--){
+						row = frm.doc.invoice_advance[i-1];
+						if(row.allocated>0){
+							if(idr_need_to_deduct > row.allocated){
+								idr_need_to_deduct=idr_need_to_deduct-row.allocated;
+								row.allocated=0;
+								if(i==1){
+									idr_emptied=true;
+								}
+							}else{
+								row.allocated=row.allocated-idr_need_to_deduct;
+								idr_need_to_deduct=0;
+							}
+						}
+					}
+				}
+				if (sisa>0){
+					if(gold_need_to_deduct*frm.doc.tutupan < sisa){
+						frm.doc.unallocated_idr_payment=gold_need_to_deduct*frm.doc.tutupan;
+					}else{
+						frm.doc.unallocated_payment=gold_need_to_deduct-(sisa/frm.doc.tutupan);
+					}
+				}else{
+					frm.doc.unallocated_payment=gold_need_to_deduct;
+
+				}
+				calculate_table_advance(frm);
+					//current editing
+				
+			}
+		}
 		//need to check
-		if (frm.unallocated_idr_payment<=0){
+		if (frm.doc.unallocated_idr_payment<=0){
 			frm.doc.jadi_deposit=frm.doc.unallocated_payment;
 		}else{
 			frm.doc.jadi_deposit=frm.doc.unallocated_payment + (frm.doc.unallocated_idr_payment/frm.doc.tutupan); // punya ko bob
 		}
+		
 		frm.doc.unallocated_payment=0;
 		frm.doc.unallocated_idr_payment=0;
 		frappe.msgprint("Total Deposit "+frm.doc.jadi_deposit);
@@ -468,6 +546,7 @@ frappe.ui.form.on('Gold Payment', {
 			frappe.throw("Tidak ada Invoice yang terpilih");
 		}else{
 			reset_allocated(frm);
+
 			//payment rupiah selali di alokasikan ke pajak dulu apabila ada pajak
 			if (frm.doc.total_pajak>0 && frm.doc.fokus_piutang==0){
 				var idr_need_to=frm.doc.unallocated_idr_payment;
