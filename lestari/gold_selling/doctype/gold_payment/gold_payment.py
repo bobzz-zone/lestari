@@ -397,13 +397,14 @@ class GoldPayment(StockController):
 		#lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_gold_advance
 		total_advance = 0
 		#if self.type_payment=="IDR":
-		list_deposit=frappe.db.sql("""select name , idr_left ,account_piutang,posting_date,customer from `tabCustomer Deposit` where idr_left>0 and deposit_type="IDR" and docstatus=1 and (customer="{}" or subcustomer="{}" ) and type_emas ="{}" """.format(self.customer,self.subcustomer,self.type_emas),as_dict=1)
+		list_deposit=frappe.db.sql("""select name ,no_nota, idr_left ,account_piutang,posting_date,customer from `tabCustomer Deposit` where idr_left>0 and deposit_type="IDR" and docstatus=1 and (customer="{}" or subcustomer="{}" ) and type_emas ="{}" """.format(self.customer,self.subcustomer,self.type_emas),as_dict=1)
 		total_idr_in_gold = 0
 		for row in list_deposit:
 			# frappe.msgprint(str(row))
 			total_idr_in_gold += flt(row.idr_left)
 			baris_baru = {
 				'customer_deposit':row.name,
+				'no_nota':row.no_nota,
 				'idr_deposit':row.idr_left,
 				'idr_allocated':0,
 				'date':row.posting_date,
@@ -421,6 +422,7 @@ class GoldPayment(StockController):
 		# frappe.throw("""select name , gold_left ,tutupan,posting_date,customer from `tabCustomer Deposit` where gold_left>0 and deposit_type="Emas" and docstatus=1 and (customer="{}" or subcustomer="{}" ) and type_emas ="{}" """.format(self.customer,self.subcustomer,self.type_emas))
 		list_deposit=frappe.db.sql("""SELECT
 					name,
+					no_nota,
 					gold_left,
 					total_other_charges_gold,
 					tutupan,
@@ -436,7 +438,7 @@ class GoldPayment(StockController):
 						OR subcustomer = "{}"
 					)
 					AND type_emas = "{}" 
-				""".format(self.customer,self.subcustomer,self.type_emas),as_dict=1)
+				""".format(self.customer,self.subcustomer,self.type_emas),as_dict=1,debug=1)
 		# list_deposit=frappe.db.sql("""select name , gold_left ,tutupan,posting_date,customer from `tabCustomer Deposit` where gold_left>0 and deposit_type="Emas" and docstatus=1 and (customer="{}" or subcustomer="{}" ) and type_emas ="{}" """.format(self.customer,self.subcustomer,self.type_emas),as_dict=1)
 		total_gold = 0
 		for row in list_deposit:
@@ -444,6 +446,7 @@ class GoldPayment(StockController):
 			total_gold += row.gold_left
 			baris_baru = {
 				'customer_deposit':row.name,
+				'no_nota':row.no_nota,
 				'gold_deposit':row.gold_left,
 				'gold_allocated':0,
 				'date':row.posting_date,

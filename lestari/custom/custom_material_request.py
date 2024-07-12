@@ -11,17 +11,26 @@ import datetime
 
 import erpnext
 
-def submit():
+def submit(doc, method):
     # URL endpoint untuk Material Request
-    doc = frappe.get_doc("Material Request", "MRI24070824")
+    # frappe.msgprint(str(doc.name))
+    # frappe.msgprint(str(doc.from_laravel))
+    # frappe.msgprint(str(method))
+    # doc = frappe.get_doc("Material Request", docname)
+    # print("Start kirim data")
     url = "http://192.168.3.25/api/Material-Request"
-    if doc.from_laravel == 0:
+    if doc.from_laravel == "0":
         # Data yang akan dikirimkan dalam request POST
+        # frappe.msgprint("Material Request Submitting...")
+        transaction_date = doc.transaction_date
+        if frappe.session.user =="Administrator":
+            transaction_date=transaction_date.strftime("%Y-%m-%d")
+        # frappe.msgprint(transaction_date)
         data = {
         "UserName": doc.nickname,
         "Owner": doc.owner,
         "Remarks": doc.name,
-        "TransDate": doc.transaction_date.strftime("%Y-%m-%d"),
+        "TransDate": transaction_date,
         "Department": doc.id_deparment,
         "Employee": doc.employee_erp,
         "Type": doc.material_request_type,
@@ -38,6 +47,9 @@ def submit():
             else:
                 Proses = 0
             deskripsi_non_stock = item.deskripsi_non_stock.replace('\"', '\\\"') if item.deskripsi_non_stock else ""
+            schedule_date = item.schedule_date
+            if frappe.session.user =="Administrator":
+                schedule_date = schedule_date.strftime("%Y-%m-%d")
             baris_baru = {
                 "Product": item.idproduct,
                 "ProductNote": deskripsi_non_stock,
@@ -46,11 +58,11 @@ def submit():
                 "Unit": item.uom,
                 "Proses": Proses,
                 "Note": item.keterangan,
-                "RequiredDate": item.schedule_date.strftime("%Y-%m-%d")
+                "RequiredDate": schedule_date
             }
             data['items'].append(baris_baru)
 
-        print(data)
+        # print(data)
 
         # Data perlu dikirim dalam format JSON
         headers = {
@@ -62,10 +74,17 @@ def submit():
 
         # Memeriksa status response
         if response.status_code == 200:
-            print("Material Request berhasil dibuat")
-            print(response.json())
+            # frappe.msgprint("Material Request berhasil dibuat")
+            respon = response.json()
+            # frappe.msgprint(str(respon['data']))
+            frappe.db.set_value("Material Request", doc.name, "idmaterial_request", respon['data'][0]['ID'])
+            frappe.db.commit()
+
         else:
-            print("Gagal membuat Material Request")
-            print(response.status_code)
-            print(response.text)
+            frappe.msgprint("Gagal membuat Material Request")
+            frappe.msgprint(str(response.status_code))
+            frappe.msgprint(str(response.text))
+    else:
+        # frappe.msgprint("Data ini sudah di submit dari ERPLaravel")
+        print("Data ini sudah di submit dari ERPLaravel")
         

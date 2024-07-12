@@ -36,12 +36,17 @@ frappe.ui.form.on("Gold Invoice", {
 		// });
 	},
 	refresh: function (frm) {
-
-	setTimeout(function(){
-		if (cur_frm.is_new() && !cur_frm.doc.tutupan){
-			frappe.msgprint("Isikan Tutupan Terlebih Dahulu!!")
-		}
-	},1000)
+	if(cur_frm.is_new() && !cur_frm.doc.tutupan){
+		frm.dashboard.add_comment(__("Isikan Tutupan Terlebih Dahulu"), "red", false)
+		setTimeout(function(){
+			frm.get_field("tutupan").set_focus()
+		},1000)
+	}
+	// setTimeout(function(){
+	// 	if (cur_frm.is_new() && !cur_frm.doc.tutupan){
+	// 		frappe.msgprint("Isikan Tutupan Terlebih Dahulu!!")
+	// 	}
+	// },1000)
 	// your code here
 	frm.set_query("bundle", function(){
 		return {

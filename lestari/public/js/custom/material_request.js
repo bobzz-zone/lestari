@@ -75,7 +75,7 @@ frappe.ui.form.on('Material Request', {
    
     },
     on_submit: function(frm){
-        setTimeout(function(){cur_frm.reload_doc()}, 3000);
+//        setTimeout(function(){cur_frm.reload_doc()}, 3000);
     }, 
     refresh: function(frm) {
         let stock_area = frappe.user.has_role("Stock Area")
@@ -119,10 +119,11 @@ frappe.ui.form.on('Material Request', {
                     addons.utils.removeColumns(frm, ["description"], "items")
                     cur_frm.refresh_field("items")
                 }
-		   }		
+		   }
         }
     },
     before_save: function(frm) {
+if (cur_frm.doc.from_laravel==1){return;}
         set_row_numbers(frm);
         if(cur_frm.doc.jenis_dokumen == "Non Stock")
         $.each(cur_frm.doc.items,function(i,g){
@@ -176,7 +177,7 @@ frappe.ui.form.on('Material Request', {
             frm.add_child('items')
             frm.refresh_field('items');
         }
-        if (['izzi@lms.com','niko@lms.com','yonatan@lms.com','gustig@lms.com','aditya@lms.com'].includes(frappe.session.user)){
+        if (['izzi@lms.com','niko@lms.com','yonatan@lms.com','gustig@lms.com','aditya@lms.com','Supratno@lms.com'].includes(frappe.session.user)){
             console.log(frappe.session.user)
         }else{
             frm.set_query('proses', 'items', function() {

@@ -1,5 +1,5 @@
 {
- "add_total_row": 0,
+ "add_total_row": 1,
  "columns": [],
  "creation": "2023-05-23 12:48:16.996668",
  "disable_prepared_report": 0,
@@ -9,8 +9,8 @@
  "filters": [],
  "idx": 0,
  "is_standard": "Yes",
- "modified": "2023-10-20 13:26:35.898069",
- "modified_by": "bobzz.zone@gmail.com",
+ "modified": "2024-07-09 16:06:42.961884",
+ "modified_by": "dendro@lms.com",
  "module": "Gold Selling",
  "name": "Rekap Piutang Customer",
  "owner": "Administrator",
