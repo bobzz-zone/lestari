@@ -406,7 +406,7 @@ class GoldPayment(StockController):
 				'customer_deposit':row.name,
 				'no_nota':row.no_nota,
 				'idr_deposit':row.idr_left,
-				'idr_allocated':0,
+				'idr_allocated':row.idr_left,
 				'date':row.posting_date,
 				'customer':row.customer,
 				'account_piutang':row.account_piutang
@@ -448,7 +448,7 @@ class GoldPayment(StockController):
 				'customer_deposit':row.name,
 				'no_nota':row.no_nota,
 				'gold_deposit':row.gold_left,
-				'gold_allocated':0,
+				'gold_allocated':row.gold_left,
 				'date':row.posting_date,
 				'customer':row.customer,
 				'tutupan':row.tutupan
