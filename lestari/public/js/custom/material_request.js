@@ -1,5 +1,6 @@
 frappe.provide("addons.utils");
 
+var list_proses = [];
 addons.utils = {
     showColumns: function(frm, fields, table) {
         let grid = frm.get_field(table).grid;
@@ -80,6 +81,7 @@ frappe.ui.form.on('Material Request', {
     refresh: function(frm) {
         let stock_area = frappe.user.has_role("Stock Area")
         let stock_user = frappe.user.has_role("Stock User")
+        cur_frm.set_df_property('jenis_mr', 'read_only', 1)
 
         set_row_numbers(frm);
         if (cur_frm.is_new()){
@@ -123,7 +125,7 @@ frappe.ui.form.on('Material Request', {
         }
     },
     before_save: function(frm) {
-if (cur_frm.doc.from_laravel==1){return;}
+    if (cur_frm.doc.from_laravel==1){return;}
         set_row_numbers(frm);
         if(cur_frm.doc.jenis_dokumen == "Non Stock")
         $.each(cur_frm.doc.items,function(i,g){
@@ -164,12 +166,14 @@ if (cur_frm.doc.from_laravel==1){return;}
             addons.utils.showColumns(frm, ["idproduct"], "items")
             addons.utils.removeColumns(frm, ["deskripsi_non_stock"], "items")
             cur_frm.refresh_field("items")
+            // frappe.msgprint("Stock")
         } 
         if(frm.doc.jenis_dokumen == "Non Stock"){
             addons.utils.showColumns(frm, ["deskripsi_non_stock"], "items")
             addons.utils.removeColumns(frm, ["description"], "items")
             addons.utils.removeColumns(frm, ["idproduct"], "items")
             cur_frm.refresh_field("items")
+            // frappe.msgprint("Nonstock")
        }
        frm.clear_table("items")
        frm.refresh_fields()
@@ -187,6 +191,15 @@ if (cur_frm.doc.from_laravel==1){return;}
                     }
                 };
             });
+            frappe.db.get_list('Item Group', {
+                filters: {
+                    'department': cur_frm.doc.department
+                }
+            }).then(records => {
+                for(var i = 0; i < records.length; i++){
+                    list_proses.push(records[i].name)
+                }
+            })
         }
     }
 });
@@ -197,6 +210,8 @@ frappe.ui.form.on('Material Request Item', {
         set_row_numbers(frm);
         if(['Purchase','Material Issue'].includes(cur_frm.doc.material_request_type) && cur_frm.doc.jenis_dokumen == "Non Stock"){
             console.log('test1')
+            console.log(list_proses)
+            frappe.model.set_value(cdt, cdn, "proses", list_proses[0]);
             frm.set_df_property('items', 'reqd', 1, frm.docname, 'proses', d.name)
             cur_frm.refresh_field("items");
         }

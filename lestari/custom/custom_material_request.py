@@ -36,6 +36,7 @@ def submit(doc, method):
         "Type": doc.material_request_type,
         "Jenis": doc.jenis_dokumen,
         "Docstatus": doc.docstatus,
+        "jenis_mr": doc.jenis_mr,
         "items": []
         }
         for item in doc.items:

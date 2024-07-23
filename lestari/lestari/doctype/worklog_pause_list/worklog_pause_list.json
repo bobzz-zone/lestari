@@ -37,7 +37,7 @@
   },
   {
    "fieldname": "catatan",
-   "fieldtype": "Data",
+   "fieldtype": "Text",
    "label": "Catatan"
   },
   {
@@ -51,7 +51,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-07-21 14:55:41.199620",
+ "modified": "2024-07-22 12:47:33.186090",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Worklog Pause List",
