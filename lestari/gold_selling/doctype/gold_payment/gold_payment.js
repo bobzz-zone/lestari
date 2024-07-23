@@ -485,7 +485,7 @@ frappe.ui.form.on('Gold Payment', {
 				var idr_need_to_deduct=frm.doc.unallocated_idr_payment;
 				if(idr_need_to_deduct>0 && frm.doc.total_idr_advance>0){
 					for (var i=frm.doc.invoice_advance.length;i>0 && idr_need_to_deduct>0;i--){
-						row = frm.doc.invoice_advance[i-1];
+						var row = frm.doc.invoice_advance[i-1];
 						if(row.idr_allocated>0){
 							if(idr_need_to_deduct > row.idr_allocated){
 								idr_need_to_deduct=idr_need_to_deduct-row.idr_allocated;
@@ -509,7 +509,7 @@ frappe.ui.form.on('Gold Payment', {
 				}*/
 				if (frm.doc.total_gold>0 && frm.doc.unallocated_payment>0){
 					for (var i=frm.doc.gold_invoice_advance.length;i>0 && gold_need_to_deduct>0;i--){
-						row = frm.doc.gold_invoice_advance[i-1];
+						var row = frm.doc.gold_invoice_advance[i-1];
 						frappe.msgprint("A");
 						if(row.gold_allocated>0){
 							frappe.msgprint("B");
