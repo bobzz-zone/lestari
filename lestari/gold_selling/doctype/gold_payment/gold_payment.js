@@ -514,8 +514,10 @@ frappe.ui.form.on('Gold Payment', {
 							if(gold_need_to_deduct > row.gold_allocated){
 								gold_need_to_deduct=gold_need_to_deduct-row.gold_allocated;
 								row.gold_allocated=0;
+								frappe.msgprint("Deducted to "+row.customer_deposit);
 							}else{
 								row.gold_allocated=row.gold_allocated-gold_need_to_deduct;
+								frappe.msgprint("Deducted To "+row.customer_deposit);
 								gold_need_to_deduct=0;
 							}
 						}
