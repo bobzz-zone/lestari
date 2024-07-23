@@ -508,6 +508,7 @@ frappe.ui.form.on('Gold Payment', {
 					//idr_emptied=true;
 				}*/
 				if (frm.doc.total_gold>0 && frm.doc.unallocated_payment>0){
+					frappe.msgprint("here");
 					for (var i=frm.doc.gold_invoice_advance.length;i>0 && gold_need_to_deduct>0;i--){
 						row = frm.doc.gold_invoice_advance[i-1];
 						if(row.gold_allocated>0){
