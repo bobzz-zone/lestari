@@ -510,16 +510,12 @@ frappe.ui.form.on('Gold Payment', {
 				if (frm.doc.total_gold>0 && frm.doc.unallocated_payment>0){
 					for (var i=frm.doc.gold_invoice_advance.length;i>0 && gold_need_to_deduct>0;i--){
 						var row = frm.doc.gold_invoice_advance[i-1];
-						frappe.msgprint("A");
 						if(row.gold_allocated>0){
-							frappe.msgprint("B");
 							if(gold_need_to_deduct > row.gold_allocated){
 								gold_need_to_deduct=gold_need_to_deduct-row.gold_allocated;
 								row.gold_allocated=0;
-								frappe.msgprint("Deducted 1");
 							}else{
 								row.gold_allocated=row.gold_allocated-gold_need_to_deduct;
-								frappe.msgprint("Deducted 2");
 								gold_need_to_deduct=0;
 							}
 						}
