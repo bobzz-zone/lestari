@@ -551,6 +551,7 @@ frappe.ui.form.on('Gold Payment', {
 				}*/
 				frm.doc.unallocated_payment=gold_need_to_deduct;
 				calculate_table_advance(frm);
+
 					//current editing
 				
 			}
@@ -568,7 +569,7 @@ frappe.ui.form.on('Gold Payment', {
 		refresh_field("unallocated_payment");
 		refresh_field("unallocated_idr_payment");
 		refresh_field("jadi_deposit");
-		// frm.dirty();
+		frm.dirty();
 	},
 	auto_distribute:function(frm){
 		if (frm.doc.invoice_table==[] || frm.doc.customer_return==[]){
