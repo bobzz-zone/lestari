@@ -49,7 +49,7 @@ def execute(filters=None):
 		select cd.posting_date,"Customer Deposit" as "type" , cd.name as "voucher_no" ,cd.customer,cd.subcustomer,cd.sales_bundle, 0 as debit , total_gold_deposit as "kredit" , (total_idr_deposit ) as "titipan" , is_convert , total_value_converted
 		from `tabCustomer Deposit` cd where docstatus=1 and (customer="{0}" or subcustomer="{0}") and deposit_payment=0 and posting_date between "{1}" and "{2}"
 		UNION 
-		select cd.posting_date,"Gold Payment" as "type" , cd.name as "voucher_no" ,cd.customer,cd.subcustomer,cd.sales_bundle, 0 as debit , (total_gold_payment+total_idr_gold) as "kredit" , 0 as "titipan" , 0 as is_convert , 0 as total_value_converted
+		select cd.posting_date,"Gold Payment" as "type" , cd.name as "voucher_no" ,cd.customer,cd.subcustomer,cd.sales_bundle, 0 as debit , (total_gold_payment+total_idr_gold+total_cpr) as "kredit" , 0 as "titipan" , 0 as is_convert , 0 as total_value_converted
 		from `tabGold Payment` cd where docstatus=1 and (customer="{0}" or subcustomer="{0}") and posting_date between "{1}" and "{2}"
 		
 		) x 
