@@ -13,7 +13,7 @@ class SerahTerimaPaymentCash(Document):
 		self.payment = {}
 		payment = frappe.get_list('IDR Payment',
 					filters={'docstatus': 1,'mode_of_payment':["in",['Cash','Kas Sales']],'is_done':["<",1],"creation":[">=","2024/01/01"]}, 
-					fields=['parent','parenttype','name','mode_of_payment','amount','is_done'])
+					fields=['parent','parenttype','name','mode_of_payment','amount','is_done'],debug=True)
 		total_cash = 0
 		for row in payment:
 			# frappe.msgprint(row)

@@ -374,15 +374,15 @@ frappe.ui.form.on('Transfer Stockist', {
 				// console.log("Not Connected");
 				cur_frm.set_value("status_timbangan","Not Connect")
 				cur_frm.refresh_field("status_timbangan");
-				frappe.confirm(
-				  "Browser Belum Memiliki Ijin Akses Serial!, Ijinkan ?",
-				  async function () {
-					// Prompt user to select any serial port.
-					port = await navigator.serial.requestPort();
-					connectSerial();
-				  },
-				  function () {}
-				);
+				// frappe.confirm(
+				//   "Browser Belum Memiliki Ijin Akses Serial!, Ijinkan ?",
+				//   async function () {
+				// 	// Prompt user to select any serial port.
+				// 	port = await navigator.serial.requestPort();
+				// 	connectSerial();
+				//   },
+				//   function () {}
+				// );
 			  } else {
 				port = ports[0];
 				connectSerial();
@@ -392,7 +392,7 @@ frappe.ui.form.on('Transfer Stockist', {
 				// Prompt user to select any serial port.
 			  }
 			} else {
-			  frappe.msgprint("Your browser does not support serial device connection. Please switch to a supported browser to connect to your weigh device");
+			//   frappe.msgprint("Your browser does not support serial device connection. Please switch to a supported browser to connect to your weigh device");
 			}
 		  }
 		  window.checkPort(false);

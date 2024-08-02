@@ -56,7 +56,15 @@ frappe.ui.form.on('Stock Entry', {
     //     dialog.fields_dict.alternative_items.grid.refresh();
     //     dialog.show();
     // },
-    
+    on_submit: function(frm){
+        if(frm.doc.stock_entry_type == "Transfer Area"){
+            if(frm.doc.id_transfer_erp){
+                return
+            }else{
+                frappe.throw("ID Transfer ERP harus diisi");
+            }
+        }
+    },
     refresh: function(frm) {
         if (frm.doc.docstatus === 0) {
 		    frm.events.make_custom_buttons(frm);

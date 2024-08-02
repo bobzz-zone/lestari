@@ -8,9 +8,17 @@ from six import string_types
 @frappe.whitelist()
 @frappe.validate_and_sanitize_search_inputs
 def item_query(doctype, txt, searchfield, start, page_len, filters, as_dict=False):
-	cond=""" and item_group_parent="Pembelian" """
+	cond=""
+	if filters.get("item_group_parent"):
+		cond="""{} and item_group_parent="{}" """.format(cond,filters.get("item_group_parent"))
+	if filters.get("item_group"):
+		cond="""{} and item_group="{}" """.format(cond,filters.get("item_group"))
+	if filters.get("is_purchase_item"):
+		cond="""{} and is_purchase_item="{}" """.format(cond,filters.get("is_purchase_item"))
 	if filters.get("is_stock_item"):
 		cond="""{} and is_stock_item="{}" """.format(cond,filters.get("is_stock_item"))
+	if filters.get("is_fixed_asset"):
+		cond="""{} and is_fixed_asset="{}" """.format(cond,filters.get("is_fixed_asset"))
 	if filters.get("prod_con"):
 		cond=""" {} and idproduct {}""".format(cond,filters.get("prod_con"))
 	cond2 = ""

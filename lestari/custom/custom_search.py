@@ -198,7 +198,7 @@ def get_list(
 	limit_start=None,
 	limit_page_length=None,
 	parent=None,
-	debug=True,
+	debug=False,
 	as_dict=True,
 	or_filters=None,
 ):

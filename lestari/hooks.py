@@ -127,6 +127,11 @@ doc_events = {
 	},
 	"Material Request":{
 		"on_submit":"lestari.custom.custom_material_request.submit"
+	},
+	"Stock Entry":{
+		"after_insert":"lestari.custom.custom_stock_entry.after_insert",
+		"on_update":"lestari.custom.custom_stock_entry.on_update",
+		"on_change":"lestari.custom.custom_stock_entry.on_change"
 	}
 }
 jenv = {

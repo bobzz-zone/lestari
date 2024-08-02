@@ -81,13 +81,17 @@ frappe.ui.form.on('Material Request', {
     refresh: function(frm) {
         let stock_area = frappe.user.has_role("Stock Area")
         let stock_user = frappe.user.has_role("Stock User")
-        cur_frm.set_df_property('jenis_mr', 'read_only', 1)
+        if(frappe.user.has_role("Stock Area") && frappe.user.has_role("Stock User") ){
+            cur_frm.set_df_property('jenis_mr', 'read_only', 1)
+        }
 
         set_row_numbers(frm);
         if (cur_frm.is_new()){
 			frappe.db.get_value("Employee", { "user_id": frappe.session.user }, ["name","id_employee"]).then(function (responseJSON) {
 				cur_frm.set_value("employee_id", responseJSON.message.name);
+				cur_frm.set_value("employee_erp", responseJSON.message.name);
 				cur_frm.refresh_field("employee_id");
+				cur_frm.refresh_field("employee_erp");
 			});
 
             if(frm.doc.material_request_type == "Purchase"){
@@ -115,13 +119,23 @@ frappe.ui.form.on('Material Request', {
                     cur_frm.refresh_field("items")
                 }
             } 
-            if(frm.doc.jenis_dokumen == "Non Stock"){
+            if(["Non Stock","Asset"].includes(frm.doc.jenis_dokumen)){
                 if(frm.doc.material_request_type == "Purchase" || frm.doc.material_request_type == "Material Issue"){
                     addons.utils.showColumns(frm, ["deskripsi_non_stock"], "items")
                     addons.utils.removeColumns(frm, ["description"], "items")
                     cur_frm.refresh_field("items")
                 }
 		   }
+        //    if(frm.doc.jenis_dokumen == "Bahan Baku"){
+        //         frm.set_query('item_code', 'items', function() {
+        //             return {
+        //                 'filters': {
+        //                     'item_group': 'Logam',
+        //                     'is_purchase': 0
+        //                 }
+        //             };
+        //         });
+        //    }
         }
     },
     before_save: function(frm) {
@@ -140,7 +154,7 @@ frappe.ui.form.on('Material Request', {
             addons.utils.removeColumns(frm, ["deskripsi_non_stock"], "items")
             cur_frm.refresh_field("items")
         } 
-        if(frm.doc.jenis_dokumen == "Non Stock"){
+        if(["Non Stock","Asset"].includes(frm.doc.jenis_dokumen)){
             addons.utils.showColumns(frm, ["deskripsi_non_stock"], "items")
             addons.utils.removeColumns(frm, ["description"], "items")
             addons.utils.removeColumns(frm, ["idproduct"], "items")
@@ -168,7 +182,7 @@ frappe.ui.form.on('Material Request', {
             cur_frm.refresh_field("items")
             // frappe.msgprint("Stock")
         } 
-        if(frm.doc.jenis_dokumen == "Non Stock"){
+        if(["Non Stock","Asset"].includes(frm.doc.jenis_dokumen)){
             addons.utils.showColumns(frm, ["deskripsi_non_stock"], "items")
             addons.utils.removeColumns(frm, ["description"], "items")
             addons.utils.removeColumns(frm, ["idproduct"], "items")
@@ -181,7 +195,7 @@ frappe.ui.form.on('Material Request', {
             frm.add_child('items')
             frm.refresh_field('items');
         }
-        if (['izzi@lms.com','niko@lms.com','yonatan@lms.com','gustig@lms.com','aditya@lms.com','Supratno@lms.com'].includes(frappe.session.user)){
+        if (['izzi@lms.com','niko@lms.com','yonatan@lms.com','gustig@lms.com','aditya@lms.com','Supratno@lms.com','dendro@lms.com'].includes(frappe.session.user)){
             console.log(frappe.session.user)
         }else{
             frm.set_query('proses', 'items', function() {
@@ -278,20 +292,53 @@ cur_frm.cscript.onload = function(doc, cdt, cdn) {
         } else if (doc.material_request_type == "Purchase") {
             let prod_con;
             if(cur_frm.doc.material_request_type == "Purchase" && cur_frm.doc.jenis_dokumen === "Stock"){
-                //idproduct = [">","0"]
-		prod_con="> 0";
+                prod_con="> 0";
+                return{
+                    query:"lestari.custom_function.item_query",
+        //                query: "erpnext.controllers.queries.item_query",
+                        filters: {
+                            'item_group_parent': "Pembelian", 
+                            "prod_con": prod_con
+                        }
+                    }
+            }else if(cur_frm.doc.material_request_type == "Purchase" && cur_frm.doc.jenis_dokumen === "Batu"){
+                return{
+                    query:"lestari.custom_function.item_query",
+        //                query: "erpnext.controllers.queries.item_query",
+                        filters: {
+                            'item_group_parent': "Batu"
+                        }
+                    }
+            }else if(cur_frm.doc.material_request_type == "Purchase" && ["Bahan Baku","Campur Bahan"].includes(cur_frm.doc.jenis_dokumen)){
+                return{
+                    query:"lestari.custom_function.item_query",
+        //                query: "erpnext.controllers.queries.item_query",
+                        filters: {
+                            'item_group': "Logam", 
+                            "is_purchase_item": 1
+                        }
+                    }
+            }else if(cur_frm.doc.material_request_type == "Purchase" && ["Asset"].includes(cur_frm.doc.jenis_dokumen)){
+                return{
+                    query:"lestari.custom_function.item_query",
+        //                query: "erpnext.controllers.queries.item_query",
+                        filters: {
+                            'item_group_parent': "Pembelian", 
+                            "is_fixed_asset": 1
+                        }
+                    }
             }else{
-                //idproduct = ["=","0"]
-		prod_con="= 0";
+                prod_con="= 0";
+                return{
+                    query:"lestari.custom_function.item_query",
+        //                query: "erpnext.controllers.queries.item_query",
+                        filters: {
+                            'item_group_parent': "Pembelian", 
+                            "prod_con": prod_con
+                        }
+                    }
             }
-            return{
-		query:"lestari.custom_function.item_query",
-//                query: "erpnext.controllers.queries.item_query",
-                filters: {
-                    'item_group_parent': "Pembelian", 
-                    "prod_con": prod_con
-                }
-            }
+            
         } else {
             return{
 //                query: "erpnext.controllers.queries.item_query",
@@ -299,8 +346,8 @@ cur_frm.cscript.onload = function(doc, cdt, cdn) {
                 filters: {
                     'item_group_parent': "Pembelian", 
                    // "idproduct":[">","0"],
-			'prod_con':"> 0",
-                    'is_stock_item':1
+			        'prod_con':"> 0",
+                    'is_stock_item': 1
                 }
             }
         }
