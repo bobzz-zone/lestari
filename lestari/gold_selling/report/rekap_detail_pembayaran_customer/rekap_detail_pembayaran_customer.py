@@ -14,7 +14,7 @@ def execute(filters=None):
 							where gp.docstatus=1 and gp.customer="{customer}" and (gp.posting_date < "{to_date}" and gp.posting_date > "{from_date}")
 							union
 							select gp2.posting_date,"" as no_nota,gp2.name as "Voucher No", "Discount" as item,"1" as qty,"100" as rate, gp2.discount_amount as amount,"" as keterangan from `tabGold Payment` gp2
-							where gp2.docstatus=1 and gp2.customer="{customer}" and (gp2.posting_date < "{to_date}" and gp2.posting_date > "{from_date}")
+							where gp2.docstatus=1 and gp2.discount_amount>0 and gp2.customer="{customer}" and (gp2.posting_date < "{to_date}" and gp2.posting_date > "{from_date}")
 							union
 							select gp3.posting_date,"" as no_nota,gp3.name as "Voucher No",gpc.category,"1" as qty,"100" as rate,gpc.gold_amount as amount,"" as keterangan from `tabGold Payment Charges` gpc left join `tabGold Payment` gp3 on gpc.parent=gp3.name
 							where gp3.docstatus=1 and gp3.customer="{customer}" and (gp3.posting_date < "{to_date}" and gp3.posting_date > "{from_date}")
