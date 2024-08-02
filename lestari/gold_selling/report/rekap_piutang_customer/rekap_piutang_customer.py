@@ -30,8 +30,8 @@ import json
 
 def execute(filters=None):
 	columns, data = ["Date:Date:150","Type:Data:150","Voucher No:Data:150","Customer:Data:150","SubCustomer:Data:150","Sales:Data:150","Debit:Float:150","Kredit:Float:150","Balance Gold:Float:150","Total Titipan Rupiah:Currency:150"], []
-	posting_date = []
-	posting_date.append(filters.get("posting_date"))
+	posting_date = [filters.get("from_date"),filters.get("to_date")]
+	#posting_date.append(filters.get("posting_date"))
 	# frappe.msgprint(str(posting_date))
 	if posting_date:
 		json_data = posting_date[0]
