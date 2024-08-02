@@ -11,6 +11,7 @@ def execute(filters=None):
 							union
 							select gp.posting_date,"" as no_nota,gp.name as "Document No",sp2.item,sp2.qty,sp2.rate,sp2.amount,sp2.keterangan from `tabStock Payment` sp left join `tabGold Payment` cd on sp2.parent=gp.name
 							where gp.docstatus=1 and gp.customer="{customer}" and (gp.posting_date < "{to_date}" or gp.posting_date > "{from_date}"
+							union
 							select gp2.posting_date,"" as no_nota,gp2.name as "Document No", "Discount" as item,"1" as qty,"100" as rate, gp2.discount_amount as amount,"" as keterangan from `tabGold Payment` 
 							where gp2.docstatus=1 and gp.customer="{customer}" and (gp.posting_date < "{to_date}" or gp.posting_date > "{from_date}"
 							order by posting_date
