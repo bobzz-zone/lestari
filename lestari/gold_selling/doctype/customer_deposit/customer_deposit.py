@@ -9,6 +9,22 @@ from erpnext.accounts.doctype.sales_invoice.sales_invoice import get_bank_cash_a
 from erpnext.controllers.stock_controller import StockController
 from frappe.utils import flt
 class CustomerDeposit(StockController):
+	def generate_gold_log(self):
+		for row in self.stock_deposit:
+			log = frappe.new_doc("Gold Log")
+			log.customer = self.customer
+			log.date = self.posting_date
+			log.item=row.item
+			log.voucher_type="Customer Deposit"
+			log.voucher_no=self.name
+			log.bruto=row.qty * -1
+			log.rate=row.rate
+			log.netto=row.amount * -1
+			log.flags.ignore_permissions = True
+			log.save()
+	def delete_gold_log(self):
+		frappe.db,sql("delete from `tabGold Log` where voucher_type='Gold Payment' and voucher_no='{}'".format(self.name))
+	
 	def validate(self):
 		#total items
 		if self.deposit_type=="Emas":
