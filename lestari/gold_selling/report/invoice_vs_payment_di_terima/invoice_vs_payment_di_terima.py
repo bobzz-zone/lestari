@@ -14,8 +14,8 @@ def execute(filters=None):
 		saldo=flt(saldo_awal[0][0])
 		data.append(["","","","Saldo Awal","","","",saldo])
 	#mutasi
-	log_data = frappe.db.sql("""select date, voucher_type,voucher_no , item,bruto,rate,netto from `tabGold Log` 
-		where customer="{}" and date <= "{}" and date >="{}" order by date asc
+	log_data = frappe.db.sql("""select `date`, voucher_type,voucher_no , item,bruto,rate,netto from `tabGold Log` 
+		where customer="{}" and date <= "{}" and date >="{}" order by `date` asc
 	 """.format(filters.get("customer"),filters.get("to_date"),filters.get("from_date")))
 	for row in log_data:
 		saldo=saldo+flt(row[6])
