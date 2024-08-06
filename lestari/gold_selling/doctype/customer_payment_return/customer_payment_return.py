@@ -47,6 +47,21 @@ class CustomerPaymentReturn(StockController):
 		# 		frappe.throw("Error Tidak ada nilai yang dikembalikan")
 		# else:
 			pass
+	def generate_gold_log(self):
+		for row in self.items:
+			log = frappe.new_doc("Gold Log")
+			log.customer = self.customer
+			log.date = self.posting_date
+			log.item=row.item
+			log.voucher_type="Customer Payment Return"
+			log.voucher_no=self.name
+			log.bruto=row.qty
+			log.rate=row.rate
+			log.netto=row.amount
+			log.flags.ignore_permissions = True
+			log.save()
+	def delete_gold_log(self):
+		frappe.db,sql("delete from `tabGold Log` where voucher_type='Customer Payment Return' and voucher_no='{}'".format(self.name))
 	def on_submit(self):
 		for row in self.items:
 			frappe.db.sql(
