@@ -7,54 +7,160 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "date",
-  "template",
-  "items",
-  "request_by",
-  "amended_from"
+  "naming_series",
+  "tujuan_doc",
+  "supplier",
+  "column_break_4",
+  "transaction_date",
+  "valid_till",
+  "section_break_7",
+  "supplier_address",
+  "contact_person",
+  "address_display",
+  "contact_display",
+  "contact_mobile",
+  "contact_email",
+  "currency_and_price_list",
+  "currency",
+  "conversion_rate",
+  "cb_price_list",
+  "buying_price_list",
+  "price_list_currency",
+  "plc_conversion_rate",
+  "ignore_pricing_rule",
+  "items_section",
+  "items"
  ],
  "fields": [
   {
-   "default": "Today",
-   "fieldname": "date",
-   "fieldtype": "Date",
-   "in_list_view": 1,
-   "label": "Date",
-   "reqd": 1
-  },
-  {
-   "fieldname": "template",
-   "fieldtype": "Link",
-   "label": "Nama Template",
-   "options": "Purchase Request Template"
-  },
-  {
-   "fetch_from": "template.items",
-   "fetch_if_empty": 1,
    "fieldname": "items",
    "fieldtype": "Table",
    "label": "Detail",
    "options": "Purchase Request Detail"
   },
   {
-   "fieldname": "request_by",
-   "fieldtype": "Link",
-   "label": "Request By",
-   "options": "Employee"
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series"
   },
   {
-   "fieldname": "amended_from",
+   "fieldname": "tujuan_doc",
    "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Purchase Request",
-   "print_hide": 1,
+   "label": "Tujuan Doc",
+   "options": "Tujuan"
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "transaction_date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "valid_till",
+   "fieldtype": "Date",
+   "label": "Valid Till"
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "supplier_address",
+   "fieldtype": "Link",
+   "label": "Supplier Address",
+   "options": "Address"
+  },
+  {
+   "fieldname": "contact_person",
+   "fieldtype": "Link",
+   "label": "Contact Person",
+   "options": "Contact"
+  },
+  {
+   "fieldname": "address_display",
+   "fieldtype": "Small Text",
+   "label": "Address",
    "read_only": 1
+  },
+  {
+   "fieldname": "contact_display",
+   "fieldtype": "Small Text",
+   "label": "Contact"
+  },
+  {
+   "fieldname": "contact_mobile",
+   "fieldtype": "Small Text",
+   "label": "Mobile No"
+  },
+  {
+   "fieldname": "contact_email",
+   "fieldtype": "Small Text",
+   "label": "Contact Email",
+   "options": "Email"
+  },
+  {
+   "fieldname": "currency_and_price_list",
+   "fieldtype": "Section Break",
+   "label": "Currency and Price List",
+   "options": "fa fa-tag"
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency"
+  },
+  {
+   "fieldname": "conversion_rate",
+   "fieldtype": "Float",
+   "label": "Exchange Rate"
+  },
+  {
+   "fieldname": "cb_price_list",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "buying_price_list",
+   "fieldtype": "Link",
+   "label": "Price List",
+   "options": "Price List"
+  },
+  {
+   "fieldname": "price_list_currency",
+   "fieldtype": "Link",
+   "label": "Price List Currency",
+   "options": "Currency"
+  },
+  {
+   "fieldname": "plc_conversion_rate",
+   "fieldtype": "Float",
+   "label": "Price List Exchange Rate"
+  },
+  {
+   "default": "0",
+   "fieldname": "ignore_pricing_rule",
+   "fieldtype": "Check",
+   "label": "Ignore Pricing Rule"
+  },
+  {
+   "fieldname": "items_section",
+   "fieldtype": "Section Break",
+   "options": "fa fa-shopping-cart"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2023-02-14 09:31:32.892774",
+ "modified": "2024-08-05 10:46:54.424017",
  "modified_by": "Administrator",
  "module": "PrePurchase",
  "name": "Purchase Request",

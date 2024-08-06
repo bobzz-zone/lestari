@@ -118,6 +118,9 @@ def on_update(doc, method):
                 "item": []
             }
             for item in doc.items:
+                if item.material_request:
+                    LinkID = item.material_request
+                    LinkOrd = item.ordinal
                 baris_baru = {
                     "Product": item.item_code,
                     "Qty": item.qty,
@@ -136,7 +139,6 @@ def on_update(doc, method):
                 respon = response.json()
                 frappe.db.set_value("Stock Entry", doc.name, "id_transfer_erp", respon['data'][0]['ID'])
                 frappe.db.commit()
-
             except requests.exceptions.HTTPError as http_err:
                 frappe.msgprint(f"HTTP error occurred: {http_err}")
                 frappe.msgprint(f"Response text: {response.text}")
@@ -166,42 +168,53 @@ def on_change(doc, method):
         ]
     if doc.owner != "arikba@lms.com":
         if doc.docstatus == 1 and doc.workflow_state=="Posted":
-            if doc.id_transfer_erp:
-                data = {
-                    "creation": doc.creation,
-                    "modified": doc.modified,
-                    "modified_by": doc.modified_by,
-                    "employee_erp": doc.employee_id,
-                    "docstatus":doc.docstatus,
-                    "Status": "Submit",
-                    "nameStockEntry": doc.name,
-                    "Department":doc.id_department,
-                    "Owner": doc.owner,
-                    "TransDate": doc.posting_date,
-                    "Type": doc.stock_entry_type,
-                    "id_transfer_erp": doc.id_transfer_erp,
-                    "posting_status": doc.workflow_state,
-                    "item": []
+            # if doc.id_transfer_erp:
+            data = {
+                "creation": doc.creation,
+                "modified": doc.modified,
+                "modified_by": doc.modified_by,
+                "employee_erp": doc.employee_id,
+                "docstatus":doc.docstatus,
+                "Status": "Submit",
+                "nameStockEntry": doc.name,
+                "Department":doc.id_department,
+                "Owner": doc.owner,
+                "TransDate": doc.posting_date,
+                "Type": doc.stock_entry_type,
+                "id_transfer_erp": doc.id_transfer_erp,
+                "posting_status": doc.workflow_state,
+                "item": []
+            }
+            for item in doc.items:
+                baris_baru = {
+                    "Product": item.item_code,
+                    "Qty": item.qty,
+                    "Note": item.keterangan,
+                    "LinkID": item.material_request,
+                    "LinkOrd": item.ordinal,
+                    "Proses": item.id_proses
                 }
-                for item in doc.items:
-                    baris_baru = {
-                        "Product": item.item_code,
-                        "Qty": item.qty,
-                        "Note": item.keterangan,
-                        "LinkID": item.material_request,
-                        "LinkOrd": item.ordinal,
-                        "Proses": item.id_proses
-                    }
-                    data['item'].append(baris_baru)
+                data['item'].append(baris_baru)
 
-                try:
+
+            try:
                 # Membuat request POST
-                    response = requests.put(url, headers=headers, json=data)
-                    response.raise_for_status()  # Raises an HTTPError for bad responses
+                response = requests.put(url, headers=headers, json=data)
+                response.raise_for_status()  # Raises an HTTPError for bad responses
 
-                    respon = response.json()
-                    frappe.db.set_value("Stock Entry", doc.name, "id_transfer_erp", respon['data'][0]['ID'])
-                    frappe.db.commit()
-                    frappe.msgprint("Data berhasil diupdate")
-                except Exception as e:
-                    frappe.msgprint(f"Gagal Posting Karena: {e}")
+                respon = response.json()
+                frappe.db.set_value("Stock Entry", doc.name, "id_transfer_erp", respon['data'][0]['ID'])
+                frappe.db.commit()
+
+            except requests.exceptions.HTTPError as http_err:
+                frappe.msgprint(f"HTTP error occurred: {http_err}")
+                frappe.msgprint(f"Response text: {response.text}")
+            except requests.exceptions.ConnectionError as conn_err:
+                frappe.msgprint(f"Connection error occurred: {conn_err}")
+            except requests.exceptions.Timeout as timeout_err:
+                frappe.msgprint(f"Timeout error occurred: {timeout_err}")
+            except requests.exceptions.RequestException as req_err:
+                frappe.msgprint(f"An error occurred: {req_err}")
+            except Exception as e:
+                return
+                # frappe.msgprint(f"An unexpected error occurred: {e}")

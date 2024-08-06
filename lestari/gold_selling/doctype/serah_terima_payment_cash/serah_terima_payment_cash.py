@@ -10,63 +10,98 @@ from frappe.utils import flt
 class SerahTerimaPaymentCash(Document):
 	@frappe.whitelist()
 	def get_payment(self):
-		self.payment = {}
-		payment = frappe.get_list('IDR Payment',
-					filters={'docstatus': 1,'mode_of_payment':["in",['Cash','Kas Sales']],'is_done':["<",1],"creation":[">=","2024/01/01"]}, 
-					fields=['parent','parenttype','name','mode_of_payment','amount','is_done'],debug=True)
-		total_cash = 0
-		for row in payment:
-			# frappe.msgprint(row)
-			bundle = frappe.get_value(row.parenttype, row.parent, 'sales_bundle')
-			sales = frappe.get_value("Sales Stock Bundle", bundle, 'sales')
-			if self.sales:
-				if self.sales == sales:
-					if self.bundle:
-						if self.bundle == bundle:
-							total_cash += row.amount
-							payment_baru = {
-								'mode_of_payment': row.mode_of_payment,
-								'bundle': bundle,
-								'sales': sales,
-								'amount': row.amount,
-								'customer': frappe.get_value(row.parenttype, row.parent, 'customer'),
-								'deposit_account': frappe.get_doc('Mode of Payment', row.mode_of_payment).accounts[0].default_account,
-								'voucher_type':row.parenttype,
-								'voucher_no':row.parent,
-								'child_table':"IDR Payment",
-								'child_id':row.name
-							}
-							self.append('payment',payment_baru)
-					else:
-						total_cash += row.amount
-						payment_baru = {
-							'mode_of_payment': row.mode_of_payment,
-							'bundle': bundle,
-							'sales': sales,
-							'amount': row.amount,
-							'customer': frappe.get_value(row.parenttype, row.parent, 'customer'),
-							'deposit_account': frappe.get_doc('Mode of Payment', row.mode_of_payment).accounts[0].default_account,
-							'voucher_type':row.parenttype,
-							'voucher_no':row.parent,
-							'child_table':"IDR Payment",
-							'child_id':row.name
-						}
-						self.append('payment',payment_baru)
+
+		condition = ""
+		if self.sales:
+			condition += """ AND c.sales = "{}" """.format(self.sales)
+		if self.bundle:
+			condition += """ AND c.name = "{}" """.format(self.bundle)
+		if self.bulan:
+			condition += """ AND MONTHNAME(a.posting_date) = "{}" """.format(self.bulan)
+		if self.tahun: 
+			condition += """ AND YEAR(a.posting_date) = {}""".format(self.tahun)
+
+		parenttype = frappe.db.sql("""SELECT DISTINCT(`parenttype`) FROM `tabIDR Payment`""",as_list=True)
+
+		print(str(parenttype))
+		list_payment = []
+		for doctype_list in parenttype:
+			doctype = doctype_list[0]
+			if doctype in ['Gold Payment','Customer Deposit']:
+				print(doctype)
+				baris_baru = frappe.db.sql(
+					"""SELECT b.name, b.parent, b.parenttype, b.mode_of_payment, b.amount, b.is_done, a.sales_bundle, c.sales
+					from `tab{0}` a 
+					join `tabIDR Payment` b on a.name = b.parent 
+					join `tabSales Stock Bundle` c on a.sales_bundle = c.name
+					where b.docstatus = 1 AND b.mode_of_payment IN ('Cash', 'Kas Sales') AND b.is_done < 1 {1} """.format(doctype,condition),as_dict=True)
+				list_payment.extend(baris_baru)
+				print(str(list_payment))
 			else:
-				total_cash += row.amount
-				payment_baru = {
-					'mode_of_payment': row.mode_of_payment,
-					'bundle': bundle,
-					'sales': sales,
-					'amount': row.amount,
-					'customer': frappe.get_value(row.parenttype, row.parent, 'customer'),
-					'deposit_account': frappe.get_doc('Mode of Payment', row.mode_of_payment).accounts[0].default_account,
-					'voucher_type':row.parenttype,
-					'voucher_no':row.parent,
-					'child_table':"IDR Payment",
-					'child_id':row.name
-				}
-				self.append('payment',payment_baru)
+				print(doctype)
+
+
+			# if doctype == "Reparasi Invoice":
+			# 	frappe.db.sql("""SELECT name, parent, parenttype, mode_of_payment, amount, is_done""")
+		
+		self.payment = {}
+		# payment = frappe.get_list('IDR Payment',
+		# 			filters={'docstatus': 1,'mode_of_payment':["in",['Cash','Kas Sales']],'is_done':["<",1],"creation":[">=","2024/01/01"]}, 
+		# 			fields=['parent','parenttype','name','mode_of_payment','amount','is_done'])
+		total_cash = 0
+		# frappe.msgprint(str(list_payment))
+		for row in list_payment:
+			# frappe.msgprint(str(row))
+			# bundle = frappe.get_value(row.parenttype, row.parent, 'sales_bundle')
+			# sales = frappe.get_value("Sales Stock Bundle", bundle, 'sales')
+			# if self.sales:
+			# 	if self.sales == sales:
+			# 		if self.bundle:
+			# 			if self.bundle == bundle:
+			total_cash += flt(row['amount'])
+			payment_baru = {
+				'mode_of_payment': row['mode_of_payment'],
+				'bundle': row['sales_bundle'],
+				'sales': row['sales'],
+				'amount': row['amount'],
+				'customer': frappe.get_value(row.parenttype, row['parent'], 'customer'),
+				'deposit_account': frappe.get_doc('Mode of Payment', row['mode_of_payment']).accounts[0].default_account,
+				'voucher_type':row['parenttype'],
+				'voucher_no':row['parent'],
+				'child_table':"IDR Payment",
+				'child_id':row['name']
+			}
+			self.append('payment',payment_baru)
+					# else:
+					# 	total_cash += row.amount
+					# 	payment_baru = {
+					# 		'mode_of_payment': row.mode_of_payment,
+					# 		'bundle': bundle,
+					# 		'sales': sales,
+					# 		'amount': row.amount,
+					# 		'customer': frappe.get_value(row.parenttype, row.parent, 'customer'),
+					# 		'deposit_account': frappe.get_doc('Mode of Payment', row.mode_of_payment).accounts[0].default_account,
+					# 		'voucher_type':row.parenttype,
+					# 		'voucher_no':row.parent,
+					# 		'child_table':"IDR Payment",
+					# 		'child_id':row.name
+					# 	}
+					# 	self.append('payment',payment_baru)
+			# else:
+			# 	total_cash += row.amount
+			# 	payment_baru = {
+			# 		'mode_of_payment': row.mode_of_payment,
+			# 		'bundle': bundle,
+			# 		'sales': sales,
+			# 		'amount': row.amount,
+			# 		'customer': frappe.get_value(row.parenttype, row.parent, 'customer'),
+			# 		'deposit_account': frappe.get_doc('Mode of Payment', row.mode_of_payment).accounts[0].default_account,
+			# 		'voucher_type':row.parenttype,
+			# 		'voucher_no':row.parent,
+			# 		'child_table':"IDR Payment",
+			# 		'child_id':row.name
+			# 	}
+			# 	self.append('payment',payment_baru)
 			# baris_baru = {
 			# 	'amount':row.amount,
 			# 	'voucher_type':row.parenttype,
