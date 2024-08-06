@@ -25,6 +25,33 @@ form_grid_templates = {"invoice_table": "templates/item_grid.html"}
 #need to check GL
 #need check write off dan deposit
 class GoldPayment(StockController):
+	def generate_gold_log(self):
+		for row in self.stock_payment:
+			log = frappe.new_doc("Gold Log")
+			log.customer = self.customer
+			log.date = self.posting_date
+			log.item=row.item
+			log.voucher_type="Gold Payment"
+			log.voucher_no=self.name
+			log.bruto=row.qty
+			log.rate=row.rate
+			log.netto=row.amount
+			log.flags.ignore_permissions = True
+			log.save()
+		if self.discount_amount>0:
+			log = frappe.new_doc("Gold Log")
+			log.customer = self.customer
+			log.date = self.posting_date
+			log.item="Discount"
+			log.voucher_type="Gold Payment"
+			log.voucher_no=self.name
+			log.bruto=self.discount_amount
+			log.rate=1
+			log.netto=self.discount_amount
+			log.flags.ignore_permissions = True
+			log.save()
+	def delete_gold_log(self):
+		frappe.db,sql("delete from `tabGold Log` where voucher_type='Gold Payment' and voucher_no='{}'".format(self.name))
 	def validate(self):
 		if self.list_janji_bayar:
 			if len(self.list_janji_bayar) == 1:

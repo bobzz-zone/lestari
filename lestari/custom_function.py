@@ -5,13 +5,17 @@ from frappe.desk.reportview import get_filters_cond, get_match_cond
 from frappe.utils import cint, cstr, flt, get_link_to_form, getdate, new_line_sep, nowdate, unique
 from six import string_types
 
-
 def generate_gold_log():
+	data = frappe.db.sql("select name from `tabGold Payment` where docstatus=1",as_list=1)
+	for row in data:
+		doc = frappe.get_doc("Gold Payment",row[0])
+		doc.generate_gold_log()
+def generate_gold_log2():
 	data = frappe.db.sql("select name from `tabGold Invoice` where docstatus=1",as_list=1)
 	for row in data:
 		doc = frappe.get_doc("Gold Invoice",row[0])
 		doc.generate_gold_log()
-		
+
 
 @frappe.whitelist()
 @frappe.validate_and_sanitize_search_inputs
