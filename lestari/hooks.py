@@ -132,6 +132,9 @@ doc_events = {
 		"after_insert":"lestari.custom.custom_stock_entry.after_insert",
 		"on_update":"lestari.custom.custom_stock_entry.on_update",
 		"on_change":"lestari.custom.custom_stock_entry.on_change"
+	},
+	"Purchase Order":{
+		"on_submit":"lestari.custom.custom_purchase_order.on_submit",
 	}
 }
 jenv = {

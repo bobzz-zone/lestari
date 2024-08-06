@@ -8,6 +8,7 @@
  "field_order": [
   "voucher_type",
   "voucher_no",
+  "customer",
   "date",
   "item",
   "bruto",
@@ -34,9 +35,8 @@
   },
   {
    "fieldname": "item",
-   "fieldtype": "Link",
-   "label": "Item Emas",
-   "options": "Item"
+   "fieldtype": "Data",
+   "label": "Item Emas"
   },
   {
    "fieldname": "bruto",
@@ -52,11 +52,17 @@
    "fieldname": "netto",
    "fieldtype": "Float",
    "label": "netto"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-06 10:09:42.841843",
+ "modified": "2024-08-06 12:27:08.040758",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Log",
