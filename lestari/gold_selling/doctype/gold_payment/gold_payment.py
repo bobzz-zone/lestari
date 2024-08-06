@@ -33,9 +33,9 @@ class GoldPayment(StockController):
 			log.item=row.item
 			log.voucher_type="Gold Payment"
 			log.voucher_no=self.name
-			log.bruto=row.qty
+			log.bruto=row.qty * -1
 			log.rate=row.rate
-			log.netto=row.amount
+			log.netto=row.amount * -1
 			log.flags.ignore_permissions = True
 			log.save()
 		if self.discount_amount>0:
@@ -45,9 +45,9 @@ class GoldPayment(StockController):
 			log.item="Discount"
 			log.voucher_type="Gold Payment"
 			log.voucher_no=self.name
-			log.bruto=self.discount_amount
+			log.bruto=self.discount_amount * -1
 			log.rate=1
-			log.netto=self.discount_amount
+			log.netto=self.discount_amount * -1
 			log.flags.ignore_permissions = True
 			log.save()
 	def delete_gold_log(self):

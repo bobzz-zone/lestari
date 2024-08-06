@@ -55,9 +55,9 @@ class CustomerPaymentReturn(StockController):
 			log.item=row.item
 			log.voucher_type="Customer Payment Return"
 			log.voucher_no=self.name
-			log.bruto=row.qty
+			log.bruto=row.qty * -1
 			log.rate=row.rate
-			log.netto=row.amount
+			log.netto=row.amount * -1
 			log.flags.ignore_permissions = True
 			log.save()
 	def delete_gold_log(self):
