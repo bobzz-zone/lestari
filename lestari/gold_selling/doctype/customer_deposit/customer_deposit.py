@@ -23,7 +23,7 @@ class CustomerDeposit(StockController):
 			log.flags.ignore_permissions = True
 			log.save()
 	def delete_gold_log(self):
-		frappe.db,sql("delete from `tabGold Log` where voucher_type='Gold Payment' and voucher_no='{}'".format(self.name))
+		frappe.db,sql("delete from `tabGold Log` where voucher_type='Customer Deposit' and voucher_no='{}'".format(self.name))
 	
 	def validate(self):
 		#total items
