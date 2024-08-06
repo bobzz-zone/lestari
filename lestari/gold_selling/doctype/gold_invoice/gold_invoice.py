@@ -4,6 +4,20 @@ from frappe.model.document import Document
 from erpnext.accounts.utils import get_account_currency, get_fiscal_years, validate_fiscal_year
 from frappe.utils import flt
 class GoldInvoice(Document):
+	def generate_gold_log(self):
+		log = frappe.new_doc("Gold Log")
+					log.customer = self.customer
+					log.date = self.posting_date
+					log.item="CT"
+					log.voucher_type="Gold Invoice"
+					log.voucher_no=self.name
+					log.bruto=self.grand_total
+					log.rate=1
+					log.netto=self.grand_total
+					log.flags.ignore_permissions = True
+					log.save()
+	def delete_gold_log(self):
+		frappe.db,sql("delete from `tabGold Log` where voucher_type='Gold Invoice' and voucher_no='{}'".format(self.name))
 	def validate(self):
 		if(self.no_invoice):
 			self.name = self.no_invoice
@@ -451,6 +465,7 @@ class GoldInvoice(Document):
 			gl_entries.append(frappe._dict(gl[row]))
 		gl_entries = merge_similar_entries(gl_entries)
 		# frappe.msgprint(str(gl_entries))
+		self.generate_gold_log()
 		return gl_entries
 	def make_gl_entries(self, gl_entries=None, from_repost=False):
 		from erpnext.accounts.general_ledger import make_gl_entries, make_reverse_gl_entries
@@ -493,6 +508,7 @@ class GoldInvoice(Document):
 			if row.gold_allocated:
 				frappe.db.sql("""update `tabCustomer Deposit` set  gold_left=gold_left + {} where name="{}" """.format(row.gold_allocated,row.customer_deposit),as_list=1)
 		self.make_gl_entries()
+		self.delete_gold_log()
 		self.invoice_status = "Cancelled"
 	@frappe.whitelist(allow_guest=True)
 	def get_gold_payment(self):
