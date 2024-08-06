@@ -6,16 +6,16 @@ from frappe.utils import flt
 class GoldInvoice(Document):
 	def generate_gold_log(self):
 		log = frappe.new_doc("Gold Log")
-					log.customer = self.customer
-					log.date = self.posting_date
-					log.item="CT"
-					log.voucher_type="Gold Invoice"
-					log.voucher_no=self.name
-					log.bruto=self.grand_total
-					log.rate=1
-					log.netto=self.grand_total
-					log.flags.ignore_permissions = True
-					log.save()
+		log.customer = self.customer
+		log.date = self.posting_date
+		log.item="CT"
+		log.voucher_type="Gold Invoice"
+		log.voucher_no=self.name
+		log.bruto=self.grand_total
+		log.rate=1
+		log.netto=self.grand_total
+		log.flags.ignore_permissions = True
+		log.save()
 	def delete_gold_log(self):
 		frappe.db,sql("delete from `tabGold Log` where voucher_type='Gold Invoice' and voucher_no='{}'".format(self.name))
 	def validate(self):
