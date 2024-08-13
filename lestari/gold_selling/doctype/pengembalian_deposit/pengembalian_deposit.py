@@ -103,7 +103,7 @@ class PengembalianDeposit(Document):
 			frappe.db.sql("""update `tabGL Entry` set against_voucher_type="Gold Payment",against_voucher="{}" where voucher_no="{}" 
 					and voucher_type="Customer Deposit" and against_voucher_type is NULL and against_voucher is NULL and account="{}" and is_cancelled=0""".format(self.name,self.deposit,self.gold_account),as_list=1)
 		else:
-			nilai_kembali=amount
+			nilai_kembali=self.amount
 			gl_piutang.append({
 					"posting_date":self.date,
 					"account":self.idr_account,
