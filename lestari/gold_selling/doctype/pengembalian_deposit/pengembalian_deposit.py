@@ -59,14 +59,13 @@ class PengembalianDeposit(Document):
 		#1 untuk GL untuk piutang Gold
 		piutang_gold = self.gold_account
 		selisih_kurs = frappe.db.get_single_value('Gold Selling Settings', 'selisih_kurs')
-		#piutang_idr = frappe.db.get_single_value('Gold Selling Settings', 'piutang_idr')
+		piutang_idr = frappe.db.get_single_value('Gold Selling Settings', 'piutang_idr')
 		cost_center = frappe.db.get_single_value('Gold Selling Settings', 'cost_center')
 		nilai_kembali=0
 		nilai_selisih_kurs = 0
 		gold_amount = 0
 		against=self.idr_account
 		payment_account=get_bank_cash_account(self.mode_of_payment,self.company)["account"]
-		frappe.msgprint("account is {}".format( payment_account))
 		#hitung selisih kurs untuk DP
 		#positif kalo tutupan saat ini lebih besar... dan lebih besar adalah rugi kurs
 		if self.deposit_type=="Emas":
@@ -107,7 +106,7 @@ class PengembalianDeposit(Document):
 			nilai_kembali=self.amount
 			gl_piutang.append({
 					"posting_date":self.date,
-					"account":self.idr_account,
+					"account":piutang_idr,
 					"party_type":"Customer",
 					"party":self.customer,
 					"cost_center":cost_center,
