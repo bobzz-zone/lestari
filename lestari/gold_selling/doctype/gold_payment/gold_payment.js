@@ -313,18 +313,6 @@ frappe.ui.form.on("Gold Invoice Advance Gold", {
 });
 frappe.ui.form.on('Gold Payment', {
 	onload: function(frm) {
-    //     // Get the input field element
-    //     var inputField = cur_frm.get_field('tutupan').$input;
-
-    //     // Attach keydown event listener
-    //     inputField.keydown(function(event) {
-    //         // Check if the Enter key is pressed
-    //         if (event.which === 13) {
-    //             // Prevent the default Enter key action
-    //             event.preventDefault();
-    //             return false;
-    //         }
-    //     });
 	var description = 'Total Biaya Tambahan - Bonus + Writeoff - Discount'
 	cur_frm.set_df_property("description",description)
     },
@@ -514,11 +502,12 @@ frappe.ui.form.on('Gold Payment', {
 							if(gold_need_to_deduct > row.gold_allocated){
 								gold_need_to_deduct=gold_need_to_deduct-row.gold_allocated;
 								row.gold_allocated=0;
+								frappe.model.set_value(row.doctype, row.name, "gold_allocated", 0);
 							}else{
 								row.gold_allocated=row.gold_allocated-gold_need_to_deduct;
+								frappe.model.set_value(row.doctype, row.name, "gold_allocated", row.gold_allocated);
 								gold_need_to_deduct=0;
 							}
-							frappe.msgprint(row.customer_deposit +" allocated "+row.gold_allocated+" depo left "+gold_need_to_deduct)
 						}
 					}
 				}
