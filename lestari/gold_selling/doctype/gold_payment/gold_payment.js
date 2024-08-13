@@ -518,7 +518,7 @@ frappe.ui.form.on('Gold Payment', {
 								row.gold_allocated=row.gold_allocated-gold_need_to_deduct;
 								gold_need_to_deduct=0;
 							}
-							frappe.msgprint("{} allocated {} depo left {}".format(row.customer_deposit,row.gold_allocated,gold_need_to_deduct))
+							frappe.msgprint(row.customer_deposit +" allocated "+row.gold_allocated+" depo left "+gold_need_to_deduct)
 						}
 					}
 				}
