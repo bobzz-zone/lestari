@@ -66,6 +66,7 @@ class PengembalianDeposit(Document):
 		gold_amount = 0
 		against=self.idr_account
 		payment_account=get_bank_cash_account(self.mode_of_payment,self.company)["account"]
+		frappe.msgprint("account is {}".format( payment_account))
 		#hitung selisih kurs untuk DP
 		#positif kalo tutupan saat ini lebih besar... dan lebih besar adalah rugi kurs
 		if self.deposit_type=="Emas":
