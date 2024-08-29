@@ -1,0 +1,70 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-08-15 10:13:47.082631",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "spko",
+  "total_rusak",
+  "keterangan",
+  "sub_kategori",
+  "barang_jadi",
+  "cycletime",
+  "jumlah_pcs"
+ ],
+ "fields": [
+  {
+   "fieldname": "spko",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "spko",
+   "options": "SPK Inject Lilin",
+   "reqd": 1
+  },
+  {
+   "fieldname": "total_rusak",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Total Rusak",
+   "reqd": 1
+  },
+  {
+   "fieldname": "keterangan",
+   "fieldtype": "Small Text",
+   "label": "keterangan"
+  },
+  {
+   "fieldname": "sub_kategori",
+   "fieldtype": "Data",
+   "label": "Sub Kategori"
+  },
+  {
+   "fieldname": "barang_jadi",
+   "fieldtype": "Data",
+   "label": "Barang Jadi"
+  },
+  {
+   "fieldname": "cycletime",
+   "fieldtype": "Data",
+   "label": "Cycletime"
+  },
+  {
+   "fieldname": "jumlah_pcs",
+   "fieldtype": "Int",
+   "label": "Jumlah Pcs"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-08-15 10:13:47.082631",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Worklog spk inject list",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

@@ -107,25 +107,146 @@ def repair_gl_entry_malik(doctype = "Purchase Invoice",docname = "ACC-PINV-2024-
 
 @frappe.whitelist()
 def repair_gl_entry_arif():
-    doctype = "Gold Invoice"
-    row = "49240961"
-    # for row in docname:
-    docu = frappe.get_doc(doctype, row)	
-    # delete_sl = frappe.db.sql(""" DELETE FROM tabStock Ledger Entry WHERE voucher_no = "{}" """.format(row))
-    delete_gl = frappe.db.sql(""" DELETE FROM `tabGL Entry` WHERE voucher_no = "{}" """.format(row))
-    print('GL Deleted '+row)
+    doctype = "Purchase Invoice"
+    docname = [
+        'ACC-PINV-2024-03581',
+'ACC-PINV-2024-03581',
+'ACC-PINV-2024-03581',
+'ACC-PINV-2024-03888',
+'ACC-PINV-2024-03888',
+'ACC-PINV-2024-03888',
+'ACC-PINV-2024-03888',
+'ACC-PINV-2024-03888',
+'ACC-PINV-2024-03888',
+'ACC-PINV-2024-03888',
+'ACC-PINV-2024-03888',
+'ACC-PINV-2024-03888',
+'ACC-PINV-2024-03888',
+'ACC-PINV-2024-03888',
+'ACC-PINV-2024-03888',
+'ACC-PINV-2024-03910',
+'ACC-PINV-2024-03910',
+'ACC-PINV-2024-03910',
+'ACC-PINV-2024-03911',
+'ACC-PINV-2024-03911',
+'ACC-PINV-2024-03911',
+'ACC-PINV-2024-03913',
+'ACC-PINV-2024-03913-1',
+'ACC-PINV-2024-03925',
+'ACC-PINV-2024-03925',
+'ACC-PINV-2024-03925',
+'ACC-PINV-2024-03925',
+'ACC-PINV-2024-03925',
+'ACC-PINV-2024-03925',
+'ACC-PINV-2024-03925',
+'ACC-PINV-2024-03925',
+'ACC-PINV-2024-03929',
+'ACC-PINV-2024-03929',
+'ACC-PINV-2024-03929',
+'ACC-PINV-2024-03929',
+'ACC-PINV-2024-03929',
+'ACC-PINV-2024-03929',
+'ACC-PINV-2024-03929',
+'ACC-PINV-2024-03929',
+'ACC-PINV-2024-03929-1',
+'ACC-PINV-2024-03929-1',
+'ACC-PINV-2024-03929-1',
+'ACC-PINV-2024-03929-1',
+'ACC-PINV-2024-03929-1',
+'ACC-PINV-2024-03929-1',
+'ACC-PINV-2024-03929-1',
+'ACC-PINV-2024-03929-1',
+'ACC-PINV-2024-03934',
+'ACC-PINV-2024-03935',
+'ACC-PINV-2024-03935',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03936-1',
+'ACC-PINV-2024-03943',
+'ACC-PINV-2024-03943',
+'ACC-PINV-2024-03943',
+'ACC-PINV-2024-03943-1',
+'ACC-PINV-2024-03943-1',
+'ACC-PINV-2024-03943-1'
+    ]
+    for row in docname:
+        docu = frappe.get_doc(doctype, row)	
+        # delete_sl = frappe.db.sql(""" DELETE FROM tabStock Ledger Entry WHERE voucher_no = "{}" """.format(row))
+        delete_gl = frappe.db.sql(""" DELETE FROM `tabGL Entry` WHERE voucher_no = "{}" """.format(row))
+        print('GL Deleted '+row)
 
-    # frappe.db.sql(""" UPDATE tabSingles SET VALUE = 1 WHERE field = "allow_negative_stock" """)
-    # docu.update_stock_ledger()
-    docu.make_gl_entries()
-    print('GL Created '+row)
+        # frappe.db.sql(""" UPDATE tabSingles SET VALUE = 1 WHERE field = "allow_negative_stock" """)
+        # docu.update_stock_ledger()
+        docu.make_gl_entries()
+        print('GL Created '+row)
 
-	# digunakan jika backdate
-	# for row in docu.items:
-	# 	update_entries_after({
-	# 		"item_code": row.item_code,
-	# 		"warehouse": row.warehouse,
-	# 		"posting_date": docu.posting_date,
-	# 		"posting_time": docu.posting_time
-	# 	})
-	# frappe.db.sql(""" UPDATE tabSingles SET VALUE = 0 WHERE field = "allow_negative_stock" """)
+        # digunakan jika backdate
+        # for row in docu.items:
+        # 	update_entries_after({
+        # 		"item_code": row.item_code,
+        # 		"warehouse": row.warehouse,
+        # 		"posting_date": docu.posting_date,
+        # 		"posting_time": docu.posting_time
+        # 	})
+        # frappe.db.sql(""" UPDATE tabSingles SET VALUE = 0 WHERE field = "allow_negative_stock" """)

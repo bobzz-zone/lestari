@@ -1,0 +1,19 @@
+{
+ "content": null,
+ "creation": "2024-08-15 13:31:09.342632",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2024-08-15 13:31:09.342632",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "user-roleperm-list",
+ "owner": "Administrator",
+ "page_name": "user-roleperm-list",
+ "roles": [],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 1,
+ "title": "User Role Pemission List"
+}

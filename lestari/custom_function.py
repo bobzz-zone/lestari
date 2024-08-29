@@ -4,6 +4,116 @@ from frappe.model.mapper import get_mapped_doc
 from frappe.desk.reportview import get_filters_cond, get_match_cond
 from frappe.utils import cint, cstr, flt, get_link_to_form, getdate, new_line_sep, nowdate, unique
 from six import string_types
+import pandas as pd
+
+# Instal library openpyxl jika belum terinstal
+# pip install openpyxl
+
+# Baca file Excel dengan format xlsx
+def baca_excel(file_path):
+    try:
+        # Baca file Excel menggunakan pandas dengan engine openpyxl
+        df = pd.read_excel(file_path, engine="openpyxl")
+        # df = pd.read_excel(file_path, engine="openpyxl", nrows=10)
+        
+        # Cetak isi data
+        print(df.head())
+        
+        return df
+    except Exception as e:
+        print("Gagal membaca file Excel:", str(e))
+
+# Cek item_code pada doctype Item
+def cek_item_code(df):
+    try:
+        # Cek item_code pada df
+        for index, row in df.iterrows():
+            item_code = row['Item Code']
+            query = frappe.db.sql("SELECT name FROM `tabItem` WHERE item_code LIKE %s", (item_code + "%",))
+            if query:
+                print(f"Item Code {item_code} ditemukan pada doctype Item")
+                
+                # Buat asset
+                buat_asset(row)
+            else:
+                print(f"Item Code {item_code} tidak ditemukan pada doctype Item")
+                
+                # Cek asset category
+                asset_category = row['Asset Category']
+                if not asset_category:
+                    # Cari asset category di doctype Asset Category
+                    asset_category = cari_asset_category(row['Asset Category'])
+                
+                # Buat item baru dengan is_fixed_asset = 1, item_group = "Asset"
+                buat_item_baru(row, asset_category)
+    except Exception as e:
+        print("Gagal cek item_code:", str(e))
+
+# Cari asset category di doctype Asset Category
+def cari_asset_category(asset_category):
+    try:
+        # Cari asset category di doctype Asset Category
+        query = frappe.db.sql("SELECT name FROM `tabAsset Category` WHERE name LIKE %s", (asset_category + "%",))
+        if query:
+            return query[0][0]
+        else:
+            return "Umum"
+    except Exception as e:
+        print("Gagal cari asset category:", str(e))
+
+# Buat item baru dengan is_fixed_asset = 1, item_group = "Asset"
+def buat_item_baru(row, asset_category):
+    try:
+        # Buat item baru
+        item = frappe.get_doc({
+            'doctype': 'Item',
+            'item_code': row['Item Code'],
+            'item_name': row['Asset Name'],
+            'item_group': 'Asset',
+            'is_fixed_asset': 1,
+            'asset_category': asset_category
+        })
+        
+        # Simpan item
+        item.insert()
+        
+        print(f"Item baru telah dibuat untuk item_code {row['Item Code']}")
+        
+        # Buat asset
+        buat_asset(row, asset_category)
+    except Exception as e:
+        print("Gagal buat item baru:", str(e))
+
+# Buat asset
+def buat_asset(row, asset_category=None):
+    try:
+        # Buat asset
+        asset = frappe.get_doc({
+           'doctype': 'Asset',
+            'naming_series': "ACC-ASS-.YYYY.-",
+            'asset_name': row['Asset Name'],
+            'item_code': row['Item Code'],
+            'asset_category': asset_category or row['Asset Category'],
+            'asset_quantity': 1,
+            'gross_purchase_amount': row['Gross Purchase Amount'],
+            'purchase_date': row['Purchase Date'],
+            'available_for_use_date': row['Available-for-use Date'],
+            'location': row['Location'],
+			'is_existing_asset':row['Is Existing Asset'],
+            'calculate_depreciation': row['Calculate Depreciation'],
+            'depreciation_method': row['Depreciation Method'],
+            'opening_accumulated_depreciation': row['Opening Accumulated Depreciation'],
+            'number_of_depreciations_booked': row['Number of Depreciations Booked'],
+            'total_number_of_depreciations': row['Total Number of Depreciations']
+        })
+        
+        # Simpan asset
+        asset.save()
+        frappe.db.commit()
+        print(f"Asset telah dibuat untuk item_code {row['Item Code']}")
+        print(row)
+    except Exception as e:
+        print("Gagal buat asset:", str(e))
 
 def generate_gold_log():
 	data = frappe.db.sql("select name from `tabCustomer Deposit` where docstatus=1",as_list=1)

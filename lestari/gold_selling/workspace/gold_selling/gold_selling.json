@@ -174,8 +174,8 @@
    "type": "Link"
   }
  ],
- "modified": "2024-06-05 13:54:58.688574",
- "modified_by": "dendro@lms.com",
+ "modified": "2024-08-06 14:01:04.298968",
+ "modified_by": "bobzz.zone@gmail.com",
  "module": "Gold Selling",
  "name": "Gold Selling",
  "owner": "Administrator",
@@ -329,6 +329,12 @@
    "label": "Info Tidak Terima Barang",
    "link_to": "info-tidak-terima-ba",
    "type": "Page"
+  },
+  {
+   "doc_view": "",
+   "label": "Invoice VS Payment Di terima",
+   "link_to": "Invoice VS Payment Di terima",
+   "type": "Report"
   }
  ]
 }

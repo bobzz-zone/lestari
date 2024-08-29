@@ -84,7 +84,7 @@ def submit(doc, method):
         else:
             frappe.msgprint("Gagal membuat Material Request")
             frappe.msgprint(str(response.status_code))
-            frappe.msgprint(str(response.text))
+            frappe.throw(str(response.text))
     else:
         # frappe.msgprint("Data ini sudah di submit dari ERPLaravel")
         print("Data ini sudah di submit dari ERPLaravel")
