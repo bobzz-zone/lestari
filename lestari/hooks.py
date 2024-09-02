@@ -143,6 +143,7 @@ doc_events = {
 	},
 	"Purchase Order":{
 		"on_submit":"lestari.custom.custom_purchase_order.on_submit",
+		"on_cancel":"lestari.custom.custom_purchase_order.on_cancel",
 	},
 	"Purchase Receipt":{
 		"on_submit":"lestari.custom.custom_purchase_receipt.on_submit",

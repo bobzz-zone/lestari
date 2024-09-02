@@ -598,12 +598,14 @@
   {
    "fieldname": "total_24k_inv",
    "fieldtype": "Float",
-   "label": "Total 24K Inv"
+   "label": "Total 24K Inv",
+   "read_only": 1
   },
   {
    "fieldname": "total_sisa_inv",
    "fieldtype": "Float",
-   "label": "Total Sisa Inv"
+   "label": "Total Sisa Inv",
+   "read_only": 1
   },
   {
    "default": "// This Section For Detail Payment",
@@ -624,7 +626,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-29 12:49:43.670733",
+ "modified": "2024-09-02 11:33:30.716487",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Payment",

@@ -26,8 +26,13 @@ def after_insert(doc, method=None):
         "octo@lms.com"
         ]
 
-    if doc.owner in owner and doc.modified_by != "izzi@lms.com":
     # if doc.owner == "izzi@lms.com":
+    if doc.owner in owner and doc.modified_by != "izzi@lms.com":
+        # if doc.address_line1:
+        #     address_line1 = doc.address_line1
+        # else:
+        address_line1 = ""
+
         data = {
             "Owner": doc.owner,
             "kode_supplier": doc.kode_supplier,
@@ -35,7 +40,7 @@ def after_insert(doc, method=None):
             "phone": doc.phone,
             "mobile_no": doc.mobile_no,
             "email_id": doc.email_id,
-            "primary_address": doc.address_line1
+            "primary_address": address_line1
         }
 
         try:
