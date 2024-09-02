@@ -720,6 +720,7 @@ frappe.ui.form.on('Gold Payment', {
 				frm.doc.unallocated_payment=unaloc;
 				cur_frm.set_value("unallocated_payment",unaloc);
 			}
+			frappe.msgprint("Total Saldo Gold "+saldo_gold+" Telah ter alokasi "+ total_alo+" sehingga unallocated seharusnya "+unaloc);
 
 			//frappe.msgprint("Unallocated "+unaloc);
 			cur_frm.set_value("allocated_payment",parseFloat(total_alo).toFixed(3));
