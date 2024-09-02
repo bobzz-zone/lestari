@@ -572,7 +572,7 @@ frappe.ui.form.on('Gold Payment', {
 			if (frm.doc.total_pajak>0 && frm.doc.fokus_piutang==0){
 				var idr_need_to=frm.doc.unallocated_idr_payment;
 				var total_allocated=0;
-				$.each(frm.doc.invoice_table,  function(i,  g) {
+				/*$.each(frm.doc.invoice_table,  function(i,  g) {
 					if (idr_need_to > g.outstanding_tax){
 						g.tax_allocated=g.outstanding_tax;
 					}else{
@@ -580,7 +580,17 @@ frappe.ui.form.on('Gold Payment', {
 					}
 					total_allocated = total_allocated + g.tax_allocated;
 					idr_need_to=idr_need_to-g.tax_allocated;
-				});
+				});*/
+				for (var i = frm.doc.invoice_table.length - 1; i >= 0; i--) {
+					g = frm.doc.invoice_table[i];
+					if (idr_need_to > g.outstanding_tax){
+						g.tax_allocated=g.outstanding_tax;
+					}else{
+						g.tax_allocated=idr_need_to;
+					}
+					total_allocated = total_allocated + g.tax_allocated;
+					idr_need_to=idr_need_to-g.tax_allocated;
+				}
 				frm.doc.unallocated_idr_payment=idr_need_to;
 				frm.doc.allocated_idr_payment = total_allocated;
 				refresh_field("allocated_idr_payment");
@@ -629,7 +639,7 @@ frappe.ui.form.on('Gold Payment', {
 			});
 
 			if (need_to>0) {
-				$.each(frm.doc.invoice_table,  function(i,  g) {
+				/*$.each(frm.doc.invoice_table,  function(i,  g) {
 					var alo=0;
 					if (need_to>(g.outstanding-g.allocated)){
 						alo=g.outstanding-g.allocated;
@@ -639,7 +649,19 @@ frappe.ui.form.on('Gold Payment', {
 					need_to=need_to-alo;
 					total_alo=total_alo+alo;
 					frappe.model.set_value(g.doctype, g.name, "allocated", g.allocated+alo);
-				});
+				});*/
+				for (var i = frm.doc.invoice_table.length - 1; i >= 0; i--) {
+					g = frm.doc.invoice_table[i];
+					var alo=0;
+					if (need_to>(g.outstanding-g.allocated)){
+						alo=g.outstanding-g.allocated;
+					}else{
+						alo=need_to;
+					}
+					need_to=need_to-alo;
+					total_alo=total_alo+alo;
+					frappe.model.set_value(g.doctype, g.name, "allocated", g.allocated+alo);
+				}
 			}
 			/*if (need_to<0){
 				frappe.msgprint(" Test "+need_to);
@@ -673,6 +695,16 @@ frappe.ui.form.on('Gold Payment', {
 					frm.doc.unallocated_idr_payment=sisa_idr;
 					frm.doc.allocated_idr_payment = total_allocated;
 					refresh_field("allocated_idr_payment");
+				}
+				for (var i = frm.doc.invoice_table.length - 1; i >= 0; i--) {
+					g = frm.doc.invoice_table[i];
+					if (sisa_idr > g.outstanding_tax){
+						g.tax_allocated=g.outstanding_tax;
+					}else{
+						g.tax_allocated=idr_need_to;
+					}
+					total_allocated = total_allocated + g.tax_allocated;
+					sisa_idr=sisa_idr-g.tax_allocated;
 				}
 				cur_frm.set_value("unallocated_idr_payment",sisa_idr);
 			}
