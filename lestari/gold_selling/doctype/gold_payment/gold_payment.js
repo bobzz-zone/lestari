@@ -581,8 +581,8 @@ frappe.ui.form.on('Gold Payment', {
 					total_allocated = total_allocated + g.tax_allocated;
 					idr_need_to=idr_need_to-g.tax_allocated;
 				});*/
-				for (var i = frm.doc.invoice_table.length - 1; i >= 0; i--) {
-					g = frm.doc.invoice_table[i];
+				for (var i = cur_frm.doc.invoice_table.length - 1; i >= 0; i--) {
+					g = cur_frm.doc.invoice_table[i];
 					if (idr_need_to > g.outstanding_tax){
 						g.tax_allocated=g.outstanding_tax;
 					}else{
@@ -651,8 +651,8 @@ frappe.ui.form.on('Gold Payment', {
 					total_alo=total_alo+alo;
 					frappe.model.set_value(g.doctype, g.name, "allocated", g.allocated+alo);
 				});*/
-				for (var i = frm.doc.invoice_table.length - 1; i >= 0; i--) {
-					g = frm.doc.invoice_table[i];
+				for (var i =  cur_frm.doc.invoice_table.length - 1; i >= 0; i--) {
+					g = cur_frm.doc.invoice_table[i];
 					var alo=0;
 					if (need_to>(g.outstanding-g.allocated)){
 						alo=g.outstanding-g.allocated;
