@@ -71,15 +71,15 @@ def after_insert(doc, method):
 
             except requests.exceptions.HTTPError as http_err:
                 frappe.msgprint(f"HTTP error occurred: {http_err}")
-                frappe.msgprint(f"Response text: {response.text}")
+                frappe.throw(f"Response text: {response.text}")
             except requests.exceptions.ConnectionError as conn_err:
-                frappe.msgprint(f"Connection error occurred: {conn_err}")
+                frappe.throw(f"Connection error occurred: {conn_err}")
             except requests.exceptions.Timeout as timeout_err:
-                frappe.msgprint(f"Timeout error occurred: {timeout_err}")
+                frappe.throw(f"Timeout error occurred: {timeout_err}")
             except requests.exceptions.RequestException as req_err:
-                frappe.msgprint(f"An error occurred: {req_err}")
+                frappe.throw(f"An error occurred: {req_err}")
             except Exception as e:
-                frappe.msgprint(f"An unexpected error occurred: {e}")
+                frappe.throw(f"An unexpected error occurred: {e}")
             
 def on_update(doc, method):
     url = "http://192.168.3.25/api/Transfer-Material"
@@ -141,15 +141,15 @@ def on_update(doc, method):
                 frappe.db.commit()
             except requests.exceptions.HTTPError as http_err:
                 frappe.msgprint(f"HTTP error occurred: {http_err}")
-                frappe.msgprint(f"Response text: {response.text}")
+                frappe.throw(f"Response text: {response.text}")
             except requests.exceptions.ConnectionError as conn_err:
-                frappe.msgprint(f"Connection error occurred: {conn_err}")
+                frappe.throw(f"Connection error occurred: {conn_err}")
             except requests.exceptions.Timeout as timeout_err:
-                frappe.msgprint(f"Timeout error occurred: {timeout_err}")
+                frappe.throw(f"Timeout error occurred: {timeout_err}")
             except requests.exceptions.RequestException as req_err:
-                frappe.msgprint(f"An error occurred: {req_err}")
+                frappe.throw(f"An error occurred: {req_err}")
             except Exception as e:
-                frappe.msgprint(f"An unexpected error occurred: {e}")
+                frappe.throw(f"An unexpected error occurred: {e}")
     
 def on_change(doc, method):
     # return
@@ -203,18 +203,17 @@ def on_change(doc, method):
                 response.raise_for_status()  # Raises an HTTPError for bad responses
 
                 respon = response.json()
-                frappe.db.set_value("Stock Entry", doc.name, "id_transfer_erp", respon['data'][0]['ID'])
-                frappe.db.commit()
-
+                # frappe.db.set_value("Stock Entry", doc.name, "id_transfer_erp", respon['data']['ID'])
+                # frappe.db.commit()
             except requests.exceptions.HTTPError as http_err:
                 frappe.msgprint(f"HTTP error occurred: {http_err}")
-                frappe.msgprint(f"Response text: {response.text}")
+                frappe.throw(f"Response text: {response.text}")
             except requests.exceptions.ConnectionError as conn_err:
-                frappe.msgprint(f"Connection error occurred: {conn_err}")
+                frappe.throw(f"Connection error occurred: {conn_err}")
             except requests.exceptions.Timeout as timeout_err:
-                frappe.msgprint(f"Timeout error occurred: {timeout_err}")
+                frappe.throw(f"Timeout error occurred: {timeout_err}")
             except requests.exceptions.RequestException as req_err:
-                frappe.msgprint(f"An error occurred: {req_err}")
+                frappe.throw(f"An error occurred: {req_err}")
             except Exception as e:
                 return
                 # frappe.msgprint(f"An unexpected error occurred: {e}")

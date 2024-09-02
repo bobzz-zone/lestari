@@ -17,7 +17,7 @@ class GoldInvoice(Document):
 		log.flags.ignore_permissions = True
 		log.save()
 	def delete_gold_log(self):
-		frappe.db,sql("delete from `tabGold Log` where voucher_type='Gold Invoice' and voucher_no='{}'".format(self.name))
+		frappe.db.sql("delete from `tabGold Log` where voucher_type='Gold Invoice' and voucher_no='{}'".format(self.name))
 	def validate(self):
 		if(self.no_invoice):
 			self.name = self.no_invoice

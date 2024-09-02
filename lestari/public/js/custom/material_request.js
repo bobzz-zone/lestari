@@ -109,7 +109,7 @@ frappe.ui.form.on('Material Request', {
     
             if(stock_area){
                 cur_frm.set_df_property('material_request_type', 'read_only', 1)
-                cur_frm.set_df_property('jenis_dokumen', 'read_only', 1)
+                // cur_frm.set_df_property('jenis_dokumen', 'read_only', 1)
             }
 
             if(frm.doc.jenis_dokumen == "Stock" || frm.doc.jenis_dokumen == ""){

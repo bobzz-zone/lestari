@@ -256,11 +256,13 @@
   {
    "fieldname": "id_transfer_stockist",
    "fieldtype": "Data",
+   "in_standard_filter": 1,
    "label": "ID Transfer Stockist"
   },
   {
    "fieldname": "transfer",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "Transfer",
    "options": "Stock Entry Transfer"
   }
@@ -268,7 +270,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-06-19 13:50:30.628392",
+ "modified": "2024-08-19 12:36:27.596302",
  "modified_by": "Administrator",
  "module": "Stockist",
  "name": "Transfer Stockist",

@@ -50,9 +50,14 @@ app_include_js = ['/assets/lestari/js/dx.all.js',
 # include js in doctype views
 doctype_js = {
 	"Material Request" : "public/js/custom/material_request.js",
-	"Stock Entry" : "public/js/custom/stock_entry.js"
+	"Stock Entry" : "public/js/custom/stock_entry.js",
+	"Purchase Order" : "public/js/custom/purchase_order.js",
+	"Purchase Invoice" : "public/js/custom/purchase_invoice.js"
 }
-doctype_list_js = {"Item" : "public/js/item_list.js"}
+doctype_list_js = {
+	"Item" : "public/js/item_list.js",
+	"Material Request" : "public/js/custom/material_request_list.js"
+	}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
@@ -123,7 +128,10 @@ doc_events = {
 	# }
 	"Purchase Invoice":{
 		"before_submit":"lestari.pinv_custom.submit",
-		"before_cancel":"lestari.pinv_custom.cancel"
+		"before_cancel":"lestari.pinv_custom.cancel",
+		"on_submit":"lestari.custom.custom_purchase_invoice.on_submit",
+		"on_update_after_submit":"lestari.custom.custom_purchase_invoice.on_update_after_submit",
+		"on_cancel":"lestari.custom.custom_purchase_invoice.on_cancel"
 	},
 	"Material Request":{
 		"on_submit":"lestari.custom.custom_material_request.submit"
@@ -135,6 +143,13 @@ doc_events = {
 	},
 	"Purchase Order":{
 		"on_submit":"lestari.custom.custom_purchase_order.on_submit",
+	},
+	"Purchase Receipt":{
+		"on_submit":"lestari.custom.custom_purchase_receipt.on_submit",
+		"on_cancel":"lestari.custom.custom_purchase_receipt.on_cancel",
+	},
+	"Supplier": {
+		"after_insert":"lestari.custom.custom_supplier.after_insert"
 	}
 }
 jenv = {

@@ -1,0 +1,92 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-08-26 16:04:50.855289",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "spk",
+  "tanggal_transaksi",
+  "item",
+  "qty",
+  "berat",
+  "target_item",
+  "amended_from",
+  "naming_series"
+ ],
+ "fields": [
+  {
+   "fieldname": "spk",
+   "fieldtype": "Link",
+   "label": "SPK",
+   "options": "Surat Perintah Kerja"
+  },
+  {
+   "fieldname": "tanggal_transaksi",
+   "fieldtype": "Date",
+   "label": "Tanggal Transaksi"
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Material Masuk",
+   "options": "Item"
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Int",
+   "label": "Qty"
+  },
+  {
+   "fieldname": "berat",
+   "fieldtype": "Float",
+   "label": "Berat"
+  },
+  {
+   "fieldname": "target_item",
+   "fieldtype": "Link",
+   "label": "Spesific Target Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Transfer Material Masuk",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-08-26 16:07:22.669275",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Transfer Material Masuk",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

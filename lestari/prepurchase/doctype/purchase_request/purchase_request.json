@@ -8,52 +8,37 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
-  "tujuan_doc",
-  "supplier",
+  "employee",
+  "employee_name",
+  "employee_erp",
   "column_break_4",
   "transaction_date",
   "valid_till",
-  "section_break_7",
-  "supplier_address",
-  "contact_person",
-  "address_display",
-  "contact_display",
-  "contact_mobile",
-  "contact_email",
-  "currency_and_price_list",
-  "currency",
-  "conversion_rate",
-  "cb_price_list",
-  "buying_price_list",
-  "price_list_currency",
-  "plc_conversion_rate",
-  "ignore_pricing_rule",
-  "items_section",
-  "items"
+  "tujuan_doc",
+  "supplier",
+  "purchase_request_erp",
+  "section_break_9",
+  "tampilkan",
+  "sort",
+  "apply_filter",
+  "column_break_11",
+  "search_by_id_mr",
+  "sort_by_id_mr",
+  "reset_filter",
+  "column_break_13",
+  "filter_by_proses",
+  "sort_by_proses",
+  "section_details",
+  "items",
+  "section_break_22",
+  "per_ordered",
+  "amended_from"
  ],
  "fields": [
-  {
-   "fieldname": "items",
-   "fieldtype": "Table",
-   "label": "Detail",
-   "options": "Purchase Request Detail"
-  },
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Series"
-  },
-  {
-   "fieldname": "tujuan_doc",
-   "fieldtype": "Link",
-   "label": "Tujuan Doc",
-   "options": "Tujuan"
-  },
-  {
-   "fieldname": "supplier",
-   "fieldtype": "Link",
-   "label": "Supplier",
-   "options": "Supplier"
   },
   {
    "fieldname": "column_break_4",
@@ -63,6 +48,7 @@
    "default": "Today",
    "fieldname": "transaction_date",
    "fieldtype": "Date",
+   "in_list_view": 1,
    "label": "Date"
   },
   {
@@ -71,96 +57,144 @@
    "label": "Valid Till"
   },
   {
-   "fieldname": "section_break_7",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "supplier_address",
+   "fieldname": "amended_from",
    "fieldtype": "Link",
-   "label": "Supplier Address",
-   "options": "Address"
-  },
-  {
-   "fieldname": "contact_person",
-   "fieldtype": "Link",
-   "label": "Contact Person",
-   "options": "Contact"
-  },
-  {
-   "fieldname": "address_display",
-   "fieldtype": "Small Text",
-   "label": "Address",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Purchase Request",
+   "print_hide": 1,
    "read_only": 1
   },
   {
-   "fieldname": "contact_display",
-   "fieldtype": "Small Text",
-   "label": "Contact"
-  },
-  {
-   "fieldname": "contact_mobile",
-   "fieldtype": "Small Text",
-   "label": "Mobile No"
-  },
-  {
-   "fieldname": "contact_email",
-   "fieldtype": "Small Text",
-   "label": "Contact Email",
-   "options": "Email"
-  },
-  {
-   "fieldname": "currency_and_price_list",
-   "fieldtype": "Section Break",
-   "label": "Currency and Price List",
-   "options": "fa fa-tag"
-  },
-  {
-   "fieldname": "currency",
+   "fieldname": "employee",
    "fieldtype": "Link",
-   "label": "Currency",
-   "options": "Currency"
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Employee",
+   "options": "Employee",
+   "read_only": 1
   },
   {
-   "fieldname": "conversion_rate",
-   "fieldtype": "Float",
-   "label": "Exchange Rate"
+   "fetch_from": "employee.id_employee",
+   "fieldname": "employee_erp",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Employee erp",
+   "read_only": 1
   },
   {
-   "fieldname": "cb_price_list",
+   "fieldname": "purchase_request_erp",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Purchase Request ERP",
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_break_9",
+   "fieldtype": "Section Break",
+   "label": "Filter"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Purchase Request Item"
+  },
+  {
+   "fieldname": "tampilkan",
+   "fieldtype": "Select",
+   "label": "Tampilkan Per Halaman",
+   "options": "50\n100\n250"
+  },
+  {
+   "fieldname": "column_break_11",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "buying_price_list",
-   "fieldtype": "Link",
-   "label": "Price List",
-   "options": "Price List"
-  },
-  {
-   "fieldname": "price_list_currency",
-   "fieldtype": "Link",
-   "label": "Price List Currency",
-   "options": "Currency"
-  },
-  {
-   "fieldname": "plc_conversion_rate",
-   "fieldtype": "Float",
-   "label": "Price List Exchange Rate"
-  },
-  {
-   "default": "0",
-   "fieldname": "ignore_pricing_rule",
-   "fieldtype": "Check",
-   "label": "Ignore Pricing Rule"
-  },
-  {
-   "fieldname": "items_section",
+   "fieldname": "section_details",
    "fieldtype": "Section Break",
-   "options": "fa fa-shopping-cart"
+   "label": "Details"
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "search_by_id_mr",
+   "fieldtype": "Data",
+   "label": "Search By ID MR"
+  },
+  {
+   "fieldname": "column_break_13",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "filter_by_proses",
+   "fieldtype": "Link",
+   "label": "Filter By Proses",
+   "options": "Operation Usage"
+  },
+  {
+   "fieldname": "sort",
+   "fieldtype": "Select",
+   "label": "Sort",
+   "options": "\nDESC\nASC"
+  },
+  {
+   "fieldname": "sort_by_id_mr",
+   "fieldtype": "Select",
+   "label": "Sort By ID MR",
+   "options": "\nDESC\nASC"
+  },
+  {
+   "fieldname": "sort_by_proses",
+   "fieldtype": "Select",
+   "label": "Sort By Proses",
+   "options": "\nDESC\nASC"
+  },
+  {
+   "depends_on": "eval: doc.docstatus == 0",
+   "fieldname": "reset_filter",
+   "fieldtype": "Button",
+   "label": "Reset Filter"
+  },
+  {
+   "depends_on": "eval: doc.docstatus == 0",
+   "fieldname": "apply_filter",
+   "fieldtype": "Button",
+   "label": "Apply Filter"
+  },
+  {
+   "fieldname": "section_break_22",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "per_ordered",
+   "fieldtype": "Percent",
+   "label": "Ordered %"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "options": "Supplier"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "tujuan_doc",
+   "fieldtype": "Link",
+   "label": "Tujuan Doc",
+   "options": "Tujuan"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2024-08-05 10:46:54.424017",
+ "modified": "2024-08-23 14:10:38.543492",
  "modified_by": "Administrator",
  "module": "PrePurchase",
  "name": "Purchase Request",
