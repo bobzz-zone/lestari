@@ -131,7 +131,6 @@ doc_events = {
 		"before_cancel":"lestari.pinv_custom.cancel",
 		"on_submit":"lestari.custom.custom_purchase_invoice.on_submit",
 		"on_update_after_submit":"lestari.custom.custom_purchase_invoice.on_update_after_submit",
-		"on_cancel":"lestari.custom.custom_purchase_invoice.on_cancel"
 	},
 	"Material Request":{
 		"on_submit":"lestari.custom.custom_material_request.submit"
@@ -144,6 +143,7 @@ doc_events = {
 	"Purchase Order":{
 		"on_submit":"lestari.custom.custom_purchase_order.on_submit",
 		"on_cancel":"lestari.custom.custom_purchase_order.on_cancel",
+		# "before_save":"lestari.custom.custom_purchase_order.before_save",
 	},
 	"Purchase Receipt":{
 		"on_submit":"lestari.custom.custom_purchase_receipt.on_submit",
@@ -151,6 +151,9 @@ doc_events = {
 	},
 	"Supplier": {
 		"after_insert":"lestari.custom.custom_supplier.after_insert"
+	},
+	"Payment Entry": {
+		"after_insert":"lestari.custom.custom_payment_entry.after_insert"
 	}
 }
 jenv = {

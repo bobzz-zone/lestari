@@ -2,7 +2,29 @@
 
 frappe.ui.form.on('Purchase Order', {
 	refresh(frm) {
-	    set_row_numbers(frm);
+	    // set_row_numbers(frm);
+        if(frm.doc.docstatus == 1){
+            
+            frm.add_custom_button(
+               __("Tutup"), function (frm){
+                frappe.call({
+                    method: "erpnext.buying.doctype.purchase_order.purchase_order.update_status",
+                    args: { status: "Closed", name: cur_frm.doc.name },
+                    callback: function (r) {
+                        cur_frm.set_value("status", "Closed");
+                        cur_frm.reload_doc();
+                    },
+                });
+                frappe.call({
+                    method: "lestari.custom.custom_purchase_order.tutup_po",
+                    args: { status: cur_frm.doc.status, name: cur_frm.doc.name },
+                    callback: function (r) {
+                        cur_frm.reload_doc();
+                    },
+                });
+               }, 
+            )
+        }
         frm.add_custom_button(
 			__("Purchase Request"),
 			async function (frm){
@@ -59,12 +81,14 @@ frappe.ui.form.on('Purchase Order', {
 		);
 	},
 	before_submit(frm){
-	    set_row_numbers(frm);
-	    $.each(frm.doc.items,function(i,g){
-	        if(!g.material_request){
-	            frappe.throw("Purchase Order harus memiliki Material Request!!!")
-	        }
-	    })
+        if (frm.doc.data_is_in_erp == 0) {
+            set_row_numbers(frm);
+            $.each(frm.doc.items,function(i,g){
+                if(!g.purchase_request){
+                    frappe.throw("Purchase Order harus memiliki Purchase Request!!!")
+                }
+            })
+        }
 	},
 	on_submit(frm){
 	    if(window.name == frm.doc.name){
@@ -74,7 +98,23 @@ frappe.ui.form.on('Purchase Order', {
 	    }
         setTimeout(function(){cur_frm.reload_doc()}, 3000);
 	},
-    
+    validate(frm){
+        set_row_numbers(frm);
+    },
+    before_save(frm){
+        let asset = 0;
+        if(frm.doc.tujuan_doc == "Non Stock"){
+            $.each(frm.doc.items,function(i, g){
+                if(g.is_fixed_asset){
+                    asset = 1;
+                    frappe.msgprint("Item "+g.item_code+" Fixed Asset tidak bisa di PO Non Stock, Baris "+g.idx)
+                }
+            })
+            if(asset == 1){
+                frappe.throw("Item Fixed Asset tidak bisa di PO Non Stock")
+            }
+        }
+    },
 	type_stock(frm){
 	     if(frm.doc.type_stock == "STOCK"){
 	        frm.set_query("item_code","items", function(frm,cdt,cdn) {
@@ -115,10 +155,10 @@ frappe.ui.form.on('Purchase Order', {
 
 frappe.ui.form.on('Purchase Order Item', {
     items_add: function(frm, cdt, cdn) {
-        set_row_numbers(frm);
+        // set_row_numbers(frm);
     },
     items_remove: function(frm, cdt, cdn) {
-        set_row_numbers(frm);
+        // set_row_numbers(frm);
     },
 });
 

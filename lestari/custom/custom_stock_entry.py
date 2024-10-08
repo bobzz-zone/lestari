@@ -31,7 +31,7 @@ def after_insert(doc, method):
         "gustig@lms.com",
         "frita@lms.com",
         ]
-    if doc.owner in owner:
+    if doc.owner in owner and doc.stock_entry_type != "Material Transfer":
         if doc.creation == doc.modified:
             data = {
                 "creation": doc.creation,
@@ -166,8 +166,9 @@ def on_change(doc, method):
     owner = [
         "izzi@lms.com"
         ]
-    if doc.owner != "arikba@lms.com":
+    if doc.modified_by != "arikba@lms.com":
         if doc.docstatus == 1 and doc.workflow_state=="Posted":
+            # posting_date = doc.posting_date.strftime("%Y-%m-%d")
             # if doc.id_transfer_erp:
             data = {
                 "creation": doc.creation,
@@ -215,5 +216,5 @@ def on_change(doc, method):
             except requests.exceptions.RequestException as req_err:
                 frappe.throw(f"An error occurred: {req_err}")
             except Exception as e:
-                return
+                frappe.throw(f"An error occurred: {e}")
                 # frappe.msgprint(f"An unexpected error occurred: {e}")

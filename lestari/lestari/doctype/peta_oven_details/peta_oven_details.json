@@ -1,0 +1,179 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-09-12 14:14:13.830323",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "detail_pohon_section",
+  "nomor_base_karet",
+  "no_spk",
+  "kadar",
+  "mesin_oven",
+  "mesin_gips",
+  "mesin_cor",
+  "column_break_7",
+  "pohon_id",
+  "tanggal_pohonan",
+  "ukuran_base_karet",
+  "ukuran_jenis_sprue",
+  "ukuran",
+  "jenis_gips",
+  "column_break_5",
+  "berat_lilin",
+  "berat_pohon",
+  "berat_batu",
+  "column_break_17",
+  "berat_gips",
+  "vol_air",
+  "sub_total_berat",
+  "used"
+ ],
+ "fields": [
+  {
+   "fieldname": "detail_pohon_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Pohon"
+  },
+  {
+   "fieldname": "nomor_base_karet",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Nomor Base Karet",
+   "options": "Serial No"
+  },
+  {
+   "fieldname": "no_spk",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "No SPK"
+  },
+  {
+   "fieldname": "kadar",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Kadar",
+   "options": "Data Logam"
+  },
+  {
+   "fieldname": "mesin_oven",
+   "fieldtype": "Link",
+   "label": "Mesin Oven",
+   "options": "Data Mesin Oven"
+  },
+  {
+   "fieldname": "mesin_gips",
+   "fieldtype": "Link",
+   "label": "Mesin Gips",
+   "options": "Data Mesin Gips"
+  },
+  {
+   "fieldname": "mesin_cor",
+   "fieldtype": "Link",
+   "label": "Mesin Cor",
+   "options": "Data Mesin Cor"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pohon_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Pohon ID"
+  },
+  {
+   "fieldname": "tanggal_pohonan",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Tanggal Pohonan"
+  },
+  {
+   "columns": 2,
+   "fieldname": "ukuran_base_karet",
+   "fieldtype": "Link",
+   "label": "Ukuran Base Karet",
+   "options": "Data Set Sprue"
+  },
+  {
+   "fetch_from": "ukuran_base_karet.ukuran",
+   "fieldname": "ukuran_jenis_sprue",
+   "fieldtype": "Read Only",
+   "label": "Ukuran Jenis Sprue"
+  },
+  {
+   "fieldname": "ukuran",
+   "fieldtype": "Data",
+   "label": "Ukuran"
+  },
+  {
+   "fieldname": "jenis_gips",
+   "fieldtype": "Link",
+   "label": "Jenis Gips",
+   "options": "Data Gips"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Section Break"
+  },
+  {
+   "columns": 1,
+   "fieldname": "berat_lilin",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Berat Lilin"
+  },
+  {
+   "fieldname": "berat_pohon",
+   "fieldtype": "Float",
+   "label": "Berat Pohon"
+  },
+  {
+   "fieldname": "berat_batu",
+   "fieldtype": "Float",
+   "label": "Berat Batu"
+  },
+  {
+   "fieldname": "column_break_17",
+   "fieldtype": "Column Break"
+  },
+  {
+   "columns": 1,
+   "fieldname": "berat_gips",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Berat Gips"
+  },
+  {
+   "columns": 1,
+   "fieldname": "vol_air",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Vol Air"
+  },
+  {
+   "fieldname": "sub_total_berat",
+   "fieldtype": "Float",
+   "label": "Sub Total Berat"
+  },
+  {
+   "default": "0",
+   "fieldname": "used",
+   "fieldtype": "Check",
+   "label": "Used"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-09-12 14:26:49.723591",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Peta Oven Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

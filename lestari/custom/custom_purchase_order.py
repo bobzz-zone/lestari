@@ -9,6 +9,39 @@ from frappe import _
 from frappe.utils import add_days, cint, flt, nowdate
 from frappe.model.mapper import get_mapped_doc
 from math import ceil
+from erpnext.buying.doctype.purchase_order.purchase_order import update_status
+
+@frappe.whitelist()
+def recalculate_order_percentage(material_request_items, ordered_qty):
+    total_qty = sum(item.qty for item in material_request_items)
+    if total_qty == 0:
+        return 0  # Menghindari pembagian dengan nol
+    
+    order_percentage = (ordered_qty / total_qty) * 100
+    frappe.msgprint(order_percentage)
+    return order_percentage
+
+@frappe.whitelist()
+def tutup_po(status, name):
+    frappe.msgprint(name)
+    doc = frappe.get_doc("Purchase Order", name)
+    # frappe.msgprint(str(doc))
+    # update_status(doc, "Closed")
+
+    for row in doc.items:
+        mr = frappe.get_doc("Material Request",row.material_request)
+        order_percentage = recalculate_order_percentage(mr.items, row.qty)
+        mr_percentage = frappe.db.get_value("Material Request", mr.name, "per_ordered")
+        frappe.db.set_value("Material Request", mr.name, "per_ordered", mr_percentage - order_percentage)
+        frappe.db.set_value("Material Request", mr.name, "status", "Requested")
+        for col in mr.items:
+            if col.item_code == row.item_code:
+                ord_qty = frappe.db.get_value("Material Request Item", col.name, "ordered_qty")
+                frappe.db.set_value("Material Request Item", col.name, "ordered_qty", ord_qty - row.qty)
+        row.material_request = ""
+        row.material_request_item = ""
+        frappe.db.commit()
+    doc.reload()
 
 @frappe.whitelist()
 def make_purchase_order(source_name, target_doc=None, args=None):
@@ -107,6 +140,13 @@ def update_po_percentage(doc, method):
         update_pr_percentage(doc.purchase_request)
 
 @frappe.whitelist()
+def before_submit(doc, method=None):
+    pass
+    # if tujuan_doc == "Non Stock":
+        # for row in doc.items:
+            # frappe.db.set_value("Purchase Request", row.name, "")
+
+@frappe.whitelist()
 def on_submit(doc, method=None):
     # update_po_percentage(doc, method)
     url = "http://192.168.3.25/api/Purchase-Order"
@@ -156,21 +196,27 @@ def on_submit(doc, method=None):
                 qty = item.qty
 
                 if len(taxes) != 0:
-                    if taxes[0].included_in_print_rate == 0:
-                        tax_amount = taxes[0].tax_amount
-                        ppn_amount = tax_amount / qty
-                        rate = item.rate + ppn_amount
-                        amount = item.amount + tax_amount
-                    else:
-                        tax_amount = 0
-                        ppn_amount = 0
-                        rate = item.rate
-                        amount = item.amount
+                    # if taxes[0].included_in_print_rate == 0:
+                    tax_amount = taxes[0].tax_amount
+                    # ppn_amount = tax_amount / qty
+                    ppn_amount = (item.net_amount / doc.net_total) * tax_amount
+                    amount = round(item.net_amount + ppn_amount)
+
+                    ppn_rate = ppn_amount / qty
+                    rate = round(item.net_rate + ppn_rate)
+
+                    # rate = round(item.net_rate + ppn_amount, 2)
+                    # amount = round(item.net_amount + tax_amount, 2)
+                    # else:
+                    #     tax_amount = 0
+                    #     ppn_amount = 0
+                    #     rate = item.rate
+                    #     amount = item.amount
                 else:
                     tax_amount = 0
                     ppn_amount = 0
-                    rate = item.rate
-                    amount = item.amount
+                    rate = item.net_rate
+                    amount = item.net_amount
                 
                 baris_baru = {
                     "Product": item.item_code,
@@ -248,3 +294,34 @@ def on_cancel(doc, method=None):
                 frappe.throw(f"An error occurred: {req_err}")
             except Exception as e:
                 frappe.throw(f"An unexpected error occurred: {e}")
+
+
+@frappe.whitelist()
+def before_save(doc, method=None):
+    
+    owner = [
+        "alyaa@lms.com",
+        "octo@lms.com"
+        ]
+    data_erp = doc.data_is_in_erp
+
+    if doc.owner in owner and doc.modified_by != "izzi@lms.com":
+        if data_erp == 0:
+            for item in doc.items:
+                purchase_request = item.purchase_request
+                pr_ordinal = item.pr_ordinal
+
+                cek_pr = frappe.db.sql("""
+                SELECT
+                    A.parent po_name,
+                    B.parent pr_name 
+                FROM
+                    `tabPurchase Order Item` A
+                    JOIN `tabPurchase Request Item` B ON A.purchase_request = B.parent AND A.pr_ordinal = B.pr_ordinal
+                WHERE
+                    B.parent = '{0}'
+                    AND B.pr_ordinal = {1}
+                """.format(purchase_request, pr_ordinal), as_dict=True, debug=True)
+
+                if cek_pr:
+                    frappe.throw(f"Gagal Simpan. PR : {purchase_request} Sudah Pernah Dibuatkan di PO : {cek_pr[0].po_name}")

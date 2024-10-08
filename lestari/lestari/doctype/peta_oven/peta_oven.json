@@ -1,0 +1,183 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-09-12 14:15:59.715683",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "operator",
+  "type_pohonan",
+  "column_break_6",
+  "no_oven",
+  "oven",
+  "column_break_5",
+  "posting_date",
+  "posting_time",
+  "edit_date_time",
+  "section_break_11",
+  "tabs_spk",
+  "column_break_13",
+  "tabs_spk_details",
+  "spk_gips_section",
+  "get_spk_gips",
+  "list_spk",
+  "list_details_spk",
+  "section_break_9",
+  "peta_oven_grid",
+  "peta_oven_section",
+  "details"
+ ],
+ "fields": [
+  {
+   "fieldname": "operator",
+   "fieldtype": "Link",
+   "label": "Operator",
+   "options": "Employee"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "posting_time",
+   "fieldtype": "Time",
+   "label": "Posting Time",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval: doc.type_pohonan == \"Emas\"",
+   "fieldname": "oven",
+   "fieldtype": "Select",
+   "label": "Oven",
+   "mandatory_depends_on": "eval: doc.type_pohonan == \"Emas\"",
+   "options": "\nAtas\nBawah"
+  },
+  {
+   "collapsible": 1,
+   "depends_on": "list_spk",
+   "fieldname": "peta_oven_section",
+   "fieldtype": "Section Break",
+   "label": "Peta Oven"
+  },
+  {
+   "fieldname": "details",
+   "fieldtype": "Table",
+   "label": "Details",
+   "options": "Peta Oven Details"
+  },
+  {
+   "depends_on": "details",
+   "fieldname": "section_break_9",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "edit_date_time",
+   "fieldtype": "Check",
+   "label": "Edit Posting Date and Time"
+  },
+  {
+   "fieldname": "spk_gips_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "list_spk",
+   "fieldtype": "Table",
+   "label": "List SPK",
+   "options": "Peta Oven SPK Gips"
+  },
+  {
+   "fieldname": "get_spk_gips",
+   "fieldtype": "Button",
+   "label": "Get SPK Gips",
+   "options": "get_spk_gips"
+  },
+  {
+   "fieldname": "no_oven",
+   "fieldtype": "Int",
+   "label": "No Oven"
+  },
+  {
+   "fieldname": "type_pohonan",
+   "fieldtype": "Select",
+   "label": "Type Pohonan",
+   "options": "\nEmas\nPerak\nDirect Casting"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series"
+  },
+  {
+   "fieldname": "peta_oven_grid",
+   "fieldtype": "HTML",
+   "label": "Peta Oven",
+   "options": "<style>\n    .depan{\n        display: grid;\n        grid-template-columns: repeat(5, 1fr);\n        gap: 10px;\n        max-width: 600px;\n        margin: 0 auto;\n    }\n.grid {\n        display: grid;\n        gap: 10px;\n        max-width: 600px;\n        margin: 0 auto;\n    }\n    .cell {\n        border: 1px solid #ccc;\n        padding: 10px;\n        text-align: center;\n        background-color: #f0f0f0;\n        cursor: move;\n        box-sizing: border-box;\n    }\n    .cell.dragging {\n        opacity: 0.5;\n    }\n</style>\n<div class=\"depan\" style=\"text-align: center; display: block; border: 2px solid black;\"> DEPAN </div><br>\n<div class=\"grid\" id=\"peta-oven-grid\"></div>"
+  },
+  {
+   "fieldname": "list_details_spk",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "List Details SPK",
+   "options": "Peta Oven SPK Details"
+  },
+  {
+   "fieldname": "tabs_spk",
+   "fieldtype": "HTML",
+   "label": "Tabs SPK",
+   "options": "<button class=\"btn btn-default btn-block\" style=\"margin-bottom: 10px; background-color: #913030; color: #fff !important; font-weight: bolder !important;\">SPK Gips</button>"
+  },
+  {
+   "fieldname": "section_break_11",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_13",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tabs_spk_details",
+   "fieldtype": "HTML",
+   "label": "Tabs SPK Details",
+   "options": "<button class=\"btn btn-default btn-block\" style=\"margin-bottom: 10px; background-color: #fff; color: #000 !important; font-weight: bolder !important;\">Details SPK</button>"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-09-17 15:20:36.708777",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Peta Oven",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

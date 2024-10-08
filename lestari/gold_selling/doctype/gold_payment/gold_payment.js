@@ -347,82 +347,82 @@ frappe.ui.form.on('Gold Payment', {
 			}
 		});
 		// frappe.msgprint("JS:"+frm.doc.jadi_deposit)
-		var total24kinv = cur_frm.doc.total_24k_inv;
-		var totalsisainv = cur_frm.doc.total_sisa_inv;
-		var totalgolddepo = cur_frm.doc.total_gold;
-		var totalidrdepo = cur_frm.doc.total_idr_advance;
-		totalidrdepo = totalidrdepo.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
-		var totalgoldpayment = cur_frm.doc.total_gold_payment;
-		var bruto_discount = cur_frm.doc.bruto_discount;
-		var discount = cur_frm.doc.discount;
-		var discount_amount = cur_frm.doc.discount_amount;
-		var totalidrpayment = cur_frm.doc.total_idr_payment;
-		totalidrpayment = totalidrpayment.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
-		var tutupan = cur_frm.doc.tutupan;
-		tutupan = tutupan.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
-		var write_off_idr = cur_frm.doc.write_off_idr;
-		write_off_idr = write_off_idr.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
-		var write_off = cur_frm.doc.write_off;
-		var write_off_total = cur_frm.doc.write_off_total;
-		var total_biaya_tambahan = cur_frm.doc.total_biaya_tambahan;
-		var total_pajak = cur_frm.doc.total_pajak;
-		total_pajak = total_pajak.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
-		var allocated_payment = cur_frm.doc.allocated_payment;
-		var allocated_idr_payment = cur_frm.doc.allocated_idr_payment;
-		allocated_idr_payment = allocated_idr_payment.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
-		var total_advance = cur_frm.doc.total_advance;
-		var unallocated_payment = cur_frm.doc.unallocated_payment;
-		var unallocated_idr_payment = cur_frm.doc.unallocated_idr_payment;
-		unallocated_idr_payment = unallocated_idr_payment.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
-		var jadi_deposit = cur_frm.doc.jadi_deposit;
-		var total_sisa_invoice = cur_frm.doc.total_sisa_invoice;
-		var total_cpr = cur_frm.doc.total_cpr;
-		var detail_allocated = "// Detail Allocated Pembayaran";
+		// var total24kinv = cur_frm.doc.total_24k_inv;
+		// var totalsisainv = cur_frm.doc.total_sisa_inv;
+		// var totalgolddepo = cur_frm.doc.total_gold;
+		// var totalidrdepo = cur_frm.doc.total_idr_advance;
+		// totalidrdepo = totalidrdepo.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+		// var totalgoldpayment = cur_frm.doc.total_gold_payment;
+		// var bruto_discount = cur_frm.doc.bruto_discount;
+		// var discount = cur_frm.doc.discount;
+		// var discount_amount = cur_frm.doc.discount_amount;
+		// var totalidrpayment = cur_frm.doc.total_idr_payment;
+		// totalidrpayment = totalidrpayment.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+		// var tutupan = cur_frm.doc.tutupan;
+		// tutupan = tutupan.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+		// var write_off_idr = cur_frm.doc.write_off_idr;
+		// write_off_idr = write_off_idr.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+		// var write_off = cur_frm.doc.write_off;
+		// var write_off_total = cur_frm.doc.write_off_total;
+		// var total_biaya_tambahan = cur_frm.doc.total_biaya_tambahan;
+		// var total_pajak = cur_frm.doc.total_pajak;
+		// total_pajak = total_pajak.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+		// var allocated_payment = cur_frm.doc.allocated_payment;
+		// var allocated_idr_payment = cur_frm.doc.allocated_idr_payment;
+		// allocated_idr_payment = allocated_idr_payment.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+		// var total_advance = cur_frm.doc.total_advance;
+		// var unallocated_payment = cur_frm.doc.unallocated_payment;
+		// var unallocated_idr_payment = cur_frm.doc.unallocated_idr_payment;
+		// unallocated_idr_payment = unallocated_idr_payment.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+		// var jadi_deposit = cur_frm.doc.jadi_deposit;
+		// var total_sisa_invoice = cur_frm.doc.total_sisa_invoice;
+		// var total_cpr = cur_frm.doc.total_cpr;
+		// var detail_allocated = "// Detail Allocated Pembayaran";
 		
-		detail_allocated += "<br> Total 24K Invoice = "+formatAngka(total24kinv);
+		// detail_allocated += "<br> Total 24K Invoice = "+formatAngka(total24kinv);
 		
-		detail_allocated += "<br> Total Sisa Invoice = "+formatAngka(totalsisainv);
+		// detail_allocated += "<br> Total Sisa Invoice = "+formatAngka(totalsisainv);
 		
-		detail_allocated += "<br> Total CPR = "+formatAngka(total_cpr);
+		// detail_allocated += "<br> Total CPR = "+formatAngka(total_cpr);
 		
-		detail_allocated += "<br> Total Gold Advance = "+formatAngka(totalgolddepo);
+		// detail_allocated += "<br> Total Gold Advance = "+formatAngka(totalgolddepo);
 		
-		detail_allocated += "<br> Total IDR Advance = "+totalidrdepo;
+		// detail_allocated += "<br> Total IDR Advance = "+totalidrdepo;
 		
-		detail_allocated += "<br> Total Gold Payment = "+formatAngka(totalgoldpayment);
-		// detail_allocated += "<br> Bruto Discount = "+formatAngka(bruto_discount);
-		// detail_allocated += "<br> Discount = "+discount+" %";
+		// detail_allocated += "<br> Total Gold Payment = "+formatAngka(totalgoldpayment);
+		// // detail_allocated += "<br> Bruto Discount = "+formatAngka(bruto_discount);
+		// // detail_allocated += "<br> Discount = "+discount+" %";
 		
-		detail_allocated += "<br> Discount Amount = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Bruto Discount'>"+formatAngka(bruto_discount)+"</button> + <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Discount'>"+ discount +" %</button> = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Discount Amount'>" + formatAngka(discount_amount) + "</button>";
+		// detail_allocated += "<br> Discount Amount = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Bruto Discount'>"+formatAngka(bruto_discount)+"</button> + <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Discount'>"+ discount +" %</button> = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Discount Amount'>" + formatAngka(discount_amount) + "</button>";
 		
-		detail_allocated += "<br> Total IDR Payment = "+totalidrpayment;
+		// detail_allocated += "<br> Total IDR Payment = "+totalidrpayment;
 		
-		detail_allocated += "<br> Tutupan = "+tutupan;
+		// detail_allocated += "<br> Tutupan = "+tutupan;
 		
-		detail_allocated += "<br> Total Biaya Tambahan = "+formatAngka(total_biaya_tambahan);
+		// detail_allocated += "<br> Total Biaya Tambahan = "+formatAngka(total_biaya_tambahan);
 		
-		detail_allocated += "<br> Total Advance = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total Gold Advance'>"+formatAngka(totalgolddepo)+"</button> + ( <button type='button' class='btn btn-secondary' data-toggle='tooltip' data-placement='top' title='Total IDR Advance'>"+ totalidrdepo +"</button> / <button type='button' class='btn btn-secondary' data-toggle='tooltip' data-placement='top' title='Tutupan'> "+ tutupan +"</button> )";
+		// detail_allocated += "<br> Total Advance = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total Gold Advance'>"+formatAngka(totalgolddepo)+"</button> + ( <button type='button' class='btn btn-secondary' data-toggle='tooltip' data-placement='top' title='Total IDR Advance'>"+ totalidrdepo +"</button> / <button type='button' class='btn btn-secondary' data-toggle='tooltip' data-placement='top' title='Tutupan'> "+ tutupan +"</button> )";
 		
-		detail_allocated += "<br> Unallocated = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total Gold Payment'>"+formatAngka(totalgoldpayment)+"</button> + <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total Advance'> "+formatAngka(totalgolddepo)+"</button> = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Unallocated'>"+formatAngka((frm.doc.total_gold_payment+frm.doc.total_gold))+"</button>";
+		// detail_allocated += "<br> Unallocated = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total Gold Payment'>"+formatAngka(totalgoldpayment)+"</button> + <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total Advance'> "+formatAngka(totalgolddepo)+"</button> = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Unallocated'>"+formatAngka((frm.doc.total_gold_payment+frm.doc.total_gold))+"</button>";
 		
-		detail_allocated += "<br> Unallocated IDR = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total IDR Payment'>"+totalidrpayment+"</button> + <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total IDR Advance'> "+totalidrdepo+"</button> = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Unallocated IDR'>"+(cur_frm.doc.total_idr_payment+frm.doc.total_idr_advance).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })+"</button>";
-		if( cur_frm.doc.total_idr_payment > 0 || cur_frm.doc.total_idr_advance > 0){
-		/// Allocated IDR ///
-		detail_allocated += "<br> Allocated IDR = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total IDR Payment'>"+(cur_frm.doc.total_idr_payment+cur_frm.doc.total_idr_advance)+"</button> - <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total Pajak'> "+total_pajak+"</button> = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total IDR Payment - Total Pajak'>"+((cur_frm.doc.total_idr_payment+cur_frm.doc.total_idr_advance)-frm.doc.total_pajak).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })+"</button>";
+		// detail_allocated += "<br> Unallocated IDR = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total IDR Payment'>"+totalidrpayment+"</button> + <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total IDR Advance'> "+totalidrdepo+"</button> = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Unallocated IDR'>"+(cur_frm.doc.total_idr_payment+frm.doc.total_idr_advance).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })+"</button>";
+		// if( cur_frm.doc.total_idr_payment > 0 || cur_frm.doc.total_idr_advance > 0){
+		// /// Allocated IDR ///
+		// detail_allocated += "<br> Allocated IDR = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total IDR Payment'>"+(cur_frm.doc.total_idr_payment+cur_frm.doc.total_idr_advance)+"</button> - <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total Pajak'> "+total_pajak+"</button> = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total IDR Payment - Total Pajak'>"+((cur_frm.doc.total_idr_payment+cur_frm.doc.total_idr_advance)-frm.doc.total_pajak).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })+"</button>";
 		
-		detail_allocated += "<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total IDR Payment'>"+(frm.doc.total_idr_payment-frm.doc.total_pajak).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })+"</button> / <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Tutupan'> "+tutupan+"</button> = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total IDR Payment / Tutupan'>"+formatAngka((frm.doc.total_idr_payment-frm.doc.total_pajak) / frm.doc.tutupan)+"</button>";
+		// detail_allocated += "<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total IDR Payment'>"+(frm.doc.total_idr_payment-frm.doc.total_pajak).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })+"</button> / <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Tutupan'> "+tutupan+"</button> = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total IDR Payment / Tutupan'>"+formatAngka((frm.doc.total_idr_payment-frm.doc.total_pajak) / frm.doc.tutupan)+"</button>";
 
-		detail_allocated += "<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = ( <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total Invoice'>"+formatAngka(totalsisainv)+"</button> - <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Discount Amount'>"+formatAngka(discount_amount)+"</button> ) - <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total IDR In Gold'> "+formatAngka((frm.doc.total_idr_payment-frm.doc.total_pajak) / frm.doc.tutupan)+"</button> = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Unallocated IDR'>"+formatAngka(((frm.doc.total_sisa_inv-frm.doc.discount_amount)-(frm.doc.total_idr_payment-frm.doc.total_pajak) / frm.doc.tutupan)*frm.doc.tutupan)+"</button>";
-		}
-		if( cur_frm.doc.total_gold_payment > 0 || cur_frm.doc.total_gold > 0 ){
-		/// Allocated Gold ///
-		detail_allocated += "<br> Allocated Gold = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total Gold Payment'>"+formatAngka(cur_frm.doc.total_gold_payment)+"</button> + <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total Gold Advance'> "+formatAngka(cur_frm.doc.total_gold)+"</button> = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total Gold Payment + Total Gold Advance'>"+formatAngka((cur_frm.doc.total_gold_payment+cur_frm.doc.total_gold)).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })+"</button>";
+		// detail_allocated += "<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = ( <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total Invoice'>"+formatAngka(totalsisainv)+"</button> - <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Discount Amount'>"+formatAngka(discount_amount)+"</button> ) - <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total IDR In Gold'> "+formatAngka((frm.doc.total_idr_payment-frm.doc.total_pajak) / frm.doc.tutupan)+"</button> = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Unallocated IDR'>"+formatAngka(((frm.doc.total_sisa_inv-frm.doc.discount_amount)-(frm.doc.total_idr_payment-frm.doc.total_pajak) / frm.doc.tutupan)*frm.doc.tutupan)+"</button>";
+		// }
+		// if( cur_frm.doc.total_gold_payment > 0 || cur_frm.doc.total_gold > 0 ){
+		// /// Allocated Gold ///
+		// detail_allocated += "<br> Allocated Gold = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total Gold Payment'>"+formatAngka(cur_frm.doc.total_gold_payment)+"</button> + <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total Gold Advance'> "+formatAngka(cur_frm.doc.total_gold)+"</button> = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total Gold Payment + Total Gold Advance'>"+formatAngka((cur_frm.doc.total_gold_payment+cur_frm.doc.total_gold)).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })+"</button>";
 		
-		detail_allocated += "<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total IDR Payment'>"+(cur_frm.doc.total_gold_payment+cur_frm.doc.total_gold)+"</button> - <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Tutupan'> "+tutupan+"</button> = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total IDR Payment / Tutupan'>"+formatAngka((frm.doc.total_idr_payment-frm.doc.total_pajak) / frm.doc.tutupan)+"</button>";
+		// detail_allocated += "<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total IDR Payment'>"+(cur_frm.doc.total_gold_payment+cur_frm.doc.total_gold)+"</button> - <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Tutupan'> "+tutupan+"</button> = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total IDR Payment / Tutupan'>"+formatAngka((frm.doc.total_idr_payment-frm.doc.total_pajak) / frm.doc.tutupan)+"</button>";
 
-		detail_allocated += "<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = ( <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total Invoice'>"+formatAngka(totalsisainv)+"</button> - <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Discount Amount'>"+formatAngka(discount_amount)+"</button> ) - <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total IDR In Gold'> "+formatAngka((frm.doc.total_idr_payment-frm.doc.total_pajak) / frm.doc.tutupan)+"</button> = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Unallocated IDR'>"+formatAngka(((frm.doc.total_sisa_inv-frm.doc.discount_amount)-(frm.doc.total_idr_payment-frm.doc.total_pajak) / frm.doc.tutupan)*frm.doc.tutupan)+"</button>";
-		}
-		cur_frm.doc.detail_allocated =  detail_allocated;
+		// detail_allocated += "<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = ( <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total Invoice'>"+formatAngka(totalsisainv)+"</button> - <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Discount Amount'>"+formatAngka(discount_amount)+"</button> ) - <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Total IDR In Gold'> "+formatAngka((frm.doc.total_idr_payment-frm.doc.total_pajak) / frm.doc.tutupan)+"</button> = <button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Unallocated IDR'>"+formatAngka(((frm.doc.total_sisa_inv-frm.doc.discount_amount)-(frm.doc.total_idr_payment-frm.doc.total_pajak) / frm.doc.tutupan)*frm.doc.tutupan)+"</button>";
+		// }
+		// cur_frm.doc.detail_allocated =  detail_allocated;
 		cur_frm.refresh_fields();
 	},
 	discount:function(frm){
@@ -673,16 +673,20 @@ frappe.ui.form.on('Gold Payment', {
 				
 			//}	
 			//refresh_field("total_sisa_invoice");
+			var sisa_idr = 0
+			var unaloc = 0
 			if (idr_to_gold>0){
-				var sisa_idr=parseFloat((idr_to_gold-(total_alo-saldo_gold))*frm.doc.tutupan).toFixed(0);
+				sisa_idr=parseFloat((idr_to_gold-(total_alo-saldo_gold))*frm.doc.tutupan).toFixed(0);
 				//jika lebih besar dari yang di hitungdi awal berarti idr nya g kepakai, alias payment enasnya udah cukup
 				if (sisa_idr/frm.doc.tutupan>idr_to_gold){
 					sisa_idr=idr_to_gold * frm.doc.tutupan;
 				}
+				console.log("sisaidr1"+sisa_idr)
 
 				frm.doc.unallocated_idr_payment=sisa_idr;
+				cur_frm.refresh_field("unallocated_idr_payment")
 				if (frm.doc.total_pajak>0 && frm.doc.fokus_piutang==1){
-					//var idr_need_to=frm.doc.unallocated_idr_payment;
+					var idr_need_to=frm.doc.unallocated_idr_payment;
 					var total_allocated=0;
 					/*$.each(frm.doc.invoice_table,  function(i,  g) {
 						if (sisa_idr > g.outstanding_tax){
@@ -694,6 +698,8 @@ frappe.ui.form.on('Gold Payment', {
 						sisa_idr=sisa_idr-g.tax_allocated;
 						
 					});*/
+					console.log("sisaidr2"+sisa_idr)
+					console.log("idrneedto"+idr_need_to)
 					for (var i = frm.doc.invoice_table.length - 1; i >= 0; i--) {
 						var g = frm.doc.invoice_table[i];
 						if (sisa_idr > g.outstanding_tax){
@@ -703,11 +709,13 @@ frappe.ui.form.on('Gold Payment', {
 						}
 						total_allocated = total_allocated + g.tax_allocated;
 						sisa_idr=sisa_idr-g.tax_allocated;
+						console.log(sisa_idr)
 					}
 					frm.doc.unallocated_idr_payment=sisa_idr;
 					frm.doc.allocated_idr_payment = total_allocated;
 					refresh_field("allocated_idr_payment");
 				}
+				// console.log(sisa_idr)
 				cur_frm.set_value("unallocated_idr_payment",sisa_idr);
 			}
 			if (saldo_gold <= total_alo){
@@ -715,7 +723,7 @@ frappe.ui.form.on('Gold Payment', {
 				cur_frm.set_value("unallocated_payment",0);
 			}else{
 				//frappe.msgprint(saldo_gold+" - "+total_alo);
-				var unaloc=parseFloat(saldo_gold- total_alo).toFixed(3);
+				unaloc=parseFloat(saldo_gold- total_alo).toFixed(3);
 				if (unaloc == "" || unaloc == NaN){
 					unaloc=0;
 				}

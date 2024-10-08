@@ -327,42 +327,70 @@ class GoldPayment(StockController):
 		self.invoice_advance=[]
 		self.total_gold = 0
 		# doc = frappe.db.get_list("Gold Invoice", filters={"customer": self.customer, "invoice_status":"Unpaid", 'docstatus':1}, fields=['name','posting_date','customer','subcustomer','enduser','outstanding','due_date','tutupan','total_bruto','grand_total'])
+		condition = ""
+
+		if self.filter_by == "Bulan Tahun":
+			if self.bulan:
+				condition += """ AND MONTHNAME(posting_date) = "{}" """.format(self.bulan)
+			if self.tahun:
+				condition += """ AND YEAR(posting_date) = {}""".format(self.tahun)
+
+		elif self.filter_by == "Dari Ke Tanggal":
+			if self.from_date and self.to_date:
+				condition += """ AND posting_date BETWEEN "{}" AND "{}" """.format(self.from_date, self.to_date)
+
+		# Kondisi default jika self.filter_by == ""
+		if self.filter_by == "":
+			condition = ""
+
 		doc = frappe.db.sql("""
-                      SELECT
-                      name,
-                      posting_date,
-                      customer,
-                      subcustomer,
-                      enduser,
-                      outstanding,
-                      due_date,
-                      tutupan,
-                      total_bruto,
-                      grand_total,
-                      sisa_pajak
-                      FROM `tabGold Invoice`
-                      WHERE invoice_status = "Unpaid"
-                      and docstatus = 1
-                      and (
-                      customer = "{0}"
-                      or customer = "{1}" )
-					  and type_emas = "{2}"
-					  ORDER BY posting_date DESC
-                      """.format(self.customer, self.subcustomer, self.type_emas),as_dict=1)
+			SELECT
+				name,
+				posting_date,
+				customer,
+				subcustomer,
+				enduser,
+				outstanding,
+				due_date,
+				tutupan,
+				total_bruto,
+				grand_total,
+				sisa_pajak
+			FROM `tabGold Invoice`
+			WHERE invoice_status = "Unpaid"
+			AND docstatus = 1
+			AND (customer = "{0}" OR customer = "{1}")
+			AND type_emas = "{2}"
+			{3}
+			ORDER BY posting_date DESC
+		""".format(self.customer, self.subcustomer, self.type_emas, condition), as_dict = 1)
 		# frappe.msgprint(str(doc))
 		if self.tutupan:
 			if self.tutupan > 0:
 				tutupan = self.tutupan
 		else:
+			# Kondisi awal
+			condition1 = "WHERE nilai > 0 AND DATE <= CURDATE()"
+			
+			# Kondisi tambahan berdasarkan filter_by
+			if self.filter_by == "Bulan Tahun":
+				if self.bulan:
+					condition1 += """ AND MONTHNAME(DATE) = "{}" """.format(self.bulan)
+				if self.tahun:
+					condition1 += """ AND YEAR(DATE) = {}""".format(self.tahun)
+			elif self.filter_by == "Dari Ke Tanggal":
+				if self.from_date and self.to_date:
+					condition1 += """ AND DATE BETWEEN '{}' AND '{}' """.format(self.from_date, self.to_date)
+
+			# Query SQL
 			tutupan = frappe.db.sql("""
-                        SELECT nilai
-						FROM `tabGold Rates`
-						WHERE nilai > 0
-						AND DATE <= CURDATE() 
-						ORDER BY DATE DESC
-						LIMIT 1
-                           """, as_dict=1)
-			# frappe.msgprint(str())
+				SELECT nilai
+				FROM `tabGold Rates`
+				{}
+				ORDER BY DATE DESC
+				LIMIT 1
+			""".format(condition1), as_dict=1)
+
 			tutupan = tutupan[0].nilai
 			self.tutupan = flt(tutupan)
 		for row in doc:
@@ -385,7 +413,26 @@ class GoldPayment(StockController):
 					'outstanding_tax':row.sisa_pajak
 				}
 				self.append("invoice_table",baris_baru)
-		list_cpr = frappe.db.get_list("Customer Payment Return", filters={"customer": self.customer, "invoice_status":"Unpaid", 'docstatus':1}, fields=['name','outstanding','due_date','tutupan','total'])
+		# punya ko bob		
+		# list_cpr = frappe.db.get_list("Customer Payment Return", filters={"customer": self.customer, "invoice_status":"Unpaid", 'docstatus':1}, fields=['name','outstanding','due_date','tutupan','total'])
+		condition = ""
+		if self.filter_by == "Bulan Tahun":
+			if self.bulan:
+				condition += f" AND MONTHNAME(posting_date) = '{self.bulan}'"
+			if self.tahun:
+				condition += f" AND YEAR(posting_date) = {self.tahun}"
+		elif self.filter_by == "Dari Ke Tanggal" and self.from_date and self.to_date:
+			condition += f" AND posting_date BETWEEN '{self.from_date}' AND '{self.to_date}'"
+
+		list_cpr = frappe.db.sql("""
+			SELECT name, outstanding, due_date, tutupan, total
+			FROM `tabCustomer Payment Return`
+			WHERE customer = '{0}' 
+			AND invoice_status = 'Unpaid' 
+			AND docstatus = 1
+			{1}
+		""".format(self.customer,condition),as_dict=1)
+
 		if not self.total_invoice:
 			self.total_invoice=0
 		for row in list_cpr:
@@ -424,7 +471,30 @@ class GoldPayment(StockController):
 		#lestari.gold_selling.doctype.customer_deposit.customer_deposit.get_gold_advance
 		total_advance = 0
 		#if self.type_payment=="IDR":
-		list_deposit=frappe.db.sql("""select name ,no_nota, idr_left ,account_piutang,posting_date,customer from `tabCustomer Deposit` where idr_left>0 and deposit_type="IDR" and docstatus=1 and (customer="{}" or subcustomer="{}" ) and type_emas ="{}" """.format(self.customer,self.subcustomer,self.type_emas),as_dict=1)
+		# punya ko bob
+		# list_deposit=frappe.db.sql("""select name ,no_nota, idr_left ,account_piutang,posting_date,customer from `tabCustomer Deposit` where idr_left>0 and deposit_type="IDR" and docstatus=1 and (customer="{}" or subcustomer="{}" ) and type_emas ="{}" """.format(self.customer,self.subcustomer,self.type_emas),as_dict=1)
+		# baru
+		condition2 = ""
+		if self.filter_by == "Bulan Tahun":
+			if self.bulan:
+				condition2 += """ AND MONTHNAME(posting_date) = "{}" """.format(self.bulan)
+			if self.tahun:
+				condition2 += """ AND YEAR(posting_date) = {}""".format(self.tahun)
+		elif self.filter_by == "Dari Ke Tanggal":
+			if self.from_date and self.to_date:
+				condition2 += """ AND posting_date BETWEEN "{}" AND "{}" """.format(self.from_date, self.to_date)
+
+		list_deposit = frappe.db.sql("""
+			SELECT name, no_nota, idr_left, account_piutang, posting_date, customer 
+			FROM `tabCustomer Deposit`
+			WHERE idr_left > 0 
+			AND deposit_type = "IDR" 
+			AND docstatus = 1 
+			AND (customer = "{}" OR subcustomer = "{}") 
+			AND type_emas = "{}"
+			{}
+		""".format(self.customer, self.subcustomer, self.type_emas, condition2), as_dict=1)
+
 		total_idr_in_gold = 0
 		for row in list_deposit:
 			# frappe.msgprint(str(row))
@@ -447,26 +517,63 @@ class GoldPayment(StockController):
 			total_advance += total_idr_in_gold
 		#if self.type_payment=="Gold":
 		# frappe.throw("""select name , gold_left ,tutupan,posting_date,customer from `tabCustomer Deposit` where gold_left>0 and deposit_type="Emas" and docstatus=1 and (customer="{}" or subcustomer="{}" ) and type_emas ="{}" """.format(self.customer,self.subcustomer,self.type_emas))
-		list_deposit=frappe.db.sql("""SELECT
-					name,
-					no_nota,
-					gold_left,
-					total_other_charges_gold,
-					tutupan,
-					posting_date,
-					customer
-					FROM
-					`tabCustomer Deposit`
-					WHERE ( gold_left > 0 OR total_other_charges_gold > 0 )
-					AND deposit_type = "Emas"
-					AND docstatus = 1
-					AND (
-						customer = "{}"
-						OR subcustomer = "{}"
-					)
-					AND type_emas = "{}" 
-				""".format(self.customer,self.subcustomer,self.type_emas),as_dict=1,debug=1)
+		# punya ko bob 20240919
+		# list_deposit=frappe.db.sql("""SELECT
+		# 			name,
+		# 			no_nota,
+		# 			gold_left,
+		# 			total_other_charges_gold,
+		# 			tutupan,
+		# 			posting_date,
+		# 			customer
+		# 			FROM
+		# 			`tabCustomer Deposit`
+		# 			WHERE ( gold_left > 0 OR total_other_charges_gold > 0 )
+		# 			AND deposit_type = "Emas"
+		# 			AND docstatus = 1
+		# 			AND (
+		# 				customer = "{}"
+		# 				OR subcustomer = "{}"
+		# 			)
+		# 			AND type_emas = "{}" 
+		# 		""".format(self.customer,self.subcustomer,self.type_emas),as_dict=1,debug=1)
+		# end baru 
 		# list_deposit=frappe.db.sql("""select name , gold_left ,tutupan,posting_date,customer from `tabCustomer Deposit` where gold_left>0 and deposit_type="Emas" and docstatus=1 and (customer="{}" or subcustomer="{}" ) and type_emas ="{}" """.format(self.customer,self.subcustomer,self.type_emas),as_dict=1)
+		condition3 = ""
+
+		# Add base condition
+		condition3 += """( gold_left > 0 OR total_other_charges_gold > 0 ) 
+						AND deposit_type = "Emas" 
+						AND docstatus = 1 
+						AND (customer = "{customer}" OR subcustomer = "{subcustomer}") 
+						AND type_emas = "{type_emas}" """.format(customer=self.customer, subcustomer=self.subcustomer, type_emas=self.type_emas)
+
+		# Apply filter based on filter_by
+		if self.filter_by != "":
+			if self.filter_by == "Bulan Tahun":
+				if self.bulan:
+					condition3 += """ AND MONTHNAME(posting_date) = "{}" """.format(self.bulan)
+				if self.tahun:
+					condition3 += """ AND YEAR(posting_date) = {} """.format(self.tahun)
+			elif self.filter_by == "Dari Ke Tanggal":
+				if self.from_date and self.to_date:
+					condition3 += """ AND posting_date BETWEEN "{}" AND "{}" """.format(self.from_date, self.to_date)
+
+		# Execute the query
+		list_deposit = frappe.db.sql("""
+			SELECT
+				name,
+				no_nota,
+				gold_left,
+				total_other_charges_gold,
+				tutupan,
+				posting_date,
+				customer
+			FROM
+				`tabCustomer Deposit`
+			WHERE {conditions}
+		""".format(conditions=condition3), as_dict=1, debug=1)
+
 		total_gold = 0
 		for row in list_deposit:
 			# frappe.msgprint(str(row))

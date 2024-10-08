@@ -52,7 +52,7 @@ class CustomerDeposit(StockController):
 			self.update_stock_ledger()
 			self.repost_future_sle_and_gle()
 		if self.is_convert==1:
-			for row in  self.source:
+			for row in self.source:
 				frappe.db.sql("""update `tabCustomer Deposit` set idr_left=idr_left-{} where name="{}" """.format(row.convert,row.customer_deposit),as_list=1)
 		# if self.janji_bayar and self.total_idr_deposit>0:
 		# 		janji=frappe.get_doc("Janji Bayar",self.janji_bayar)

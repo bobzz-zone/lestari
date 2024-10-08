@@ -1,0 +1,72 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-09-12 14:37:19.058227",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "spk_gips",
+  "id_spko_gips",
+  "transaction_date",
+  "total_pohonan",
+  "total_pohonan_unused",
+  "total_berat"
+ ],
+ "fields": [
+  {
+   "columns": 2,
+   "fieldname": "spk_gips",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "SPK Gips",
+   "options": "Work Order Gips"
+  },
+  {
+   "columns": 2,
+   "fieldname": "id_spko_gips",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "ID SPKO Gips"
+  },
+  {
+   "columns": 1,
+   "fieldname": "transaction_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Tanggal SPKO"
+  },
+  {
+   "columns": 1,
+   "fieldname": "total_pohonan",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Total Pohonan"
+  },
+  {
+   "columns": 1,
+   "fieldname": "total_berat",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Berat FG"
+  },
+  {
+   "columns": 2,
+   "fieldname": "total_pohonan_unused",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Total Pohon Belum Dipakai"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-09-12 14:48:37.270747",
+ "modified_by": "Administrator",
+ "module": "Lestari",
+ "name": "Peta Oven SPK Gips",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

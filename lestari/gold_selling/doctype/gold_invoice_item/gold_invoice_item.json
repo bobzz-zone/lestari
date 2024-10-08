@@ -13,7 +13,8 @@
   "amount",
   "income_account",
   "print_rate",
-  "print_amount"
+  "print_amount",
+  "fee"
  ],
  "fields": [
   {
@@ -21,11 +22,11 @@
    "fetch_from": "category.item_group",
    "fieldname": "item_group",
    "fieldtype": "Link",
+   "hidden": 1,
    "in_list_view": 1,
    "label": "Item Group",
    "options": "Item Group",
-   "read_only": 1,
-   "reqd": 1
+   "read_only": 1
   },
   {
    "columns": 2,
@@ -34,7 +35,8 @@
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Berat",
-   "precision": "3"
+   "precision": "3",
+   "reqd": 1
   },
   {
    "columns": 1,
@@ -42,7 +44,8 @@
    "fieldtype": "Percent",
    "in_list_view": 1,
    "label": "Percent",
-   "precision": "2"
+   "precision": "2",
+   "reqd": 1
   },
   {
    "columns": 2,
@@ -51,7 +54,8 @@
    "in_list_view": 1,
    "label": "24K",
    "precision": "3",
-   "read_only": 1
+   "read_only": 1,
+   "reqd": 1
   },
   {
    "columns": 2,
@@ -67,11 +71,11 @@
    "fetch_from": "category.kadar",
    "fieldname": "kadar",
    "fieldtype": "Link",
+   "hidden": 1,
    "in_list_view": 1,
    "label": "Kadar",
    "options": "Data Logam",
-   "read_only": 1,
-   "reqd": 1
+   "read_only": 1
   },
   {
    "fetch_from": "category.income_account",
@@ -91,12 +95,18 @@
    "fieldname": "print_amount",
    "fieldtype": "Float",
    "label": "Print Amount"
+  },
+  {
+   "fieldname": "fee",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Fee"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-03-16 12:48:24.703277",
+ "modified": "2024-09-04 14:55:02.290361",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Gold Invoice Item",

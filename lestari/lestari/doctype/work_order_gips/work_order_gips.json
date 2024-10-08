@@ -35,9 +35,11 @@
   "tabel_batch",
   "section_break_18",
   "total_berat_gips",
-  "column_break_30",
   "total_berat_air",
   "total_bahan",
+  "column_break_30",
+  "total_pohonan",
+  "total_berat_fg",
   "amended_from"
  ],
  "fields": [
@@ -221,13 +223,23 @@
    "options": "Work Order Gips",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "total_pohonan",
+   "fieldtype": "Int",
+   "label": "Total Pohonan"
+  },
+  {
+   "fieldname": "total_berat_fg",
+   "fieldtype": "Float",
+   "label": "Total Berat FG"
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-05-24 10:59:22.349069",
+ "modified": "2024-09-12 14:46:52.335563",
  "modified_by": "Administrator",
  "module": "Lestari",
  "name": "Work Order Gips",

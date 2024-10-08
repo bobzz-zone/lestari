@@ -159,7 +159,7 @@ def item_query(doctype, txt, searchfield, start, page_len, filters, as_dict=Fals
 	return frappe.db.sql("""select name , item_name , item_group from tabItem where disabled=0 {0}  
 			 and (name LIKE %(txt)s or item_name LIKE %(txt)s )  limit %(start)s, %(page_len)s 
 			""".format(cond,cond2),
-			{"txt": "%%%s%%" % txt,"start": start,"page_len": page_len},as_dict=as_dict)
+			{"txt": "%%%s%%" % txt,"start": start,"page_len": page_len},as_dict=as_dict,debug=1)
 
 def get_fields(doctype, fields=None):
     if fields is None:

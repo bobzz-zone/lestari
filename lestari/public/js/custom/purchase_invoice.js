@@ -13,4 +13,12 @@ frappe.ui.form.on('Purchase Invoice', {
             })
         }
 	},
+    on_submit(frm){
+	    if(window.name == frm.doc.name){
+	        setTimeout(function(){
+	            window.close();
+	        },2000)
+	    }
+        setTimeout(function(){cur_frm.reload_doc()}, 3000);
+	},
 })

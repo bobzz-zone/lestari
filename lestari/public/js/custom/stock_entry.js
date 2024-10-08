@@ -307,21 +307,21 @@ frappe.ui.form.on('Stock Entry', {
 	}
 });
 
-frappe.ui.form.on('Stock Entry Detail', {
-    items_add: function(frm, cdt, cdn) {
-        set_row_numbers(frm);
-    }
-});
+// frappe.ui.form.on('Stock Entry Detail', {
+//     items_add: function(frm, cdt, cdn) {
+//         set_row_numbers(frm);
+//     }
+// });
 
-function set_row_numbers(frm) {
-    // Ambil child table dari form
-    let items = frm.doc.items || [];
+// function set_row_numbers(frm) {
+//     // Ambil child table dari form
+//     let items = frm.doc.items || [];
 
-    // Loop melalui setiap baris dan atur nomor urut
-    for (let i = 0; i < items.length; i++) {
-        items[i].ordinal = i + 1;
-    }
+//     // Loop melalui setiap baris dan atur nomor urut
+//     for (let i = 0; i < items.length; i++) {
+//         items[i].ordinal = i + 1;
+//     }
 
-    // Refresh grid untuk menampilkan nomor urut yang baru
-    frm.refresh_field('items');
-}
+//     // Refresh grid untuk menampilkan nomor urut yang baru
+//     frm.refresh_field('items');
+// }

@@ -13,6 +13,7 @@
   "column_break_4",
   "sales",
   "bundle",
+  "sudah_di_payment",
   "section_break_7",
   "bulan",
   "column_break_9",
@@ -103,6 +104,7 @@
   {
    "fieldname": "bulan",
    "fieldtype": "Select",
+   "in_standard_filter": 1,
    "label": "Bulan",
    "options": "\nJanuary\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember"
   },
@@ -113,18 +115,25 @@
   {
    "fieldname": "tahun",
    "fieldtype": "Select",
+   "in_standard_filter": 1,
    "label": "Tahun",
    "options": "\n2020\n2021\n2022\n2023\n2024\n2025"
   },
   {
    "fieldname": "section_break_11",
    "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "sudah_di_payment",
+   "fieldtype": "Check",
+   "label": "Sudah di Payment"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-08-02 10:29:00.676409",
+ "modified": "2024-09-11 14:02:54.325638",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Serah Terima Payment Cash",

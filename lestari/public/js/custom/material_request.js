@@ -92,6 +92,7 @@ frappe.ui.form.on('Material Request', {
 				cur_frm.set_value("employee_erp", responseJSON.message.name);
 				cur_frm.refresh_field("employee_id");
 				cur_frm.refresh_field("employee_erp");
+                cur_frm.set_df_property('employee_id', 'read_only', 1)
 			});
 
             if(frm.doc.material_request_type == "Purchase"){
@@ -141,11 +142,12 @@ frappe.ui.form.on('Material Request', {
     before_save: function(frm) {
     if (cur_frm.doc.from_laravel==1){return;}
         set_row_numbers(frm);
-        if(cur_frm.doc.jenis_dokumen == "Non Stock")
+        if(["Non Stock","Asset"].includes(frm.doc.jenis_dokumen)){
         $.each(cur_frm.doc.items,function(i,g){
             g.description = g.deskripsi_non_stock
         })
         cur_frm.refresh_field("items")
+        }
     },
     material_request_type: function(frm){
         if(frm.doc.jenis_dokumen == "Stock" || frm.doc.jenis_dokumen == ""){
@@ -334,6 +336,7 @@ cur_frm.cscript.onload = function(doc, cdt, cdn) {
         //                query: "erpnext.controllers.queries.item_query",
                         filters: {
                             'item_group_parent': "Pembelian", 
+                            "is_fixed_asset": "0",
                             "prod_con": prod_con
                         }
                     }

@@ -21,22 +21,38 @@ DevExtreme = Class.extend({
 			single_column: true
 		});
 		this.page.set_secondary_action('Refresh', () => me.make(), { icon: 'refresh', size: 'sm'})
-		this.posting_date = ""
+		// this.posting_date = ""
+		this.from_date = ""
+		this.to_date = ""
 		this.used = 1
-		this.page.add_field({"fieldtype": "DateRange", "fieldname": "posting_date","default": ['2023-10-31', frappe.datetime.now_date()],
-			"label": __("Posting Date"), "reqd": 1,
+		// this.page.add_field({"fieldtype": "DateRange", "fieldname": "posting_date","default": ['2023-10-31', frappe.datetime.now_date()],
+		// 	"label": __("Posting Date"), "reqd": 1,
+		// 	change: function() {
+		// 		me.posting_date = this.value;
+		// 		me.make()
+		// 	}
+		// }),
+		this.page.add_field({"fieldtype": "Date", "fieldname": "from_date","default": ['2023-10-31'],
+			"label": __("From Date"), "reqd": 1,
 			change: function() {
-				me.posting_date = this.value;
+				me.from_date = this.value;
 				me.make()
 			}
 		}),
-		this.page.add_field({"fieldtype": "Check", "fieldname": "used","default": 1,
-			"label": __("Used"),
+		this.page.add_field({"fieldtype": "Date", "fieldname": "to_date","default": [frappe.datetime.now_date()],
+			"label": __("To Date"), "reqd": 1,
 			change: function() {
-				me.used = this.value;
+				me.to_date = this.value;
 				me.make()
 			}
 		}),
+		// this.page.add_field({"fieldtype": "Check", "fieldname": "used","default": 1,
+		// 	"label": __("Used"),
+		// 	change: function() {
+		// 		me.used = this.value;
+		// 		me.make()
+		// 	}
+		// }),
 		this.make()
 	},
 	// make page
@@ -137,19 +153,25 @@ DevExtreme = Class.extend({
 				caption: 'Voucher Type'
 			  },
 			  {
+				dataField: 'no_nota',
+				format: 'int',
+				width: 150,
+				caption: 'No Nota'
+			  },
+			  {
 				  dataField: 'customer',
 				  format: 'string',
 				  width: 150,
 				  caption: 'Customer',
 				  groupIndex: 0
-				},
-				{
+			 },
+			 {
 					dataField: 'bundle',
 					format: 'string',
 					width: 150,
 					caption: 'Bundle',
 					
-				  },
+			  },
 			  {
 				dataField: 'posting_date',
 				format: 'date',
@@ -159,6 +181,16 @@ DevExtreme = Class.extend({
 				dataField: 'tutupan',
 				format: 'decimal',
 				caption: 'Tutupan'
+			  },
+			  {
+				dataField: 'total_invoice',
+				alignment: 'right',
+				format: {
+					type: 'fixedPoint',
+					precision: 3,
+					currency: '',
+				  },
+				caption: 'Total Invoice'
 			  },
 			  {
 				dataField: 'outstanding',
@@ -171,6 +203,16 @@ DevExtreme = Class.extend({
 				caption: 'Outstanding'
 			  },
 			  {
+				dataField: 'total_cpr',
+				alignment: 'right',
+				format: {
+					type: 'fixedPoint',
+					precision: 3,
+					currency: '',
+				  },
+				caption: 'Total CPR'
+			  },
+			  {
 				dataField: 'cpr',
 				alignment: 'right',
 				format: {
@@ -181,6 +223,16 @@ DevExtreme = Class.extend({
 				caption: 'Outstanding CPR'
 			  },
 			  {
+				dataField: 'total_deposit_gold',
+				alignment: 'right',
+				format: {
+					type: 'fixedPoint',
+					precision: 3,
+					currency: '',
+				  },
+				caption: 'Total Deposit Gold'
+			  },
+			  {
 				dataField: 'deposit_gold',
 				alignment: 'right',
 				format: {
@@ -189,6 +241,16 @@ DevExtreme = Class.extend({
 					currency: '',
 				  },
 				caption: 'Deposit Gold'
+			  },
+			  {
+				dataField: 'total_deposit_idr',
+				alignment: 'right',
+				format: {
+					type: 'fixedPoint',
+					precision: 3,
+					currency: '',
+				  },
+				  caption: 'Total Deposit IDR'
 			  },
 			  {
 				dataField: 'deposit_idr',
@@ -217,7 +279,35 @@ DevExtreme = Class.extend({
 			summary: {
 				totalItems: [
 				{
+						column: 'total_invoice',
+						summaryType: 'sum',
+						displayFormat: '{0}',
+						showInGroupFooter: false,
+						alignByColumn: true,
+						valueFormat: {
+							type: 'fixedPoint',
+							precision: 3,
+							thousandsSeparator: ',',
+							currencySymbol: '',
+							useGrouping: true,
+						},
+				},
+				{
 						column: 'outstanding',
+						summaryType: 'sum',
+						displayFormat: '{0}',
+						showInGroupFooter: false,
+						alignByColumn: true,
+						valueFormat: {
+							type: 'fixedPoint',
+							precision: 3,
+							thousandsSeparator: ',',
+							currencySymbol: '',
+							useGrouping: true,
+						},
+				},
+				{
+						column: 'total_cpr',
 						summaryType: 'sum',
 						displayFormat: '{0}',
 						showInGroupFooter: false,
@@ -245,7 +335,35 @@ DevExtreme = Class.extend({
 						},
 				},
 				{
+					column: 'total_deposit_gold',
+					summaryType: 'sum',
+					displayFormat: '{0}',
+					showInGroupFooter: false,
+					alignByColumn: true,
+					valueFormat: {
+						type: 'fixedPoint',
+						precision: 3,
+						thousandsSeparator: ',',
+						currencySymbol: '',
+						useGrouping: true,
+					},
+				  },
+				{
 					column: 'deposit_gold',
+					summaryType: 'sum',
+					displayFormat: '{0}',
+					showInGroupFooter: false,
+					alignByColumn: true,
+					valueFormat: {
+						type: 'fixedPoint',
+						precision: 3,
+						thousandsSeparator: ',',
+						currencySymbol: '',
+						useGrouping: true,
+					},
+				  },
+				  {
+					column: 'total_deposit_idr',
 					summaryType: 'sum',
 					displayFormat: '{0}',
 					showInGroupFooter: false,
@@ -289,7 +407,35 @@ DevExtreme = Class.extend({
 			],
 				groupItems: [
 				  {
+					column: 'total_invoice',
+					summaryType: 'sum',
+					displayFormat: '{0}',
+					showInGroupFooter: false,
+					alignByColumn: true,
+					valueFormat: {
+						type: 'fixedPoint',
+						precision: 3,
+						thousandsSeparator: ',',
+						currencySymbol: '',
+						useGrouping: true,
+					},
+				  },
+				  {
 					column: 'outstanding',
+					summaryType: 'sum',
+					displayFormat: '{0}',
+					showInGroupFooter: false,
+					alignByColumn: true,
+					valueFormat: {
+						type: 'fixedPoint',
+						precision: 3,
+						thousandsSeparator: ',',
+						currencySymbol: '',
+						useGrouping: true,
+					},
+				  },
+				  {
+					column: 'total_cpr',
 					summaryType: 'sum',
 					displayFormat: '{0}',
 					showInGroupFooter: false,
@@ -317,7 +463,35 @@ DevExtreme = Class.extend({
 					},
 				  },
 				  {
+					column: 'total_deposit_gold',
+					summaryType: 'sum',
+					displayFormat: '{0}',
+					showInGroupFooter: false,
+					alignByColumn: true,
+					valueFormat: {
+						type: 'fixedPoint',
+						precision: 3,
+						thousandsSeparator: ',',
+						currencySymbol: '',
+						useGrouping: true,
+					},
+				  },
+				  {
 					column: 'deposit_gold',
+					summaryType: 'sum',
+					displayFormat: '{0}',
+					showInGroupFooter: false,
+					alignByColumn: true,
+					valueFormat: {
+						type: 'fixedPoint',
+						precision: 3,
+						thousandsSeparator: ',',
+						currencySymbol: '',
+						useGrouping: true,
+					},
+				  },
+				  {
+					column: 'total_deposit_idr',
 					summaryType: 'sum',
 					displayFormat: '{0}',
 					showInGroupFooter: false,
@@ -370,7 +544,7 @@ DevExtreme = Class.extend({
 				  autoFilterEnabled: true,
 				}).then(() => {
 				  workbook.xlsx.writeBuffer().then((buffer) => {
-					saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'PurchaseOrder.xlsx');
+					saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'KartuPiutang.xlsx');
 				  });
 				});
 				e.cancel = true;
@@ -382,7 +556,9 @@ DevExtreme = Class.extend({
 		var data = frappe.call({
 			method: 'lestari.lestari.page.kartu_piutang_custom.kartu_piutang_custom.contoh_report',
 			args: {
-				'posting_date': me.posting_date,
+				// 'posting_date': me.posting_date,
+				'from_date': me.from_date,
+				'to_date': me.to_date,
 				'used': me.used
 			}
 		});

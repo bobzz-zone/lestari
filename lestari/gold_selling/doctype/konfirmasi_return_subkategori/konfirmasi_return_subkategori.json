@@ -37,6 +37,7 @@
   {
    "fieldname": "no_konfirmasi",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "No Konfirmasi",
    "options": "Konfirmasi Payment Return"
   },
@@ -161,7 +162,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-10-31 16:19:46.849003",
+ "modified": "2024-09-18 12:27:45.167747",
  "modified_by": "Administrator",
  "module": "Gold Selling",
  "name": "Konfirmasi Return Subkategori",
